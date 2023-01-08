@@ -1,6 +1,6 @@
 name: peaman_ui_components
 description: A prebuilt and highly customizable social media UI components package to be used on top of peaman package.
-version: 0.0.1
+version: 0.0.2
 homepage: https://peaman.web.app
 repository: https://github.com/shrijanRegmi/peaman_ui_components
 issue_tracker: https://github.com/shrijanRegmi/peaman_ui_components/issues
