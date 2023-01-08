@@ -23,14 +23,15 @@ class PeamanWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (globalProviders.isNotEmpty) {
-      return MultiProvider(
-        providers: globalProviders,
-        child: _providersBuilder(),
-      );
-    }
-
-    return _providersBuilder();
+    return PStateProvider.multi(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PeamanAppVM(context),
+        ),
+        ...globalProviders,
+      ],
+      child: _providersBuilder(),
+    );
   }
 
   Widget _providersBuilder() {

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
   network,
@@ -29,7 +30,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
   const PeamanAvatarBuilder.network(
     this.imgUrl, {
     super.key,
-    this.size = 40.0,
+    this.size = 50.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -44,7 +45,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
   const PeamanAvatarBuilder.file(
     this.file, {
     super.key,
-    this.size = 40.0,
+    this.size = 50.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -59,7 +60,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
   const PeamanAvatarBuilder.asset(
     this.assetPath, {
     super.key,
-    this.size = 40.0,
+    this.size = 50.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -75,7 +76,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
     this.letter, {
     super.key,
     this.letterStyle,
-    this.size = 40.0,
+    this.size = 50.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -108,7 +109,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: color,
+          color: PeamanColors.extraLightGrey,
           shape: BoxShape.circle,
           image: DecorationImage(
             image: CachedNetworkImageProvider('$imgUrl'),

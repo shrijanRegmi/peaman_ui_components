@@ -45,14 +45,27 @@ class PeamanChatMessagesList extends PeamanWidget<PeamanChatMessagesListVM> {
               return emptyWidget ?? const SizedBox();
             }
 
-            return _listBuilder(messages, vm);
+            return _listBuilder(
+              [
+                ...vm.appVm.tempMessages.where(
+                  (element) => element.chatId == chatId,
+                ),
+                ...messages,
+              ],
+              vm,
+            );
           }
 
           return const SizedBox();
         },
       );
     } else {
-      return _listBuilder(messages!, vm);
+      return _listBuilder([
+        ...vm.appVm.tempMessages.where(
+          (element) => element.chatId == chatId,
+        ),
+        ...messages!,
+      ], vm);
     }
   }
 

@@ -68,7 +68,9 @@ class PeamanUsersSearchScreen extends PeamanWidget<PeamanUsersSearchVM> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          color: PeamanColors.cream,
+          color: vm.context.theme.brightness == Brightness.light
+              ? PeamanColors.cream
+              : PeamanColors.black,
         ),
         padding: const EdgeInsets.symmetric(
           vertical: 4.0,
@@ -76,6 +78,9 @@ class PeamanUsersSearchScreen extends PeamanWidget<PeamanUsersSearchVM> {
         ),
         child: Row(
           children: const [
+            SizedBox(
+              width: 2.0,
+            ),
             PeamanText.body2(
               'Cancel',
               style: TextStyle(
@@ -129,12 +134,7 @@ class PeamanUsersSearchScreen extends PeamanWidget<PeamanUsersSearchVM> {
         }
         return PeamanUsersList.expandedByUsers(
           users: filteredUsers,
-          // onPressedUser: (user) => vm.navigate(
-          //   AppRoutes.friendProfileScreen,
-          //   arguments: FriendProfileScreenArgs.byFriend(
-          //     friend: user,
-          //   ),
-          // ),
+          onPressedUser: (user) => vm.gotoChatConversation(user),
         );
       },
     );

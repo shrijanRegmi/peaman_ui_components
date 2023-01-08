@@ -19,9 +19,13 @@ class PeamanHome extends StatelessWidget {
       return unauthenticatedScreen ?? const PeamanLoginScreen();
     }
 
-    return authenticatedScreen ??
-        const PeamanChatsListScreen(
-          searchUsersGlobally: true,
-        );
+    if (authenticatedScreen != null) {
+      return authenticatedScreen!;
+    } else if (!authUser.onboardingCompleted) {
+      return const PeamanOnboardingScreen();
+    }
+    return const PeamanChatsListScreen(
+      searchUsersGlobally: true,
+    );
   }
 }

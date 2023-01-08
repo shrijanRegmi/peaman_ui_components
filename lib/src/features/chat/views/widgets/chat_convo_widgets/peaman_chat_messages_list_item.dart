@@ -95,15 +95,20 @@ class PeamanChatMessagesListItem extends StatelessWidget {
                 ],
               ),
             if (isTempMessage)
-              const Padding(
-                padding: EdgeInsets.only(
+              Padding(
+                padding: const EdgeInsets.only(
                   right: 5.0,
                   bottom: 10.0,
                   top: 8.0,
                 ),
-                child: PeamanSpinner(
-                  size: 15.0,
-                  strokeWidth: 1.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: const [
+                    PeamanSpinner(
+                      size: 15.0,
+                      strokeWidth: 1.0,
+                    ),
+                  ],
                 ),
               )
           ],
@@ -255,14 +260,12 @@ class PeamanChatMessagesListItem extends StatelessWidget {
               onTap: () {
                 if (isTempMessage) return;
 
-                // Navigator.pushNamed(
-                //   context,
-                //   AppRoutes.viewPicturesScreen,
-                //   arguments: ViewPicturesArgs(
-                //     pictures: pictures.map((e) => e.url!).toList(),
-                //     activeIndex: message.files.indexOf(picture),
-                //   ),
-                // );
+                context.navigate(
+                  PeamanViewPicturesScreen(
+                    pictures: pictures.map((e) => e.url!).toList(),
+                    activeIndex: message.files.indexOf(picture),
+                  ),
+                );
               },
               child: Hero(
                 tag: picture.url!,

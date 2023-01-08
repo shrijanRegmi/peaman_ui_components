@@ -74,9 +74,9 @@ class PeamanChatConversationScreen
         padding: MediaQuery.of(context).viewInsets,
         child: PeamanChatMessageInput(
           chatId: chatId,
+          friend: friend,
           focusNode: vm.focusNode,
           messageToReply: vm.messageToReply,
-          replyingTo: vm.messageToReply == null ? null : friend,
           onPressedCancelReply: (func) {
             vm.updateMessageToReply(null);
           },

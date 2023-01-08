@@ -152,6 +152,9 @@ class _UserListItemState extends State<PeamanUsersListItem> {
                       widget.nameBuilder?.call(user) ??
                           PeamanText.subtitle1(
                             user.name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                       const SizedBox(
                         width: 5.0,

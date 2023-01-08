@@ -6,10 +6,12 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatMessageInputVM extends PeamanBaseVM {
   final String chatId;
+  final PeamanUser friend;
 
   PeamanChatMessageInputVM({
     required super.context,
     required this.chatId,
+    required this.friend,
   });
 
   TextEditingController _messageController = TextEditingController();
@@ -269,7 +271,10 @@ class PeamanChatMessageInputVM extends PeamanBaseVM {
             (element) => element.id == chatId,
             orElse: () => PeamanChat(
               id: chatId,
-              userIds: [appUserReadOnly.uid!],
+              userIds: [
+                appUserReadOnly.uid!,
+                friend.uid!,
+              ],
             ),
           );
     }
@@ -277,7 +282,10 @@ class PeamanChatMessageInputVM extends PeamanBaseVM {
           (element) => element.id == chatId,
           orElse: () => PeamanChat(
             id: chatId,
-            userIds: [appUserReadOnly.uid!],
+            userIds: [
+              appUserReadOnly.uid!,
+              friend.uid!,
+            ],
           ),
         );
   }

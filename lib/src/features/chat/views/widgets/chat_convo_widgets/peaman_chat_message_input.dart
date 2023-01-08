@@ -6,10 +6,10 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
   final String chatId;
+  final PeamanUser friend;
   final TextEditingController? messageController;
   final PeamanMessage? messageToReply;
   final List<PeamanPicture>? picturesToSend;
-  final PeamanUser? replyingTo;
   final FocusNode? focusNode;
   final Function(String, Function())? onChanged;
   final Function(Function())? onPressedSend;
@@ -20,10 +20,10 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
   const PeamanChatMessageInput({
     super.key,
     required this.chatId,
+    required this.friend,
     this.messageController,
     this.picturesToSend,
     this.focusNode,
-    this.replyingTo,
     this.messageToReply,
     this.onChanged,
     this.onPressedSend,
@@ -59,7 +59,7 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (replyingTo != null || messageToReply != null)
+              if (messageToReply != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
@@ -68,14 +68,13 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (replyingTo != null)
-                            PeamanText.body2(
-                              'Replying to ${replyingTo?.name}',
-                              style: const TextStyle(
-                                color: PeamanColors.grey,
-                                fontSize: 12.0,
-                              ),
+                          PeamanText.body2(
+                            'Replying to ${friend.name}',
+                            style: const TextStyle(
+                              color: PeamanColors.grey,
+                              fontSize: 12.0,
                             ),
+                          ),
                           const SizedBox(
                             height: 5.0,
                           ),
@@ -234,7 +233,11 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
 
   @override
   PeamanChatMessageInputVM onCreateVM(BuildContext context) =>
-      PeamanChatMessageInputVM(context: context, chatId: chatId);
+      PeamanChatMessageInputVM(
+        context: context,
+        chatId: chatId,
+        friend: friend,
+      );
 
   @override
   void onDispose(BuildContext context, PeamanChatMessageInputVM vm) =>
