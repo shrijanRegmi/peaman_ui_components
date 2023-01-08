@@ -1,0 +1,4 @@
+enum PeamanPictureType {
+  file,
+  network,
+}
