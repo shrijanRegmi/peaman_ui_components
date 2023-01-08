@@ -8,8 +8,9 @@ class PeamanChatsListVM extends PeamanBaseVM {
     final PeamanChat chat,
     final PeamanUser friend,
   ) {
-    navigate(
-      PeamanChatConversationScreen(
+    navigateNamed(
+      PeamanRoutes.chatsConvoScreen,
+      arguments: PeamanChatConversationArgs(
         chatId: chat.id!,
         friend: friend,
       ),

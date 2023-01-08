@@ -52,7 +52,7 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
                 color: vm.context.theme.appBarTheme.shadowColor ??
                     PeamanColors.lightGrey,
                 offset: const Offset(0, -2),
-                blurRadius: 10.0,
+                blurRadius: 4.0,
               ),
             ],
           ),

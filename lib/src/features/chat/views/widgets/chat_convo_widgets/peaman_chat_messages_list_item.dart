@@ -260,8 +260,9 @@ class PeamanChatMessagesListItem extends StatelessWidget {
               onTap: () {
                 if (isTempMessage) return;
 
-                context.navigate(
-                  PeamanViewPicturesScreen(
+                context.navigateNamed(
+                  PeamanRoutes.viewPicturesScreen,
+                  arguments: PeamanViewPicturesArgs(
                     pictures: pictures.map((e) => e.url!).toList(),
                     activeIndex: message.files.indexOf(picture),
                   ),

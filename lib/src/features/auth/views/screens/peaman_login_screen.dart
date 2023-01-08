@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/auth/views/screens/peaman_signup_screen.dart';
 
 class PeamanLoginScreen extends PeamanWidget<PeamanAuthVM> {
   const PeamanLoginScreen({super.key});
@@ -225,7 +224,9 @@ class PeamanLoginScreen extends PeamanWidget<PeamanAuthVM> {
         GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
-            vm.navigate(const PeamanSignUpScreen());
+            vm.navigateNamed(
+              PeamanRoutes.signUpScreen,
+            );
           },
           child: PeamanText.subtitle2(
             ' Register now',

@@ -41,8 +41,9 @@ class PeamanUsersSearchVM extends PeamanBaseVM {
       ),
     );
 
-    navigate(
-      PeamanChatConversationScreen(
+    navigateNamed(
+      PeamanRoutes.chatsConvoScreen,
+      arguments: PeamanChatConversationArgs(
         chatId: chat.id!,
         friend: user,
       ),

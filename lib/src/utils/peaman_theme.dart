@@ -19,7 +19,7 @@ class PeamanTheme {
       appBarTheme: _defaultTheme.appBarTheme.copyWith(
         elevation: null,
         backgroundColor: PeamanColors.cream,
-        shadowColor: PeamanColors.extraLightGrey,
+        shadowColor: PeamanColors.extraLightGrey.withOpacity(0.2),
         titleTextStyle: GoogleFonts.nunito().copyWith(
           color: _defaultTheme.textTheme.titleLarge?.color,
         ),

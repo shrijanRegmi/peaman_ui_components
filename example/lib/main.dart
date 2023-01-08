@@ -5,7 +5,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Peaman.initializeApp();
 
-  runApp(const PeamanApp(
-    title: 'Peaman Example',
-  ));
+  runApp(
+    const PeamanApp(
+      title: 'Peaman Example',
+    ),
+  );
 }

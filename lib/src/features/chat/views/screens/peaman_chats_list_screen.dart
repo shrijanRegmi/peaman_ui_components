@@ -36,8 +36,9 @@ class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
                   color: PeamanColors.grey.withOpacity(0.8),
                 ),
                 onPressed: () {
-                  vm.navigate(
-                    PeamanUsersSearchScreen(
+                  vm.navigateNamed(
+                    PeamanRoutes.usersSearchScreen,
+                    arguments: PeamanUsersSearchArgs(
                       searchUsersGlobally: searchUsersGlobally,
                     ),
                   );
