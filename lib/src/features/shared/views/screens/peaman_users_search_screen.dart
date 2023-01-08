@@ -18,39 +18,39 @@ class PeamanUsersSearchScreen extends PeamanWidget<PeamanUsersSearchVM> {
 
   @override
   Widget build(BuildContext context, PeamanUsersSearchVM vm) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: _searchBuilder(vm),
-        ),
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          behavior: HitTestBehavior.opaque,
-          child: !vm.searchActive
-              ? vm.isLoading
-                  ? const PeamanSpinner()
-                  : const SizedBox()
-              : _usersSearchBuilder(vm),
-        ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        child: _searchBuilder(vm),
+      ),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        behavior: HitTestBehavior.opaque,
+        child: !vm.searchActive
+            ? vm.isLoading
+                ? const PeamanSpinner()
+                : const SizedBox()
+            : _usersSearchBuilder(vm),
       ),
     );
   }
 
   Widget _searchBuilder(final PeamanUsersSearchVM vm) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: PeamanInput(
-        hintText: 'Search...',
-        height: 40.0,
-        controller: vm.searchController,
-        autoFocus: true,
-        trailing: _cancelBuilder(vm),
-        leading: Icon(
-          Icons.search_rounded,
-          color: PeamanColors.grey.withOpacity(0.8),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15.0),
+        child: PeamanInput(
+          hintText: 'Search...',
+          height: 40.0,
+          controller: vm.searchController,
+          autoFocus: true,
+          trailing: _cancelBuilder(vm),
+          leading: Icon(
+            Icons.search_rounded,
+            color: PeamanColors.grey.withOpacity(0.8),
+          ),
+          onChanged: (_) => vm.createDebounce(),
         ),
-        onChanged: (_) => vm.createDebounce(),
       ),
     );
   }

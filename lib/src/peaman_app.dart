@@ -1,9 +1,17 @@
-import 'package:example/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanApp extends StatelessWidget {
-  const PeamanApp({super.key});
+  final String title;
+  final ThemeData? theme;
+  final ThemeData? darkTheme;
+
+  const PeamanApp({
+    super.key,
+    required this.title,
+    this.theme,
+    this.darkTheme,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +19,11 @@ class PeamanApp extends StatelessWidget {
       builder: (context, navigatorKey) {
         return MaterialApp(
           title: 'Peaman Example',
+          theme: theme ?? PeamanTheme.lightThemePalette,
+          darkTheme: darkTheme ?? PeamanTheme.darkThemePalette,
           navigatorKey: navigatorKey,
           debugShowCheckedModeBanner: false,
-          home: const Wrapper(),
+          home: const PeamanHome(),
         );
       },
     );
