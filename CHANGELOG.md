@@ -4,6 +4,7 @@
 
 ## 0.0.2
 
+* Example project added
 * Onboarding screen added
 * Users search screen added
 * Theming and routing improved
