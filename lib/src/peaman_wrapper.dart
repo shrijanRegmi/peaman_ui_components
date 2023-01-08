@@ -41,15 +41,20 @@ class PeamanWrapper extends StatelessWidget {
         final appUser = context.pwatch<PeamanUser?>();
 
         final uid = appUser?.uid;
-        return PStateProvider.multi(
-          providers: [
-            if (uid != null) ..._getFirebaseProviders(uid: uid),
-            ...providers,
-          ],
-          builder: (context, child) {
-            return builder(context, GlobalContextService.navigatorKey);
-          },
-        );
+
+        final thisProviders = [
+          if (uid != null) ..._getFirebaseProviders(uid: uid),
+          ...providers,
+        ];
+        if (thisProviders.isNotEmpty) {
+          return PStateProvider.multi(
+            providers: thisProviders,
+            builder: (context, child) {
+              return builder(context, GlobalContextService.navigatorKey);
+            },
+          );
+        }
+        return builder(context, GlobalContextService.navigatorKey);
       },
     );
   }

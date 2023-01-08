@@ -8,7 +8,7 @@ enum _Type {
   roundedByUser,
 }
 
-class PUsersListItem extends StatefulWidget {
+class PeamanUsersListItem extends StatefulWidget {
   final _Type type;
 
   final String? userId;
@@ -20,7 +20,7 @@ class PUsersListItem extends StatefulWidget {
   final List<Widget> Function(PeamanUser)? actionWidgetsBuilder;
   final Function(PeamanUser)? onPressed;
 
-  const PUsersListItem.expandedByUid({
+  const PeamanUsersListItem.expandedByUid({
     Key? key,
     required this.userId,
     this.padding,
@@ -33,7 +33,7 @@ class PUsersListItem extends StatefulWidget {
         user = null,
         super(key: key);
 
-  const PUsersListItem.expandedByUser({
+  const PeamanUsersListItem.expandedByUser({
     Key? key,
     required this.user,
     this.padding,
@@ -46,7 +46,7 @@ class PUsersListItem extends StatefulWidget {
         userId = null,
         super(key: key);
 
-  const PUsersListItem.roundedByUid({
+  const PeamanUsersListItem.roundedByUid({
     Key? key,
     required this.userId,
     this.padding,
@@ -59,7 +59,7 @@ class PUsersListItem extends StatefulWidget {
         captionBuilder = null,
         super(key: key);
 
-  const PUsersListItem.roundedByUser({
+  const PeamanUsersListItem.roundedByUser({
     Key? key,
     required this.user,
     this.padding,
@@ -73,10 +73,10 @@ class PUsersListItem extends StatefulWidget {
         super(key: key);
 
   @override
-  State<PUsersListItem> createState() => _UserListItemState();
+  State<PeamanUsersListItem> createState() => _UserListItemState();
 }
 
-class _UserListItemState extends State<PUsersListItem> {
+class _UserListItemState extends State<PeamanUsersListItem> {
   Future<PeamanUser>? _userFuture;
 
   @override
@@ -91,7 +91,7 @@ class _UserListItemState extends State<PUsersListItem> {
   }
 
   @override
-  void didUpdateWidget(covariant PUsersListItem oldWidget) {
+  void didUpdateWidget(covariant PeamanUsersListItem oldWidget) {
     if (widget.userId != oldWidget.userId) {
       _userFuture = PUserProvider.getUserById(
         uid: widget.userId!,

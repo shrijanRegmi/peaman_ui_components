@@ -28,8 +28,14 @@ class PeamanChatsList extends PeamanWidget<PeamanChatsListVM> {
     final thisChats = chats ?? vm.chats;
 
     if (thisChats == null) return loadingWidget ?? const PeamanSpinner();
-    if (thisChats.isEmpty) return emptyWidget ?? Container();
-
+    if (thisChats.isEmpty) {
+      return emptyWidget ??
+          const PeamanEmptyBuilder(
+            title: "No chats found!",
+            subTitle:
+                "You haven't started conversation with anyone. Try searching people and start connecting.",
+          );
+    }
     return listBuilder?.call(context, thisChats) ??
         ListView.builder(
           itemCount: thisChats.length,

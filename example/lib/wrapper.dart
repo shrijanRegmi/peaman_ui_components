@@ -9,6 +9,8 @@ class Wrapper extends StatelessWidget {
     final authUser = context.pwatch<PeamanUser?>();
 
     if (authUser == null) return const PeamanLoginScreen();
-    return const PeamanChatsListScreen();
+    return const PeamanChatsListScreen(
+      searchUsersGlobally: true,
+    );
   }
 }

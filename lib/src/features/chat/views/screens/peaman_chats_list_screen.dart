@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
-  const PeamanChatsListScreen({super.key});
+  final bool searchUsersGlobally;
+
+  const PeamanChatsListScreen({
+    super.key,
+    this.searchUsersGlobally = false,
+  });
 
   @override
   Widget build(BuildContext context, PeamanChatsListVM vm) {
@@ -30,6 +35,13 @@ class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
                   Icons.search_rounded,
                   color: PeamanColors.grey.withOpacity(0.8),
                 ),
+                onPressed: () {
+                  vm.navigate(
+                    PeamanUsersSearchScreen(
+                      searchUsersGlobally: searchUsersGlobally,
+                    ),
+                  );
+                },
               ),
             ),
           ],

@@ -635,9 +635,9 @@ packages:
   peaman_ui_components:
     dependency: "direct main"
     description:
-      name: peaman_ui_components
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: ".."
+      relative: true
+    source: path
     version: "0.0.1"
   pedantic:
     dependency: transitive

@@ -8,7 +8,7 @@ enum _Type {
   roundedByUsers,
 }
 
-class PUsersList extends StatelessWidget {
+class PeamanUsersList extends StatelessWidget {
   final _Type type;
 
   final List<String> usersIds;
@@ -24,7 +24,7 @@ class PUsersList extends StatelessWidget {
   final Function(PeamanUser)? onPressedUser;
   final Function()? onPressedSearch;
 
-  const PUsersList.expandedByUids({
+  const PeamanUsersList.expandedByUids({
     Key? key,
     required this.usersIds,
     this.scroll = false,
@@ -41,7 +41,7 @@ class PUsersList extends StatelessWidget {
         scrollDirection = Axis.vertical,
         super(key: key);
 
-  const PUsersList.expandedByUsers({
+  const PeamanUsersList.expandedByUsers({
     Key? key,
     required this.users,
     this.scroll = false,
@@ -58,7 +58,7 @@ class PUsersList extends StatelessWidget {
         scrollDirection = Axis.vertical,
         super(key: key);
 
-  const PUsersList.roundedByUids({
+  const PeamanUsersList.roundedByUids({
     Key? key,
     required this.usersIds,
     this.requiredSearch = false,
@@ -75,7 +75,7 @@ class PUsersList extends StatelessWidget {
         scroll = true,
         super(key: key);
 
-  const PUsersList.roundedByUsers({
+  const PeamanUsersList.roundedByUsers({
     Key? key,
     required this.users,
     this.requiredSearch = false,
@@ -134,7 +134,7 @@ class PUsersList extends StatelessWidget {
           if (userId == null) return _searchUserBuilder(context);
 
           return type == _Type.expandedByUids
-              ? PUsersListItem.expandedByUid(
+              ? PeamanUsersListItem.expandedByUid(
                   userId: userId,
                   padding: padding,
                   avatarBuilder: avatarBuilder,
@@ -143,7 +143,7 @@ class PUsersList extends StatelessWidget {
                   actionWidgetsBuilder: actionWidgetsBuilder,
                   onPressed: onPressedUser,
                 )
-              : PUsersListItem.roundedByUid(
+              : PeamanUsersListItem.roundedByUid(
                   userId: userId,
                   padding: padding,
                   avatarBuilder: avatarBuilder,
@@ -180,7 +180,7 @@ class PUsersList extends StatelessWidget {
           if (user == null) return _searchUserBuilder(context);
 
           return type == _Type.expandedByUsers
-              ? PUsersListItem.expandedByUser(
+              ? PeamanUsersListItem.expandedByUser(
                   user: user,
                   padding: padding,
                   avatarBuilder: avatarBuilder,
@@ -189,7 +189,7 @@ class PUsersList extends StatelessWidget {
                   actionWidgetsBuilder: actionWidgetsBuilder,
                   onPressed: onPressedUser,
                 )
-              : PUsersListItem.roundedByUser(
+              : PeamanUsersListItem.roundedByUser(
                   user: user,
                   padding: padding,
                   avatarBuilder: avatarBuilder,

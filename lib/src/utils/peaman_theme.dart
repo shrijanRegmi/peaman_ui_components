@@ -34,7 +34,7 @@ class PeamanTheme {
         shadow: PeamanColors.extraLightGrey,
       ),
       inputDecorationTheme: _defaultTheme.inputDecorationTheme.copyWith(
-        fillColor: PeamanColors.cream,
+        fillColor: PeamanColors.white,
         prefixIconColor: PeamanColors.secondary,
         suffixIconColor: PeamanColors.secondary,
       ),
