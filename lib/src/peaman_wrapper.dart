@@ -9,15 +9,15 @@ class GlobalContextService {
 
 class PeamanWrapper extends StatelessWidget {
   final Widget Function(BuildContext, GlobalKey<NavigatorState>) builder;
-  final List<SingleChildWidget> globalProviders;
-  final List<SingleChildWidget> providers;
+  final List<SingleChildWidget> Function()? globalProviders;
+  final List<SingleChildWidget> Function(PeamanUser?)? providers;
   final PeamanLazyLoadConfig? lazyLoadConfig;
 
   const PeamanWrapper({
     Key? key,
     required this.builder,
-    this.globalProviders = const [],
-    this.providers = const [],
+    this.globalProviders,
+    this.providers,
     this.lazyLoadConfig,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class PeamanWrapper extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PeamanAppVM(context),
         ),
-        ...globalProviders,
+        ...?globalProviders?.call(),
       ],
       child: _providersBuilder(),
     );
@@ -45,7 +45,7 @@ class PeamanWrapper extends StatelessWidget {
 
         final thisProviders = [
           if (uid != null) ..._getFirebaseProviders(uid: uid),
-          ...providers,
+          ...?providers?.call(appUser),
         ];
         if (thisProviders.isNotEmpty) {
           return PStateProvider.multi(
