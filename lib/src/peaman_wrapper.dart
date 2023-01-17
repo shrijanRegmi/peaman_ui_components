@@ -43,8 +43,12 @@ class PeamanWrapper extends StatelessWidget {
 
         final uid = appUser?.uid;
 
+        if (uid == null) {
+          return builder(context, GlobalContextService.navigatorKey);
+        }
+
         final thisProviders = [
-          if (uid != null) ..._getFirebaseProviders(uid: uid),
+          ..._getFirebaseProviders(uid: uid),
           ...?providers?.call(appUser),
         ];
         if (thisProviders.isNotEmpty) {
