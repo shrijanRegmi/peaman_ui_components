@@ -6,8 +6,6 @@ void main() async {
   await Peaman.initializeApp();
 
   runApp(
-    const PeamanApp(
-      title: 'Peaman Example',
-    ),
+    const PeamanApp(title: 'Peaman'),
   );
 }
