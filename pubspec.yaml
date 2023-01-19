@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   peaman: ^0.0.3
-  flutter_svg: ^1.1.6
+  flutter_svg: ^0.23.0+1
   provider: ^6.0.5
   linkfy_text: ^1.1.5
   url_launcher: ^6.1.7
