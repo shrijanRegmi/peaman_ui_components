@@ -3,6 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 class PStateProvider<T> {
+  static Provider provider<T>({
+    Key? key,
+    required Create<T> create,
+    bool? lazy,
+    TransitionBuilder? builder,
+    Widget? child,
+  }) {
+    return Provider<T>(
+      key: key,
+      create: create,
+      lazy: lazy,
+      builder: builder,
+      child: child,
+    );
+  }
+
   static MultiProvider multi({
     Key? key,
     required List<SingleChildWidget> providers,
