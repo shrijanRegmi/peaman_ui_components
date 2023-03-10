@@ -8,3 +8,7 @@
 * Onboarding screen added
 * Users search screen added
 * Theming and routing improved
+
+## 0.0.3
+
+* Updated core peaman package
