@@ -4,27 +4,27 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanRouter {
   static Route onGenerateRoute(final RouteSettings settings) {
     switch (settings.name) {
-      case PeamanRoutes.homeScreen:
+      case PeamanWrapper.route:
         return buildRoute(
           settings,
-          const PeamanHome(),
+          const PeamanWrapper(),
         );
-      case PeamanRoutes.loginScreen:
+      case PeamanLoginScreen.route:
         return buildRoute(
           settings,
           const PeamanLoginScreen(),
         );
-      case PeamanRoutes.signUpScreen:
+      case PeamanSignUpScreen.route:
         return buildRoute(
           settings,
           const PeamanSignUpScreen(),
         );
-      case PeamanRoutes.chatsListScreen:
+      case PeamanChatsListScreen.route:
         return buildRoute(
           settings,
           const PeamanChatsListScreen(),
         );
-      case PeamanRoutes.chatsConvoScreen:
+      case PeamanChatConversationScreen.route:
         final arguments = settings.arguments as PeamanChatConversationArgs;
 
         return buildRoute(
@@ -34,7 +34,7 @@ class PeamanRouter {
             friend: arguments.friend,
           ),
         );
-      case PeamanRoutes.usersSearchScreen:
+      case PeamanUsersSearchScreen.route:
         final arguments = settings.arguments as PeamanUsersSearchArgs?;
 
         return buildRoute(
@@ -43,7 +43,7 @@ class PeamanRouter {
             searchUsersGlobally: arguments?.searchUsersGlobally ?? false,
           ),
         );
-      case PeamanRoutes.viewPicturesScreen:
+      case PeamanViewPicturesScreen.route:
         final arguments = settings.arguments as PeamanViewPicturesArgs;
 
         return buildRoute(

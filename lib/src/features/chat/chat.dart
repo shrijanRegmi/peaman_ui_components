@@ -19,6 +19,3 @@ export './viewmodels/peaman_chats_list_vm.dart';
 export './viewmodels/peaman_chat_conversation_vm.dart';
 export './viewmodels/peaman_chat_messages_list_vm.dart';
 export './viewmodels/peaman_chat_message_input_vm.dart';
-
-// extension
-export './extensions/peaman_message_extra_data_extension.dart';

@@ -1,13 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
+class PeamanSignUpScreen extends StatefulHookConsumerWidget {
   const PeamanSignUpScreen({super.key});
 
+  static const route = '/peaman_signup_screen';
+
   @override
-  Widget build(BuildContext context, PeamanAuthVM vm) {
+  ConsumerState<PeamanSignUpScreen> createState() => _PeamanSignUpScreenState();
+}
+
+class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
+  PeamanAuthProviderState get state => ref.watch(providerOfPeamanAuth);
+  PeamanAuthProvider get notifier => ref.read(providerOfPeamanAuth.notifier);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -26,11 +37,11 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
                   const SizedBox(
                     height: 50.0,
                   ),
-                  _inputsBuilder(vm),
+                  _inputsBuilder(),
                   const SizedBox(
                     height: 30.0,
                   ),
-                  _buttonBuilder(vm),
+                  _buttonBuilder(),
                   const SizedBox(
                     height: 50.0,
                   ),
@@ -38,11 +49,11 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
                   const SizedBox(
                     height: 50.0,
                   ),
-                  _otherOptionsBuilder(vm),
+                  _otherOptionsBuilder(),
                   const SizedBox(
                     height: 75.0,
                   ),
-                  _notAMemberBuilder(vm),
+                  _notAMemberBuilder(),
                   const SizedBox(
                     height: 20.0,
                   ),
@@ -79,13 +90,13 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
     );
   }
 
-  Widget _inputsBuilder(final PeamanAuthVM vm) {
+  Widget _inputsBuilder() {
     return Column(
       children: [
         PeamanInput(
           hintText: 'Email address',
           requiredPadding: false,
-          controller: vm.emailController,
+          controller: state.emailController,
         ),
         const SizedBox(
           height: 15.0,
@@ -94,7 +105,7 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
           hintText: 'Password',
           password: true,
           requiredPadding: false,
-          controller: vm.passwordController,
+          controller: state.passwordController,
         ),
         const SizedBox(
           height: 15.0,
@@ -103,20 +114,23 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
           hintText: 'Confirm Password',
           password: true,
           requiredPadding: false,
-          controller: vm.confirmPasswordController,
+          controller: state.confirmPasswordController,
         ),
       ],
     );
   }
 
-  Widget _buttonBuilder(final PeamanAuthVM vm) {
+  Widget _buttonBuilder() {
     return PeamanButton.filled(
       value: 'Register',
       minWidth: double.infinity,
       padding: const EdgeInsets.all(18.0),
       borderRadius: 15.0,
-      isLoading: vm.isLoading,
-      onPressed: vm.signUpWithEmailPassword,
+      isLoading: state.signUpWithEmailPasswordState.maybeWhen(
+        loading: () => true,
+        orElse: () => false,
+      ),
+      onPressed: notifier.signUpWithEmailAndPassword,
     );
   }
 
@@ -152,7 +166,7 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
     );
   }
 
-  Widget _otherOptionsBuilder(final PeamanAuthVM vm) {
+  Widget _otherOptionsBuilder() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Row(
@@ -173,7 +187,11 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
               padding: const EdgeInsets.symmetric(
                 vertical: 15.0,
               ),
-              onPressed: vm.signInWithGoogle,
+              isLoading: state.signInWithGoogleState.maybeWhen(
+                loading: () => true,
+                orElse: () => false,
+              ),
+              onPressed: notifier.signInWithGoogle,
             ),
           ),
           const SizedBox(
@@ -194,7 +212,11 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
               padding: const EdgeInsets.symmetric(
                 vertical: 15.0,
               ),
-              onPressed: vm.signInWithFacebook,
+              isLoading: state.signInWithFacebookState.maybeWhen(
+                loading: () => true,
+                orElse: () => false,
+              ),
+              onPressed: notifier.signInWithFacebook,
             ),
           ),
         ],
@@ -202,7 +224,7 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
     );
   }
 
-  Widget _notAMemberBuilder(final PeamanAuthVM vm) {
+  Widget _notAMemberBuilder() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -214,25 +236,16 @@ class PeamanSignUpScreen extends PeamanWidget<PeamanAuthVM> {
         ),
         GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: vm.popNavigate,
+          onTap: context.pop,
           child: PeamanText.subtitle2(
             ' Login now',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: vm.context.theme.colorScheme.secondary,
+              color: context.theme.colorScheme.secondary,
             ),
           ),
         )
       ],
     );
   }
-
-  @override
-  PeamanAuthVM onCreateVM(BuildContext context) => PeamanAuthVM(context);
-
-  @override
-  void onDispose(BuildContext context, PeamanAuthVM vm) {}
-
-  @override
-  void onInit(BuildContext context, PeamanAuthVM vm) {}
 }

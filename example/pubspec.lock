@@ -169,13 +169,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  either_dart:
-    dependency: transitive
-    description:
-      name: either_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0"
   facebook_auth_desktop:
     dependency: transitive
     description:
@@ -700,7 +693,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: eece80db700ca623d9bb67190592777171903b58
+      resolved-ref: b2d0e57f892b9aaa32db0d6c78081566b6082303
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"
@@ -870,13 +863,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:

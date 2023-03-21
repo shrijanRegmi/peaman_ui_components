@@ -1,7 +1,6 @@
 library peaman_ui_components;
 
 export 'src/peaman_app.dart';
-export 'src/peaman_home.dart';
 export 'src/peaman_wrapper.dart';
 export 'src/peaman_state_manager.dart';
 export 'package:peaman/peaman.dart';
@@ -19,5 +18,4 @@ export 'src/features/profile/profile.dart';
 export 'src/utils/peaman_theme.dart';
 export 'src/utils/peaman_colors.dart';
 export 'src/utils/peaman_text_styles.dart';
-export 'src/utils/peaman_routes.dart';
 export 'src/utils/peaman_router.dart';

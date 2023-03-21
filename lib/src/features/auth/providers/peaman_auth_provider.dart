@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/auth/providers/states/peaman_auth_provider_state.dart';
 import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
 final providerOfPeamanAuth =
@@ -9,8 +10,37 @@ final providerOfPeamanAuth =
   PeamanAuthProvider.new,
 );
 
-final providerOfPeamanAuthUser = StreamProvider<PeamanAuthUser?>((ref) {
+final providerOfPeamanAuthUserStream = StreamProvider<PeamanAuthUser?>((ref) {
   return ref.watch(providerOfPeamanAuthRepository).authUser;
+});
+
+final providerOfLoggedInUserStream = StreamProvider<PeamanUser?>((ref) {
+  final authUserStream = ref.watch(providerOfPeamanAuthUserStream);
+
+  return authUserStream.maybeWhen(
+    data: (data) {
+      if (data == null) {
+        return () async* {
+          yield null;
+        } as Stream<PeamanUser?>;
+      }
+
+      return ref
+          .watch(providerOfPeamanUserRepository)
+          .getSingleUserStream(uid: data.uid);
+    },
+    orElse: () async* {},
+  );
+});
+
+final providerOfLoggedInUser = Provider<PeamanUser>((ref) {
+  final appUserStream = ref.watch(providerOfLoggedInUserStream);
+  final loggedInUser = appUserStream.maybeWhen(
+    data: (data) => data,
+    orElse: () => null,
+  );
+  assert(loggedInUser != null, 'Logged in user cannot be null!');
+  return loggedInUser!;
 });
 
 class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
@@ -29,78 +59,100 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
       _ref.watch(providerOfPeamanAuthRepository);
 
   Future<void> signInWithEmailAndPassword() async {
-    if (state.isLoading) return;
     if (state.emailController.text.trim().isEmpty ||
         state.passwordController.text.trim().isEmpty) return;
 
-    setIsLoading(true);
-    final resultEither = await _authRepository.signInWithEmailAndPassword(
+    state = state.copyWith(
+      signInWithEmailPasswordState:
+          const SignInWithEmailPasswordState.loading(),
+    );
+    final result = await _authRepository.signInWithEmailAndPassword(
       email: state.emailController.text.trim(),
       password: state.passwordController.text.trim(),
     );
-    resultEither.either(
-      (left) => null,
-      (right) => null,
+    state = result.when(
+      (success) => state.copyWith(
+        signInWithEmailPasswordState:
+            SignInWithEmailPasswordState.success(success),
+      ),
+      (failure) => state.copyWith(
+        signInWithEmailPasswordState:
+            SignInWithEmailPasswordState.error(failure),
+      ),
     );
-    setIsLoading(false);
   }
 
   Future<void> signUpWithEmailAndPassword() async {
-    if (state.isLoading) return;
     if (state.emailController.text.trim().isEmpty ||
         state.passwordController.text.trim().isEmpty ||
         state.confirmPasswordController.text.trim().isEmpty) return;
 
-    setIsLoading(true);
     final user = PeamanUser(
       email: state.emailController.text.trim(),
     );
-    final resultEither = await _authRepository.signUpWithEmailAndPassword(
+    state = state.copyWith(
+      signUpWithEmailPasswordState:
+          const SignUpWithEmailPasswordState.loading(),
+    );
+    final result = await _authRepository.signUpWithEmailAndPassword(
       user: user,
       email: state.emailController.text.trim(),
       password: state.passwordController.text.trim(),
     );
-    resultEither.either(
-      (left) => null,
-      (right) => null,
+    state = result.when(
+      (success) => state.copyWith(
+        signUpWithEmailPasswordState:
+            SignUpWithEmailPasswordState.success(success),
+      ),
+      (failure) => state.copyWith(
+        signUpWithEmailPasswordState:
+            SignUpWithEmailPasswordState.error(failure),
+      ),
     );
-    setIsLoading(false);
   }
 
   Future<void> signInWithGoogle() async {
-    if (state.isLoading) return;
-
-    setIsLoading(true);
-    final resultEither = await _authRepository.signInWithGoogle();
-    resultEither.either(
-      (left) => null,
-      (right) => null,
+    state = state.copyWith(
+      signInWithGoogleState: const SignInWithGoogleState.loading(),
     );
-    setIsLoading(false);
+    final result = await _authRepository.signInWithGoogle();
+    state = result.when(
+      (success) => state.copyWith(
+        signInWithGoogleState: SignInWithGoogleState.success(success),
+      ),
+      (failure) => state.copyWith(
+        signInWithGoogleState: SignInWithGoogleState.error(failure),
+      ),
+    );
   }
 
   Future<void> signInWithFacebook() async {
-    if (state.isLoading) return;
-
-    setIsLoading(true);
-    final resultEither = await _authRepository.signInWithFacebook();
-    resultEither.either(
-      (left) => null,
-      (right) => null,
+    state = state.copyWith(
+      signInWithFacebookState: const SignInWithFacebookState.loading(),
     );
-    setIsLoading(false);
+    final result = await _authRepository.signInWithFacebook();
+    state = result.when(
+      (success) => state.copyWith(
+        signInWithFacebookState: SignInWithFacebookState.success(success),
+      ),
+      (failure) => state.copyWith(
+        signInWithFacebookState: SignInWithFacebookState.error(failure),
+      ),
+    );
   }
 
   Future<void> signOut() async {
-    setIsLoading(true);
-    final resultEither = await _authRepository.signOut();
-    resultEither.either(
-      (left) => null,
-      (right) => null,
+    state = state.copyWith(
+      signOutState: const SignOutState.loading(),
     );
-    setIsLoading(false);
+    final result = await _authRepository.signOut();
+    state = result.when(
+      (success) => state.copyWith(
+        signOutState: SignOutState.success(success),
+      ),
+      (failure) => state.copyWith(
+        signOutState: SignOutState.error(failure),
+      ),
+    );
   }
-
-  void setIsLoading(final bool newVal) =>
-      state = state.copyWith(isLoading: newVal);
 }

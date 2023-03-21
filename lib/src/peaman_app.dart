@@ -19,23 +19,18 @@ class PeamanApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PeamanWrapper(
-      builder: (context, navigatorKey) {
-        return MaterialApp(
-          title: 'Peaman Example',
-          theme: theme ?? PeamanTheme.lightThemePalette,
-          darkTheme: darkTheme ?? PeamanTheme.darkThemePalette,
-          navigatorKey: navigatorKey,
-          debugShowCheckedModeBanner: false,
-          initialRoute: initialRoute ?? PeamanRoutes.homeScreen,
-          onGenerateRoute: (settings) =>
-              onGenerateRoute?.call(
-                settings,
-                () => PeamanRouter.onGenerateRoute(settings),
-              ) ??
-              PeamanRouter.onGenerateRoute(settings),
-        );
-      },
+    return MaterialApp(
+      title: 'Peaman Example',
+      theme: theme ?? PeamanTheme.lightThemePalette,
+      darkTheme: darkTheme ?? PeamanTheme.darkThemePalette,
+      debugShowCheckedModeBanner: false,
+      initialRoute: initialRoute ?? PeamanWrapper.route,
+      onGenerateRoute: (settings) =>
+          onGenerateRoute?.call(
+            settings,
+            () => PeamanRouter.onGenerateRoute(settings),
+          ) ??
+          PeamanRouter.onGenerateRoute(settings),
     );
   }
 }
