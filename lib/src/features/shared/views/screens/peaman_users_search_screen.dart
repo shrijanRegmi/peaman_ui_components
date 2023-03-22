@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/profile/providers/peaman_user_provider.dart';
+import 'package:peaman_ui_components/src/features/shared/providers/peaman_debounce_provider.dart';
+import 'package:peaman_ui_components/src/features/shared/providers/states/peaman_debounce_provider_state.dart';
+import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_error_builder.dart';
 
 class PeamanUsersSearchArgs {
   final bool searchUsersGlobally;
@@ -9,66 +15,86 @@ class PeamanUsersSearchArgs {
   });
 }
 
-class PeamanUsersSearchScreen extends PeamanWidget<PeamanUsersSearchVM> {
+class PeamanUsersSearchScreen extends StatefulHookConsumerWidget {
   final bool searchUsersGlobally;
   const PeamanUsersSearchScreen({
     super.key,
     this.searchUsersGlobally = false,
   });
 
+  static const route = '/peaman_users_search_screen';
+
   @override
-  Widget build(BuildContext context, PeamanUsersSearchVM vm) {
+  ConsumerState<PeamanUsersSearchScreen> createState() =>
+      _PeamanUsersSearchScreenState();
+}
+
+class _PeamanUsersSearchScreenState
+    extends ConsumerState<PeamanUsersSearchScreen> {
+  PeamanDebounceProviderState get debounceState =>
+      ref.watch(providerOfPeamanDebounce);
+  PeamanDebounceProvider get debounceNotifier =>
+      ref.read(providerOfPeamanDebounce.notifier);
+
+  @override
+  Widget build(BuildContext context) {
+    final searchController = useTextEditingController();
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
-        child: _searchBuilder(vm),
+        child: _searchBuilder(searchController),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         behavior: HitTestBehavior.opaque,
-        child: !vm.searchActive
-            ? vm.isLoading
-                ? const PeamanSpinner()
-                : const SizedBox()
-            : _usersSearchBuilder(vm),
+        child: debounceState.maybeWhen(
+          loading: () => const PeamanSpinner(),
+          success: () => _usersSearchBuilder(searchController),
+          orElse: () => const SizedBox(),
+        ),
       ),
     );
   }
 
-  Widget _searchBuilder(final PeamanUsersSearchVM vm) {
+  Widget _searchBuilder(
+    final TextEditingController searchController,
+  ) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
         child: PeamanInput(
           hintText: 'Search...',
           height: 40.0,
-          controller: vm.searchController,
           autoFocus: true,
-          trailing: _cancelBuilder(vm),
+          controller: searchController,
+          trailing: _cancelBuilder(searchController),
           leading: Icon(
             Icons.search_rounded,
             color: PeamanColors.grey.withOpacity(0.8),
           ),
-          onChanged: (_) => vm.createDebounce(),
+          onChanged: (_) => debounceNotifier.createDebounce(),
         ),
       ),
     );
   }
 
-  Widget _cancelBuilder(final PeamanUsersSearchVM vm) {
+  Widget _cancelBuilder(
+    final TextEditingController searchController,
+  ) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        if (vm.searchController.text.trim() == '') {
-          vm.popNavigate();
+        if (searchController.text.trim() == '') {
+          context.pop();
         } else {
-          vm.searchController.clear();
+          searchController.clear();
         }
       },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          color: vm.context.theme.brightness == Brightness.light
+          color: context.theme.brightness == Brightness.light
               ? PeamanColors.cream
               : PeamanColors.black,
         ),
@@ -103,70 +129,80 @@ class PeamanUsersSearchScreen extends PeamanWidget<PeamanUsersSearchVM> {
     );
   }
 
-  Widget _usersSearchBuilder(final PeamanUsersSearchVM vm) {
-    final followersIds = vm.followers.map((e) => e.uid!).toList();
-    final followingIds = vm.following.map((e) => e.uid!).toList();
-    final chatUserIds = vm.getChatUids();
-    final companionIds = vm.getNonRepeatingStringList([
-      ...followersIds,
-      ...followingIds,
-      ...chatUserIds,
-    ]);
-
-    return PeamanUserFetcher.multiStream(
-      usersStream: PUserProvider.getUsersBySearchKeywordStream(
-        searchKeyword: vm.searchController.text.trim().toUpperCase(),
+  Widget _usersSearchBuilder(
+    final TextEditingController searchController,
+  ) {
+    final usersFuture = ref.watch(
+      providerOfPeamanUsersBySearchKeys(
+        searchController.text.trim().toUpperCase(),
       ),
-      multiBuilder: (users) {
-        final filteredUsers = users
-            .where(
-              (e) => e.uid != vm.appUser.uid && searchUsersGlobally
-                  ? true
-                  : companionIds.contains(e.uid),
-            )
-            .toList();
-        if (filteredUsers.isEmpty) {
-          return const PeamanEmptyBuilder(
-            title: "No results found!",
-            subTitle:
-                'No user matches your keywords. Try changing the keywords.',
-          );
-        }
-        return PeamanUsersList.expandedByUsers(
-          users: filteredUsers,
-          onPressedUser: (user) => vm.gotoChatConversation(user),
+    );
+    final appUser = ref.watch(providerOfLoggedInUser);
+    return usersFuture.when(
+      data: (data) {
+        return data.when(
+          (success) {
+            final filteredUsers =
+                success.where((e) => e.uid != appUser.uid).toList();
+            if (filteredUsers.isEmpty) {
+              return const PeamanEmptyBuilder(
+                title: "No results found!",
+                subTitle:
+                    'No user matches your keywords. Try changing the keywords.',
+              );
+            }
+            return PeamanUsersList.expandedByUsers(
+              users: filteredUsers,
+              onPressedUser: (user) {},
+            );
+          },
+          (failure) => PeamanErrorBuilder(
+            title: 'Error Loading Users',
+            subTitle: failure.message,
+          ),
         );
       },
+      error: (e, _) => PeamanErrorBuilder(
+        title: 'Error Loading Users',
+        subTitle: e.toString(),
+      ),
+      loading: () => const PeamanSpinner(),
     );
+
+    // TODO(shrijanRegmi)
+    //   final followersIds = vm.followers.map((e) => e.uid!).toList();
+    //   final followingIds = vm.following.map((e) => e.uid!).toList();
+    //   final chatUserIds = vm.getChatUids();
+    //   final companionIds = vm.getNonRepeatingStringList([
+    //     ...followersIds,
+    //     ...followingIds,
+    //     ...chatUserIds,
+    //   ]);
+
+    //   return PeamanUserFetcher.multiStream(
+    //     usersStream: PUserProvider.getUsersBySearchKeywordStream(
+    //       searchKeyword: vm.searchController.text.trim().toUpperCase(),
+    //     ),
+    //     multiBuilder: (users) {
+    //       final filteredUsers = users
+    //           .where(
+    //             (e) => e.uid != vm.appUser.uid && widget.searchUsersGlobally
+    //                 ? true
+    //                 : companionIds.contains(e.uid),
+    //           )
+    //           .toList();
+    //       if (filteredUsers.isEmpty) {
+    //         return const PeamanEmptyBuilder(
+    //           title: "No results found!",
+    //           subTitle:
+    //               'No user matches your keywords. Try changing the keywords.',
+    //         );
+    //       }
+    //       return PeamanUsersList.expandedByUsers(
+    //         users: filteredUsers,
+    //         onPressedUser: (user) => vm.gotoChatConversation(user),
+    //       );
+    //     },
+    //   );
   }
-
-  // Widget _hashtagsSearchBuilder(final PeamanUsersSearchVM vm) {
-  //   final searchKeyword =
-  //       vm.searchController.text.trim().toUpperCase().replaceAll('#', '');
-  //   return StreamBuilder<List<PeamanHashtag>>(
-  //     stream: PFeedProvider.getHashtagsBySearchKeywordStream(
-  //       searchKeyword: searchKeyword,
-  //     ),
-  //     builder: (context, snap) {
-  //       if (snap.hasData) {
-  //         final hashtags = snap.data ?? [];
-  //         return HashtagsList(
-  //           hashtags: hashtags,
-  //         );
-  //       }
-  //       return Container();
-  //     },
-  //   );
-  // }
-
-  @override
-  PeamanUsersSearchVM onCreateVM(BuildContext context) =>
-      PeamanUsersSearchVM(context: context);
-
-  @override
-  void onDispose(BuildContext context, PeamanUsersSearchVM vm) =>
-      vm.onDispose();
-
-  @override
-  void onInit(BuildContext context, PeamanUsersSearchVM vm) {}
 }

@@ -1,34 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/profile/providers/peaman_onboarding_provider.dart';
+import 'package:peaman_ui_components/src/features/profile/providers/states/peaman_onboarding_provider_state.dart';
 
-class PeamanOnboardingScreen extends PeamanWidget<PeamanOnboardingVM> {
+class PeamanOnboardingScreen extends StatefulHookConsumerWidget {
   const PeamanOnboardingScreen({super.key});
 
-  List<Widget> _steps(final PeamanOnboardingVM vm) {
+  static const route = '/peaman_onboarding_screen';
+
+  @override
+  ConsumerState<PeamanOnboardingScreen> createState() =>
+      _PeamanOnboardingScreenState();
+}
+
+class _PeamanOnboardingScreenState
+    extends ConsumerState<PeamanOnboardingScreen> {
+  PeamanOnboardingProviderState get state =>
+      ref.watch(providerOfPeamanOnboarding);
+  PeamanOnboardingProvider get notifier =>
+      ref.read(providerOfPeamanOnboarding.notifier);
+
+  List<Widget> get _steps {
     return [
       PeamanOnboardingBasicInfoStep(
-        nameController: vm.nameController,
-        userNameController: vm.userNameController,
-        onImagePick: vm.pickImage,
-        onCountryPick: vm.selectCountry,
-        profileImg: vm.profileImg,
-        profileImgUploadProgress: vm.profileImgUploadProgress,
-        profileImgUploadCompleted: vm.profileImgUploadCompleted,
-        country: vm.selectedCountry,
+        nameController: state.nameController,
+        userNameController: state.usernameController,
+        profilePicture: state.selectedProfilePicture,
+        country: state.selectedCountry,
+        onImagePick: notifier.pickImage,
+        onCountryPick: () => notifier.pickCountry(
+          context: context,
+        ),
+        profilePictureUploadProgress: state.profilePictureUploadProgress,
+        isProfilePictureUploaded: state.isProfilePictureUploaded,
       ),
       PeamanOnboardingDetailsInfoStep(
-        selectedBirthday: vm.dob,
-        selectedGender: vm.gender,
-        bioController: vm.bioController,
-        onSelectBirthday: vm.selectBirthday,
-        onSelectGender: vm.selectGender,
+        selectedBirthday: state.selectedDateOfBirth,
+        selectedGender: state.selectedGender,
+        bioController: state.bioController,
+        onSelectBirthday: () => notifier.pickDateOfBirth(
+          context: context,
+        ),
+        onSelectGender: () => notifier.pickGender(
+          context: context,
+        ),
       ),
     ];
   }
 
   @override
-  Widget build(BuildContext context, PeamanOnboardingVM vm) {
+  Widget build(BuildContext context) {
+    final pageController = usePageController(
+      initialPage: state.onboardingStep,
+    );
+
+    ref.listen(providerOfPeamanOnboarding, (previous, next) {
+      if (next.updateOnboardingInfoState !=
+          previous?.updateOnboardingInfoState) {
+        next.updateOnboardingInfoState.maybeWhen(
+          success: (val) {
+            notifier.setOnboardingStep(state.onboardingStep + 1);
+            notifier.scrollPage(context: context, controller: pageController);
+          },
+          error: (val) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: PeamanText.body1(val.message)),
+            );
+          },
+          orElse: () {},
+        );
+      }
+    });
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -46,18 +92,24 @@ class PeamanOnboardingScreen extends PeamanWidget<PeamanOnboardingVM> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      vm.step > 0
+                      state.onboardingStep > 0
                           ? GestureDetector(
                               onTap: () {
-                                vm.updateStep(vm.step - 1);
-                                vm.scrollPage(reversed: true);
+                                notifier.setOnboardingStep(
+                                  state.onboardingStep - 1,
+                                );
+                                notifier.scrollPage(
+                                  context: context,
+                                  controller: pageController,
+                                );
                               },
                               behavior: HitTestBehavior.opaque,
                               child: const Icon(Icons.navigate_before),
                             )
                           : const SizedBox(),
                       GestureDetector(
-                        onTap: vm.logout,
+                        onTap: () =>
+                            ref.read(providerOfPeamanAuth.notifier).signOut(),
                         behavior: HitTestBehavior.opaque,
                         child: const Icon(Icons.logout),
                       ),
@@ -66,25 +118,25 @@ class PeamanOnboardingScreen extends PeamanWidget<PeamanOnboardingVM> {
                   const SizedBox(
                     height: 13.0,
                   ),
-                  _headerBuilder(vm),
+                  _headerBuilder(),
                   const SizedBox(
                     height: 50.0,
                   ),
                   SizedBox(
                     height: 470.0,
                     child: PageView.builder(
-                      controller: vm.pageController,
+                      controller: pageController,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _steps(vm).length,
+                      itemCount: _steps.length,
                       itemBuilder: (context, index) {
-                        return _steps(vm)[index];
+                        return _steps[index];
                       },
                     ),
                   ),
                   const SizedBox(
                     height: 50.0,
                   ),
-                  _buttonBuilder(vm),
+                  _buttonBuilder(),
                   const SizedBox(
                     height: 10.0,
                   ),
@@ -97,7 +149,7 @@ class PeamanOnboardingScreen extends PeamanWidget<PeamanOnboardingVM> {
     );
   }
 
-  Widget _headerBuilder(final PeamanOnboardingVM vm) {
+  Widget _headerBuilder() {
     return Column(
       children: [
         PeamanText.heading5(
@@ -121,24 +173,18 @@ class PeamanOnboardingScreen extends PeamanWidget<PeamanOnboardingVM> {
     );
   }
 
-  Widget _buttonBuilder(final PeamanOnboardingVM vm) {
+  Widget _buttonBuilder() {
+    final isLoading = state.updateOnboardingInfoState.maybeWhen(
+      loading: () => true,
+      orElse: () => false,
+    );
     return PeamanButton.filled(
       value: 'Next',
       minWidth: 100.0,
       padding: const EdgeInsets.all(18.0),
       borderRadius: 15.0,
-      isLoading: vm.isLoading,
-      onPressed: vm.onPressedNext,
+      isLoading: isLoading,
+      onPressed: notifier.onPressedNextBtn,
     );
   }
-
-  @override
-  PeamanOnboardingVM onCreateVM(BuildContext context) =>
-      PeamanOnboardingVM(context: context);
-
-  @override
-  void onDispose(BuildContext context, PeamanOnboardingVM vm) {}
-
-  @override
-  void onInit(BuildContext context, PeamanOnboardingVM vm) => vm.onInit();
 }

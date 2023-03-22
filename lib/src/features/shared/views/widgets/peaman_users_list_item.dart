@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -8,7 +9,7 @@ enum _Type {
   roundedByUser,
 }
 
-class PeamanUsersListItem extends StatefulWidget {
+class PeamanUsersListItem extends ConsumerWidget {
   final _Type type;
 
   final String? userId;
@@ -73,53 +74,39 @@ class PeamanUsersListItem extends StatefulWidget {
         super(key: key);
 
   @override
-  State<PeamanUsersListItem> createState() => _UserListItemState();
-}
-
-class _UserListItemState extends State<PeamanUsersListItem> {
-  Future<PeamanUser>? _userFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.type == _Type.expandedByUid ||
-        widget.type == _Type.roundedByUid) {
-      _userFuture = PUserProvider.getUserById(
-        uid: widget.userId!,
-      );
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant PeamanUsersListItem oldWidget) {
-    if (widget.userId != oldWidget.userId) {
-      _userFuture = PUserProvider.getUserById(
-        uid: widget.userId!,
-      );
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if ((widget.type == _Type.expandedByUid ||
-            widget.type == _Type.roundedByUid) &&
-        _userFuture != null) {
-      return PeamanUserFetcher.singleFuture(
-        userFuture: _userFuture,
-        singleBuilder: (user) {
-          return widget.type == _Type.expandedByUid
-              ? _expandedBuilder(user)
-              : _roundedBuilder(user);
+  Widget build(BuildContext context, WidgetRef ref) {
+    if ((type == _Type.expandedByUid || type == _Type.roundedByUid) &&
+        userId != null) {
+      final userFuture = ref.watch(providerOfSingleUserByIdFuture(userId!));
+      return userFuture.when(
+        data: (data) {
+          return data.when(
+            (success) => type == _Type.expandedByUid
+                ? _expandedBuilder(success)
+                : _roundedBuilder(success),
+            (failure) => _loadingBuilder(),
+          );
         },
+        error: (e, _) => _errorBuilder(e.toString()),
+        loading: () => _loadingBuilder(),
       );
-    } else if (widget.user != null) {
-      return widget.type == _Type.expandedByUser
-          ? _expandedBuilder(widget.user!)
-          : _roundedBuilder(widget.user!);
+    } else if (user != null) {
+      return type == _Type.expandedByUser
+          ? _expandedBuilder(user!)
+          : _roundedBuilder(user!);
     }
 
     return Container();
+  }
+
+  Widget _errorBuilder(final String message) {
+    return Center(
+      child: PeamanText.subtitle1(message),
+    );
+  }
+
+  Widget _loadingBuilder() {
+    return const SizedBox();
   }
 
   Widget _expandedBuilder(final PeamanUser user) {
@@ -127,16 +114,16 @@ class _UserListItemState extends State<PeamanUsersListItem> {
         ? user.country
         : user.bio;
     return InkWell(
-      onTap: () => widget.onPressed?.call(user),
+      onTap: () => onPressed?.call(user),
       child: Padding(
-        padding: widget.padding ??
+        padding: padding ??
             const EdgeInsets.symmetric(
               vertical: 10.0,
               horizontal: 20.0,
             ),
         child: Row(
           children: [
-            widget.avatarBuilder?.call(user) ??
+            avatarBuilder?.call(user) ??
                 PeamanAvatarBuilder.network(
                   user.photo,
                 ),
@@ -149,7 +136,7 @@ class _UserListItemState extends State<PeamanUsersListItem> {
                 children: [
                   Row(
                     children: [
-                      widget.nameBuilder?.call(user) ??
+                      nameBuilder?.call(user) ??
                           PeamanText.subtitle1(
                             user.name,
                             style: const TextStyle(
@@ -161,7 +148,7 @@ class _UserListItemState extends State<PeamanUsersListItem> {
                       ),
                     ],
                   ),
-                  widget.captionBuilder?.call(user) ??
+                  captionBuilder?.call(user) ??
                       PeamanText.body2(
                         userBody,
                         limit: 60,
@@ -169,12 +156,12 @@ class _UserListItemState extends State<PeamanUsersListItem> {
                 ],
               ),
             ),
-            if (widget.actionWidgetsBuilder != null)
+            if (actionWidgetsBuilder != null)
               const SizedBox(
                 width: 10.0,
               ),
-            if (widget.actionWidgetsBuilder != null)
-              ...(widget.actionWidgetsBuilder?.call(user) ?? []),
+            if (actionWidgetsBuilder != null)
+              ...(actionWidgetsBuilder?.call(user) ?? []),
           ],
         ),
       ),
@@ -183,14 +170,14 @@ class _UserListItemState extends State<PeamanUsersListItem> {
 
   Widget _roundedBuilder(final PeamanUser user) {
     return GestureDetector(
-      onTap: () => widget.onPressed?.call(user),
+      onTap: () => onPressed?.call(user),
       child: Padding(
-        padding: widget.padding ?? const EdgeInsets.all(10.0),
+        padding: padding ?? const EdgeInsets.all(10.0),
         child: Row(
           children: [
             Column(
               children: [
-                widget.avatarBuilder?.call(user) ??
+                avatarBuilder?.call(user) ??
                     PeamanAvatarBuilder.network(
                       user.photo,
                     ),

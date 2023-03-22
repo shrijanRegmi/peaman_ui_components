@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatMessageSwiper extends StatefulWidget {
-  final PeamanMessage message;
+  final PeamanChatMessage message;
   final Widget child;
   final bool enabled;
-  final Function(PeamanMessage)? onSwipped;
+  final Function(PeamanChatMessage)? onSwipped;
 
   const PeamanChatMessageSwiper({
     Key? key,

@@ -1,97 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
+import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_appbar.dart';
 
 class PeamanChatConversationArgs {
   final String chatId;
-  final PeamanUser friend;
+  final List<PeamanUser> receivers;
 
   PeamanChatConversationArgs({
     required this.chatId,
-    required this.friend,
+    required this.receivers,
   });
 }
 
-class PeamanChatConversationScreen
-    extends PeamanWidget<PeamanChatConversationVM> {
+class PeamanChatConversationScreen extends ConsumerWidget {
   final String chatId;
-  final PeamanUser friend;
+  final List<PeamanUser> receivers;
 
   const PeamanChatConversationScreen({
     super.key,
     required this.chatId,
-    required this.friend,
+    required this.receivers,
   });
 
+  static const route = '/peaman_chat_conversation_screen';
+
   @override
-  Widget build(BuildContext context, PeamanChatConversationVM vm) {
-    final unreadMessages = vm.chat.unreadMessages
-        .firstWhere(
-          (element) => element.uid == vm.appUser.uid,
-          orElse: () => PeamanUnreadMessage(),
-        )
-        .unreadMessagesCount;
-    final isUnread = unreadMessages > 0;
-    if (isUnread) {
-      vm.readMessage();
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(providerOfPeamanChat.notifier);
+
+    notifier.readChat(chatId: chatId);
 
     return Scaffold(
-      appBar: AppBar(
-        title: GestureDetector(
-          onTap: () {
-            if (friend.uid == vm.appUserReadOnly.uid) return;
-          },
-          behavior: HitTestBehavior.opaque,
-          child: PeamanText.subtitle2(
-            friend.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-          ),
-          iconSize: 20.0,
-          onPressed: () => vm.popNavigate(),
-        ),
-        centerTitle: true,
+      appBar: const PeamanAppbar(
+        title: 'Chat Conversation Screen',
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         behavior: HitTestBehavior.opaque,
         child: PeamanChatMessagesList(
           chatId: chatId,
-          friend: friend,
-          onSwippedMessage: (message, user, func) {
-            vm.requestFocus(vm.focusNode);
-            vm.updateMessageToReply(message);
-          },
+          receivers: receivers,
+          onSwippedMessage: (message, user, func) {},
         ),
       ),
       bottomNavigationBar: Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: PeamanChatMessageInput(
           chatId: chatId,
-          friend: friend,
-          focusNode: vm.focusNode,
-          messageToReply: vm.messageToReply,
-          onPressedCancelReply: (func) {
-            vm.updateMessageToReply(null);
-          },
+          receivers: receivers,
         ),
       ),
     );
   }
-
-  @override
-  PeamanChatConversationVM onCreateVM(BuildContext context) =>
-      PeamanChatConversationVM(context: context, chatId: chatId);
-
-  @override
-  void onDispose(BuildContext context, PeamanChatConversationVM vm) {}
-
-  @override
-  void onInit(BuildContext context, PeamanChatConversationVM vm) {}
 }

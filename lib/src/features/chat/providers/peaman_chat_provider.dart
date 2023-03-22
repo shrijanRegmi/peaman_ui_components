@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/args/peaman_single_peaman_chat_message_stream_args.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_chat_provider_state.dart';
 import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
@@ -20,11 +21,66 @@ final providerOfPeamanUserChatsStream = StreamProvider<List<PeamanChat>>((ref) {
       .getUserChatsStream(uid: appUser.uid!);
 });
 
+final providerOfSinglePeamanChatFromChatsStream =
+    Provider.family<PeamanChat?, String>((ref, chatId) {
+  final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
+  return chatsStream.maybeWhen(
+    data: (data) {
+      final index = data.indexWhere((element) => element.id == chatId);
+      if (index == -1) return null;
+      return data[index];
+    },
+    orElse: () => null,
+  );
+});
+
 final providerOfPeamanChatMessagesStream = StreamProvider.family
     .autoDispose<List<PeamanChatMessage>, String>((ref, chatId) {
   return ref
       .watch(providerOfPeamanChatRepository)
       .getChatMessagesStream(chatId: chatId);
+});
+
+final providerOfPeamanChatUsersFuture = FutureProvider.family<
+    PeamanEither<List<PeamanUser>, PeamanError>, List<String>>(
+  (ref, receiverIds) async {
+    var users = <PeamanUser>[];
+
+    final futures = <Future<PeamanEither<PeamanUser, PeamanError>>>[];
+    for (final receiverId in receiverIds) {
+      final future = ref
+          .watch(providerOfPeamanUserRepository)
+          .getSingleUser(uid: receiverId);
+      futures.add(future);
+    }
+    final results = await Future.wait(futures);
+
+    PeamanError? error;
+    for (final result in results) {
+      error = result.when(
+        (success) {
+          users = [...users, success];
+          return null;
+        },
+        (failure) => failure,
+      );
+    }
+
+    if (error != null) {
+      return Failure(error);
+    }
+
+    return Success(users);
+  },
+);
+
+final providerOfSinglePeamanChatMessageStream =
+    StreamProvider.family<PeamanChatMessage, PeamanSingleChatMessageArgs>(
+        (ref, args) {
+  return ref.watch(providerOfPeamanChatRepository).getSingleChatMessageStream(
+        chatId: args.chatId,
+        messageId: args.messageId,
+      );
 });
 
 class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
@@ -157,21 +213,33 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   Future<void> readChat({
     required final String chatId,
   }) async {
-    state = state.copyWith(
-      readChatState: const ReadChatState.loading(),
-    );
-    final result = await _chatRepository.readChatMessages(
-      chatId: chatId,
-      uid: appUser.uid!,
-    );
-    state = result.when(
-      (success) => state.copyWith(
-        readChatState: ReadChatState.success(success),
-      ),
-      (failure) => state.copyWith(
-        readChatState: ReadChatState.error(failure),
-      ),
-    );
+    final chat = getSingleChat(chatId, readOnly: false);
+    if (chat != null) {
+      final unreadMessages = chat.unreadMessages
+          .firstWhere(
+            (element) => element.uid == appUser.uid,
+            orElse: PeamanChatUnreadMessage.new,
+          )
+          .unreadMessagesCount;
+      final isUnread = unreadMessages > 0;
+      if (!isUnread) return;
+
+      state = state.copyWith(
+        readChatState: const ReadChatState.loading(),
+      );
+      final result = await _chatRepository.readChatMessages(
+        chatId: chatId,
+        uid: appUser.uid!,
+      );
+      state = result.when(
+        (success) => state.copyWith(
+          readChatState: ReadChatState.success(success),
+        ),
+        (failure) => state.copyWith(
+          readChatState: ReadChatState.error(failure),
+        ),
+      );
+    }
   }
 
   Future<void> updateChat({
@@ -239,23 +307,39 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> setTypingStatus({
     required final String chatId,
+    required final String typedValue,
   }) async {
-    state = state.copyWith(
-      setTypingStatusState: const SetTypingStatusState.loading(),
-    );
-    final result = await _chatRepository.setTypingStatus(
-      chatId: chatId,
-      uid: appUser.uid!,
-      typingStatus: PeamanChatTypingStatus.typing,
-    );
-    state = result.when(
-      (success) => state.copyWith(
-        setTypingStatusState: SetTypingStatusState.success(success),
-      ),
-      (failure) => state.copyWith(
-        setTypingStatusState: SetTypingStatusState.error(failure),
-      ),
-    );
+    final chat = getSingleChat(chatId);
+    if (chat != null) {
+      PeamanChatTypingStatus? typingStatus;
+
+      if (typedValue != '') {
+        if (!chat.typingUserIds.contains(appUser.uid)) {
+          typingStatus = PeamanChatTypingStatus.typing;
+        }
+      } else {
+        typingStatus = PeamanChatTypingStatus.idle;
+      }
+
+      if (typingStatus == null) return;
+
+      state = state.copyWith(
+        setTypingStatusState: const SetTypingStatusState.loading(),
+      );
+      final result = await _chatRepository.setTypingStatus(
+        chatId: chatId,
+        uid: appUser.uid!,
+        typingStatus: typingStatus,
+      );
+      state = result.when(
+        (success) => state.copyWith(
+          setTypingStatusState: SetTypingStatusState.success(success),
+        ),
+        (failure) => state.copyWith(
+          setTypingStatusState: SetTypingStatusState.error(failure),
+        ),
+      );
+    }
   }
 
   Future<PeamanEither<List<PeamanFileUrl>, PeamanError>> _uploadLocalFiles({
@@ -354,6 +438,23 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     }
 
     return const Success(<PeamanFileUrl>[]);
+  }
+
+  PeamanChat? getSingleChat(
+    final String chatId, {
+    final bool readOnly = true,
+  }) {
+    final chatsStream = readOnly
+        ? _ref.read(providerOfPeamanUserChatsStream)
+        : _ref.watch(providerOfPeamanUserChatsStream);
+    return chatsStream.maybeWhen(
+      data: (data) {
+        final index = data.indexWhere((element) => element.id == chatId);
+        if (index == -1) return null;
+        return data[index];
+      },
+      orElse: () => null,
+    );
   }
 
   Future<void> pickImage() async {

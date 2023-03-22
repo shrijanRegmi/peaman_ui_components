@@ -2,27 +2,31 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_chat_provider_state.dart';
 
-class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
+class PeamanChatMessageInput extends ConsumerStatefulWidget {
   final String chatId;
-  final PeamanUser friend;
+  final List<PeamanUser> receivers;
   final TextEditingController? messageController;
-  final PeamanMessage? messageToReply;
-  final List<PeamanPicture>? picturesToSend;
+  final PeamanChatMessage? messageToReply;
+  final List<PeamanFileUrlExtended>? files;
   final FocusNode? focusNode;
   final Function(String, Function())? onChanged;
   final Function(Function())? onPressedSend;
   final Function(Function())? onPressedSelectImage;
-  final Function(PeamanPicture, Function())? onPressedRemoveImage;
+  final Function(PeamanFileUrlExtended, Function())? onPressedRemoveImage;
   final Function(Function())? onPressedCancelReply;
 
   const PeamanChatMessageInput({
     super.key,
     required this.chatId,
-    required this.friend,
+    required this.receivers,
     this.messageController,
-    this.picturesToSend,
+    this.files,
     this.focusNode,
     this.messageToReply,
     this.onChanged,
@@ -33,23 +37,31 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
   });
 
   @override
-  Widget build(BuildContext context, PeamanChatMessageInputVM vm) {
-    vm.updateMessageToReply(messageToReply, withStateChange: false);
+  ConsumerState<PeamanChatMessageInput> createState() =>
+      _PeamanChatMessageInputState();
+}
 
+class _PeamanChatMessageInputState
+    extends ConsumerState<PeamanChatMessageInput> {
+  PeamanChatProviderState get state => ref.watch(providerOfPeamanChat);
+  PeamanChatProvider get notifier => ref.read(providerOfPeamanChat.notifier);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _selectedImageBuilder(vm),
+        _selectedImageBuilder(),
         Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 20.0,
             vertical: 5.0,
           ),
           decoration: BoxDecoration(
-            color: vm.context.theme.inputDecorationTheme.fillColor,
+            color: context.theme.inputDecorationTheme.fillColor,
             boxShadow: [
               BoxShadow(
-                color: vm.context.theme.appBarTheme.shadowColor ??
+                color: context.theme.appBarTheme.shadowColor ??
                     PeamanColors.lightGrey,
                 offset: const Offset(0, -2),
                 blurRadius: 4.0,
@@ -59,7 +71,7 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (messageToReply != null)
+              if (widget.messageToReply != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
@@ -69,7 +81,7 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           PeamanText.body2(
-                            'Replying to ${friend.name}',
+                            'Replying to ${widget.receivers}',
                             style: const TextStyle(
                               color: PeamanColors.grey,
                               fontSize: 12.0,
@@ -78,9 +90,10 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
                           const SizedBox(
                             height: 5.0,
                           ),
-                          if (messageToReply != null)
+                          if (widget.messageToReply != null)
                             PeamanText.body2(
-                              messageToReply!.text?.replaceAll("\n", " "),
+                              widget.messageToReply!.text
+                                  ?.replaceAll("\n", " "),
                               limit: 45,
                               style: const TextStyle(
                                 fontSize: 12.0,
@@ -89,7 +102,7 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
                         ],
                       ),
                       GestureDetector(
-                        onTap: () => onPressedCancelReply?.call(() {}),
+                        onTap: () => widget.onPressedCancelReply?.call(() {}),
                         behavior: HitTestBehavior.opaque,
                         child: const Icon(
                           Icons.close_rounded,
@@ -101,17 +114,17 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _imageSelectorBuilder(vm),
+                  _imageSelectorBuilder(),
                   const SizedBox(
                     width: 10.0,
                   ),
                   Expanded(
-                    child: _messageInputBuilder(vm),
+                    child: _messageInputBuilder(),
                   ),
                   const SizedBox(
                     width: 5.0,
                   ),
-                  _sendBuilder(vm),
+                  _sendBuilder(),
                 ],
               ),
             ],
@@ -121,32 +134,40 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
     );
   }
 
-  Widget _imageSelectorBuilder(final PeamanChatMessageInputVM vm) {
+  Widget _imageSelectorBuilder() {
     return GestureDetector(
-      onTap: () => onPressedSelectImage?.call(vm.pickImage) ?? vm.pickImage(),
+      onTap: () =>
+          widget.onPressedSelectImage?.call(notifier.pickImage) ??
+          notifier.pickImage(),
       behavior: HitTestBehavior.opaque,
       child: Icon(
         Icons.image,
-        color: vm.context.theme.inputDecorationTheme.prefixIconColor,
+        color: context.theme.inputDecorationTheme.prefixIconColor,
       ),
     );
   }
 
-  Widget _messageInputBuilder(final PeamanChatMessageInputVM vm) {
+  Widget _messageInputBuilder() {
     return TextFormField(
       minLines: 1,
       maxLines: 5,
-      focusNode: focusNode,
-      controller: vm.messageController,
+      focusNode: widget.focusNode,
+      controller: widget.messageController ?? state.messageController,
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.newline,
       textCapitalization: TextCapitalization.sentences,
       onChanged: (val) =>
-          onChanged?.call(
+          widget.onChanged?.call(
             val,
-            () => vm.updateTypingStatus(val),
+            () => notifier.setTypingStatus(
+              chatId: widget.chatId,
+              typedValue: val,
+            ),
           ) ??
-          vm.updateTypingStatus(val),
+          notifier.setTypingStatus(
+            chatId: widget.chatId,
+            typedValue: val,
+          ),
       decoration: const InputDecoration(
         hintText: 'Type something awesome...',
         border: InputBorder.none,
@@ -154,15 +175,31 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
     );
   }
 
-  Widget _sendBuilder(final PeamanChatMessageInputVM vm) {
+  Widget _sendBuilder() {
     return GestureDetector(
-      onTap: () => onPressedSend?.call(vm.sendMessage) ?? vm.sendMessage(),
+      onTap: () =>
+          widget.onPressedSend?.call(
+            () => notifier.sendMessage(
+              chatId: widget.chatId,
+              receiverIds: widget.receivers
+                  .where((e) => e.uid != null)
+                  .map((e) => e.uid!)
+                  .toList(),
+            ),
+          ) ??
+          notifier.sendMessage(
+            chatId: widget.chatId,
+            receiverIds: widget.receivers
+                .where((e) => e.uid != null)
+                .map((e) => e.uid!)
+                .toList(),
+          ),
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: vm.context.theme.inputDecorationTheme.suffixIconColor,
+          color: context.theme.inputDecorationTheme.suffixIconColor,
         ),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 2.0),
@@ -179,14 +216,15 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
     );
   }
 
-  Widget _selectedImageBuilder(final PeamanChatMessageInputVM vm) {
+  Widget _selectedImageBuilder() {
+    final files = widget.files ?? state.files;
     return SizedBox(
-      height: vm.picturesToSend.isNotEmpty ? 130.0 : 0.0,
+      height: files.isNotEmpty ? 130.0 : 0.0,
       child: ListView.builder(
-        itemCount: vm.picturesToSend.length,
+        itemCount: files.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final picture = vm.picturesToSend[index];
+          final picture = files[index];
 
           return Container(
             width: 80.0,
@@ -197,7 +235,7 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
                 Radius.circular(10.0),
               ),
               image: DecorationImage(
-                image: FileImage(File(picture.path)),
+                image: FileImage(File(picture.url)),
                 fit: BoxFit.cover,
               ),
             ),
@@ -206,11 +244,11 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () =>
-                    onPressedRemoveImage?.call(
+                    widget.onPressedRemoveImage?.call(
                       picture,
-                      () => vm.removeImage(picture),
+                      () => notifier.removeFromFiles(picture),
                     ) ??
-                    vm.removeImage(picture),
+                    notifier.removeFromFiles(picture),
                 child: Container(
                   padding: const EdgeInsets.all(5.0),
                   decoration: const BoxDecoration(
@@ -230,22 +268,4 @@ class PeamanChatMessageInput extends PeamanWidget<PeamanChatMessageInputVM> {
       ),
     );
   }
-
-  @override
-  PeamanChatMessageInputVM onCreateVM(BuildContext context) =>
-      PeamanChatMessageInputVM(
-        context: context,
-        chatId: chatId,
-        friend: friend,
-      );
-
-  @override
-  void onDispose(BuildContext context, PeamanChatMessageInputVM vm) =>
-      vm.onDispose();
-
-  @override
-  void onInit(BuildContext context, PeamanChatMessageInputVM vm) => vm.onInit(
-        messageController: messageController,
-        picturesToSend: picturesToSend,
-      );
 }

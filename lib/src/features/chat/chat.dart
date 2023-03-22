@@ -1,4 +1,3 @@
-// views
 export './views/screens/peaman_chats_list_screen.dart';
 export './views/screens/peaman_chat_conversation_screen.dart';
 
@@ -13,9 +12,3 @@ export './views/widgets/chat_convo_widgets/peaman_chat_message_typing_indicator.
 export './views/widgets/chat_convo_widgets/peaman_chat_message_seen_indicator.dart';
 export './views/widgets/chat_convo_widgets/peaman_chat_message_input.dart';
 export './views/widgets/chat_convo_widgets/peaman_chat_cant_reply_builder.dart';
-
-// viewmodels
-export './viewmodels/peaman_chats_list_vm.dart';
-export './viewmodels/peaman_chat_conversation_vm.dart';
-export './viewmodels/peaman_chat_messages_list_vm.dart';
-export './viewmodels/peaman_chat_message_input_vm.dart';

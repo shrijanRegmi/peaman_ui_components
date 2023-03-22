@@ -31,7 +31,7 @@ class PeamanRouter {
           settings,
           PeamanChatConversationScreen(
             chatId: arguments.chatId,
-            friend: arguments.friend,
+            receivers: arguments.receivers,
           ),
         );
       case PeamanUsersSearchScreen.route:
@@ -57,7 +57,7 @@ class PeamanRouter {
       default:
         return buildRoute(
           settings,
-          const PeamanHome(),
+          const PeamanWrapper(),
         );
     }
   }

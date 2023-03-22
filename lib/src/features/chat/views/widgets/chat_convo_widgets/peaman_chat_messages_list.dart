@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
-class PeamanChatMessagesList extends PeamanWidget<PeamanChatMessagesListVM> {
+class PeamanChatMessagesList extends ConsumerWidget {
   final String chatId;
-  final PeamanUser friend;
-  final List<PeamanMessage>? messages;
+  final List<PeamanUser> receivers;
+  final List<PeamanChatMessage>? messages;
   final ScrollController? controller;
   final Widget? loadingWidget;
   final Widget? emptyWidget;
   final Widget Function(BuildContext, int)? itemBuilder;
-  final Widget Function(BuildContext, List<PeamanMessage>)? listBuilder;
-  final Function(PeamanMessage, PeamanUser, Function())? onPressedMessage;
-  final Function(PeamanMessage, PeamanUser, Function())? onLongPressedMessage;
-  final Function(PeamanMessage, PeamanUser, Function())? onSwippedMessage;
+  final Widget Function(BuildContext, List<PeamanChatMessage>)? listBuilder;
+  final Function(PeamanChatMessage, List<PeamanUser>, Function())?
+      onPressedMessage;
+  final Function(PeamanChatMessage, List<PeamanUser>, Function())?
+      onLongPressedMessage;
+  final Function(PeamanChatMessage, List<PeamanUser>, Function())?
+      onSwippedMessage;
 
   const PeamanChatMessagesList({
     Key? key,
     required this.chatId,
-    required this.friend,
+    required this.receivers,
     this.messages,
     this.controller,
     this.loadingWidget,
@@ -30,50 +35,30 @@ class PeamanChatMessagesList extends PeamanWidget<PeamanChatMessagesListVM> {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, PeamanChatMessagesListVM vm) {
-    if (messages == null) {
-      return StreamBuilder<List<PeamanMessage>>(
-        stream: vm.messagesStream,
-        builder: (context, snap) {
-          if (snap.connectionState == ConnectionState.waiting) {
-            return loadingWidget ?? const PeamanSpinner();
-          }
-
-          if (snap.hasData && snap.data != null) {
-            final messages = snap.data!;
-            if (messages.isEmpty) {
-              return emptyWidget ?? const SizedBox();
-            }
-
-            return _listBuilder(
-              [
-                ...vm.appVm.tempMessages.where(
-                  (element) => element.chatId == chatId,
-                ),
-                ...messages,
-              ],
-              vm,
-            );
-          }
-
-          return const SizedBox();
-        },
-      );
-    } else {
-      return _listBuilder([
-        ...vm.appVm.tempMessages.where(
-          (element) => element.chatId == chatId,
-        ),
-        ...messages!,
-      ], vm);
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (messages != null) {
+      if (messages!.isEmpty) return _emptyBuilder();
+      return _dataBuilder(context, messages!);
     }
+
+    final messagesStream = ref.watch(
+      providerOfPeamanChatMessagesStream(chatId),
+    );
+    return messagesStream.when(
+      data: (data) {
+        if (data.isEmpty) return _emptyBuilder();
+        return _dataBuilder(context, data);
+      },
+      error: (e, _) => _errorBuilder(e.toString()),
+      loading: () => _loadingBuilder(),
+    );
   }
 
-  Widget _listBuilder(
-    final List<PeamanMessage> messages,
-    final PeamanChatMessagesListVM vm,
+  Widget _dataBuilder(
+    final BuildContext context,
+    final List<PeamanChatMessage> messages,
   ) {
-    return listBuilder?.call(vm.context, messages) ??
+    return listBuilder?.call(context, messages) ??
         ListView.separated(
           itemCount: messages.length,
           physics: const BouncingScrollPhysics(),
@@ -98,21 +83,21 @@ class PeamanChatMessagesList extends PeamanWidget<PeamanChatMessagesListVM> {
                 final widget = PeamanChatMessagesListItem(
                   message: message,
                   nextMessage: nextMessage,
-                  friend: friend,
+                  receivers: receivers,
                   isMessagesSentOnSameHour: difference.inMinutes < 60,
                   isFirstMessage: index == (messages.length - 1),
                   isLastMessage: index == 0,
                   onPressed: (message) =>
-                      onPressedMessage?.call(message, friend, () {}),
+                      onPressedMessage?.call(message, receivers, () {}),
                   onLongPressed: (message) =>
                       onLongPressedMessage?.call(
                         message,
-                        friend,
-                        () => vm.showMessageLongPressBottomsheet(message),
+                        receivers,
+                        () => _showMessageLongPressBottomsheet(message),
                       ) ??
-                      vm.showMessageLongPressBottomsheet(message),
+                      _showMessageLongPressBottomsheet(message),
                   onSwipped: (message) =>
-                      onSwippedMessage?.call(message, friend, () {}),
+                      onSwippedMessage?.call(message, receivers, () {}),
                 );
                 if (index == 0) {
                   return Padding(
@@ -150,13 +135,21 @@ class PeamanChatMessagesList extends PeamanWidget<PeamanChatMessagesListVM> {
         );
   }
 
-  @override
-  PeamanChatMessagesListVM onCreateVM(BuildContext context) =>
-      PeamanChatMessagesListVM(context: context, chatId: chatId);
+  Widget _emptyBuilder() {
+    return emptyWidget ?? const SizedBox();
+  }
 
-  @override
-  void onDispose(BuildContext context, PeamanChatMessagesListVM vm) {}
+  Widget _loadingBuilder() {
+    return loadingWidget ?? const PeamanSpinner();
+  }
 
-  @override
-  void onInit(BuildContext context, PeamanChatMessagesListVM vm) => vm.onInit();
+  Widget _errorBuilder(final String message) {
+    return Center(
+      child: PeamanText.subtitle1(message),
+    );
+  }
+
+  void _showMessageLongPressBottomsheet(final PeamanChatMessage message) {
+    // TODO(shrijanRegmi)
+  }
 }

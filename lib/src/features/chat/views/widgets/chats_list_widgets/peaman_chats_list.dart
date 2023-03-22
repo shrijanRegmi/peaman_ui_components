@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
-class PeamanChatsList extends PeamanWidget<PeamanChatsListVM> {
+class PeamanChatsList extends ConsumerWidget {
   final List<PeamanChat>? chats;
   final ScrollController? controller;
   final Widget? loadingWidget;
@@ -24,35 +26,44 @@ class PeamanChatsList extends PeamanWidget<PeamanChatsListVM> {
   });
 
   @override
-  Widget build(BuildContext context, PeamanChatsListVM vm) {
-    final thisChats = chats ?? vm.chats;
-
-    if (thisChats == null) return loadingWidget ?? const PeamanSpinner();
-    if (thisChats.isEmpty) {
-      return emptyWidget ??
-          const PeamanEmptyBuilder(
-            title: "No chats found!",
-            subTitle:
-                "You haven't started conversation with anyone. Try searching people and start connecting.",
-          );
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (chats != null) {
+      if (chats!.isEmpty) return _emptyBuilder();
+      return _dataBuilder(context, chats!);
     }
-    return listBuilder?.call(context, thisChats) ??
+
+    final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
+    return chatsStream.when(
+      data: (data) {
+        if (data.isEmpty) return _emptyBuilder();
+        return _dataBuilder(context, data);
+      },
+      error: (e, _) => _errorBuilder(e.toString()),
+      loading: () => _loadingBuilder(),
+    );
+  }
+
+  Widget _dataBuilder(
+    final BuildContext context,
+    final List<PeamanChat> chats,
+  ) {
+    return listBuilder?.call(context, chats) ??
         ListView.builder(
-          itemCount: thisChats.length,
+          itemCount: chats.length,
           physics: const BouncingScrollPhysics(),
           itemBuilder: itemBuilder ??
               (context, index) {
-                final chat = thisChats[index];
+                final chat = chats[index];
                 final widget = PeamanChatsListItem(
                   chat: chat,
                   onPressed: (chat, user) =>
                       onPressedChat?.call(
                         chat,
                         user,
-                        () => vm.gotoChatConvoScreen(chat, user),
+                        () => _gotoChatConvoScreen(context, chat, user),
                       ) ??
-                      vm.gotoChatConvoScreen(chat, user),
-                  onLongPressedChat: (chat, user) =>
+                      _gotoChatConvoScreen(context, chat, user),
+                  onLongPressed: (chat, user) =>
                       onLongPressedChat?.call(chat, user, () {}),
                 );
 
@@ -68,13 +79,35 @@ class PeamanChatsList extends PeamanWidget<PeamanChatsListVM> {
         );
   }
 
-  @override
-  PeamanChatsListVM onCreateVM(BuildContext context) =>
-      PeamanChatsListVM(context: context);
+  Widget _emptyBuilder() {
+    return emptyWidget ??
+        const PeamanEmptyBuilder(
+          title: "No chats found!",
+          subTitle:
+              "You haven't started conversation with anyone. Try searching people and start connecting.",
+        );
+  }
 
-  @override
-  void onDispose(BuildContext context, PeamanChatsListVM vm) {}
+  Widget _loadingBuilder() {
+    return loadingWidget ?? const PeamanSpinner();
+  }
 
-  @override
-  void onInit(BuildContext context, PeamanChatsListVM vm) {}
+  Widget _errorBuilder(final String message) {
+    return Center(
+      child: PeamanText.subtitle1(message),
+    );
+  }
+
+  void _gotoChatConvoScreen(
+    final BuildContext context,
+    final PeamanChat chat,
+    final PeamanUser user,
+  ) =>
+      context.pushNamed(
+        PeamanChatConversationScreen.route,
+        arguments: PeamanChatConversationArgs(
+          chatId: chat.id!,
+          receivers: [user],
+        ),
+      );
 }

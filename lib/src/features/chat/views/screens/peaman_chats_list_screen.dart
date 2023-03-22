@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
+class PeamanChatsListScreen extends ConsumerWidget {
   final bool searchUsersGlobally;
 
   const PeamanChatsListScreen({
@@ -9,18 +10,20 @@ class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
     this.searchUsersGlobally = false,
   });
 
+  static const route = '/peaman_chats_list_screen';
+
   @override
-  Widget build(BuildContext context, PeamanChatsListVM vm) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
-        child: _searchBuilder(vm),
+        child: _searchBuilder(context),
       ),
       body: const PeamanChatsList(),
     );
   }
 
-  Widget _searchBuilder(final PeamanChatsListVM vm) {
+  Widget _searchBuilder(final BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
@@ -36,8 +39,8 @@ class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
                   color: PeamanColors.grey.withOpacity(0.8),
                 ),
                 onPressed: () {
-                  vm.navigateNamed(
-                    PeamanRoutes.usersSearchScreen,
+                  context.pushNamed(
+                    PeamanUsersSearchScreen.route,
                     arguments: PeamanUsersSearchArgs(
                       searchUsersGlobally: searchUsersGlobally,
                     ),
@@ -50,14 +53,4 @@ class PeamanChatsListScreen extends PeamanWidget<PeamanChatsListVM> {
       ),
     );
   }
-
-  @override
-  PeamanChatsListVM onCreateVM(BuildContext context) =>
-      PeamanChatsListVM(context: context);
-
-  @override
-  void onDispose(BuildContext context, PeamanChatsListVM vm) {}
-
-  @override
-  void onInit(BuildContext context, PeamanChatsListVM vm) {}
 }

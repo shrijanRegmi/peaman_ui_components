@@ -2,24 +2,25 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatMessagesListItem extends StatelessWidget {
-  final PeamanMessage message;
-  final PeamanMessage nextMessage;
-  final PeamanUser friend;
+class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
+  final PeamanChatMessage message;
+  final PeamanChatMessage nextMessage;
+  final List<PeamanUser> receivers;
   final bool isMessagesSentOnSameHour;
   final bool isFirstMessage;
   final bool isLastMessage;
-  final Function(PeamanMessage)? onPressed;
-  final Function(PeamanMessage)? onLongPressed;
-  final Function(PeamanMessage)? onSwipped;
+  final Function(PeamanChatMessage)? onPressed;
+  final Function(PeamanChatMessage)? onLongPressed;
+  final Function(PeamanChatMessage)? onSwipped;
 
   const PeamanChatMessagesListItem({
     Key? key,
     required this.message,
     required this.nextMessage,
-    required this.friend,
+    required this.receivers,
     this.isMessagesSentOnSameHour = false,
     this.isFirstMessage = false,
     this.isLastMessage = false,
@@ -29,15 +30,22 @@ class PeamanChatMessagesListItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final appUser = context.pwatch<PeamanUser>();
+  ConsumerState<PeamanChatMessagesListItem> createState() =>
+      _PeamanChatMessagesListItemState();
+}
 
+class _PeamanChatMessagesListItemState
+    extends ConsumerState<PeamanChatMessagesListItem> {
+  PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
+
+  @override
+  Widget build(BuildContext context) {
     final isTempMessage = _isTempMessage();
     final isGapRequired = _isGapBetweenMessagesRequired();
-    final showSenderInfo = _showSenderInfo(context);
-    final isFriendTyping = _isFriendTyping(context);
-    final hasSeenAllMessages = _hasSeenAllMessages(context);
-    final isReply = _isReply(context);
+    final showSenderInfo = _showSenderInfo();
+    final isFriendTyping = _isFriendTyping();
+    final hasSeenAllMessages = _hasSeenAllMessages();
+    final isReply = _isReply();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -45,17 +53,17 @@ class PeamanChatMessagesListItem extends StatelessWidget {
         horizontal: 20.0,
       ),
       child: GestureDetector(
-        onTap: () => onPressed?.call(message),
-        onLongPress: () => onLongPressed?.call(message),
+        onTap: () => widget.onPressed?.call(widget.message),
+        onLongPress: () => widget.onLongPressed?.call(widget.message),
         behavior: HitTestBehavior.opaque,
         child: Column(
-          crossAxisAlignment: message.senderId == appUser.uid
+          crossAxisAlignment: widget.message.senderId == appUser.uid
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
-            if (isFirstMessage)
+            if (widget.isFirstMessage)
               PeamanChatMessagesDivider(
-                message: message,
+                message: widget.message,
               ),
             if (isReply)
               const SizedBox(
@@ -67,9 +75,9 @@ class PeamanChatMessagesListItem extends StatelessWidget {
                 height: 5.0,
               ),
             PeamanChatMessageSwiper(
-              message: message,
-              enabled: message.type == PeamanMessageType.text,
-              onSwipped: onSwipped,
+              message: widget.message,
+              enabled: widget.message.type == PeamanChatMessageType.text,
+              onSwipped: widget.onSwipped,
               child: _messageBuilder(context),
             ),
             if (isGapRequired)
@@ -81,7 +89,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
               const SizedBox(
                 height: 20.0,
               ),
-            if (!isTempMessage && isLastMessage)
+            if (!isTempMessage && widget.isLastMessage)
               Row(
                 mainAxisAlignment: isFriendTyping
                     ? MainAxisAlignment.center
@@ -129,7 +137,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
       ),
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width /
-            (message.files.isNotEmpty ? 1.3 : 1.5),
+            (widget.message.files.isNotEmpty ? 1.3 : 1.5),
       ),
       decoration: BoxDecoration(
         color: isWhiteBgRequired
@@ -140,20 +148,21 @@ class PeamanChatMessagesListItem extends StatelessWidget {
                 topLeft: const Radius.circular(10.0),
                 topRight: const Radius.circular(10.0),
                 bottomLeft: Radius.circular(
-                  message.senderId == appUser.uid ? 10.0 : 0.0,
+                  widget.message.senderId == appUser.uid ? 10.0 : 0.0,
                 ),
                 bottomRight: Radius.circular(
-                  message.senderId == appUser.uid ? 0.0 : 10.0,
+                  widget.message.senderId == appUser.uid ? 0.0 : 10.0,
                 ),
               )
             : const BorderRadius.all(Radius.circular(10.0)),
       ),
+      // TODO(shrijanRegmi)
       // child: message.extraId != null
       //     ? _feedShareMessageBuilder(context, appUser)
       //     : message.files.isEmpty
       //         ? _textMessageBuilder()
       //         : _imageMessageBuilder(appUser, context),
-      child: message.files.isEmpty
+      child: widget.message.files.isEmpty
           ? _textMessageBuilder()
           : _imageMessageBuilder(appUser, context),
     );
@@ -165,7 +174,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (message.senderId != appUser.uid)
+        if (widget.message.senderId != appUser.uid)
           Container(
             width: 2.0,
             height: 20.0,
@@ -174,7 +183,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(50.0),
             ),
           ),
-        if (message.senderId != appUser.uid)
+        if (widget.message.senderId != appUser.uid)
           const SizedBox(
             width: 5.0,
           ),
@@ -184,7 +193,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width /
-                  (message.files.isNotEmpty ? 1.3 : 1.5),
+                  (widget.message.files.isNotEmpty ? 1.3 : 1.5),
             ),
             decoration: BoxDecoration(
               color: context.theme.brightness == Brightness.dark
@@ -195,7 +204,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
               ),
             ),
             child: PeamanText.body2(
-              message.parentText!.replaceAll("\n", " "),
+              widget.message.parentText!.replaceAll("\n", " "),
               limit: 100,
               withReadMore: true,
               readMoreText: 'Read',
@@ -210,11 +219,11 @@ class PeamanChatMessagesListItem extends StatelessWidget {
             ),
           ),
         ),
-        if (message.senderId == appUser.uid)
+        if (widget.message.senderId == appUser.uid)
           const SizedBox(
             width: 5.0,
           ),
-        if (message.senderId == appUser.uid)
+        if (widget.message.senderId == appUser.uid)
           Container(
             width: 2.0,
             height: 20.0,
@@ -232,7 +241,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
 
     return Opacity(
       opacity: isTempMessage || isReply ? 0.6 : 1.0,
-      child: PeamanText.body2(message.text),
+      child: PeamanText.body2(widget.message.text),
     );
   }
 
@@ -242,7 +251,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
   ) {
     final isTempMessage = _isTempMessage();
     final pictureSize = _getPictureSize();
-    final pictures = message.files
+    final pictures = widget.message.files
         .where((element) => element.type == PeamanFileType.image)
         .toList();
 
@@ -251,7 +260,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
       child: Wrap(
         runSpacing: 5.0,
         spacing: 5.0,
-        alignment: appUser.uid == message.senderId
+        alignment: appUser.uid == widget.message.senderId
             ? WrapAlignment.end
             : WrapAlignment.start,
         children: [
@@ -261,10 +270,10 @@ class PeamanChatMessagesListItem extends StatelessWidget {
                 if (isTempMessage) return;
 
                 context.navigateNamed(
-                  PeamanRoutes.viewPicturesScreen,
+                  PeamanViewPicturesScreen.route,
                   arguments: PeamanViewPicturesArgs(
                     pictures: pictures.map((e) => e.url!).toList(),
-                    activeIndex: message.files.indexOf(picture),
+                    activeIndex: widget.message.files.indexOf(picture),
                   ),
                 );
               },
@@ -292,154 +301,25 @@ class PeamanChatMessagesListItem extends StatelessWidget {
     );
   }
 
-  // Widget _feedShareMessageBuilder(
-  //   final BuildContext context,
-  //   final PeamanUser appUser,
-  // ) {
-  //   final isSentByMe = appUser.uid == message.senderId;
-
-  //   final sharedAPostWidget = Padding(
-  //     padding: const EdgeInsets.symmetric(vertical: 5.0),
-  //     child: Text(
-  //       '${isSentByMe ? 'You' : 'They'} shared a post to ${isSentByMe ? 'them' : 'you'}',
-  //       style: const TextStyle(
-  //         color: PeamanColors.grey,
-  //         fontSize: 12.0,
-  //       ),
-  //     ),
-  //   );
-
-  //   final crossAxisAlignment =
-  //       isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
-
-  //   return Column(
-  //     crossAxisAlignment: crossAxisAlignment,
-  //     children: [
-  //       const SizedBox(
-  //         height: 10.0,
-  //       ),
-  //       if (message.extraId != null)
-  //         FeedFetcher.singleFuture(
-  //           feedFuture: PFeedProvider.getSingleFeedById(
-  //             feedId: message.extraId!,
-  //           ),
-  //           loadingWidget: Container(
-  //             height: 300.0,
-  //             decoration: BoxDecoration(
-  //               color: kcExtraLightGrey,
-  //               borderRadius: BorderRadius.circular(20.0),
-  //               border: Border.all(color: kcSecondaryDark),
-  //             ),
-  //           ),
-  //           singleBuilder: (feed) {
-  //             final feedType = feed.type;
-  //             final pictures = feed.files
-  //                 .where((e) => e.type == PeamanFileType.image)
-  //                 .toList();
-  //             String? imgUrl;
-
-  //             if (feedType == PeamanFeedType.other) {
-  //               final videoId = feed.ytLink?.contains('youtu.be/') == true
-  //                   ? feed.ytLink?.split('.be/').last
-  //                   : feed.ytLink?.split('v=').last;
-  //               imgUrl = 'https://img.youtube.com/vi/$videoId/0.jpg';
-  //             } else if (pictures.isNotEmpty) {
-  //               imgUrl = pictures.first.url;
-  //             }
-
-  //             return Column(
-  //               crossAxisAlignment: crossAxisAlignment,
-  //               children: [
-  //                 GestureDetector(
-  //                   behavior: HitTestBehavior.opaque,
-  //                   onTap: () {
-  //                     if (feed.id == null) return;
-
-  //                     Navigator.pushNamed(
-  //                       context,
-  //                       AppRoutes.viewSingleFeedScreen,
-  //                       arguments: ViewSingleFeedArgs.byFeedId(
-  //                         feedId: feed.id,
-  //                       ),
-  //                     );
-  //                   },
-  //                   child: Container(
-  //                     height: 300.0,
-  //                     decoration: BoxDecoration(
-  //                       color: kcExtraLightGrey,
-  //                       borderRadius: BorderRadius.circular(20.0),
-  //                       border: Border.all(color: kcSecondaryDark),
-  //                       image: imgUrl == null
-  //                           ? null
-  //                           : DecorationImage(
-  //                               image: CachedNetworkImageProvider(imgUrl),
-  //                               fit: BoxFit.cover,
-  //                             ),
-  //                     ),
-  //                     child: feed.id == null
-  //                         ? const FeedDeleted()
-  //                         : Column(
-  //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                             crossAxisAlignment: CrossAxisAlignment.end,
-  //                             children: [
-  //                               Padding(
-  //                                 padding: const EdgeInsets.all(10.0),
-  //                                 child: Icon(
-  //                                   feedType == PeamanFeedType.file &&
-  //                                           pictures.length > 1
-  //                                       ? Icons.style
-  //                                       : feedType == PeamanFeedType.file &&
-  //                                               pictures.length == 1
-  //                                           ? Icons.insert_photo_rounded
-  //                                           : Icons.play_arrow_rounded,
-  //                                   color: kcWhite,
-  //                                 ),
-  //                               ),
-  //                               Container(
-  //                                 height: 50.0,
-  //                                 decoration: const BoxDecoration(
-  //                                   color: kcWhite,
-  //                                   borderRadius: BorderRadius.only(
-  //                                     bottomLeft: Radius.circular(20.0),
-  //                                     bottomRight: Radius.circular(20.0),
-  //                                   ),
-  //                                 ),
-  //                                 child: const Center(
-  //                                   child: Text(
-  //                                     'View Post',
-  //                                     style: TextStyle(
-  //                                       color: kcSecondaryDark,
-  //                                     ),
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                   ),
-  //                 ),
-  //                 sharedAPostWidget,
-  //               ],
-  //             );
-  //           },
-  //         ),
-  //     ],
-  //   );
-  // }
-
   Widget _senderInfo(
     final BuildContext context,
     final PeamanUser appUser,
   ) {
     return PeamanAvatarBuilder.network(
-      message.senderId == appUser.uid ? appUser.photo : friend.photo,
+      widget.message.senderId == appUser.uid
+          ? appUser.photo
+          : widget.receivers
+              .firstWhere((element) => element.uid == widget.message.senderId)
+              .photo,
       onPressed: () {
+        // TODO(shrijanRegmi)
         // if (message.senderId == appUser.uid) return;
 
         // Navigator.pushNamed(
         //   context,
         //   AppRoutes.friendProfileScreen,
         //   arguments: FriendProfileScreenArgs.byFriendId(
-        //     friendId: friend.uid,
+        //     friendId: receivers.uid,
         //   ),
         // );
       },
@@ -448,7 +328,7 @@ class PeamanChatMessagesListItem extends StatelessWidget {
 
   // get the sizes of the pictures according to the number of pictures
   double _getPictureSize() {
-    final pictures = message.files.length;
+    final pictures = widget.message.files.length;
 
     if (pictures == 1) {
       return 220.0;
@@ -463,61 +343,64 @@ class PeamanChatMessagesListItem extends StatelessWidget {
 
   // condition that defines if white background is required for a message
   bool _isWhiteBgRequired() {
-    return message.extraId == null && message.files.isEmpty;
+    return widget.message.extraId == null && widget.message.files.isEmpty;
   }
 
   // condition that defines if the message is temporary or not
   bool _isTempMessage() {
-    return message.extraData['is_temp'] ?? false;
+    return widget.message.extraData['is_temp'] ?? false;
   }
 
   // condition that defines if the gap is required between two messages
   bool _isGapBetweenMessagesRequired() {
-    return (nextMessage.senderId != message.senderId ||
-        nextMessage.id == message.id ||
-        !isMessagesSentOnSameHour);
+    return (widget.nextMessage.senderId != widget.message.senderId ||
+        widget.nextMessage.id == widget.message.id ||
+        !widget.isMessagesSentOnSameHour);
   }
 
   // condition that defines if the sender information (like picture)
-  // should be shown or not
-  bool _showSenderInfo(final BuildContext context) {
-    final appUser = context.pwatch<PeamanUser>();
-    return _isGapBetweenMessagesRequired() && message.senderId != appUser.uid;
+  bool _showSenderInfo() {
+    return _isGapBetweenMessagesRequired() &&
+        widget.message.senderId != appUser.uid;
   }
 
   // condition that defines if the other user is typing or not
-  bool _isFriendTyping(final BuildContext context) {
-    final chats = context.pwatch<List<PeamanChat>>();
-    final chat = chats.firstWhere(
-      (element) => element.id == message.chatId,
-      orElse: () => PeamanChat(),
-    );
+  bool _isFriendTyping() {
+    return false;
+    // TODO(shrijanRegmi)
+    // final chats = context.pwatch<List<PeamanChat>>();
+    // final chat = chats.firstWhere(
+    //   (element) => element.id == widget.message.chatId,
+    //   orElse: PeamanChat.new,
+    // );
 
-    return chat.typingUserIds.contains(friend.uid);
+    // return chat.typingUserIds.contains(widget.receivers.uid);
   }
 
   // condition that defines if the user has seen all the messages or not
-  bool _hasSeenAllMessages(final BuildContext context) {
-    final appUser = context.pwatch<PeamanUser>();
-    final chats = context.pwatch<List<PeamanChat>>();
+  bool _hasSeenAllMessages() {
+    return true;
+    // TODO(shrijanRegmi)
+    // final chat = ref.watch(
+    //   providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!),
+    // );
 
-    final chat = chats.firstWhere(
-      (element) => element.id == message.chatId,
-      orElse: () => PeamanChat(),
-    );
-
-    return chat.unreadMessages
-                .firstWhere(
-                  (element) => element.uid == friend.uid,
-                  orElse: () => PeamanUnreadMessage(),
-                )
-                .unreadMessagesCount ==
-            0 &&
-        message.senderId == appUser.uid;
+    // if (chat == null) {
+    //   return false;
+    // } else {
+    //   return chat.unreadMessages
+    //               .firstWhere(
+    //                 (element) => element.uid == widget.receivers.uid,
+    //                 orElse: () => PeamanUnreadMessage(),
+    //               )
+    //               .unreadMessagesCount ==
+    //           0 &&
+    //       widget.message.senderId == appUser.uid;
+    // }
   }
 
   // condition that defines if the message is the reply of another message
-  bool _isReply(final BuildContext context) {
-    return message.parentId != null && message.parentText != null;
+  bool _isReply() {
+    return widget.message.parentId != null && widget.message.parentText != null;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/auth/providers/peaman_auth_provider.dart';
+import 'package:peaman_ui_components/src/features/shared/views/screens/peaman_splash_screen.dart';
 
 class PeamanWrapper extends StatefulHookConsumerWidget {
   const PeamanWrapper({super.key});
@@ -13,10 +13,26 @@ class PeamanWrapper extends StatefulHookConsumerWidget {
 }
 
 class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ref.watch(providerOfLoggedInUserStream).when(
       data: (user) {
+        if (_isLoading) return const PeamanSplashScreen();
+
         if (user != null) {
           if (user.isOnboardingCompleted) {
             return const PeamanChatsListScreen(
@@ -32,7 +48,7 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
         return const PeamanLoginScreen();
       },
       loading: () {
-        return const PeamanLoginScreen();
+        return const PeamanSplashScreen();
       },
     );
   }

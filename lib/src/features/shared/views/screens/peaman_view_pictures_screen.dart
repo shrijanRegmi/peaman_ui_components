@@ -29,6 +29,8 @@ class PeamanViewPicturesScreen extends StatefulWidget {
     this.downloadable = true,
   }) : super(key: key);
 
+  static const route = '/peaman_view_pictures_screen';
+
   @override
   State<PeamanViewPicturesScreen> createState() => _ViewPictureScreenState();
 }

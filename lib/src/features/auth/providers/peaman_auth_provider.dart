@@ -43,6 +43,13 @@ final providerOfLoggedInUser = Provider<PeamanUser>((ref) {
   return loggedInUser!;
 });
 
+final providerOfSingleUserByIdFuture =
+    FutureProvider.family<PeamanEither<PeamanUser, PeamanError>, String>(
+  (ref, uid) {
+    return ref.watch(providerOfPeamanUserRepository).getSingleUser(uid: uid);
+  },
+);
+
 class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
   PeamanAuthProvider(final Ref ref)
       : _ref = ref,

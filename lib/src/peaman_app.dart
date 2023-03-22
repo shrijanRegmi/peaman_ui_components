@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanApp extends StatelessWidget {
@@ -19,18 +20,20 @@ class PeamanApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Peaman Example',
-      theme: theme ?? PeamanTheme.lightThemePalette,
-      darkTheme: darkTheme ?? PeamanTheme.darkThemePalette,
-      debugShowCheckedModeBanner: false,
-      initialRoute: initialRoute ?? PeamanWrapper.route,
-      onGenerateRoute: (settings) =>
-          onGenerateRoute?.call(
-            settings,
-            () => PeamanRouter.onGenerateRoute(settings),
-          ) ??
-          PeamanRouter.onGenerateRoute(settings),
+    return ProviderScope(
+      child: MaterialApp(
+        title: title,
+        theme: theme ?? PeamanTheme.lightThemePalette,
+        darkTheme: darkTheme ?? PeamanTheme.darkThemePalette,
+        debugShowCheckedModeBanner: false,
+        initialRoute: initialRoute ?? PeamanWrapper.route,
+        onGenerateRoute: (settings) =>
+            onGenerateRoute?.call(
+              settings,
+              () => PeamanRouter.onGenerateRoute(settings),
+            ) ??
+            PeamanRouter.onGenerateRoute(settings),
+      ),
     );
   }
 }

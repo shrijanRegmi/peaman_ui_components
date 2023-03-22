@@ -3,15 +3,16 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
 
 class PeamanOnboardingBasicInfoStep extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController userNameController;
   final Function() onImagePick;
   final Function() onCountryPick;
-  final PeamanPicture? profileImg;
-  final double profileImgUploadProgress;
-  final bool profileImgUploadCompleted;
+  final PeamanFileUrlExtended? profilePicture;
+  final double profilePictureUploadProgress;
+  final bool isProfilePictureUploaded;
   final String? country;
 
   const PeamanOnboardingBasicInfoStep({
@@ -20,9 +21,9 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
     required this.userNameController,
     required this.onImagePick,
     required this.onCountryPick,
-    this.profileImg,
-    this.profileImgUploadProgress = 0.0,
-    this.profileImgUploadCompleted = true,
+    this.profilePicture,
+    this.profilePictureUploadProgress = 0.0,
+    this.isProfilePictureUploaded = true,
     this.country,
   }) : super(key: key);
 
@@ -77,16 +78,16 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
       width: 120.0,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: profileImg != null ? null : PeamanColors.extraLightGrey,
-        image: profileImg == null
+        color: profilePicture != null ? null : PeamanColors.extraLightGrey,
+        image: profilePicture == null
             ? null
             : DecorationImage(
-                image: profileImg!.type == PeamanPictureType.file
+                image: profilePicture!.isLocal
                     ? FileImage(
-                        File(profileImg!.path),
+                        File(profilePicture!.url),
                       ) as ImageProvider
                     : CachedNetworkImageProvider(
-                        profileImg!.path,
+                        profilePicture!.url,
                       ),
                 fit: BoxFit.cover,
               ),
@@ -105,10 +106,10 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  profileImg == null
+                  profilePicture == null
                       ? profileImgWidget
                       : Hero(
-                          tag: profileImg!.path,
+                          tag: profilePicture!.url,
                           child: profileImgWidget,
                         ),
                   const Icon(
@@ -123,13 +124,13 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
           height: 20.0,
         ),
         Visibility(
-          visible: !profileImgUploadCompleted,
+          visible: !isProfilePictureUploaded,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 50.0,
             ),
             child: PeamanProgressBuilder(
-              profileImgUploadProgress * 100.0,
+              profilePictureUploadProgress * 100.0,
               thickness: 4.0,
             ),
           ),

@@ -7,9 +7,9 @@ class PeamanFileUrlExtended implements PeamanFileUrl {
   @override
   final PeamanFileType type;
 
-  final bool isLocal;
+  bool isLocal;
 
-  const PeamanFileUrlExtended({
+  PeamanFileUrlExtended({
     required this.url,
     required this.type,
     required this.isLocal,

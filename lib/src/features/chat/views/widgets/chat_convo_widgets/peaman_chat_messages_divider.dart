@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatMessagesDivider extends StatelessWidget {
-  final PeamanMessage message;
+  final PeamanChatMessage message;
   const PeamanChatMessagesDivider({
     Key? key,
     required this.message,
