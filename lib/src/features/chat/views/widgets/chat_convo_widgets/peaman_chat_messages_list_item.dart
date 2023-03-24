@@ -126,7 +126,7 @@ class _PeamanChatMessagesListItemState
   }
 
   Widget _messageBuilder(final BuildContext context) {
-    final appUser = context.pwatch<PeamanUser>();
+    final appUser = ref.watch(providerOfLoggedInUser);
 
     final isWhiteBgRequired = _isWhiteBgRequired();
     final isGapRequired = _isGapBetweenMessagesRequired();
@@ -169,7 +169,7 @@ class _PeamanChatMessagesListItemState
   }
 
   Widget _replyBuilder(final BuildContext context) {
-    final appUser = context.pwatch<PeamanUser>();
+    final appUser = ref.watch(providerOfLoggedInUser);
 
     return Row(
       mainAxisSize: MainAxisSize.min,

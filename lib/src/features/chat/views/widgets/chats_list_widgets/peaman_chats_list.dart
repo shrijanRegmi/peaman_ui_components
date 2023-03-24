@@ -107,6 +107,7 @@ class PeamanChatsList extends ConsumerWidget {
         PeamanChatConversationScreen.route,
         arguments: PeamanChatConversationArgs(
           chatId: chat.id!,
+          chatType: chat.type,
           receivers: [user],
         ),
       );

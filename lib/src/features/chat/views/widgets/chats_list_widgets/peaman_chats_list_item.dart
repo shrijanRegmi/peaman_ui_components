@@ -87,7 +87,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   }
 
   Widget _headerBuilder(final PeamanUser user) {
-    final appUser = context.pread<PeamanUser>();
+    final appUser = ref.watch(providerOfLoggedInUser);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

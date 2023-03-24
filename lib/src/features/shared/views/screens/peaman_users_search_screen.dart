@@ -9,17 +9,22 @@ import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_er
 
 class PeamanUsersSearchArgs {
   final bool searchUsersGlobally;
+  final Function(PeamanUser)? onPressedUser;
 
   PeamanUsersSearchArgs({
     this.searchUsersGlobally = false,
+    this.onPressedUser,
   });
 }
 
 class PeamanUsersSearchScreen extends StatefulHookConsumerWidget {
   final bool searchUsersGlobally;
+  final Function(PeamanUser)? onPressedUser;
+
   const PeamanUsersSearchScreen({
     super.key,
     this.searchUsersGlobally = false,
+    this.onPressedUser,
   });
 
   static const route = '/peaman_users_search_screen';
@@ -153,7 +158,7 @@ class _PeamanUsersSearchScreenState
             }
             return PeamanUsersList.expandedByUsers(
               users: filteredUsers,
-              onPressedUser: (user) {},
+              onPressedUser: (user) => widget.onPressedUser?.call(user),
             );
           },
           (failure) => PeamanErrorBuilder(

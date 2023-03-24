@@ -31,6 +31,7 @@ class PeamanRouter {
           settings,
           PeamanChatConversationScreen(
             chatId: arguments.chatId,
+            chatType: arguments.chatType,
             receivers: arguments.receivers,
           ),
         );
@@ -41,6 +42,7 @@ class PeamanRouter {
           settings,
           PeamanUsersSearchScreen(
             searchUsersGlobally: arguments?.searchUsersGlobally ?? false,
+            onPressedUser: arguments?.onPressedUser,
           ),
         );
       case PeamanViewPicturesScreen.route:

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
-class PeamanChatsListScreen extends ConsumerWidget {
+class PeamanChatsListScreen extends ConsumerStatefulWidget {
   final bool searchUsersGlobally;
 
   const PeamanChatsListScreen({
@@ -13,7 +14,13 @@ class PeamanChatsListScreen extends ConsumerWidget {
   static const route = '/peaman_chats_list_screen';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PeamanChatsListScreen> createState() =>
+      _PeamanChatsListScreenState();
+}
+
+class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
@@ -42,7 +49,32 @@ class PeamanChatsListScreen extends ConsumerWidget {
                   context.pushNamed(
                     PeamanUsersSearchScreen.route,
                     arguments: PeamanUsersSearchArgs(
-                      searchUsersGlobally: searchUsersGlobally,
+                      searchUsersGlobally: widget.searchUsersGlobally,
+                      onPressedUser: (user) {
+                        final chatsStream =
+                            ref.read(providerOfPeamanUserChatsStream);
+                        chatsStream.maybeWhen(
+                          data: (data) {
+                            final chat = data.firstWhere(
+                              (element) =>
+                                  element.userIds.contains(user.uid) &&
+                                  element.type == PeamanChatType.oneToOne,
+                              orElse: () => PeamanChat(
+                                id: PeamanReferenceHelper.uniqueId,
+                              ),
+                            );
+                            context.pushNamed(
+                              PeamanChatConversationScreen.route,
+                              arguments: PeamanChatConversationArgs(
+                                chatId: chat.id!,
+                                chatType: chat.type,
+                                receivers: [user],
+                              ),
+                            );
+                          },
+                          orElse: () {},
+                        );
+                      },
                     ),
                   );
                 },

@@ -1,9 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatMessageSwiper extends StatefulWidget {
+class PeamanChatMessageSwiper extends ConsumerStatefulWidget {
   final PeamanChatMessage message;
   final Widget child;
   final bool enabled;
@@ -18,16 +19,17 @@ class PeamanChatMessageSwiper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PeamanChatMessageSwiper> createState() =>
+  ConsumerState<PeamanChatMessageSwiper> createState() =>
       _PeamanChatMessageSwiperState();
 }
 
-class _PeamanChatMessageSwiperState extends State<PeamanChatMessageSwiper> {
+class _PeamanChatMessageSwiperState
+    extends ConsumerState<PeamanChatMessageSwiper> {
   int _count = 0;
 
   @override
   Widget build(BuildContext context) {
-    final appUser = context.pwatch<PeamanUser>();
+    final appUser = ref.watch(providerOfLoggedInUser);
 
     if (!widget.enabled) return widget.child;
 

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final double height;
 
   const PeamanAppbar({
     super.key,
     required this.title,
+    this.height = kToolbarHeight - 10,
   });
 
   @override
@@ -34,5 +37,5 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => Size.fromHeight(height.h);
 }
