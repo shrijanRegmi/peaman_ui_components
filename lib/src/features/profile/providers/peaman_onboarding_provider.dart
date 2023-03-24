@@ -246,6 +246,10 @@ class PeamanOnboardingProvider
           key: 'onboardingStep',
           value: state.onboardingStep + 1,
         ),
+        PeamanField(
+          key: 'searchKeys',
+          value: _getSearchKeys(),
+        ),
       ],
     );
     state = result.when(
@@ -294,6 +298,10 @@ class PeamanOnboardingProvider
           key: 'bio',
           value: state.bioController.text.trim(),
         ),
+        PeamanField.positivePartial(
+          key: 'searchKeys',
+          value: _getSearchKeys(),
+        ),
         const PeamanField(
           key: 'isOnboardingCompleted',
           value: true,
@@ -308,6 +316,50 @@ class PeamanOnboardingProvider
         updateOnboardingInfoState: UpdateOnboardingInfoState.error(failure),
       ),
     );
+  }
+
+  List<String> _getSearchKeys() {
+    var searchKeys = <String>[];
+    final name = state.nameController.text.trim();
+    final userName = state.usernameController.text.trim();
+    final bio = state.bioController.text.trim();
+    final bios = bio.split(' ');
+
+    // split letters of name
+    for (int i = 0; i < name.length; i++) {
+      final letter = name.substring(0, i + 1);
+      if (!searchKeys.contains(letter.toUpperCase())) {
+        searchKeys.add(letter.toUpperCase());
+      }
+    }
+    //
+
+    // split letters of userName
+    for (int i = 0; i < userName.length; i++) {
+      final letter = userName.substring(0, i + 1);
+      if (!searchKeys.contains(letter.toUpperCase())) {
+        searchKeys.add(letter.toUpperCase());
+      }
+    }
+    //
+
+    // split letters of bio
+    for (int i = 0; i < bios.length; i++) {
+      for (int j = 0; j < bios[i].length; j++) {
+        final letter = bios[i].substring(0, j + 1);
+        if (!searchKeys.contains(letter.toUpperCase())) {
+          searchKeys.add(letter.toUpperCase());
+        }
+      }
+    }
+    //
+
+    return searchKeys
+        .where((element) =>
+            element.trim() != '' &&
+            element.trim() != ',' &&
+            element.trim() != '.')
+        .toList();
   }
 
   void setOnboardingStep(final int newVal) {
