@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
 class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   final PeamanChatMessage message;
@@ -269,7 +270,7 @@ class _PeamanChatMessagesListItemState
               onTap: () {
                 if (isTempMessage) return;
 
-                context.navigateNamed(
+                context.pushNamed(
                   PeamanViewPicturesScreen.route,
                   arguments: PeamanViewPicturesArgs(
                     pictures: pictures.map((e) => e.url!).toList(),
@@ -348,7 +349,7 @@ class _PeamanChatMessagesListItemState
 
   // condition that defines if the message is temporary or not
   bool _isTempMessage() {
-    return widget.message.extraData['is_temp'] ?? false;
+    return widget.message.isTemp;
   }
 
   // condition that defines if the gap is required between two messages
@@ -366,20 +367,19 @@ class _PeamanChatMessagesListItemState
 
   // condition that defines if the other user is typing or not
   bool _isFriendTyping() {
-    return false;
-    // TODO(shrijanRegmi)
-    // final chats = context.pwatch<List<PeamanChat>>();
-    // final chat = chats.firstWhere(
-    //   (element) => element.id == widget.message.chatId,
-    //   orElse: PeamanChat.new,
-    // );
+    final chat = ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(
+        widget.message.chatId!,
+      ),
+    );
+    if (chat == null) return false;
 
-    // return chat.typingUserIds.contains(widget.receivers.uid);
+    return chat.typingUserIds.contains(widget.receivers.first.uid);
   }
 
   // condition that defines if the user has seen all the messages or not
   bool _hasSeenAllMessages() {
-    return true;
+    return false;
     // TODO(shrijanRegmi)
     // final chat = ref.watch(
     //   providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!),

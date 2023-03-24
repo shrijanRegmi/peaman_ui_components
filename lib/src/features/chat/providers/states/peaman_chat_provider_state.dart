@@ -25,6 +25,7 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
         final ArchiveChatState archiveChatState,
     @Default(SetTypingStatusState.initial())
         final SetTypingStatusState setTypingStatusState,
+    @Default(<PeamanChatMessage>[]) final List<PeamanChatMessage> tempMessages,
   }) = _PeamanChatProviderState;
 }
 

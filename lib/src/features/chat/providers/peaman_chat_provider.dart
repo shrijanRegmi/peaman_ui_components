@@ -10,9 +10,9 @@ import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_c
 import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
 final providerOfPeamanChat =
-    StateNotifierProvider<PeamanChatProvider, PeamanChatProviderState>(
-  PeamanChatProvider.new,
-);
+    StateNotifierProvider<PeamanChatProvider, PeamanChatProviderState>((ref) {
+  return PeamanChatProvider(ref);
+});
 
 final providerOfPeamanUserChatsStream = StreamProvider<List<PeamanChat>>((ref) {
   final appUser = ref.watch(providerOfLoggedInUser);
@@ -107,8 +107,29 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       return;
     }
 
+    final millis = DateTime.now().millisecondsSinceEpoch;
+    var message = PeamanChatMessage(
+      chatId: chatId,
+      senderId: appUser.uid,
+      senderName: appUser.name,
+      receiverIds: receiverIds,
+      files: state.files,
+      text: state.messageController.text.trim(),
+      type: state.messageController.text.trim().isEmpty
+          ? PeamanChatMessageType.file
+          : PeamanChatMessageType.text,
+      isTemp: true,
+      createdAt: millis,
+      updatedAt: millis,
+    );
+    if (message.type == PeamanChatMessageType.file) addToTempMessages(message);
+
+    final localFiles = state.files.where((element) => element.isLocal).toList();
+    clearValues();
+
     final filesResult = await _uploadLocalFiles(
       chatId: chatId,
+      localFiles: localFiles,
     );
     if (filesResult.isFailure) {
       state = state.copyWith(
@@ -117,16 +138,9 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       return;
     }
 
-    final message = PeamanChatMessage(
-      chatId: chatId,
-      senderId: appUser.uid,
-      senderName: appUser.name,
-      receiverIds: receiverIds,
+    message = message.copyWith(
       files: filesResult.success,
-      text: state.messageController.text.trim(),
-      type: state.messageController.text.trim().isEmpty
-          ? PeamanChatMessageType.file
-          : PeamanChatMessageType.text,
+      isTemp: false,
     );
 
     state = state.copyWith(
@@ -143,6 +157,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         sendMessageState: SendMessageState.error(failure),
       ),
     );
+    removeFromToTempMessages(message);
   }
 
   Future<void> unsendMessage({
@@ -213,7 +228,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   Future<void> readChat({
     required final String chatId,
   }) async {
-    final chat = getSingleChat(chatId, readOnly: false);
+    final chat = getSingleChat(chatId, readOnly: true);
     if (chat != null) {
       final unreadMessages = chat.unreadMessages
           .firstWhere(
@@ -344,10 +359,17 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<PeamanEither<List<PeamanFileUrl>, PeamanError>> _uploadLocalFiles({
     required final String chatId,
+    required final List<PeamanFileUrlExtended> localFiles,
   }) async {
     final filesEithers = await Future.wait([
-      _uploadLocalImages(chatId: chatId),
-      _uploadLocalVideos(chatId: chatId),
+      _uploadLocalImages(
+        chatId: chatId,
+        localFiles: localFiles,
+      ),
+      _uploadLocalVideos(
+        chatId: chatId,
+        localFiles: localFiles,
+      ),
     ]);
 
     var files = <PeamanFileUrl>[];
@@ -374,18 +396,19 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<PeamanEither<List<PeamanFileUrl>, PeamanError>> _uploadLocalImages({
     required final String chatId,
+    required final List<PeamanFileUrlExtended> localFiles,
   }) async {
-    final localFiles = state.files
+    final files = localFiles
         .where(
           (element) => element.isLocal && element.type == PeamanFileType.image,
         )
         .toList();
 
-    if (localFiles.isNotEmpty) {
+    if (files.isNotEmpty) {
       final result = await _storageRepository.uploadFiles(
         path: 'users/${appUser.uid}/chats/$chatId',
         fileName: '${appUser.name?.split(' ').join('_').toLowerCase()}.jpg',
-        files: localFiles.map((e) => File(e.url)).toList(),
+        files: files.map((e) => File(e.url)).toList(),
       );
       return result.when(
         (success) {
@@ -408,18 +431,19 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<PeamanEither<List<PeamanFileUrl>, PeamanError>> _uploadLocalVideos({
     required final String chatId,
+    required final List<PeamanFileUrlExtended> localFiles,
   }) async {
-    final localFiles = state.files
+    final files = localFiles
         .where(
           (element) => element.isLocal && element.type == PeamanFileType.video,
         )
         .toList();
 
-    if (localFiles.isNotEmpty) {
+    if (files.isNotEmpty) {
       final result = await _storageRepository.uploadFiles(
         path: 'users/${appUser.uid}/chats/$chatId',
         fileName: '${appUser.name?.split(' ').join('_').toLowerCase()}.jpg',
-        files: localFiles.map((e) => File(e.url)).toList(),
+        files: files.map((e) => File(e.url)).toList(),
       );
       return result.when(
         (success) {
@@ -485,6 +509,13 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     }
   }
 
+  void clearValues() {
+    state = state.copyWith(
+      messageController: state.messageController..text = '',
+      files: [],
+    );
+  }
+
   void addToFiles(final PeamanFileUrlExtended newVal) {
     state = state.copyWith(
       files: [...state.files, newVal],
@@ -494,6 +525,18 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   void removeFromFiles(final PeamanFileUrlExtended newVal) {
     state = state.copyWith(
       files: state.files.where((e) => e.url != newVal.url).toList(),
+    );
+  }
+
+  void addToTempMessages(final PeamanChatMessage newVal) {
+    state = state.copyWith(
+      tempMessages: [...state.tempMessages, newVal],
+    );
+  }
+
+  void removeFromToTempMessages(final PeamanChatMessage newVal) {
+    state = state.copyWith(
+      tempMessages: state.tempMessages.where((e) => e.id != newVal.id).toList(),
     );
   }
 }

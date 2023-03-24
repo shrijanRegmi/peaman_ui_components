@@ -36,6 +36,7 @@ class PeamanChatMessagesList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(providerOfPeamanChat);
     if (messages != null) {
       if (messages!.isEmpty) return _emptyBuilder();
       return _dataBuilder(context, messages!);
@@ -46,8 +47,9 @@ class PeamanChatMessagesList extends ConsumerWidget {
     );
     return messagesStream.when(
       data: (data) {
-        if (data.isEmpty) return _emptyBuilder();
-        return _dataBuilder(context, data);
+        final messages = [...state.tempMessages, ...data];
+        if (messages.isEmpty) return _emptyBuilder();
+        return _dataBuilder(context, messages);
       },
       error: (e, _) => _errorBuilder(e.toString()),
       loading: () => _loadingBuilder(),

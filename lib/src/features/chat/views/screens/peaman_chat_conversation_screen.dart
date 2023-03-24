@@ -33,7 +33,7 @@ class PeamanChatConversationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(providerOfPeamanChat.notifier);
-    final chat = notifier.getSingleChat(chatId, readOnly: false) ??
+    final chat = ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId)) ??
         PeamanChat(id: chatId, type: chatType);
 
     notifier.readChat(chatId: chatId);

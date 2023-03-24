@@ -20,7 +20,7 @@ class PeamanSpinner extends StatelessWidget {
         width: size,
         height: size,
         child: CircularProgressIndicator(
-          color: color ?? context.theme.colorScheme.primary,
+          color: color,
           strokeWidth: strokeWidth,
         ),
       ),

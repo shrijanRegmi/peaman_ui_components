@@ -313,7 +313,11 @@ class _PTextState extends State<PeamanText> {
           onTap: widget.onPressed,
           child: LinkifyText(
             _limitedText(),
-            textStyle: widget.defaultStyle.merge(widget.style),
+            textStyle: TextStyle(
+              color: context.theme.textTheme.bodyMedium!.color,
+            ).merge(
+              widget.defaultStyle.merge(widget.style),
+            ),
             textAlign: widget.textAlign,
             linkStyle: !widget.linkify
                 ? widget.defaultStyle.merge(widget.style)

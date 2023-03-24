@@ -205,9 +205,11 @@ class _PeamanChatMessageInputState
           padding: const EdgeInsets.only(bottom: 2.0),
           child: Transform.rotate(
             angle: -pi / 2,
-            child: const Icon(
+            child: Icon(
               Icons.send,
-              color: PeamanColors.white,
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : PeamanColors.white,
               size: 15.0,
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peaman_ui_components/src/utils/peaman_colors.dart';
 
 class PeamanTextStyles {
   static const heading1 = TextStyle(
