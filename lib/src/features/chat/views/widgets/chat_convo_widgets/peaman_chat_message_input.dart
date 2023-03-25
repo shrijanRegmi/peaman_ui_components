@@ -10,6 +10,7 @@ import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_c
 
 class PeamanChatMessageInput extends ConsumerStatefulWidget {
   final String chatId;
+  final PeamanChatType chatType;
   final List<String> receiverIds;
   final TextEditingController? messageController;
   final PeamanChatMessage? messageToReply;
@@ -24,6 +25,7 @@ class PeamanChatMessageInput extends ConsumerStatefulWidget {
   const PeamanChatMessageInput({
     super.key,
     required this.chatId,
+    required this.chatType,
     required this.receiverIds,
     this.messageController,
     this.files,
@@ -199,11 +201,13 @@ class _PeamanChatMessageInputState
           widget.onPressedSend?.call(
             () => notifier.sendMessage(
               chatId: widget.chatId,
+              chatType: widget.chatType,
               receiverIds: widget.receiverIds,
             ),
           ) ??
           notifier.sendMessage(
             chatId: widget.chatId,
+            chatType: widget.chatType,
             receiverIds: widget.receiverIds,
           ),
       behavior: HitTestBehavior.opaque,

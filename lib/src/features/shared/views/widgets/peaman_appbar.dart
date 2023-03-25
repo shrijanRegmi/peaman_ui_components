@@ -5,11 +5,13 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final double height;
+  final Function(Function())? onPressedLeading;
 
   const PeamanAppbar({
     super.key,
     required this.title,
     this.height = kToolbarHeight - 10,
+    this.onPressedLeading,
   });
 
   @override
@@ -30,7 +32,9 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
           Icons.arrow_back_ios_new_rounded,
         ),
         iconSize: 20.0,
-        onPressed: () => context.pop(),
+        onPressed: () => onPressedLeading == null
+            ? context.pop()
+            : onPressedLeading?.call(() => context.pop()),
       ),
       centerTitle: true,
     );

@@ -139,7 +139,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
         loading: () => true,
         orElse: () => false,
       ),
-      onPressed: notifier.signInWithEmailAndPassword,
+      onPressed: () {
+        context.unfocus();
+        notifier.signInWithEmailAndPassword();
+      },
     );
   }
 
@@ -200,7 +203,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
                 loading: () => true,
                 orElse: () => false,
               ),
-              onPressed: notifier.signInWithGoogle,
+              onPressed: () {
+                context.unfocus();
+                notifier.signInWithGoogle();
+              },
             ),
           ),
           const SizedBox(
@@ -225,7 +231,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
                 loading: () => true,
                 orElse: () => false,
               ),
-              onPressed: notifier.signInWithFacebook,
+              onPressed: () {
+                context.unfocus();
+                notifier.signInWithFacebook();
+              },
             ),
           ),
         ],

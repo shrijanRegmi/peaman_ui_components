@@ -19,6 +19,16 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(providerOfPeamanAuth, (previous, next) {
+      if (next.signUpWithEmailPasswordState !=
+          previous?.signUpWithEmailPasswordState) {
+        next.signUpWithEmailPasswordState.maybeWhen(
+          success: (success) => context.pop(),
+          orElse: () {},
+        );
+      }
+    });
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -130,7 +140,10 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
         loading: () => true,
         orElse: () => false,
       ),
-      onPressed: notifier.signUpWithEmailAndPassword,
+      onPressed: () {
+        context.unfocus();
+        notifier.signUpWithEmailAndPassword();
+      },
     );
   }
 
@@ -191,7 +204,10 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
                 loading: () => true,
                 orElse: () => false,
               ),
-              onPressed: notifier.signInWithGoogle,
+              onPressed: () {
+                context.unfocus();
+                notifier.signInWithGoogle();
+              },
             ),
           ),
           const SizedBox(
@@ -216,7 +232,10 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
                 loading: () => true,
                 orElse: () => false,
               ),
-              onPressed: notifier.signInWithFacebook,
+              onPressed: () {
+                context.unfocus();
+                notifier.signInWithFacebook();
+              },
             ),
           ),
         ],

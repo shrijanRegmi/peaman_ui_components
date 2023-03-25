@@ -8,8 +8,8 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class PeamanChatsListItem extends ConsumerStatefulWidget {
   final PeamanChat chat;
-  final Function(PeamanChat, PeamanUser)? onPressed;
-  final Function(PeamanChat, PeamanUser)? onLongPressed;
+  final Function(PeamanChat)? onPressed;
+  final Function(PeamanChat)? onLongPressed;
 
   const PeamanChatsListItem({
     super.key,
@@ -44,14 +44,8 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   Widget _usersDataBuilder(final List<PeamanUser> users) {
     // TODO(shrijanRegmi): fix for multiple users
     return GestureDetector(
-      onTap: () => widget.onPressed?.call(
-        widget.chat,
-        users.first,
-      ),
-      onLongPress: () => widget.onLongPressed?.call(
-        widget.chat,
-        users.first,
-      ),
+      onTap: () => widget.onPressed?.call(widget.chat),
+      onLongPress: () => widget.onLongPressed?.call(widget.chat),
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -61,7 +55,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _headerBuilder(users.first),
+            _headerBuilder(users),
             const SizedBox(
               height: 10.0,
             ),
@@ -86,23 +80,28 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
     return const SizedBox();
   }
 
-  Widget _headerBuilder(final PeamanUser user) {
+  Widget _headerBuilder(final List<PeamanUser> users) {
     final appUser = ref.watch(providerOfLoggedInUser);
+    final remaining = widget.chat.userIds.length - 2;
+    final avatars = [
+      ...users.map((e) => e.photo).toList(),
+      if (widget.chat.type == PeamanChatType.group) appUser.photo,
+    ]..shuffle();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
-            PeamanAvatarBuilder.network(
+            PeamanAvatarBuilder.multiNetwork(
               // TODO(shrijanRegmi)
               // CommonHelper.isUserInfoHidden(context, user: user)
               //     ? null
               //     : user.photo,
-              user.photo,
+              avatars,
               size: 45.0,
               onPressed: () {
-                if (user.uid == appUser.uid) return;
                 // TODO(shrijanRegmi)
+                // if (user.uid == appUser.uid) return;
                 // Navigator.pushNamed(
                 //   context,
                 //   AppRoutes.friendProfileScreen,
@@ -112,15 +111,19 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                 // );
               },
             ),
-            const SizedBox(
-              width: 5.0,
+            SizedBox(
+              width: avatars.length >= 3 ? 10.0 : 5.0,
             ),
             PeamanText.body2(
               // TODO(shrijanRegmi)
               // CommonHelper.isUserInfoHidden(context, user: user)
               //     ? 'App User'
               //     : user.name,
-              user.name,
+              users.isEmpty
+                  ? 'Group Chat'
+                  : remaining == 0
+                      ? '${users.first.name}'
+                      : '${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
               style: const TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,

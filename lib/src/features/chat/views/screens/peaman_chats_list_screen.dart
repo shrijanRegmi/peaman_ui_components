@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
+import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 
 class PeamanChatsListScreen extends ConsumerStatefulWidget {
   final bool searchUsersGlobally;
@@ -60,7 +62,7 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                                   element.userIds.contains(user.uid) &&
                                   element.type == PeamanChatType.oneToOne,
                               orElse: () => PeamanChat(
-                                id: PeamanReferenceHelper.uniqueId,
+                                id: PeamanReferenceHelper().uniqueId,
                               ),
                             );
                             context.pushNamed(
@@ -80,6 +82,15 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                 },
               ),
             ),
+            PeamanRoundIconButton(
+              onPressed: () {
+                ref.read(providerOfPeamanAuth.notifier).signOut();
+              },
+              icon: Icon(
+                Icons.logout,
+                size: 20.w,
+              ),
+            ).pB(10).pR(10),
           ],
         ),
       ),

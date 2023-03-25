@@ -16,7 +16,7 @@ class PeamanChatConversationArgs {
   });
 }
 
-class PeamanChatConversationScreen extends ConsumerWidget {
+class PeamanChatConversationScreen extends ConsumerStatefulWidget {
   final String chatId;
   final PeamanChatType chatType;
   final List<String> receiverIds;
@@ -31,45 +31,85 @@ class PeamanChatConversationScreen extends ConsumerWidget {
   static const route = '/peaman_chat_conversation_screen';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(providerOfPeamanChat.notifier);
-    final chat = ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId)) ??
-        PeamanChat(id: chatId, type: chatType);
+  ConsumerState<PeamanChatConversationScreen> createState() =>
+      _PeamanChatConversationScreenState();
+}
 
-    // notifier.readChat(chatId: chatId);
+class _PeamanChatConversationScreenState
+    extends ConsumerState<PeamanChatConversationScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      if (mounted) {
+        ref.read(providerOfPeamanChat.notifier).readChat(chatId: widget.chatId);
+      }
+    });
+  }
 
-    final receiverFuture = ref.watch(
-      providerOfSingleUserByIdFuture(receiverIds.first),
+  @override
+  Widget build(BuildContext context) {
+    final chat =
+        ref.watch(providerOfSinglePeamanChatFromChatsStream(widget.chatId));
+
+    if (chat != null) {
+      ref.listen(providerOfSinglePeamanChatFromChatsStream(widget.chatId),
+          (previous, next) {
+        ref.read(providerOfPeamanChat.notifier).readChat(chatId: widget.chatId);
+      });
+    }
+
+    final usersFuture = ref.watch(
+      providerOfPeamanChatUsersFuture(widget.receiverIds),
     );
 
-    return Scaffold(
-      appBar: PeamanAppbar(
-        title: chat.type == PeamanChatType.oneToOne
-            ? receiverFuture.maybeWhen(
-                data: (data) {
-                  return data.when(
-                    (success) => '${success.name}',
-                    (failure) => 'Unknown',
-                  );
-                },
-                orElse: () => 'Unknown',
-              )
-            : 'Group Chat',
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        behavior: HitTestBehavior.opaque,
-        child: PeamanChatMessagesList(
-          chatId: chatId,
-          receiverIds: receiverIds,
-          onSwippedMessage: (message, user, func) {},
+    return WillPopScope(
+      onWillPop: () async {
+        ref.read(providerOfPeamanChat.notifier)
+          ..setTypingStatus(chatId: widget.chatId, typedValue: '')
+          ..clearValues();
+        return true;
+      },
+      child: Scaffold(
+        appBar: PeamanAppbar(
+          title: usersFuture.maybeWhen(
+            data: (data) {
+              final remaining = widget.receiverIds.length - 1;
+              return data.when(
+                (success) => success.isEmpty
+                    ? 'Chat Conversation'
+                    : remaining == 0
+                        ? '${success.first.name}'
+                        : '${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+                (failure) => 'Unknown',
+              );
+            },
+            loading: () => 'Loading...',
+            orElse: () => 'Unknown',
+          ),
+          onPressedLeading: (def) {
+            ref.read(providerOfPeamanChat.notifier)
+              ..setTypingStatus(chatId: widget.chatId, typedValue: '')
+              ..clearValues();
+            def();
+          },
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: PeamanChatMessageInput(
-          chatId: chatId,
-          receiverIds: receiverIds,
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          behavior: HitTestBehavior.opaque,
+          child: PeamanChatMessagesList(
+            chatId: widget.chatId,
+            receiverIds: widget.receiverIds,
+            onSwippedMessage: (message, user, func) {},
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: PeamanChatMessageInput(
+            chatId: widget.chatId,
+            chatType: widget.chatType,
+            receiverIds: widget.receiverIds,
+          ),
         ),
       ),
     );

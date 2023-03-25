@@ -3,15 +3,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
-class PeamanChatsList extends ConsumerWidget {
+class PeamanChatsList extends ConsumerStatefulWidget {
   final List<PeamanChat>? chats;
   final ScrollController? controller;
   final Widget? loadingWidget;
   final Widget? emptyWidget;
   final Widget Function(BuildContext, int)? itemBuilder;
   final Widget Function(BuildContext, List<PeamanChat>)? listBuilder;
-  final Function(PeamanChat, PeamanUser, Function())? onPressedChat;
-  final Function(PeamanChat, PeamanUser, Function())? onLongPressedChat;
+  final Function(PeamanChat, Function())? onPressedChat;
+  final Function(PeamanChat, Function())? onLongPressedChat;
 
   const PeamanChatsList({
     super.key,
@@ -26,10 +26,15 @@ class PeamanChatsList extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (chats != null) {
-      if (chats!.isEmpty) return _emptyBuilder();
-      return _dataBuilder(context, chats!);
+  ConsumerState<PeamanChatsList> createState() => _PeamanChatsListState();
+}
+
+class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.chats != null) {
+      if (widget.chats!.isEmpty) return _emptyBuilder();
+      return _dataBuilder(context, widget.chats!);
     }
 
     final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
@@ -47,40 +52,39 @@ class PeamanChatsList extends ConsumerWidget {
     final BuildContext context,
     final List<PeamanChat> chats,
   ) {
-    return listBuilder?.call(context, chats) ??
+    return widget.listBuilder?.call(context, chats) ??
         ListView.builder(
           itemCount: chats.length,
           physics: const BouncingScrollPhysics(),
-          itemBuilder: itemBuilder ??
+          itemBuilder: widget.itemBuilder ??
               (context, index) {
                 final chat = chats[index];
-                final widget = PeamanChatsListItem(
+                final chatItemWidget = PeamanChatsListItem(
                   chat: chat,
-                  onPressed: (chat, user) =>
-                      onPressedChat?.call(
+                  onPressed: (chat) =>
+                      widget.onPressedChat?.call(
                         chat,
-                        user,
-                        () => _gotoChatConvoScreen(context, chat, user),
+                        () => _gotoChatConvoScreen(context, chat),
                       ) ??
-                      _gotoChatConvoScreen(context, chat, user),
-                  onLongPressed: (chat, user) =>
-                      onLongPressedChat?.call(chat, user, () {}),
+                      _gotoChatConvoScreen(context, chat),
+                  onLongPressed: (chat) =>
+                      widget.onLongPressedChat?.call(chat, () {}),
                 );
 
                 if (index == 0) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 10.0),
-                    child: widget,
+                    child: chatItemWidget,
                   );
                 }
 
-                return widget;
+                return chatItemWidget;
               },
         );
   }
 
   Widget _emptyBuilder() {
-    return emptyWidget ??
+    return widget.emptyWidget ??
         const PeamanEmptyBuilder(
           title: "No chats found!",
           subTitle:
@@ -89,7 +93,7 @@ class PeamanChatsList extends ConsumerWidget {
   }
 
   Widget _loadingBuilder() {
-    return loadingWidget ?? const PeamanSpinner();
+    return widget.loadingWidget ?? const PeamanSpinner();
   }
 
   Widget _errorBuilder(final String message) {
@@ -101,14 +105,15 @@ class PeamanChatsList extends ConsumerWidget {
   void _gotoChatConvoScreen(
     final BuildContext context,
     final PeamanChat chat,
-    final PeamanUser user,
-  ) =>
-      context.pushNamed(
-        PeamanChatConversationScreen.route,
-        arguments: PeamanChatConversationArgs(
-          chatId: chat.id!,
-          chatType: chat.type,
-          receiverIds: [user.uid!],
-        ),
-      );
+  ) {
+    final appUser = ref.watch(providerOfLoggedInUser);
+    context.pushNamed(
+      PeamanChatConversationScreen.route,
+      arguments: PeamanChatConversationArgs(
+        chatId: chat.id!,
+        chatType: chat.type,
+        receiverIds: chat.userIds.where((e) => e != appUser.uid).toList(),
+      ),
+    );
+  }
 }

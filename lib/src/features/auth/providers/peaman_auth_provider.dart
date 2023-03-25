@@ -34,7 +34,7 @@ final providerOfLoggedInUserStream = StreamProvider<PeamanUser?>((ref) {
 });
 
 final providerOfLoggedInUser = Provider<PeamanUser>((ref) {
-  final appUserStream = ref.watch(providerOfLoggedInUserStream);
+  final appUserStream = ref.read(providerOfLoggedInUserStream);
   final loggedInUser = appUserStream.maybeWhen(
     data: (data) => data,
     orElse: () => null,

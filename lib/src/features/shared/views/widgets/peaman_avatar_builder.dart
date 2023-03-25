@@ -6,6 +6,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
   network,
+  multiNetwork,
   file,
   asset,
   letter,
@@ -14,6 +15,7 @@ enum _Type {
 class PeamanAvatarBuilder extends StatelessWidget {
   final _Type _type;
 
+  final List<String?> imgUrls;
   final String? imgUrl;
   final File? file;
   final String? assetPath;
@@ -36,11 +38,28 @@ class PeamanAvatarBuilder extends StatelessWidget {
     this.overlayWidget,
     this.border,
     this.onPressed,
-  })  : file = null,
+  })  : imgUrls = const [],
+        file = null,
         assetPath = null,
         letter = null,
         letterStyle = null,
         _type = _Type.network;
+
+  const PeamanAvatarBuilder.multiNetwork(
+    this.imgUrls, {
+    super.key,
+    this.size = 50.0,
+    this.color,
+    this.heroTag,
+    this.overlayWidget,
+    this.border,
+    this.onPressed,
+  })  : file = null,
+        imgUrl = null,
+        assetPath = null,
+        letter = null,
+        letterStyle = null,
+        _type = _Type.multiNetwork;
 
   const PeamanAvatarBuilder.file(
     this.file, {
@@ -52,6 +71,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
     this.border,
     this.onPressed,
   })  : imgUrl = null,
+        imgUrls = const [],
         assetPath = null,
         letter = null,
         letterStyle = null,
@@ -67,6 +87,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
     this.border,
     this.onPressed,
   })  : imgUrl = null,
+        imgUrls = const [],
         file = null,
         letter = null,
         letterStyle = null,
@@ -83,6 +104,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
     this.border,
     this.onPressed,
   })  : imgUrl = null,
+        imgUrls = const [],
         file = null,
         assetPath = null,
         _type = _Type.letter;
@@ -92,6 +114,8 @@ class PeamanAvatarBuilder extends StatelessWidget {
     switch (_type) {
       case _Type.network:
         return _networkBuilder();
+      case _Type.multiNetwork:
+        return _multiNetworkBuilder();
       case _Type.file:
         return _fileBuilder();
       case _Type.asset:
@@ -111,12 +135,57 @@ class PeamanAvatarBuilder extends StatelessWidget {
         decoration: BoxDecoration(
           color: PeamanColors.extraLightGrey,
           shape: BoxShape.circle,
+          border: Border.all(color: PeamanColors.white),
           image: DecorationImage(
             image: CachedNetworkImageProvider('$imgUrl'),
             fit: BoxFit.cover,
           ),
         ),
       ),
+    );
+  }
+
+  Widget _multiNetworkBuilder() {
+    final images = imgUrls.sublist(0, imgUrls.length > 3 ? 3 : imgUrls.length);
+
+    return _baseBuilder(
+      images.length == 1
+          ? _networkStackItemBuilder(
+              imgUrl: images[0],
+              size: size,
+              border: false,
+            )
+          : Stack(
+              clipBehavior: Clip.none,
+              children: [
+                for (var i = 0; i < images.length; i++)
+                  Positioned(
+                    top: i == 1 && images.length == 2
+                        ? 10.0
+                        : i == 0
+                            ? null
+                            : i == 1
+                                ? 15.0
+                                : i == 2
+                                    ? 5.0
+                                    : null,
+                    right: i == 1 && images.length == 2
+                        ? null
+                        : i == 0 || i == 1
+                            ? 10.0
+                            : null,
+                    left: i == 1 && images.length == 2
+                        ? 5.0
+                        : i == 2
+                            ? 10.0
+                            : null,
+                    child: _networkStackItemBuilder(
+                      imgUrl: images[i],
+                      size: i == 0 ? size - 3 : size - 6,
+                    ),
+                  ),
+              ],
+            ),
     );
   }
 
@@ -186,6 +255,31 @@ class PeamanAvatarBuilder extends StatelessWidget {
           border: border,
         ),
         child: child,
+      ),
+    );
+  }
+
+  Widget _networkStackItemBuilder({
+    required final String? imgUrl,
+    required final double size,
+    final bool border = true,
+  }) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: PeamanColors.extraLightGrey,
+        shape: BoxShape.circle,
+        border: border
+            ? Border.all(
+                color: PeamanColors.white,
+                width: 1.5,
+              )
+            : null,
+        image: DecorationImage(
+          image: CachedNetworkImageProvider('$imgUrl'),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

@@ -104,6 +104,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> sendMessage({
     required final String chatId,
+    required final PeamanChatType chatType,
     required final List<String> receiverIds,
   }) async {
     if (state.messageController.text.trim().isEmpty && state.files.isEmpty) {
@@ -113,6 +114,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     final millis = DateTime.now().millisecondsSinceEpoch;
     var message = PeamanChatMessage(
       chatId: chatId,
+      chatType: chatType,
       senderId: appUser.uid,
       senderName: appUser.name,
       receiverIds: receiverIds,
@@ -161,6 +163,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       ),
     );
     removeFromToTempMessages(message);
+    setTypingStatus(chatId: chatId, typedValue: '');
   }
 
   Future<void> unsendMessage({
@@ -231,7 +234,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   Future<void> readChat({
     required final String chatId,
   }) async {
-    final chat = getSingleChat(chatId, readOnly: true);
+    final chat = getSingleChat(chatId);
     if (chat != null) {
       final unreadMessages = chat.unreadMessages
           .firstWhere(
@@ -349,6 +352,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         uid: appUser.uid!,
         typingStatus: typingStatus,
       );
+      if (!mounted) return;
       state = result.when(
         (success) => state.copyWith(
           setTypingStatusState: SetTypingStatusState.success(success),

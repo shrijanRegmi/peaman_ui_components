@@ -693,7 +693,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: cc673ae5c6f185a7a2b45fe02d1f2c5af0a666b6
+      resolved-ref: e054928bf66e80b548a88b987c387a30d86bfa4b
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"

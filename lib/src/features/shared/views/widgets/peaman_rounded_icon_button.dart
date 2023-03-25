@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanRoundIconButton extends StatelessWidget {
   final Widget icon;
   final Widget? overlayWidget;
   final EdgeInsetsGeometry? padding;
-  final Color bgColor;
+  final Color? bgColor;
   final BoxShadow? shadow;
   final Function()? onPressed;
 
@@ -12,7 +13,7 @@ class PeamanRoundIconButton extends StatelessWidget {
     Key? key,
     required this.icon,
     this.overlayWidget,
-    this.bgColor = Colors.white,
+    this.bgColor,
     this.padding,
     this.shadow,
     this.onPressed,
@@ -28,7 +29,7 @@ class PeamanRoundIconButton extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: bgColor,
+              color: bgColor ?? context.theme.colorScheme.background,
               boxShadow: [
                 shadow ??
                     const BoxShadow(
