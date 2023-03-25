@@ -10,7 +10,7 @@ class GlobalContextService {
 class PeamanWrapper extends StatelessWidget {
   final Widget Function(BuildContext, GlobalKey<NavigatorState>) builder;
   final List<SingleChildWidget> Function()? globalProviders;
-  final List<SingleChildWidget> Function(PeamanUser?)? providers;
+  final List<SingleChildWidget> Function(PeamanAuthUser?)? providers;
   final PeamanLazyLoadConfig? lazyLoadConfig;
 
   const PeamanWrapper({
@@ -35,13 +35,16 @@ class PeamanWrapper extends StatelessWidget {
   }
 
   Widget _providersBuilder() {
-    return PStateProvider.stream<PeamanUser?>(
-      create: (context) => PAuthProvider.user,
+    return PStateProvider.stream<PeamanAuthUser?>(
+      create: (context) => PAuthProvider.user.map((event) {
+        if (event == null) return null;
+        return PeamanAuthUser(uid: event.uid!);
+      }),
       initialData: null,
       builder: (context, child) {
-        final appUser = context.pwatch<PeamanUser?>();
+        final authUser = context.pwatch<PeamanAuthUser?>();
 
-        final uid = appUser?.uid;
+        final uid = authUser?.uid;
 
         if (uid == null) {
           return builder(context, GlobalContextService.navigatorKey);
@@ -49,7 +52,7 @@ class PeamanWrapper extends StatelessWidget {
 
         final thisProviders = [
           ..._getFirebaseProviders(uid: uid),
-          ...?providers?.call(appUser),
+          ...?providers?.call(authUser),
         ];
         if (thisProviders.isNotEmpty) {
           return PStateProvider.multi(

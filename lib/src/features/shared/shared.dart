@@ -20,6 +20,7 @@ export './views/widgets/peaman_rounded_icon_button.dart';
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_picture_model.dart';
 export 'models/peaman_selectable_option_model.dart';
+export 'models/peaman_auth_user_model.dart';
 
 // viewmodels
 export './viewmodels/peaman_vm_provider.dart';
