@@ -78,7 +78,7 @@ class _PeamanUsersSearchScreenState
             Icons.search_rounded,
             color: PeamanColors.grey.withOpacity(0.8),
           ),
-          onChanged: (_) => debounceNotifier.createDebounce(),
+          onChanged: (_) => debounceNotifier.startDebounce(),
         ),
       ),
     );

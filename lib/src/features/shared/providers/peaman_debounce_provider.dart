@@ -17,18 +17,11 @@ class PeamanDebounceProvider
 
   Timer? _timer;
 
-  void createDebounce() {
-    if (_timer?.isActive ?? false) {
-      _timer?.cancel();
-      state = const PeamanDebounceProviderState.initial();
-    } else {
-      state = const PeamanDebounceProviderState.loading();
-      _timer = Timer(
-        const Duration(milliseconds: 800),
-        () {
-          state = const PeamanDebounceProviderState.success();
-        },
-      );
-    }
+  void startDebounce() {
+    state = const PeamanDebounceProviderState.loading();
+    if (_timer?.isActive ?? false) _timer?.cancel();
+    _timer = Timer(const Duration(milliseconds: 800), () {
+      state = const PeamanDebounceProviderState.success();
+    });
   }
 }
