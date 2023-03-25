@@ -73,12 +73,12 @@ class PeamanWrapper extends StatelessWidget {
     final thisLazyLoadConfig = lazyLoadConfig ?? PeamanLazyLoadConfig();
 
     return <SingleChildWidget>[
-      PStateProvider.stream<PeamanUser>(
+      PStateProvider.stream<PeamanUser?>(
         create: (context) => PUserProvider.getUserByIdStream(
           uid: uid,
         ),
         lazy: thisLazyLoadConfig.lazyLoadUser,
-        initialData: PeamanUser(),
+        initialData: null,
       ),
       PStateProvider.stream<List<PeamanChat>?>(
         create: (context) => PChatProvider.getUserChatsStream(
