@@ -32,7 +32,7 @@ class PeamanRouter {
           PeamanChatConversationScreen(
             chatId: arguments.chatId,
             chatType: arguments.chatType,
-            receivers: arguments.receivers,
+            receiverIds: arguments.receiverIds,
           ),
         );
       case PeamanUsersSearchScreen.route:

@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
-class PeamanChatMessageTypingIndicator extends StatelessWidget {
-  const PeamanChatMessageTypingIndicator({Key? key}) : super(key: key);
+class PeamanChatMessageTypingIndicator extends ConsumerWidget {
+  final String chatId;
+  const PeamanChatMessageTypingIndicator({
+    Key? key,
+    required this.chatId,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return LottieBuilder.asset(
-      'assets/lotties/typing.json',
-      height: 50.0,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appUser = ref.watch(providerOfLoggedInUser);
+    final chat = ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId));
+    final typingUserIds =
+        chat?.typingUserIds.where((element) => element != appUser.uid) ?? [];
+    if (typingUserIds.isEmpty) return const SizedBox();
+
+    final firstTypingUserFuture = ref.watch(
+      providerOfSingleUserByIdFuture(typingUserIds.first),
+    );
+    final firstTypingUser = firstTypingUserFuture.maybeWhen(
+      data: (data) => data.when((success) => success, (failure) => null),
+      orElse: () => null,
+    );
+    if (firstTypingUser == null) return const SizedBox();
+
+    final remaining = typingUserIds.length - 1;
+    return PeamanText.body2(
+      remaining == 0
+          ? '${firstTypingUser.name} is typing...'
+          : '${firstTypingUser.name} and $remaining ${remaining > 1 ? 'others' : 'other'} are typing...',
+      style: const TextStyle(
+        fontStyle: FontStyle.italic,
+        color: PeamanColors.grey,
+        fontSize: 12.0,
+      ),
     );
   }
 }

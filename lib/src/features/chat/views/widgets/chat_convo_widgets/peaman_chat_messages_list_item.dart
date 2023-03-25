@@ -9,7 +9,7 @@ import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_pro
 class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   final PeamanChatMessage message;
   final PeamanChatMessage nextMessage;
-  final List<PeamanUser> receivers;
+  final List<String> receiverIds;
   final bool isMessagesSentOnSameHour;
   final bool isFirstMessage;
   final bool isLastMessage;
@@ -21,7 +21,7 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
     Key? key,
     required this.message,
     required this.nextMessage,
-    required this.receivers,
+    required this.receiverIds,
     this.isMessagesSentOnSameHour = false,
     this.isFirstMessage = false,
     this.isLastMessage = false,
@@ -37,6 +37,8 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
 
 class _PeamanChatMessagesListItemState
     extends ConsumerState<PeamanChatMessagesListItem> {
+  PeamanChat? get chat => ref
+      .watch(providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!));
   PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
 
   @override
@@ -44,8 +46,6 @@ class _PeamanChatMessagesListItemState
     final isTempMessage = _isTempMessage();
     final isGapRequired = _isGapBetweenMessagesRequired();
     final showSenderInfo = _showSenderInfo();
-    final isFriendTyping = _isFriendTyping();
-    final hasSeenAllMessages = _hasSeenAllMessages();
     final isReply = _isReply();
 
     return Padding(
@@ -92,15 +92,14 @@ class _PeamanChatMessagesListItemState
               ),
             if (!isTempMessage && widget.isLastMessage)
               Row(
-                mainAxisAlignment: isFriendTyping
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  isFriendTyping
-                      ? const PeamanChatMessageTypingIndicator()
-                      : hasSeenAllMessages
-                          ? const PeamanChatMessageSeenIndicator()
-                          : const SizedBox(),
+                  PeamanChatMessageTypingIndicator(
+                    chatId: widget.message.chatId!,
+                  ),
+                  PeamanChatMessageSeenIndicator(
+                    chatId: widget.message.chatId!,
+                  ),
                 ],
               ),
             if (isTempMessage)
@@ -306,12 +305,19 @@ class _PeamanChatMessagesListItemState
     final BuildContext context,
     final PeamanUser appUser,
   ) {
+    final senderFuture = ref.watch(
+      providerOfSingleUserByIdFuture(widget.message.senderId!),
+    );
     return PeamanAvatarBuilder.network(
-      widget.message.senderId == appUser.uid
-          ? appUser.photo
-          : widget.receivers
-              .firstWhere((element) => element.uid == widget.message.senderId)
-              .photo,
+      senderFuture.maybeWhen(
+        data: (data) {
+          return data.when(
+            (success) => success.photo,
+            (failure) => null,
+          );
+        },
+        orElse: () => null,
+      ),
       onPressed: () {
         // TODO(shrijanRegmi)
         // if (message.senderId == appUser.uid) return;
@@ -327,7 +333,6 @@ class _PeamanChatMessagesListItemState
     );
   }
 
-  // get the sizes of the pictures according to the number of pictures
   double _getPictureSize() {
     final pictures = widget.message.files.length;
 
@@ -342,64 +347,25 @@ class _PeamanChatMessagesListItemState
     }
   }
 
-  // condition that defines if white background is required for a message
   bool _isWhiteBgRequired() {
     return widget.message.extraId == null && widget.message.files.isEmpty;
   }
 
-  // condition that defines if the message is temporary or not
   bool _isTempMessage() {
     return widget.message.isTemp;
   }
 
-  // condition that defines if the gap is required between two messages
   bool _isGapBetweenMessagesRequired() {
     return (widget.nextMessage.senderId != widget.message.senderId ||
         widget.nextMessage.id == widget.message.id ||
         !widget.isMessagesSentOnSameHour);
   }
 
-  // condition that defines if the sender information (like picture)
   bool _showSenderInfo() {
     return _isGapBetweenMessagesRequired() &&
         widget.message.senderId != appUser.uid;
   }
 
-  // condition that defines if the other user is typing or not
-  bool _isFriendTyping() {
-    final chat = ref.watch(
-      providerOfSinglePeamanChatFromChatsStream(
-        widget.message.chatId!,
-      ),
-    );
-    if (chat == null) return false;
-
-    return chat.typingUserIds.contains(widget.receivers.first.uid);
-  }
-
-  // condition that defines if the user has seen all the messages or not
-  bool _hasSeenAllMessages() {
-    return false;
-    // TODO(shrijanRegmi)
-    // final chat = ref.watch(
-    //   providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!),
-    // );
-
-    // if (chat == null) {
-    //   return false;
-    // } else {
-    //   return chat.unreadMessages
-    //               .firstWhere(
-    //                 (element) => element.uid == widget.receivers.uid,
-    //                 orElse: () => PeamanUnreadMessage(),
-    //               )
-    //               .unreadMessagesCount ==
-    //           0 &&
-    //       widget.message.senderId == appUser.uid;
-    // }
-  }
-
-  // condition that defines if the message is the reply of another message
   bool _isReply() {
     return widget.message.parentId != null && widget.message.parentText != null;
   }

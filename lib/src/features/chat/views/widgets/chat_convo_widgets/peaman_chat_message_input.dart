@@ -10,7 +10,7 @@ import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_c
 
 class PeamanChatMessageInput extends ConsumerStatefulWidget {
   final String chatId;
-  final List<PeamanUser> receivers;
+  final List<String> receiverIds;
   final TextEditingController? messageController;
   final PeamanChatMessage? messageToReply;
   final List<PeamanFileUrlExtended>? files;
@@ -24,7 +24,7 @@ class PeamanChatMessageInput extends ConsumerStatefulWidget {
   const PeamanChatMessageInput({
     super.key,
     required this.chatId,
-    required this.receivers,
+    required this.receiverIds,
     this.messageController,
     this.files,
     this.focusNode,
@@ -48,6 +48,24 @@ class _PeamanChatMessageInputState
 
   @override
   Widget build(BuildContext context) {
+    String? replyingToUserName;
+
+    if (widget.messageToReply != null) {
+      final replyingToUserFuture = ref.watch(
+        providerOfSingleUserByIdFuture(widget.messageToReply!.senderId!),
+      );
+      replyingToUserName = replyingToUserFuture.maybeWhen(
+        loading: () => 'Loading...',
+        data: (data) {
+          return data.when(
+            (success) => '${success.name}',
+            (failure) => 'Unknown',
+          );
+        },
+        orElse: () => 'Unknown',
+      );
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -81,7 +99,7 @@ class _PeamanChatMessageInputState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           PeamanText.body2(
-                            'Replying to ${widget.receivers}',
+                            'Replying to $replyingToUserName',
                             style: const TextStyle(
                               color: PeamanColors.grey,
                               fontSize: 12.0,
@@ -181,18 +199,12 @@ class _PeamanChatMessageInputState
           widget.onPressedSend?.call(
             () => notifier.sendMessage(
               chatId: widget.chatId,
-              receiverIds: widget.receivers
-                  .where((e) => e.uid != null)
-                  .map((e) => e.uid!)
-                  .toList(),
+              receiverIds: widget.receiverIds,
             ),
           ) ??
           notifier.sendMessage(
             chatId: widget.chatId,
-            receiverIds: widget.receivers
-                .where((e) => e.uid != null)
-                .map((e) => e.uid!)
-                .toList(),
+            receiverIds: widget.receiverIds,
           ),
       behavior: HitTestBehavior.opaque,
       child: Container(

@@ -7,25 +7,25 @@ import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_ap
 class PeamanChatConversationArgs {
   final String chatId;
   final PeamanChatType chatType;
-  final List<PeamanUser> receivers;
+  final List<String> receiverIds;
 
   PeamanChatConversationArgs({
     required this.chatId,
     required this.chatType,
-    required this.receivers,
+    required this.receiverIds,
   });
 }
 
 class PeamanChatConversationScreen extends ConsumerWidget {
   final String chatId;
   final PeamanChatType chatType;
-  final List<PeamanUser> receivers;
+  final List<String> receiverIds;
 
   const PeamanChatConversationScreen({
     super.key,
     required this.chatId,
     required this.chatType,
-    required this.receivers,
+    required this.receiverIds,
   });
 
   static const route = '/peaman_chat_conversation_screen';
@@ -36,12 +36,24 @@ class PeamanChatConversationScreen extends ConsumerWidget {
     final chat = ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId)) ??
         PeamanChat(id: chatId, type: chatType);
 
-    notifier.readChat(chatId: chatId);
+    // notifier.readChat(chatId: chatId);
+
+    final receiverFuture = ref.watch(
+      providerOfSingleUserByIdFuture(receiverIds.first),
+    );
 
     return Scaffold(
       appBar: PeamanAppbar(
         title: chat.type == PeamanChatType.oneToOne
-            ? '${receivers.first.name}'
+            ? receiverFuture.maybeWhen(
+                data: (data) {
+                  return data.when(
+                    (success) => '${success.name}',
+                    (failure) => 'Unknown',
+                  );
+                },
+                orElse: () => 'Unknown',
+              )
             : 'Group Chat',
       ),
       body: GestureDetector(
@@ -49,7 +61,7 @@ class PeamanChatConversationScreen extends ConsumerWidget {
         behavior: HitTestBehavior.opaque,
         child: PeamanChatMessagesList(
           chatId: chatId,
-          receivers: receivers,
+          receiverIds: receiverIds,
           onSwippedMessage: (message, user, func) {},
         ),
       ),
@@ -57,7 +69,7 @@ class PeamanChatConversationScreen extends ConsumerWidget {
         padding: MediaQuery.of(context).viewInsets,
         child: PeamanChatMessageInput(
           chatId: chatId,
-          receivers: receivers,
+          receiverIds: receiverIds,
         ),
       ),
     );

@@ -5,24 +5,22 @@ import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_pro
 
 class PeamanChatMessagesList extends ConsumerWidget {
   final String chatId;
-  final List<PeamanUser> receivers;
+  final List<String> receiverIds;
   final List<PeamanChatMessage>? messages;
   final ScrollController? controller;
   final Widget? loadingWidget;
   final Widget? emptyWidget;
   final Widget Function(BuildContext, int)? itemBuilder;
   final Widget Function(BuildContext, List<PeamanChatMessage>)? listBuilder;
-  final Function(PeamanChatMessage, List<PeamanUser>, Function())?
-      onPressedMessage;
-  final Function(PeamanChatMessage, List<PeamanUser>, Function())?
+  final Function(PeamanChatMessage, List<String>, Function())? onPressedMessage;
+  final Function(PeamanChatMessage, List<String>, Function())?
       onLongPressedMessage;
-  final Function(PeamanChatMessage, List<PeamanUser>, Function())?
-      onSwippedMessage;
+  final Function(PeamanChatMessage, List<String>, Function())? onSwippedMessage;
 
   const PeamanChatMessagesList({
     Key? key,
     required this.chatId,
-    required this.receivers,
+    required this.receiverIds,
     this.messages,
     this.controller,
     this.loadingWidget,
@@ -85,21 +83,21 @@ class PeamanChatMessagesList extends ConsumerWidget {
                 final widget = PeamanChatMessagesListItem(
                   message: message,
                   nextMessage: nextMessage,
-                  receivers: receivers,
+                  receiverIds: receiverIds,
                   isMessagesSentOnSameHour: difference.inMinutes < 60,
                   isFirstMessage: index == (messages.length - 1),
                   isLastMessage: index == 0,
                   onPressed: (message) =>
-                      onPressedMessage?.call(message, receivers, () {}),
+                      onPressedMessage?.call(message, receiverIds, () {}),
                   onLongPressed: (message) =>
                       onLongPressedMessage?.call(
                         message,
-                        receivers,
+                        receiverIds,
                         () => _showMessageLongPressBottomsheet(message),
                       ) ??
                       _showMessageLongPressBottomsheet(message),
                   onSwipped: (message) =>
-                      onSwippedMessage?.call(message, receivers, () {}),
+                      onSwippedMessage?.call(message, receiverIds, () {}),
                 );
                 if (index == 0) {
                   return Padding(

@@ -108,7 +108,7 @@ class PeamanChatsList extends ConsumerWidget {
         arguments: PeamanChatConversationArgs(
           chatId: chat.id!,
           chatType: chat.type,
-          receivers: [user],
+          receiverIds: [user.uid!],
         ),
       );
 }
