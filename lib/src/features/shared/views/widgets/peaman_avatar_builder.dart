@@ -12,7 +12,7 @@ enum _Type {
   letter,
 }
 
-class PeamanAvatarBuilder extends StatelessWidget {
+class PeamanAvatarBuilder extends StatefulWidget {
   final _Type _type;
 
   final List<String?> imgUrls;
@@ -110,8 +110,13 @@ class PeamanAvatarBuilder extends StatelessWidget {
         _type = _Type.letter;
 
   @override
+  State<PeamanAvatarBuilder> createState() => _PeamanAvatarBuilderState();
+}
+
+class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
+  @override
   Widget build(BuildContext context) {
-    switch (_type) {
+    switch (widget._type) {
       case _Type.network:
         return _networkBuilder();
       case _Type.multiNetwork:
@@ -130,14 +135,14 @@ class PeamanAvatarBuilder extends StatelessWidget {
   Widget _networkBuilder() {
     return _baseBuilder(
       Container(
-        width: size,
-        height: size,
+        width: widget.size,
+        height: widget.size,
         decoration: BoxDecoration(
           color: PeamanColors.extraLightGrey,
           shape: BoxShape.circle,
           border: Border.all(color: PeamanColors.white),
           image: DecorationImage(
-            image: CachedNetworkImageProvider('$imgUrl'),
+            image: CachedNetworkImageProvider('${widget.imgUrl}'),
             fit: BoxFit.cover,
           ),
         ),
@@ -146,13 +151,14 @@ class PeamanAvatarBuilder extends StatelessWidget {
   }
 
   Widget _multiNetworkBuilder() {
-    final images = imgUrls.sublist(0, imgUrls.length > 3 ? 3 : imgUrls.length);
+    final images = widget.imgUrls
+        .sublist(0, widget.imgUrls.length > 3 ? 3 : widget.imgUrls.length);
 
     return _baseBuilder(
       images.length == 1
           ? _networkStackItemBuilder(
               imgUrl: images[0],
-              size: size,
+              size: widget.size,
               border: false,
             )
           : Stack(
@@ -181,7 +187,7 @@ class PeamanAvatarBuilder extends StatelessWidget {
                             : null,
                     child: _networkStackItemBuilder(
                       imgUrl: images[i],
-                      size: i == 0 ? size - 3 : size - 6,
+                      size: i == 0 ? widget.size - 3 : widget.size - 6,
                     ),
                   ),
               ],
@@ -192,13 +198,13 @@ class PeamanAvatarBuilder extends StatelessWidget {
   Widget _fileBuilder() {
     return _baseBuilder(
       Container(
-        width: size,
-        height: size,
+        width: widget.size,
+        height: widget.size,
         decoration: BoxDecoration(
-          color: color,
+          color: widget.color,
           shape: BoxShape.circle,
           image: DecorationImage(
-            image: FileImage(file!),
+            image: FileImage(widget.file!),
             fit: BoxFit.cover,
           ),
         ),
@@ -209,13 +215,13 @@ class PeamanAvatarBuilder extends StatelessWidget {
   Widget _assetBuilder() {
     return _baseBuilder(
       Container(
-        width: size,
-        height: size,
+        width: widget.size,
+        height: widget.size,
         decoration: BoxDecoration(
-          color: color,
+          color: widget.color,
           shape: BoxShape.circle,
           image: DecorationImage(
-            image: AssetImage(assetPath!),
+            image: AssetImage(widget.assetPath!),
             fit: BoxFit.cover,
           ),
         ),
@@ -226,16 +232,16 @@ class PeamanAvatarBuilder extends StatelessWidget {
   Widget _letterBuilder() {
     return _baseBuilder(
       Container(
-        width: size,
-        height: size,
+        width: widget.size,
+        height: widget.size,
         decoration: BoxDecoration(
-          color: color,
+          color: widget.color,
           shape: BoxShape.circle,
         ),
         child: Center(
           child: Text(
-            '$letter',
-            style: letterStyle,
+            '${widget.letter}',
+            style: widget.letterStyle,
           ),
         ),
       ),
@@ -244,15 +250,15 @@ class PeamanAvatarBuilder extends StatelessWidget {
 
   Widget _baseBuilder(Widget child) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: widget.onPressed,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        width: size + 2,
-        height: size + 2,
+        width: widget.size + 2,
+        height: widget.size + 2,
         padding: const EdgeInsets.all(2.0),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: border,
+          border: widget.border,
         ),
         child: child,
       ),
@@ -272,7 +278,9 @@ class PeamanAvatarBuilder extends StatelessWidget {
         shape: BoxShape.circle,
         border: border
             ? Border.all(
-                color: PeamanColors.white,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : PeamanColors.white,
                 width: 1.5,
               )
             : null,

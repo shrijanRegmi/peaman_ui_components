@@ -45,10 +45,15 @@ final providerOfPeamanChatUsersFuture = FutureProvider.family<
     PeamanEither<List<PeamanUser>, PeamanError>, List<String>>(
   (ref, userIds) async {
     final appUser = ref.watch(providerOfLoggedInUser);
-    final receiverIds =
+    var receiverIds =
         userIds.where((element) => element != appUser.uid).toList();
-    var users = <PeamanUser>[];
 
+    receiverIds = receiverIds.sublist(
+      0,
+      receiverIds.length > 3 ? 3 : receiverIds.length,
+    );
+
+    var users = <PeamanUser>[];
     final futures = <Future<PeamanEither<PeamanUser, PeamanError>>>[];
     for (final receiverId in receiverIds) {
       final future = ref
