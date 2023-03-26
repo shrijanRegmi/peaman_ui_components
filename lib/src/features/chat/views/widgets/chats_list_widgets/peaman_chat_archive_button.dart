@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
+import 'package:peaman_ui_components/src/utils/peaman_dialogs.dart';
 
 class PeamanChatArchiveButton extends ConsumerWidget {
   final String chatId;
@@ -29,10 +32,17 @@ class PeamanChatArchiveButton extends ConsumerWidget {
           size: 20.w,
         ),
       ),
-    ).onPressed(() {
-      _closeSlidable(context);
+    ).onPressed(() async {
       if (onPressed == null) {
-        ref.read(providerOfPeamanChat.notifier).archiveChat(chatId: chatId);
+        await showPeamanConfirmationDialog(
+          context: context,
+          title: 'Are you sure you want to archive this chat?',
+          description: 'This action is permanent and cannot be undone',
+          onConfirm: () {
+            ref.read(providerOfPeamanChat.notifier).archiveChat(chatId: chatId);
+          },
+        );
+        _closeSlidable(context);
       } else {
         onPressed?.call();
       }
