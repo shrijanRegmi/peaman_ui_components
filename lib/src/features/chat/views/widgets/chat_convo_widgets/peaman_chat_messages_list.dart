@@ -45,7 +45,12 @@ class PeamanChatMessagesList extends ConsumerWidget {
     );
     return messagesStream.when(
       data: (data) {
-        final messages = [...state.tempMessages, ...data];
+        final messages = [
+          ...state.tempMessages
+              .where((element) => element.chatId == chatId)
+              .toList(),
+          ...data
+        ];
         if (messages.isEmpty) return _emptyBuilder();
         return _dataBuilder(context, messages);
       },

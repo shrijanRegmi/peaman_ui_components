@@ -34,6 +34,7 @@ mixin _$PeamanChatProviderState {
       throw _privateConstructorUsedError;
   List<PeamanChatMessage> get tempMessages =>
       throw _privateConstructorUsedError;
+  PeamanChatMessage? get messageToReply => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PeamanChatProviderStateCopyWith<PeamanChatProviderState> get copyWith =>
@@ -58,7 +59,8 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       DeleteChatState deleteChatState,
       ArchiveChatState archiveChatState,
       SetTypingStatusState setTypingStatusState,
-      List<PeamanChatMessage> tempMessages});
+      List<PeamanChatMessage> tempMessages,
+      PeamanChatMessage? messageToReply});
 
   $SendMessageStateCopyWith<$Res> get sendMessageState;
   $UpdateMessageStateCopyWith<$Res> get updateMessageState;
@@ -69,6 +71,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
   $DeleteChatStateCopyWith<$Res> get deleteChatState;
   $ArchiveChatStateCopyWith<$Res> get archiveChatState;
   $SetTypingStatusStateCopyWith<$Res> get setTypingStatusState;
+  $PeamanChatMessageCopyWith<$Res>? get messageToReply;
 }
 
 /// @nodoc
@@ -97,6 +100,7 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     Object? archiveChatState = null,
     Object? setTypingStatusState = null,
     Object? tempMessages = null,
+    Object? messageToReply = freezed,
   }) {
     return _then(_value.copyWith(
       messageController: null == messageController
@@ -147,6 +151,10 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
           ? _value.tempMessages
           : tempMessages // ignore: cast_nullable_to_non_nullable
               as List<PeamanChatMessage>,
+      messageToReply: freezed == messageToReply
+          ? _value.messageToReply
+          : messageToReply // ignore: cast_nullable_to_non_nullable
+              as PeamanChatMessage?,
     ) as $Val);
   }
 
@@ -225,6 +233,18 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
       return _then(_value.copyWith(setTypingStatusState: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanChatMessageCopyWith<$Res>? get messageToReply {
+    if (_value.messageToReply == null) {
+      return null;
+    }
+
+    return $PeamanChatMessageCopyWith<$Res>(_value.messageToReply!, (value) {
+      return _then(_value.copyWith(messageToReply: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -247,7 +267,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
       DeleteChatState deleteChatState,
       ArchiveChatState archiveChatState,
       SetTypingStatusState setTypingStatusState,
-      List<PeamanChatMessage> tempMessages});
+      List<PeamanChatMessage> tempMessages,
+      PeamanChatMessage? messageToReply});
 
   @override
   $SendMessageStateCopyWith<$Res> get sendMessageState;
@@ -267,6 +288,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
   $ArchiveChatStateCopyWith<$Res> get archiveChatState;
   @override
   $SetTypingStatusStateCopyWith<$Res> get setTypingStatusState;
+  @override
+  $PeamanChatMessageCopyWith<$Res>? get messageToReply;
 }
 
 /// @nodoc
@@ -293,6 +316,7 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? archiveChatState = null,
     Object? setTypingStatusState = null,
     Object? tempMessages = null,
+    Object? messageToReply = freezed,
   }) {
     return _then(_$_PeamanChatProviderState(
       messageController: null == messageController
@@ -343,6 +367,10 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
           ? _value._tempMessages
           : tempMessages // ignore: cast_nullable_to_non_nullable
               as List<PeamanChatMessage>,
+      messageToReply: freezed == messageToReply
+          ? _value.messageToReply
+          : messageToReply // ignore: cast_nullable_to_non_nullable
+              as PeamanChatMessage?,
     ));
   }
 }
@@ -362,7 +390,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       this.deleteChatState = const DeleteChatState.initial(),
       this.archiveChatState = const ArchiveChatState.initial(),
       this.setTypingStatusState = const SetTypingStatusState.initial(),
-      final List<PeamanChatMessage> tempMessages = const <PeamanChatMessage>[]})
+      final List<PeamanChatMessage> tempMessages = const <PeamanChatMessage>[],
+      this.messageToReply})
       : _files = files,
         _tempMessages = tempMessages;
 
@@ -414,8 +443,11 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   }
 
   @override
+  final PeamanChatMessage? messageToReply;
+
+  @override
   String toString() {
-    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages)';
+    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
   }
 
   @override
@@ -445,7 +477,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
             (identical(other.setTypingStatusState, setTypingStatusState) ||
                 other.setTypingStatusState == setTypingStatusState) &&
             const DeepCollectionEquality()
-                .equals(other._tempMessages, _tempMessages));
+                .equals(other._tempMessages, _tempMessages) &&
+            (identical(other.messageToReply, messageToReply) ||
+                other.messageToReply == messageToReply));
   }
 
   @override
@@ -462,7 +496,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       deleteChatState,
       archiveChatState,
       setTypingStatusState,
-      const DeepCollectionEquality().hash(_tempMessages));
+      const DeepCollectionEquality().hash(_tempMessages),
+      messageToReply);
 
   @JsonKey(ignore: true)
   @override
@@ -486,7 +521,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       final DeleteChatState deleteChatState,
       final ArchiveChatState archiveChatState,
       final SetTypingStatusState setTypingStatusState,
-      final List<PeamanChatMessage> tempMessages}) = _$_PeamanChatProviderState;
+      final List<PeamanChatMessage> tempMessages,
+      final PeamanChatMessage? messageToReply}) = _$_PeamanChatProviderState;
 
   @override
   TextEditingController get messageController;
@@ -512,6 +548,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   SetTypingStatusState get setTypingStatusState;
   @override
   List<PeamanChatMessage> get tempMessages;
+  @override
+  PeamanChatMessage? get messageToReply;
   @override
   @JsonKey(ignore: true)
   _$$_PeamanChatProviderStateCopyWith<_$_PeamanChatProviderState>

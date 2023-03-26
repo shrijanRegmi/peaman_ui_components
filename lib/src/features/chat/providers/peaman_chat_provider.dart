@@ -135,9 +135,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       senderId: appUser.uid,
       senderName: appUser.name,
       receiverIds: receiverIds,
+      parentId: state.messageToReply?.id,
+      parentText: state.messageToReply?.text,
+      parentFiles: state.messageToReply?.files ?? [],
       files: state.files,
       text: state.messageController.text.trim(),
-      type: state.messageController.text.trim().isEmpty
+      type: state.files.isNotEmpty
           ? PeamanChatMessageType.file
           : PeamanChatMessageType.text,
       isTemp: true,
@@ -532,6 +535,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     state = state.copyWith(
       messageController: state.messageController..text = '',
       files: [],
+      messageToReply: null,
     );
   }
 
@@ -556,6 +560,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   void removeFromToTempMessages(final PeamanChatMessage newVal) {
     state = state.copyWith(
       tempMessages: state.tempMessages.where((e) => e.id != newVal.id).toList(),
+    );
+  }
+
+  void setMessageToReply(final PeamanChatMessage? newVal) {
+    state = state.copyWith(
+      messageToReply: newVal,
     );
   }
 }

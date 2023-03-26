@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_chat_provider_state.dart';
+import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 
 class PeamanChatMessageInput extends ConsumerStatefulWidget {
   final String chatId;
@@ -50,23 +53,8 @@ class _PeamanChatMessageInputState
 
   @override
   Widget build(BuildContext context) {
-    String? replyingToUserName;
-
-    if (widget.messageToReply != null) {
-      final replyingToUserFuture = ref.watch(
-        providerOfSingleUserByIdFuture(widget.messageToReply!.senderId!),
-      );
-      replyingToUserName = replyingToUserFuture.maybeWhen(
-        loading: () => 'Loading...',
-        data: (data) {
-          return data.when(
-            (success) => '${success.name}',
-            (failure) => 'Unknown',
-          );
-        },
-        orElse: () => 'Unknown',
-      );
-    }
+    PeamanChatMessage? messageToReply =
+        widget.messageToReply ?? state.messageToReply;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -91,46 +79,7 @@ class _PeamanChatMessageInputState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (widget.messageToReply != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          PeamanText.body2(
-                            'Replying to $replyingToUserName',
-                            style: const TextStyle(
-                              color: PeamanColors.grey,
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
-                          if (widget.messageToReply != null)
-                            PeamanText.body2(
-                              widget.messageToReply!.text
-                                  ?.replaceAll("\n", " "),
-                              limit: 45,
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () => widget.onPressedCancelReply?.call(() {}),
-                        behavior: HitTestBehavior.opaque,
-                        child: const Icon(
-                          Icons.close_rounded,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+              if (messageToReply != null) _messageToReplyBuilder(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -283,6 +232,101 @@ class _PeamanChatMessageInputState
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _messageToReplyBuilder() {
+    PeamanChatMessage? messageToReply =
+        widget.messageToReply ?? state.messageToReply;
+    String? replyingToUserName;
+
+    if (messageToReply != null) {
+      final replyingToUserFuture = ref.watch(
+        providerOfSingleUserByIdFuture(messageToReply.senderId!),
+      );
+      replyingToUserName = replyingToUserFuture.maybeWhen(
+        loading: () => 'Loading...',
+        data: (data) {
+          return data.when(
+            (success) => '${success.name}',
+            (failure) => 'Unknown',
+          );
+        },
+        orElse: () => 'Unknown',
+      );
+    }
+    final allFiles = messageToReply?.files ?? [];
+    final filesToShow =
+        allFiles.sublist(0, allFiles.length > 2 ? 2 : allFiles.length);
+    final remainingFilesCount = allFiles.length - filesToShow.length;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PeamanText.body2(
+                'Replying to $replyingToUserName',
+                style: TextStyle(
+                  color: PeamanColors.grey,
+                  fontSize: 12.sp,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              filesToShow.isNotEmpty
+                  ? Row(
+                      children: [
+                        for (final file in filesToShow)
+                          Container(
+                            width: 25.w,
+                            height: 30.h,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(3.r),
+                              image: DecorationImage(
+                                image:
+                                    CachedNetworkImageProvider(file.url ?? ''),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ).pR(3),
+                        if (remainingFilesCount > 0)
+                          Text(
+                            '+$remainingFilesCount',
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              color: Colors.grey,
+                            ),
+                          ).pL(3)
+                      ],
+                    )
+                  : messageToReply?.text?.isNotEmpty == true
+                      ? PeamanText.body2(
+                          messageToReply?.text?.replaceAll("\n", " "),
+                          limit: 45,
+                          style: const TextStyle(),
+                        )
+                      : const SizedBox()
+            ],
+          ),
+          GestureDetector(
+            onTap: () =>
+                widget.onPressedCancelReply?.call(
+                  () => notifier.setMessageToReply(null),
+                ) ??
+                notifier.setMessageToReply(null),
+            behavior: HitTestBehavior.opaque,
+            child: const Icon(
+              Icons.close_rounded,
+            ),
+          )
+        ],
       ),
     );
   }

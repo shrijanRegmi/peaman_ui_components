@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
@@ -71,14 +72,18 @@ class _PeamanChatMessagesListItemState
                 height: 10.0,
               ),
             if (isReply) _replyBuilder(context),
-            if (isReply)
+            if (isReply && widget.message.parentFiles.isEmpty)
               const SizedBox(
                 height: 5.0,
               ),
             PeamanChatMessageSwiper(
               message: widget.message,
-              enabled: widget.message.type == PeamanChatMessageType.text,
-              onSwipped: widget.onSwipped,
+              enabled: !widget.message.isTemp,
+              onSwipped: (message) =>
+                  widget.onSwipped?.call(message) ??
+                  ref
+                      .read(providerOfPeamanChat.notifier)
+                      .setMessageToReply(message),
               child: _messageBuilder(context),
             ),
             if (isGapRequired)
@@ -164,6 +169,7 @@ class _PeamanChatMessagesListItemState
 
   Widget _replyBuilder(final BuildContext context) {
     final appUser = ref.watch(providerOfLoggedInUser);
+    final pictureSize = _getPictureSize();
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -184,33 +190,66 @@ class _PeamanChatMessagesListItemState
         Opacity(
           opacity: 0.6,
           child: Container(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: widget.message.parentFiles.isNotEmpty ? 3.w : 20.w,
+              vertical: 10.w,
+            ),
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width /
-                  (widget.message.files.isNotEmpty ? 1.3 : 1.5),
+                  (widget.message.parentFiles.isNotEmpty ? 1.3 : 1.5),
             ),
-            decoration: BoxDecoration(
-              color: context.theme.brightness == Brightness.dark
-                  ? PeamanColors.extraLightGrey
-                  : PeamanColors.white,
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
-            ),
-            child: PeamanText.body2(
-              widget.message.parentText!.replaceAll("\n", " "),
-              limit: 100,
-              withReadMore: true,
-              readMoreText: 'Read',
-              style: const TextStyle(
-                fontSize: 14.0,
-              ),
-              readMoreTextStyle: const TextStyle(
-                fontSize: 12.0,
-                color: PeamanColors.secondaryDark,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            decoration: widget.message.parentFiles.isNotEmpty
+                ? null
+                : BoxDecoration(
+                    color: context.theme.brightness == Brightness.dark
+                        ? PeamanColors.extraLightGrey
+                        : PeamanColors.white,
+                    borderRadius: BorderRadius.circular(
+                      10.0,
+                    ),
+                  ),
+            child: widget.message.parentFiles.isEmpty
+                ? PeamanText.body2(
+                    widget.message.parentText!.replaceAll("\n", " "),
+                    limit: 100,
+                    withReadMore: true,
+                    readMoreText: 'Read',
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
+                    readMoreTextStyle: const TextStyle(
+                      fontSize: 12.0,
+                      color: PeamanColors.secondaryDark,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Wrap(
+                    runSpacing: 5,
+                    spacing: 5,
+                    alignment: widget.message.senderId == appUser.uid
+                        ? WrapAlignment.end
+                        : WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.end,
+                    children: [
+                      for (final picture in widget.message.parentFiles)
+                        Hero(
+                          tag: picture.url!,
+                          child: Container(
+                            height: pictureSize.h,
+                            width: (pictureSize - 20.0).w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.grey.shade200,
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(picture.url!),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(10),
+                          ),
+                        ),
+                    ],
+                  ),
           ),
         ),
         if (widget.message.senderId == appUser.uid)
