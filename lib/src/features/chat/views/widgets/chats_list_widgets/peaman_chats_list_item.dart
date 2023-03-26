@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/args/peaman_single_peaman_chat_message_stream_args.dart';
 import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
+import 'package:peaman_ui_components/src/features/chat/views/widgets/chats_list_widgets/peaman_chat_archive_button.dart';
+import 'package:peaman_ui_components/src/features/chat/views/widgets/chats_list_widgets/peaman_chat_delete_button.dart';
+import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class PeamanChatsListItem extends ConsumerStatefulWidget {
@@ -42,32 +46,54 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   }
 
   Widget _usersDataBuilder(final List<PeamanUser> users) {
-    // TODO(shrijanRegmi): fix for multiple users
-    return GestureDetector(
-      onTap: () => widget.onPressed?.call(widget.chat),
-      onLongPress: () => widget.onLongPressed?.call(widget.chat),
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 8.0,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _headerBuilder(users),
-            const SizedBox(
-              height: 10.0,
-            ),
-            _bodyBuilder(),
-            const SizedBox(
-              height: 18.0,
-            ),
-            const Divider(),
-          ],
-        ),
+    return Slidable(
+      endActionPane: ActionPane(
+        extentRatio: 0.5,
+        motion: const ScrollMotion(),
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: PeamanChatArchiveButton(
+                    chatId: widget.chat.id!,
+                  ),
+                ),
+                Expanded(
+                  child: PeamanChatDeleteButton(
+                    chatId: widget.chat.id!,
+                  ),
+                ),
+              ],
+            ).pL(10),
+          ),
+        ],
       ),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _headerBuilder(users),
+          const SizedBox(
+            height: 10.0,
+          ),
+          _bodyBuilder(),
+          const SizedBox(
+            height: 20.0,
+          ),
+          const Divider(
+            height: 0.0,
+          ),
+        ],
+      ),
+    )
+        .pX(20)
+        .pY(10)
+        .onPressed(
+          () => widget.onPressed?.call(widget.chat),
+        )
+        .onLongPressed(
+          () => widget.onLongPressed?.call(widget.chat),
+        );
   }
 
   Widget _errorBuilder(final String message) {

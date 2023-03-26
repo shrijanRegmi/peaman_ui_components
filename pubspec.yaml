@@ -9,6 +9,8 @@ environment:
   sdk: ">=2.18.5 <3.0.0"
   flutter: ">=1.17.0"
 
+publish_to: none
+
 dependencies:
   cached_network_image: ^3.2.3
   flutter:
@@ -18,7 +20,6 @@ dependencies:
       url: https://github.com/shrijanRegmi/peaman.git
       ref: new_version
   flutter_svg: ^0.23.0+1
-  provider: ^6.0.5
   linkfy_text: ^1.1.5
   url_launcher: ^6.1.7
   google_fonts: ^3.0.1
@@ -35,6 +36,7 @@ dependencies:
   flutter_screenutil: ^5.7.0
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
+  flutter_slidable: ^2.0.0
 
 dev_dependencies:
   flutter_test:

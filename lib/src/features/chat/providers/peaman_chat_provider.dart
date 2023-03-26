@@ -36,9 +36,21 @@ final providerOfSinglePeamanChatFromChatsStream =
 
 final providerOfPeamanChatMessagesStream = StreamProvider.family
     .autoDispose<List<PeamanChatMessage>, String>((ref, chatId) {
-  return ref
-      .watch(providerOfPeamanChatRepository)
-      .getChatMessagesStream(chatId: chatId);
+  final chat = ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
+  if (chat == null) return const Stream.empty();
+
+  final appUser = ref.read(providerOfLoggedInUser);
+  final startAfter = chat.startAfters
+      .firstWhere(
+        (element) => element.uid == appUser.uid,
+        orElse: PeamanChatStartAfter.new,
+      )
+      .messageCreatedAt;
+
+  return ref.watch(providerOfPeamanChatRepository).getChatMessagesStream(
+        chatId: chatId,
+        startAfter: startAfter,
+      );
 });
 
 final providerOfPeamanChatUsersFuture = FutureProvider.family<
@@ -291,15 +303,17 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> deleteChat({
     required final String chatId,
-    required final int lastMessageCreatedAt,
   }) async {
+    final chat = getSingleChat(chatId, readOnly: true);
+    if (chat?.lastMessageCreatedAt == null) return;
+
     state = state.copyWith(
       deleteChatState: const DeleteChatState.loading(),
     );
     final result = await _chatRepository.deleteChat(
       chatId: chatId,
       uid: appUser.uid!,
-      lastMessageCreatedAt: lastMessageCreatedAt,
+      lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
     );
     state = result.when(
       (success) => state.copyWith(
@@ -480,17 +494,10 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     final String chatId, {
     final bool readOnly = true,
   }) {
-    final chatsStream = readOnly
-        ? _ref.read(providerOfPeamanUserChatsStream)
-        : _ref.watch(providerOfPeamanUserChatsStream);
-    return chatsStream.maybeWhen(
-      data: (data) {
-        final index = data.indexWhere((element) => element.id == chatId);
-        if (index == -1) return null;
-        return data[index];
-      },
-      orElse: () => null,
-    );
+    if (readOnly) {
+      return _ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
+    }
+    return _ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId));
   }
 
   Future<void> pickImage() async {

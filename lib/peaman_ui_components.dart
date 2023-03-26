@@ -1,9 +1,8 @@
 library peaman_ui_components;
 
+export 'package:peaman/peaman.dart';
 export 'src/peaman_app.dart';
 export 'src/peaman_wrapper.dart';
-export 'src/peaman_state_manager.dart';
-export 'package:peaman/peaman.dart';
 
 // configs
 export 'src/configs/peaman_lazy_load_config.dart';

@@ -8,7 +8,7 @@ class PeamanColors {
   static const Color primary = Color(0xfffc6b68);
   static const Color primaryDark = Color(0xFF181818);
   static const Color secondary = Colors.blue;
-  static const Color secondaryDark = Colors.blue;
+  static const Color secondaryDark = Color(0xFF0E69B3);
   static const Color containerBg = Colors.white;
   static const Color containerBgDark = Color(0xFF212121);
   static const Color cream = Color(0xfff5f1f2);

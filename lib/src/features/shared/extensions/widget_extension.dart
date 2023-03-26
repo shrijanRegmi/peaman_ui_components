@@ -18,6 +18,11 @@ extension WidgetExt on Widget {
         behavior: HitTestBehavior.opaque,
         child: this,
       );
+  Widget onLongPressed(final Function() onLongPressed) => GestureDetector(
+        onLongPress: onLongPressed,
+        behavior: HitTestBehavior.opaque,
+        child: this,
+      );
 
   Widget pX(double val) => Padding(
         padding: EdgeInsets.symmetric(horizontal: val.w),

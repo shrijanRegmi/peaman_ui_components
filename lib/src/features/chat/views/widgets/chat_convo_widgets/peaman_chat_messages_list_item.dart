@@ -156,12 +156,6 @@ class _PeamanChatMessagesListItemState
               )
             : const BorderRadius.all(Radius.circular(10.0)),
       ),
-      // TODO(shrijanRegmi)
-      // child: message.extraId != null
-      //     ? _feedShareMessageBuilder(context, appUser)
-      //     : message.files.isEmpty
-      //         ? _textMessageBuilder()
-      //         : _imageMessageBuilder(appUser, context),
       child: widget.message.files.isEmpty
           ? _textMessageBuilder()
           : _imageMessageBuilder(appUser, context),

@@ -40,8 +40,12 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
     final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
     return chatsStream.when(
       data: (data) {
-        if (data.isEmpty) return _emptyBuilder();
-        return _dataBuilder(context, data);
+        final appUser = ref.read(providerOfLoggedInUser);
+        final chats = data
+            .where((element) => !element.hiddenToUserIds.contains(appUser.uid))
+            .toList();
+        if (chats.isEmpty) return _emptyBuilder();
+        return _dataBuilder(context, chats);
       },
       error: (e, _) => _errorBuilder(e.toString()),
       loading: () => _loadingBuilder(),

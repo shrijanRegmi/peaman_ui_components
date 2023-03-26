@@ -398,6 +398,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_slidable:
+    dependency: transitive
+    description:
+      name: flutter_slidable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_svg:
     dependency: transitive
     description:
@@ -604,13 +611,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   octo_image:
     dependency: transitive
     description:
@@ -693,7 +693,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: e054928bf66e80b548a88b987c387a30d86bfa4b
+      resolved-ref: "089a2288248ecc69a47bcddcdf033e7a150ed971"
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"
@@ -753,13 +753,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.5"
   quiver:
     dependency: transitive
     description:
