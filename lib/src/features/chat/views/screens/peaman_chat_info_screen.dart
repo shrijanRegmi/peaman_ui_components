@@ -101,15 +101,8 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
             fontSize: 16.sp,
           ),
         ),
-        if (_getHeaderBody() != null)
-          PeamanText.body2(
-            _getHeaderBody(),
-          ),
-        if (chat!.type == PeamanChatType.group)
-          SizedBox(
-            height: 15.h,
-          ),
-        if (chat!.type == PeamanChatType.group) _groupActionsBuilder(),
+        if (_getHeaderBody() != null) PeamanText.body2(_getHeaderBody()).pT(3),
+        if (chat!.type == PeamanChatType.group) _groupActionsBuilder().pT(15),
       ],
     );
   }
@@ -139,6 +132,29 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
           ),
           onTap: () {},
         ),
+        if (chat!.type == PeamanChatType.group)
+          ListTile(
+            leading: PeamanRoundIconButton(
+              icon: Icon(
+                Icons.groups_rounded,
+                color: PeamanColors.white,
+                size: 16.w,
+              ),
+              padding: EdgeInsets.all(9.w),
+              bgColor: context.isDarkMode
+                  ? PeamanColors.containerBgDark
+                  : PeamanColors.secondary,
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 15.w,
+              vertical: 0.0,
+            ),
+            title: PeamanText.subtitle1(
+              'Group members',
+              style: TextStyle(fontSize: 14.sp),
+            ),
+            onTap: () {},
+          ),
         if (chat!.type == PeamanChatType.oneToOne)
           ListTile(
             leading: PeamanRoundIconButton(
