@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_confirmation_dialog.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 Future<T?> showPeamanConfirmationDialog<T>({
   required final BuildContext context,
@@ -15,6 +15,19 @@ Future<T?> showPeamanConfirmationDialog<T>({
         description: description,
         onConfirm: onConfirm,
       );
+    },
+  );
+}
+
+Future<T?> showPeamanErrorDialog<T>({
+  required final BuildContext context,
+  required final PeamanError error,
+}) {
+  return showCupertinoModalPopup<T>(
+    context: context,
+    barrierColor: PeamanColors.transparent,
+    builder: (context) {
+      return PeamanErrorDialog(error: error);
     },
   );
 }

@@ -19,10 +19,10 @@ dependencies:
     git:
       url: https://github.com/shrijanRegmi/peaman.git
       ref: new_version
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.1.6
   linkfy_text: ^1.1.5
   url_launcher: ^6.1.7
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.3
   fluttertoast: ^8.1.2
   another_flushbar: ^1.12.29
   lottie: ^2.1.0

@@ -44,6 +44,15 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(providerOfPeamanError, (previous, next) {
+      if (previous != next && next != null) {
+        showPeamanErrorDialog(
+          context: context,
+          error: next,
+        );
+      }
+    });
+
     return ref.watch(providerOfLoggedInUserStream).when(
       data: (user) {
         if (_isLoading || !_isInitialLockOpen()) {

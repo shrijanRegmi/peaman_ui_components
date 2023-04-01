@@ -63,6 +63,8 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
   final Ref _ref;
   PeamanAuthRepository get _authRepository =>
       _ref.watch(providerOfPeamanAuthRepository);
+  PeamanErrorProvider get _errorProvider =>
+      _ref.read(providerOfPeamanError.notifier);
 
   Future<void> signInWithEmailAndPassword() async {
     if (state.emailController.text.trim().isEmpty ||
@@ -81,10 +83,13 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
         signInWithEmailPasswordState:
             SignInWithEmailPasswordState.success(success),
       ),
-      (failure) => state.copyWith(
-        signInWithEmailPasswordState:
-            SignInWithEmailPasswordState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(_getHandledError(failure));
+        return state.copyWith(
+          signInWithEmailPasswordState:
+              SignInWithEmailPasswordState.error(failure),
+        );
+      },
     );
   }
 
@@ -110,10 +115,13 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
         signUpWithEmailPasswordState:
             SignUpWithEmailPasswordState.success(success),
       ),
-      (failure) => state.copyWith(
-        signUpWithEmailPasswordState:
-            SignUpWithEmailPasswordState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(_getHandledError(failure));
+        return state.copyWith(
+          signUpWithEmailPasswordState:
+              SignUpWithEmailPasswordState.error(failure),
+        );
+      },
     );
   }
 
@@ -126,9 +134,12 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
       (success) => state.copyWith(
         signInWithGoogleState: SignInWithGoogleState.success(success),
       ),
-      (failure) => state.copyWith(
-        signInWithGoogleState: SignInWithGoogleState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(_getHandledError(failure));
+        return state.copyWith(
+          signInWithGoogleState: SignInWithGoogleState.error(failure),
+        );
+      },
     );
   }
 
@@ -141,9 +152,12 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
       (success) => state.copyWith(
         signInWithFacebookState: SignInWithFacebookState.success(success),
       ),
-      (failure) => state.copyWith(
-        signInWithFacebookState: SignInWithFacebookState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(_getHandledError(failure));
+        return state.copyWith(
+          signInWithFacebookState: SignInWithFacebookState.error(failure),
+        );
+      },
     );
   }
 
@@ -156,9 +170,26 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
       (success) => state.copyWith(
         signOutState: SignOutState.success(success),
       ),
-      (failure) => state.copyWith(
-        signOutState: SignOutState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(_getHandledError(failure));
+        return state.copyWith(
+          signOutState: SignOutState.error(failure),
+        );
+      },
     );
+  }
+
+  PeamanError _getHandledError(final PeamanError error) {
+    var handledError = error;
+    switch (error.code) {
+      case 'wrong-password':
+        handledError = handledError.copyWith(
+          message: 'The password you have entered is wrong.',
+        );
+        break;
+      default:
+    }
+
+    return handledError;
   }
 }
