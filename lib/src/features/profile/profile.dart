@@ -1,3 +1,8 @@
+export 'providers/peaman_user_provider.dart';
+export 'providers/peaman_onboarding_provider.dart';
+export 'providers/states/peaman_user_provider_state.dart';
+export 'providers/states/peaman_onboarding_provider_state.dart';
+
 // views
 export './views/screens/peaman_onboarding_screen.dart';
 

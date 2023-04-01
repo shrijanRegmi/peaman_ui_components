@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_chat_provider_state.dart';
-import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 
 class PeamanChatMessageInput extends ConsumerStatefulWidget {
   final String chatId;

@@ -9,35 +9,47 @@ class PeamanRouter {
           settings,
           const PeamanWrapper(),
         );
+
       case PeamanLoginScreen.route:
         return buildRoute(
           settings,
           const PeamanLoginScreen(),
         );
+
       case PeamanSignUpScreen.route:
         return buildRoute(
           settings,
           const PeamanSignUpScreen(),
         );
+
       case PeamanChatsListScreen.route:
         return buildRoute(
           settings,
           const PeamanChatsListScreen(),
         );
+
       case PeamanChatConversationScreen.route:
         final arguments = settings.arguments as PeamanChatConversationArgs;
-
         return buildRoute(
           settings,
           PeamanChatConversationScreen(
             chatId: arguments.chatId,
             chatType: arguments.chatType,
-            receiverIds: arguments.receiverIds,
+            userIds: arguments.userIds,
           ),
         );
+
+      case PeamanChatInfoScreen.route:
+        final arguments = settings.arguments as PeamanChatInfoScreenArgs;
+        return buildRoute(
+          settings,
+          PeamanChatInfoScreen(
+            chatId: arguments.chatId,
+          ),
+        );
+
       case PeamanUsersSearchScreen.route:
         final arguments = settings.arguments as PeamanUsersSearchArgs?;
-
         return buildRoute(
           settings,
           PeamanUsersSearchScreen(
@@ -45,9 +57,9 @@ class PeamanRouter {
             onPressedUser: arguments?.onPressedUser,
           ),
         );
+
       case PeamanViewPicturesScreen.route:
         final arguments = settings.arguments as PeamanViewPicturesArgs;
-
         return buildRoute(
           settings,
           PeamanViewPicturesScreen(
@@ -56,6 +68,7 @@ class PeamanRouter {
             downloadable: arguments.downloadable,
           ),
         );
+
       default:
         return buildRoute(
           settings,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
 class PeamanChatMessagesList extends ConsumerWidget {
   final String chatId;

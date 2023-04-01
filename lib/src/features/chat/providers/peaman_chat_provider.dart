@@ -4,10 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/args/peaman_single_peaman_chat_message_stream_args.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/states/peaman_chat_provider_state.dart';
-import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
 final providerOfPeamanChat =
     StateNotifierProvider<PeamanChatProvider, PeamanChatProviderState>((ref) {

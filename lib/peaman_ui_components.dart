@@ -14,7 +14,9 @@ export 'src/features/chat/chat.dart';
 export 'src/features/profile/profile.dart';
 
 // utils
+export 'src/utils/peaman_common_strings.dart';
 export 'src/utils/peaman_theme.dart';
 export 'src/utils/peaman_colors.dart';
 export 'src/utils/peaman_text_styles.dart';
 export 'src/utils/peaman_router.dart';
+export 'src/utils/peaman_dialogs.dart';

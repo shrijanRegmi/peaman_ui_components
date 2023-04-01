@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
 final providerOfPeamanAuth =
     StateNotifierProvider<PeamanAuthProvider, PeamanAuthProviderState>(

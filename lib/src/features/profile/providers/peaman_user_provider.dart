@@ -1,7 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/profile/providers/states/peaman_user_provider_state.dart';
-import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
 final providerOfPeamanUser =
     StateNotifierProvider<PeamanUserProvider, PeamanUserProviderState>((ref) {

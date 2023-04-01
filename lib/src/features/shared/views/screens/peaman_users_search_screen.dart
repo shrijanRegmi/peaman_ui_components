@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/profile/providers/peaman_user_provider.dart';
-import 'package:peaman_ui_components/src/features/shared/providers/peaman_debounce_provider.dart';
-import 'package:peaman_ui_components/src/features/shared/providers/states/peaman_debounce_provider_state.dart';
-import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_error_builder.dart';
 
 class PeamanUsersSearchArgs {
   final bool searchUsersGlobally;

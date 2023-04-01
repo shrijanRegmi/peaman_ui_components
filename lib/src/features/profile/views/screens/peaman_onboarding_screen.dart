@@ -3,8 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/profile/providers/peaman_onboarding_provider.dart';
-import 'package:peaman_ui_components/src/features/profile/providers/states/peaman_onboarding_provider_state.dart';
 
 class PeamanOnboardingScreen extends StatefulHookConsumerWidget {
   const PeamanOnboardingScreen({super.key});

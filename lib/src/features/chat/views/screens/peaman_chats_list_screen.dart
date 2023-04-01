@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
-import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 
 class PeamanChatsListScreen extends ConsumerStatefulWidget {
   final bool searchUsersGlobally;
@@ -53,6 +51,7 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                     arguments: PeamanUsersSearchArgs(
                       searchUsersGlobally: widget.searchUsersGlobally,
                       onPressedUser: (user) {
+                        final appUser = ref.read(providerOfLoggedInUser);
                         final chatsStream =
                             ref.read(providerOfPeamanUserChatsStream);
                         chatsStream.maybeWhen(
@@ -70,7 +69,10 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                               arguments: PeamanChatConversationArgs(
                                 chatId: chat.id!,
                                 chatType: chat.type,
-                                receiverIds: [user.uid!],
+                                userIds: [
+                                  user.uid!,
+                                  appUser.uid!,
+                                ],
                               ),
                             );
                           },

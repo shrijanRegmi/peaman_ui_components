@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/models/peaman_file_url_extended.dart';
-import 'package:peaman_ui_components/src/features/profile/providers/peaman_user_provider.dart';
-import 'package:peaman_ui_components/src/features/profile/providers/states/peaman_onboarding_provider_state.dart';
-import 'package:peaman_ui_components/src/features/shared/providers/main_providers.dart';
 
 final providerOfPeamanOnboarding = StateNotifierProvider.autoDispose<
     PeamanOnboardingProvider, PeamanOnboardingProviderState>((ref) {

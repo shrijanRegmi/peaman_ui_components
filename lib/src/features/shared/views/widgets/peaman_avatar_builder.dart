@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -27,6 +28,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   final String? heroTag;
   final Widget? overlayWidget;
   final Border? border;
+  final double spreadFactor;
   final Function()? onPressed;
 
   const PeamanAvatarBuilder.network(
@@ -43,6 +45,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         assetPath = null,
         letter = null,
         letterStyle = null,
+        spreadFactor = 1.0,
         _type = _Type.network;
 
   const PeamanAvatarBuilder.multiNetwork(
@@ -53,6 +56,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.spreadFactor = 1.0,
     this.onPressed,
   })  : file = null,
         imgUrl = null,
@@ -75,6 +79,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         assetPath = null,
         letter = null,
         letterStyle = null,
+        spreadFactor = 1.0,
         _type = _Type.file;
 
   const PeamanAvatarBuilder.asset(
@@ -91,6 +96,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         file = null,
         letter = null,
         letterStyle = null,
+        spreadFactor = 1.0,
         _type = _Type.asset;
 
   const PeamanAvatarBuilder.letter(
@@ -107,6 +113,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         imgUrls = const [],
         file = null,
         assetPath = null,
+        spreadFactor = 1.0,
         _type = _Type.letter;
 
   @override
@@ -155,9 +162,9 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
         .sublist(0, widget.imgUrls.length > 3 ? 3 : widget.imgUrls.length);
 
     return _baseBuilder(
-      images.length == 1
+      images.length <= 1
           ? _networkStackItemBuilder(
-              imgUrl: images[0],
+              imgUrl: images.isEmpty ? null : images[0],
               size: widget.size,
               border: false,
             )
@@ -167,23 +174,23 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
                 for (var i = 0; i < images.length; i++)
                   Positioned(
                     top: i == 1 && images.length == 2
-                        ? 10.0
+                        ? 10.0 * widget.spreadFactor
                         : i == 0
                             ? null
                             : i == 1
-                                ? 15.0
+                                ? 15.0 * widget.spreadFactor
                                 : i == 2
-                                    ? 5.0
+                                    ? 5.0 * widget.spreadFactor
                                     : null,
                     right: i == 1 && images.length == 2
                         ? null
                         : i == 0 || i == 1
-                            ? 10.0
+                            ? 10.0 * widget.spreadFactor
                             : null,
                     left: i == 1 && images.length == 2
-                        ? 5.0
+                        ? 5.0 * widget.spreadFactor
                         : i == 2
-                            ? 10.0
+                            ? 10.0 * widget.spreadFactor
                             : null,
                     child: _networkStackItemBuilder(
                       imgUrl: images[i],
@@ -253,8 +260,8 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
       onTap: widget.onPressed,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        width: widget.size + 2,
-        height: widget.size + 2,
+        width: (widget.size + 2).w,
+        height: (widget.size + 2).h,
         padding: const EdgeInsets.all(2.0),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -271,8 +278,8 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
     final bool border = true,
   }) {
     return Container(
-      width: size,
-      height: size,
+      width: size.w,
+      height: size.h,
       decoration: BoxDecoration(
         color: PeamanColors.extraLightGrey,
         shape: BoxShape.circle,

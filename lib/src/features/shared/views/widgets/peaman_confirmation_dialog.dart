@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 
 class PeamanConfirmationDialog extends StatelessWidget {
   final String title;

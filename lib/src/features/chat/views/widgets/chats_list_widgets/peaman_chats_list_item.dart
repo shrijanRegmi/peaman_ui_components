@@ -3,11 +3,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/args/peaman_single_peaman_chat_message_stream_args.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
-import 'package:peaman_ui_components/src/features/chat/views/widgets/chats_list_widgets/peaman_chat_archive_button.dart';
-import 'package:peaman_ui_components/src/features/chat/views/widgets/chats_list_widgets/peaman_chat_delete_button.dart';
-import 'package:peaman_ui_components/src/features/shared/extensions/widget_extension.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class PeamanChatsListItem extends ConsumerStatefulWidget {
@@ -146,10 +141,12 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
               //     ? 'App User'
               //     : user.name,
               users.isEmpty
-                  ? 'Group Chat'
+                  ? 'Unknown'
                   : remaining == 0
-                      ? '${users.first.name}'
-                      : '${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+                      ? widget.chat.type == PeamanChatType.group
+                          ? 'You and ${users.first.name}'
+                          : '${users.first.name}'
+                      : 'You, ${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
               style: const TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/chat/providers/peaman_chat_provider.dart';
 
 class PeamanChatsList extends ConsumerStatefulWidget {
   final List<PeamanChat>? chats;
@@ -110,13 +109,12 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
     final BuildContext context,
     final PeamanChat chat,
   ) {
-    final appUser = ref.watch(providerOfLoggedInUser);
     context.pushNamed(
       PeamanChatConversationScreen.route,
       arguments: PeamanChatConversationArgs(
         chatId: chat.id!,
         chatType: chat.type,
-        receiverIds: chat.userIds.where((e) => e != appUser.uid).toList(),
+        userIds: chat.userIds,
       ),
     );
   }
