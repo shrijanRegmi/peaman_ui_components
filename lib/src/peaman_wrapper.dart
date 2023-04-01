@@ -27,11 +27,28 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
     });
   }
 
+  bool _isInitialLockOpen() {
+    final isBlockedUsersLoading =
+        ref.watch(providerOfPeamanBlockedUsersStream).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+    final isBlockedByUsersLoading =
+        ref.watch(providerOfPeamanBlockedByUsersStream).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
+    return !isBlockedUsersLoading && !isBlockedByUsersLoading;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ref.watch(providerOfLoggedInUserStream).when(
       data: (user) {
-        if (_isLoading) return const PeamanSplashScreen();
+        if (_isLoading || !_isInitialLockOpen()) {
+          return const PeamanSplashScreen();
+        }
 
         if (user != null) {
           if (user.isOnboardingCompleted) {

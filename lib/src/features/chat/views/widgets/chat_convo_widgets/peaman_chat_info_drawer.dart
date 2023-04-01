@@ -249,6 +249,26 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _chatActionsSet2Builder() {
+    final blockedUsersStream = ref.watch(providerOfPeamanBlockedUsersStream);
+    final usersFuture = ref.watch(
+      providerOfPeamanChatUsersFuture(chat!.userIds),
+    );
+
+    final user = usersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success.first,
+          (failure) => null,
+        );
+      },
+      orElse: () => null,
+    );
+
+    final isUserBlocked = blockedUsersStream.maybeWhen(
+      data: (data) => data.map((e) => e.uid).toList().contains(user?.uid),
+      orElse: () => false,
+    );
+
     return Column(
       children: [
         SwitchListTile(
@@ -268,8 +288,21 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
         ),
         if (chat!.type == PeamanChatType.oneToOne)
           SwitchListTile(
-            value: false,
-            onChanged: (val) {},
+            value: isUserBlocked,
+            onChanged: (val) {
+              showPeamanConfirmationDialog(
+                context: context,
+                title:
+                    'Are you sure you want to ${isUserBlocked ? 'unblock' : 'block'} ${user?.name}?',
+                description:
+                    'This action is not permanent and you can decide to undo this action at any time.',
+                onConfirm: () {
+                  ref
+                      .read(providerOfPeamanUser.notifier)
+                      .toggleBlockUnblock(user!.uid!);
+                },
+              );
+            },
             activeColor: context.isDarkMode
                 ? PeamanColors.containerBgDark
                 : PeamanColors.secondary,
