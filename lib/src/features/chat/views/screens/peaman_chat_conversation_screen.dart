@@ -102,7 +102,10 @@ class _PeamanChatConversationScreenState
           },
           actions: [
             IconButton(
-              onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+              onPressed: () {
+                context.unfocus();
+                _scaffoldKey.currentState?.openEndDrawer();
+              },
               icon: const Icon(Icons.more_vert_rounded),
             )
           ],
