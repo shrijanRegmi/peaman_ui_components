@@ -102,24 +102,17 @@ class _PeamanChatConversationScreenState
           },
           actions: [
             IconButton(
-              onPressed: () {
-                context.unfocus();
-                _scaffoldKey.currentState?.openEndDrawer();
-              },
+              onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
               icon: const Icon(Icons.more_vert_rounded),
             )
           ],
         ),
         endDrawer: PeamanChatInfoDrawer(chatId: widget.chatId),
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          behavior: HitTestBehavior.opaque,
-          child: PeamanChatMessagesList(
-            chatId: widget.chatId,
-            receiverIds: receiverIds,
-            onSwippedMessage: (message, user, func) {},
-          ),
-        ),
+        body: PeamanChatMessagesList(
+          chatId: widget.chatId,
+          receiverIds: receiverIds,
+          onSwippedMessage: (message, user, func) {},
+        ).onPressed(() => context.unfocus()),
         bottomNavigationBar: Padding(
           padding: MediaQuery.of(context).viewInsets,
           child: PeamanChatMessageInput(
