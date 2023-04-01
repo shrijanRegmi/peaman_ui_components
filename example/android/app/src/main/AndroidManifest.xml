@@ -2,6 +2,12 @@
     package="com.peaman.app">
 
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <queries>
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="mailto" />
+      </intent>
+    </queries>
    
    <application
         android:label="Peaman"

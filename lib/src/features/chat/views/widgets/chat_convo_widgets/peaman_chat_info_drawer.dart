@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
   final String chatId;
@@ -233,7 +234,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                   style: TextStyle(fontSize: 12.sp),
                 ),
                 PeamanText.body2(
-                  'www.shrijanregmi.com',
+                  _getExternalContact(),
                   style: TextStyle(
                     fontSize: 10.sp,
                     color: PeamanColors.greyDark,
@@ -241,6 +242,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 ),
               ],
             ),
+            onTap: _lauchExternalContact,
           ),
       ],
     );
@@ -286,7 +288,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             vertical: 0.0,
           ),
           title: PeamanText.subtitle1(
-            'Clear messages',
+            'Archive chat',
             style: TextStyle(fontSize: 12.sp),
           ),
           onTap: () {},
@@ -298,7 +300,10 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
           ),
           title: PeamanText.subtitle1(
             'Delete chat',
-            style: TextStyle(fontSize: 12.sp),
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: PeamanColors.red,
+            ),
           ),
           onTap: () {},
         ),
@@ -382,11 +387,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                       ? 'You and ${success.first.name}'
                       : '${success.first.name}'
                   : 'You, ${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
-          (failure) => 'Unknown',
+          (failure) => PeamanCommonStrings.unknown,
         );
       },
-      loading: () => 'Loading...',
-      orElse: () => 'Unknown',
+      loading: () => PeamanCommonStrings.loading,
+      orElse: () => PeamanCommonStrings.unknown,
     );
   }
 
@@ -404,8 +409,37 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
           (failure) => null,
         );
       },
-      loading: () => null,
       orElse: () => null,
     );
+  }
+
+  String _getExternalContact() {
+    if (chat!.type == PeamanChatType.group) return '';
+
+    final usersFuture = ref.watch(
+      providerOfPeamanChatUsersFuture(chat!.userIds),
+    );
+
+    return usersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success.isEmpty ? '' : success.first.email!,
+          (failure) => '',
+        );
+      },
+      orElse: () => PeamanCommonStrings.loading,
+    );
+  }
+
+  void _lauchExternalContact() async {
+    var url = '';
+    final regexEmail = RegExp(PeamanCommonStrings.regexEmail);
+    if (regexEmail.hasMatch(_getExternalContact())) {
+      url = 'mailto:${_getExternalContact()}';
+    }
+
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    }
   }
 }
