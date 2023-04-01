@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanTextStyles {
   static const heading1 = TextStyle(
@@ -51,13 +50,11 @@ class PeamanTextStyles {
   static const body1 = TextStyle(
     fontSize: 16.0,
     fontWeight: FontWeight.w400,
-    color: PeamanColors.greyDark,
   );
 
   static const body2 = TextStyle(
     fontSize: 14.0,
     fontWeight: FontWeight.w400,
-    color: PeamanColors.greyDark,
   );
 
   static const button = TextStyle(
