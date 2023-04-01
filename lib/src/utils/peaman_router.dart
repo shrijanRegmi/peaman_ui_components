@@ -39,15 +39,6 @@ class PeamanRouter {
           ),
         );
 
-      case PeamanChatInfoScreen.route:
-        final arguments = settings.arguments as PeamanChatInfoScreenArgs;
-        return buildRoute(
-          settings,
-          PeamanChatInfoScreen(
-            chatId: arguments.chatId,
-          ),
-        );
-
       case PeamanUsersSearchScreen.route:
         final arguments = settings.arguments as PeamanUsersSearchArgs?;
         return buildRoute(

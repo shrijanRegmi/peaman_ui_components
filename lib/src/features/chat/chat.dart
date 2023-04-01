@@ -4,7 +4,6 @@ export 'providers/states/peaman_chat_provider_state.dart';
 
 export 'views/screens/peaman_chats_list_screen.dart';
 export 'views/screens/peaman_chat_conversation_screen.dart';
-export 'views/screens/peaman_chat_info_screen.dart';
 
 export 'views/widgets/chats_list_widgets/peaman_chats_list.dart';
 export 'views/widgets/chats_list_widgets/peaman_chats_list_item.dart';
@@ -19,3 +18,4 @@ export 'views/widgets/chat_convo_widgets/peaman_chat_message_typing_indicator.da
 export 'views/widgets/chat_convo_widgets/peaman_chat_message_seen_indicator.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_message_input.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_cant_reply_builder.dart';
+export 'views/widgets/chat_convo_widgets/peaman_chat_info_drawer.dart';

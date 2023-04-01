@@ -35,6 +35,8 @@ class PeamanChatConversationScreen extends ConsumerStatefulWidget {
 
 class _PeamanChatConversationScreenState
     extends ConsumerState<PeamanChatConversationScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -73,6 +75,7 @@ class _PeamanChatConversationScreenState
         return true;
       },
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: PeamanAppbar(
           title: usersFuture.maybeWhen(
             data: (data) {
@@ -99,14 +102,12 @@ class _PeamanChatConversationScreenState
           },
           actions: [
             IconButton(
-              onPressed: () => context.pushNamed(
-                PeamanChatInfoScreen.route,
-                arguments: PeamanChatInfoScreenArgs(chatId: widget.chatId),
-              ),
+              onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
               icon: const Icon(Icons.more_vert_rounded),
             )
           ],
         ),
+        endDrawer: PeamanChatInfoDrawer(chatId: widget.chatId),
         body: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           behavior: HitTestBehavior.opaque,

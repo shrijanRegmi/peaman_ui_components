@@ -3,79 +3,68 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatInfoScreenArgs {
+class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
   final String chatId;
 
-  const PeamanChatInfoScreenArgs({
-    required this.chatId,
-  });
-}
-
-class PeamanChatInfoScreen extends ConsumerStatefulWidget {
-  final String chatId;
-
-  const PeamanChatInfoScreen({
+  const PeamanChatInfoDrawer({
     super.key,
     required this.chatId,
   });
 
-  static const route = '/peaman_chat_info_screen';
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PeamanChatInfoScreenState();
+      _PeamanChatInfoDrawerState();
 }
 
-class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
+class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   PeamanChat? get chat =>
       ref.watch(providerOfSinglePeamanChatFromChatsStream(widget.chatId));
   PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PeamanAppbar(
-        title: 'Chat Info',
-      ),
-      body: chat == null
-          ? const PeamanErrorBuilder(
-              title: "Couldn't Load Chat",
-              subTitle:
-                  'The chat may have be deleted. Please\nvisit this place later.',
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+    return Drawer(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
+      child: SafeArea(
+        child: chat == null
+            ? const PeamanErrorBuilder(
+                title: "Couldn't Load Chat",
+                subTitle:
+                    'The chat may have be deleted. Please\nvisit this place later.',
+              )
+            : SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        _headerBuilder(),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Divider(
-                          height: 25.h,
-                        ),
-                        _chatActionsSet1Builder(),
-                        Divider(
-                          height: 25.h,
-                        ),
-                        _chatActionsSet2Builder(),
-                        SizedBox(
-                          height: 40.h,
+                        IconButton(
+                          onPressed: () => context.pop(),
+                          splashRadius: 20.r,
+                          icon: const Icon(Icons.close_rounded),
                         ),
                       ],
+                    ).pL(10).pT(10),
+                    _headerBuilder(),
+                    SizedBox(
+                      height: 10.h,
                     ),
-                  ),
+                    Divider(
+                      height: 25.h,
+                    ),
+                    _chatActionsSet1Builder(),
+                    Divider(
+                      height: 25.h,
+                    ),
+                    _chatActionsSet2Builder(),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+      ),
     );
   }
 
@@ -94,14 +83,20 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
         SizedBox(
           height: chat!.type == PeamanChatType.group ? 35.h : 10.h,
         ),
-        PeamanText.subtitle1(
+        PeamanText.subtitle2(
           _getHeaderTitle(),
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 16.sp,
           ),
         ),
-        if (_getHeaderBody() != null) PeamanText.body2(_getHeaderBody()).pT(3),
+        if (_getHeaderBody() != null)
+          PeamanText.body2(
+            _getHeaderBody(),
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: PeamanColors.greyDark,
+            ),
+          ).pT(3),
         if (chat!.type == PeamanChatType.group) _groupActionsBuilder().pT(15),
       ],
     );
@@ -115,20 +110,23 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
             icon: Icon(
               Icons.image_rounded,
               color: PeamanColors.white,
-              size: 16.w,
+              size: 12.w,
             ),
-            padding: EdgeInsets.all(9.w),
+            padding: EdgeInsets.all(7.w),
             bgColor: context.isDarkMode
                 ? PeamanColors.containerBgDark
                 : PeamanColors.secondary,
           ),
+          minLeadingWidth: 10.w,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 15.w,
             vertical: 0.0,
           ),
           title: PeamanText.subtitle1(
             'Media, links and files',
-            style: TextStyle(fontSize: 14.sp),
+            style: TextStyle(
+              fontSize: 12.sp,
+            ),
           ),
           onTap: () {},
         ),
@@ -138,20 +136,21 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
               icon: Icon(
                 Icons.groups_rounded,
                 color: PeamanColors.white,
-                size: 16.w,
+                size: 12.w,
               ),
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(7.w),
               bgColor: context.isDarkMode
                   ? PeamanColors.containerBgDark
                   : PeamanColors.secondary,
             ),
+            minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15.w,
               vertical: 0.0,
             ),
             title: PeamanText.subtitle1(
               'Group members',
-              style: TextStyle(fontSize: 14.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             onTap: () {},
           ),
@@ -161,20 +160,21 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
               icon: Icon(
                 Icons.group_add_rounded,
                 color: PeamanColors.white,
-                size: 16.w,
+                size: 12.w,
               ),
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(7.w),
               bgColor: context.isDarkMode
                   ? PeamanColors.containerBgDark
                   : PeamanColors.secondary,
             ),
+            minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15.w,
               vertical: 0.0,
             ),
             title: PeamanText.subtitle1(
               'Add to group',
-              style: TextStyle(fontSize: 14.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             onTap: () {},
           ),
@@ -184,20 +184,21 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
               icon: Icon(
                 Icons.group,
                 color: PeamanColors.white,
-                size: 16.w,
+                size: 12.w,
               ),
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(7.w),
               bgColor: context.isDarkMode
                   ? PeamanColors.containerBgDark
                   : PeamanColors.secondary,
             ),
+            minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15.w,
               vertical: 0.0,
             ),
             title: PeamanText.subtitle1(
               'Groups in common',
-              style: TextStyle(fontSize: 14.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
             onTap: () {},
           ),
@@ -207,13 +208,14 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
               icon: Icon(
                 Icons.email_rounded,
                 color: PeamanColors.white,
-                size: 16.w,
+                size: 12.w,
               ),
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(7.w),
               bgColor: context.isDarkMode
                   ? PeamanColors.containerBgDark
                   : PeamanColors.secondary,
             ),
+            minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15.w,
               vertical: 0.0,
@@ -223,10 +225,14 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
               children: [
                 PeamanText.subtitle1(
                   'External contact',
-                  style: TextStyle(fontSize: 14.sp),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
-                const PeamanText.body2(
+                PeamanText.body2(
                   'www.shrijanregmi.com',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    color: PeamanColors.greyDark,
+                  ),
                 ),
               ],
             ),
@@ -239,7 +245,7 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
     return Column(
       children: [
         SwitchListTile(
-          value: true,
+          value: false,
           onChanged: (val) {},
           activeColor: context.isDarkMode
               ? PeamanColors.containerBgDark
@@ -250,7 +256,7 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
           ),
           title: PeamanText.subtitle1(
             'Mute chat',
-            style: TextStyle(fontSize: 14.sp),
+            style: TextStyle(fontSize: 12.sp),
           ),
         ),
         if (chat!.type == PeamanChatType.oneToOne)
@@ -266,7 +272,7 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
             ),
             title: PeamanText.subtitle1(
               'Block user',
-              style: TextStyle(fontSize: 14.sp),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
         ListTile(
@@ -276,7 +282,7 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
           ),
           title: PeamanText.subtitle1(
             'Clear messages',
-            style: TextStyle(fontSize: 14.sp),
+            style: TextStyle(fontSize: 12.sp),
           ),
           onTap: () {},
         ),
@@ -287,7 +293,7 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
           ),
           title: PeamanText.subtitle1(
             'Delete chat',
-            style: TextStyle(fontSize: 14.sp),
+            style: TextStyle(fontSize: 12.sp),
           ),
           onTap: () {},
         ),
