@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,18 +39,32 @@ class _PeamanViewChatMediasScreenState
       appBar: const PeamanAppbar(
         title: 'Media, Links and Files',
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 20.h,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: _filtersBuilder(),
           ),
-          _sentByFilterBuilder(),
-          SizedBox(
-            height: 20.h,
-          ),
-          _mediaTypeFilter(),
+          _mediaGridBuilder(),
         ],
       ),
+    );
+  }
+
+  Widget _filtersBuilder() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 20.h,
+        ),
+        _sentByFilterBuilder(),
+        SizedBox(
+          height: 20.h,
+        ),
+        _mediaTypeFilter(),
+        SizedBox(
+          height: 20.h,
+        ),
+      ],
     );
   }
 
@@ -137,6 +152,35 @@ class _PeamanViewChatMediasScreenState
           ),
         ),
       ],
+    );
+  }
+
+  Widget _mediaGridBuilder() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      sliver: SliverGrid(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 10.w,
+          mainAxisSpacing: 10.h,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Container(
+              width: 200.w,
+              height: 200.h,
+              decoration: BoxDecoration(
+                color: PeamanColors.extraLightGrey,
+                borderRadius: BorderRadius.circular(5.r),
+                image: const DecorationImage(
+                  image: CachedNetworkImageProvider(''),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
