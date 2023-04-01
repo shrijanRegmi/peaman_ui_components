@@ -87,7 +87,7 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
           [
             ..._getHeaderAvatars(),
             if (chat!.type == PeamanChatType.group) appUser.photo,
-          ],
+          ]..shuffle(),
           size: chat!.type == PeamanChatType.group ? 80.0 : 100.0,
           spreadFactor: 2.5,
         ),
@@ -351,7 +351,9 @@ class _PeamanChatInfoScreenState extends ConsumerState<PeamanChatInfoScreen> {
           (success) => success.isEmpty
               ? 'Chat Conversation'
               : remaining == 0
-                  ? 'You and ${success.first.name}'
+                  ? chat!.type == PeamanChatType.group
+                      ? 'You and ${success.first.name}'
+                      : '${success.first.name}'
                   : 'You, ${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
           (failure) => 'Unknown',
         );
