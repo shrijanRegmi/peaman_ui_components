@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -16,7 +17,10 @@ class PeamanUsersList extends StatelessWidget {
   final bool scroll;
   final bool requiredSearch;
   final Axis scrollDirection;
-  final EdgeInsets? padding;
+  final ScrollPhysics physics;
+  final EdgeInsets? initialItemPadding;
+  final EdgeInsets? itemPadding;
+  final double height;
   final Widget Function(PeamanUser)? avatarBuilder;
   final Widget Function(PeamanUser)? nameBuilder;
   final Widget Function(PeamanUser)? captionBuilder;
@@ -28,7 +32,9 @@ class PeamanUsersList extends StatelessWidget {
     Key? key,
     required this.usersIds,
     this.scroll = false,
-    this.padding,
+    this.initialItemPadding,
+    this.itemPadding,
+    this.physics = const AlwaysScrollableScrollPhysics(),
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -39,13 +45,16 @@ class PeamanUsersList extends StatelessWidget {
         requiredSearch = false,
         onPressedSearch = null,
         scrollDirection = Axis.vertical,
+        height = 0.0,
         super(key: key);
 
   const PeamanUsersList.expandedByUsers({
     Key? key,
     required this.users,
     this.scroll = false,
-    this.padding,
+    this.initialItemPadding,
+    this.itemPadding,
+    this.physics = const AlwaysScrollableScrollPhysics(),
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -56,18 +65,22 @@ class PeamanUsersList extends StatelessWidget {
         requiredSearch = false,
         onPressedSearch = null,
         scrollDirection = Axis.vertical,
+        height = 0.0,
         super(key: key);
 
   const PeamanUsersList.roundedByUids({
     Key? key,
     required this.usersIds,
     this.requiredSearch = false,
-    this.padding,
+    this.initialItemPadding,
+    this.itemPadding,
+    this.physics = const AlwaysScrollableScrollPhysics(),
     this.scrollDirection = Axis.vertical,
     this.avatarBuilder,
     this.nameBuilder,
     this.onPressedUser,
     this.onPressedSearch,
+    this.height = 82.0,
   })  : type = _Type.roundedByUids,
         users = const [],
         actionWidgetsBuilder = null,
@@ -79,12 +92,15 @@ class PeamanUsersList extends StatelessWidget {
     Key? key,
     required this.users,
     this.requiredSearch = false,
-    this.padding,
+    this.initialItemPadding,
+    this.itemPadding,
+    this.physics = const AlwaysScrollableScrollPhysics(),
     this.scrollDirection = Axis.vertical,
     this.avatarBuilder,
     this.nameBuilder,
     this.onPressedUser,
     this.onPressedSearch,
+    this.height = 82.0,
   })  : type = _Type.roundedByUsers,
         usersIds = const [],
         actionWidgetsBuilder = null,
@@ -119,15 +135,13 @@ class PeamanUsersList extends StatelessWidget {
     return SizedBox(
       height: (type == _Type.roundedByUids || type == _Type.roundedByUsers) &&
               scrollDirection == Axis.horizontal
-          ? 105.0
+          ? height.h
           : null,
       child: ListView.builder(
         itemCount: list.length,
         shrinkWrap: !scroll,
         scrollDirection: scrollDirection,
-        physics: scroll
-            ? const AlwaysScrollableScrollPhysics()
-            : const NeverScrollableScrollPhysics(),
+        physics: scroll ? physics : const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final userId = list[index];
 
@@ -136,7 +150,7 @@ class PeamanUsersList extends StatelessWidget {
           return type == _Type.expandedByUids
               ? PeamanUsersListItem.expandedByUid(
                   userId: userId,
-                  padding: padding,
+                  padding: index == 0 ? initialItemPadding : itemPadding,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
                   captionBuilder: captionBuilder,
@@ -145,7 +159,7 @@ class PeamanUsersList extends StatelessWidget {
                 )
               : PeamanUsersListItem.roundedByUid(
                   userId: userId,
-                  padding: padding,
+                  padding: index == 0 ? initialItemPadding : itemPadding,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
                   onPressed: onPressedUser,
@@ -165,15 +179,13 @@ class PeamanUsersList extends StatelessWidget {
     return SizedBox(
       height: (type == _Type.roundedByUids || type == _Type.roundedByUsers) &&
               scrollDirection == Axis.horizontal
-          ? 105.0
+          ? height.h
           : null,
       child: ListView.builder(
         itemCount: list.length,
         shrinkWrap: !scroll,
         scrollDirection: scrollDirection,
-        physics: scroll
-            ? const AlwaysScrollableScrollPhysics()
-            : const NeverScrollableScrollPhysics(),
+        physics: scroll ? physics : const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final user = list[index];
 
@@ -182,7 +194,7 @@ class PeamanUsersList extends StatelessWidget {
           return type == _Type.expandedByUsers
               ? PeamanUsersListItem.expandedByUser(
                   user: user,
-                  padding: padding,
+                  padding: index == 0 ? initialItemPadding : itemPadding,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
                   captionBuilder: captionBuilder,
@@ -191,7 +203,7 @@ class PeamanUsersList extends StatelessWidget {
                 )
               : PeamanUsersListItem.roundedByUser(
                   user: user,
-                  padding: padding,
+                  padding: index == 0 ? initialItemPadding : itemPadding,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
                   onPressed: onPressedUser,

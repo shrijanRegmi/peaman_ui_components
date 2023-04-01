@@ -4,6 +4,7 @@ export 'providers/states/peaman_chat_provider_state.dart';
 
 export 'views/screens/peaman_chats_list_screen.dart';
 export 'views/screens/peaman_chat_conversation_screen.dart';
+export 'views/screens/peaman_view_chat_medias_screen.dart';
 
 export 'views/widgets/chats_list_widgets/peaman_chats_list.dart';
 export 'views/widgets/chats_list_widgets/peaman_chats_list_item.dart';

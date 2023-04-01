@@ -128,7 +128,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               fontSize: 12.sp,
             ),
           ),
-          onTap: () {},
+          onTap: () => context.pushNamed(
+            PeamanViewChatMediasScreen.route,
+            arguments: PeamanViewChatMediasScreenArgs(
+              chatId: widget.chatId,
+            ),
+          ),
         ),
         if (chat!.type == PeamanChatType.group)
           ListTile(

@@ -1,5 +1,6 @@
 export 'providers/main_providers.dart';
 export 'providers/peaman_debounce_provider.dart';
+export 'providers/peaman_chip_provider.dart';
 export 'providers/states/peaman_debounce_provider_state.dart';
 
 export 'views/screens/peaman_users_search_screen.dart';
@@ -19,6 +20,7 @@ export 'views/widgets/peaman_selectable_options_bottomsheet.dart';
 export 'views/widgets/peaman_progress_builder.dart';
 export 'views/widgets/peaman_rounded_icon_button.dart';
 export 'views/widgets/peaman_error_builder.dart';
+export 'views/widgets/peaman_chip.dart';
 
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_picture_model.dart';

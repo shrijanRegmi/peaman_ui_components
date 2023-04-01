@@ -184,9 +184,10 @@ class PeamanUsersListItem extends ConsumerWidget {
                 const SizedBox(
                   height: 5.0,
                 ),
-                PeamanText.body2(
-                  user.name,
-                ),
+                nameBuilder?.call(user) ??
+                    PeamanText.body2(
+                      user.name,
+                    ),
               ],
             ),
           ],
