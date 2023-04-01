@@ -27,7 +27,7 @@ Future<T?> showPeamanErrorDialog<T>({
     context: context,
     barrierColor: PeamanColors.transparent,
     builder: (context) {
-      return PeamanErrorDialog(error: error);
+      return PeamanErrorPopUp(error: error);
     },
   );
 }

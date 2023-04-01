@@ -506,13 +506,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
-  image_downloader:
-    dependency: transitive
-    description:
-      name: image_downloader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.31.0"
   image_picker:
     dependency: transitive
     description:
@@ -693,7 +686,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: c6a5e0ce374c3373d1fb3ffaab3db401149bba7d
+      resolved-ref: fe56fa998a14323d24199ed0244f29a6308a6e96
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"

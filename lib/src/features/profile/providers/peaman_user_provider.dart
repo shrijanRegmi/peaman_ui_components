@@ -54,7 +54,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             final blockedUids = data.map((e) => e.uid).toList();
             if (blockedUids.contains(friendId)) {
               state = state.copyWith(
-                blockUserState: BlockUserState.error(
+                blockUserState: const BlockUserState.error(
                   PeamanError(
                     message: 'The user is already blocked.',
                   ),
@@ -98,7 +98,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             final blockedUids = data.map((e) => e.uid).toList();
             if (!blockedUids.contains(friendId)) {
               state = state.copyWith(
-                blockUserState: BlockUserState.error(
+                blockUserState: const BlockUserState.error(
                   PeamanError(
                     message: 'The user is not already blocked.',
                   ),

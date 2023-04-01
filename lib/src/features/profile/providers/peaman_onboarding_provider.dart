@@ -168,13 +168,13 @@ class PeamanOnboardingProvider
   Future<void> _saveBasicInfo() async {
     PeamanError? error;
     if (state.nameController.text.trim().isEmpty) {
-      error = PeamanError(message: 'Full name cannot be empty');
+      error = const PeamanError(message: 'Full name cannot be empty');
     }
     if (state.usernameController.text.trim().isEmpty) {
-      error = PeamanError(message: 'Username cannot be empty');
+      error = const PeamanError(message: 'Username cannot be empty');
     }
     if (state.selectedCountry == null) {
-      error = PeamanError(message: 'Country cannot be empty');
+      error = const PeamanError(message: 'Country cannot be empty');
     }
     if (error != null) {
       state = state.copyWith(
@@ -261,13 +261,13 @@ class PeamanOnboardingProvider
   Future<void> _saveDetailedInfo() async {
     PeamanError? error;
     if (state.selectedDateOfBirth == null) {
-      error = PeamanError(message: 'Date of birth cannot be empty');
+      error = const PeamanError(message: 'Date of birth cannot be empty');
     }
     if (state.selectedGender == PeamanGender.unknown) {
-      error = PeamanError(message: 'Gender cannot be empty');
+      error = const PeamanError(message: 'Gender cannot be empty');
     }
     if (state.bioController.text.trim().isEmpty) {
-      error = PeamanError(message: 'Bio cannot be empty');
+      error = const PeamanError(message: 'Bio cannot be empty');
     }
     if (error != null) {
       state = state.copyWith(

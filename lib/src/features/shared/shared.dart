@@ -23,7 +23,7 @@ export 'views/widgets/peaman_rounded_icon_button.dart';
 export 'views/widgets/peaman_error_builder.dart';
 export 'views/widgets/peaman_chip.dart';
 export 'views/widgets/peaman_confirmation_dialog.dart';
-export 'views/widgets/peaman_error_dialog.dart';
+export 'views/widgets/peaman_error_popup.dart';
 
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_picture_model.dart';

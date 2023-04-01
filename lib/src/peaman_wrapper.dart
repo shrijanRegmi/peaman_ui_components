@@ -44,38 +44,39 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(providerOfPeamanError, (previous, next) {
-      if (previous != next && next != null) {
-        showPeamanErrorDialog(
-          context: context,
-          error: next,
-        );
-      }
-    });
+    final error = ref.watch(providerOfPeamanError);
+    return Stack(
+      children: [
+        ref.watch(providerOfLoggedInUserStream).when(
+          data: (user) {
+            if (_isLoading || !_isInitialLockOpen()) {
+              return const PeamanSplashScreen();
+            }
 
-    return ref.watch(providerOfLoggedInUserStream).when(
-      data: (user) {
-        if (_isLoading || !_isInitialLockOpen()) {
-          return const PeamanSplashScreen();
-        }
-
-        if (user != null) {
-          if (user.isOnboardingCompleted) {
-            return const PeamanChatsListScreen(
-              searchUsersGlobally: true,
-            );
-          } else {
-            return const PeamanOnboardingScreen();
-          }
-        }
-        return const PeamanLoginScreen();
-      },
-      error: (e, _) {
-        return const PeamanLoginScreen();
-      },
-      loading: () {
-        return const PeamanSplashScreen();
-      },
+            if (user != null) {
+              if (user.isOnboardingCompleted) {
+                return const PeamanChatsListScreen(
+                  searchUsersGlobally: true,
+                );
+              } else {
+                return const PeamanOnboardingScreen();
+              }
+            }
+            return const PeamanLoginScreen();
+          },
+          error: (e, _) {
+            return const PeamanLoginScreen();
+          },
+          loading: () {
+            return const PeamanSplashScreen();
+          },
+        ),
+        if (error != null)
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: PeamanErrorPopUp(error: error),
+          ),
+      ],
     );
   }
 }
