@@ -17,6 +17,24 @@ class PeamanChatArchiveButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final chat = ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(chatId),
+    );
+
+    final usersFuture = ref.watch(
+      providerOfPeamanChatUsersFuture(chat?.userIds ?? []),
+    );
+
+    final user = usersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success.first,
+          (failure) => null,
+        );
+      },
+      orElse: () => null,
+    );
+
     return Container(
       height: double.infinity,
       decoration: const BoxDecoration(
@@ -34,7 +52,8 @@ class PeamanChatArchiveButton extends ConsumerWidget {
         await showPeamanConfirmationDialog(
           context: context,
           title: 'Are you sure you want to archive this chat?',
-          description: 'This action is permanent and cannot be undone',
+          description:
+              'This chat will not be shown in your chats list until you or ${user?.name} sends a new message to this chat.',
           onConfirm: () {
             ref.read(providerOfPeamanChat.notifier).archiveChat(chatId: chatId);
           },

@@ -97,10 +97,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               fontSize: 12.sp,
               color: PeamanColors.greyDark,
             ),
+            textAlign: TextAlign.center,
           ).pT(3),
         if (chat!.type == PeamanChatType.group) _groupActionsBuilder().pT(15),
       ],
-    );
+    ).pX(20);
   }
 
   Widget _chatActionsSet1Builder() {
@@ -326,7 +327,23 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             'Archive chat',
             style: TextStyle(fontSize: 12.sp),
           ),
-          onTap: () {},
+          onTap: () {
+            showPeamanConfirmationDialog(
+              context: context,
+              title: 'Are you sure you want to archive this chat?',
+              description:
+                  'This chat will not be shown in your chats list until you or ${user?.name} sends a new message to this chat.',
+              onConfirm: () {
+                ref
+                    .read(providerOfPeamanChat.notifier)
+                    .archiveChat(chatId: widget.chatId);
+
+                context
+                  ..pop()
+                  ..pop();
+              },
+            );
+          },
         ),
         ListTile(
           contentPadding: EdgeInsets.symmetric(
@@ -340,7 +357,23 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               color: PeamanColors.red,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            showPeamanConfirmationDialog(
+              context: context,
+              title: 'Are you sure you want to delete this chat?',
+              description:
+                  'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${user?.name} can still see the messages.',
+              onConfirm: () {
+                ref
+                    .read(providerOfPeamanChat.notifier)
+                    .deleteChat(chatId: widget.chatId);
+
+                context
+                  ..pop()
+                  ..pop();
+              },
+            );
+          },
         ),
       ],
     );

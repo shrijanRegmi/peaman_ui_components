@@ -17,6 +17,24 @@ class PeamanChatDeleteButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final chat = ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(chatId),
+    );
+
+    final usersFuture = ref.watch(
+      providerOfPeamanChatUsersFuture(chat?.userIds ?? []),
+    );
+
+    final user = usersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success.first,
+          (failure) => null,
+        );
+      },
+      orElse: () => null,
+    );
+
     return Container(
       height: double.infinity,
       decoration: BoxDecoration(
@@ -38,7 +56,8 @@ class PeamanChatDeleteButton extends ConsumerWidget {
         await showPeamanConfirmationDialog(
           context: context,
           title: 'Are you sure you want to delete this chat?',
-          description: 'This action is permanent and cannot be undone',
+          description:
+              'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${user?.name} can still see the messages.',
           onConfirm: () {
             ref.read(providerOfPeamanChat.notifier).deleteChat(chatId: chatId);
           },

@@ -291,10 +291,12 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
                 width: 1.5,
               )
             : null,
-        image: DecorationImage(
-          image: CachedNetworkImageProvider('$imgUrl'),
-          fit: BoxFit.cover,
-        ),
+        image: imgUrl == null
+            ? null
+            : DecorationImage(
+                image: CachedNetworkImageProvider(imgUrl),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
