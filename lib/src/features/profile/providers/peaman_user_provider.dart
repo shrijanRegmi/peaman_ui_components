@@ -17,17 +17,21 @@ final providerOfPeamanUsersBySearchKeys =
 
 final providerOfPeamanBlockedUsersStream =
     StreamProvider<List<PeamanSubUser>>((ref) {
-  final appUser = ref.read(providerOfLoggedInUser);
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser == null) return const Stream.empty();
+
   return ref.watch(providerOfPeamanUserRepository).getBlockedUsersStream(
-        uid: appUser.uid!,
+        uid: authUser.uid,
       );
 });
 
 final providerOfPeamanBlockedByUsersStream =
     StreamProvider<List<PeamanSubUser>>((ref) {
-  final appUser = ref.read(providerOfLoggedInUser);
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser == null) return const Stream.empty();
+
   return ref.watch(providerOfPeamanUserRepository).getBlockedByUsersStream(
-        uid: appUser.uid!,
+        uid: authUser.uid,
       );
 });
 
@@ -39,7 +43,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   final Ref _ref;
   PeamanUserRepository get _userRepository =>
       _ref.watch(providerOfPeamanUserRepository);
-  PeamanUser get _appUser => _ref.watch(providerOfLoggedInUser);
+  PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
   PeamanErrorProvider get _errorProvider =>
       _ref.read(providerOfPeamanError.notifier);
 
@@ -55,12 +59,12 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
           data: (data) async {
             final blockedUids = data.map((e) => e.uid).toList();
             if (blockedUids.contains(friendId)) {
+              const error = PeamanError(
+                message: 'The user is already blocked.',
+              );
+              _errorProvider.logError(error);
               state = state.copyWith(
-                blockUserState: const BlockUserState.error(
-                  PeamanError(
-                    message: 'The user is already blocked.',
-                  ),
-                ),
+                blockUserState: const BlockUserState.error(error),
               );
               return;
             }
@@ -107,12 +111,12 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
           data: (data) async {
             final blockedUids = data.map((e) => e.uid).toList();
             if (!blockedUids.contains(friendId)) {
+              const error = PeamanError(
+                message: 'The user is not already blocked.',
+              );
+              _errorProvider.logError(error);
               state = state.copyWith(
-                blockUserState: const BlockUserState.error(
-                  PeamanError(
-                    message: 'The user is not already blocked.',
-                  ),
-                ),
+                blockUserState: const BlockUserState.error(error),
               );
               return;
             }
@@ -147,7 +151,9 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
         );
   }
 
-  Future<void> toggleBlockUnblock(final String friendId) async {
+  Future<void> toggleBlockUnblock(
+    final String friendId,
+  ) async {
     await _ref.read(providerOfPeamanBlockedUsersStream).maybeWhen(
           data: (data) async {
             final blockedUids = data.map((e) => e.uid).toList();

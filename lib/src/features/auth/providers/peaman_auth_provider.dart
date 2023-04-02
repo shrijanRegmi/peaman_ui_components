@@ -13,6 +13,14 @@ final providerOfPeamanAuthUserStream = StreamProvider<PeamanAuthUser?>((ref) {
   return ref.watch(providerOfPeamanAuthRepository).authUser;
 });
 
+final providerOfPeamanAuthUser = Provider<PeamanAuthUser?>((ref) {
+  final authUserStream = ref.watch(providerOfPeamanAuthUserStream);
+  return authUserStream.maybeWhen(
+    data: (data) => data,
+    orElse: () => null,
+  );
+});
+
 final providerOfLoggedInUserStream = StreamProvider<PeamanUser?>((ref) {
   final authUserStream = ref.watch(providerOfPeamanAuthUserStream);
 
@@ -167,9 +175,11 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
     );
     final result = await _authRepository.signOut();
     state = result.when(
-      (success) => state.copyWith(
-        signOutState: SignOutState.success(success),
-      ),
+      (success) {
+        return state.copyWith(
+          signOutState: SignOutState.success(success),
+        );
+      },
       (failure) {
         _errorProvider.logError(_getHandledError(failure));
         return state.copyWith(

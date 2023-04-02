@@ -297,9 +297,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 description:
                     'This action is not permanent and you can decide to undo this action at any time.',
                 onConfirm: () {
-                  ref
-                      .read(providerOfPeamanUser.notifier)
-                      .toggleBlockUnblock(user!.uid!);
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    ref
+                        .read(providerOfPeamanUser.notifier)
+                        .toggleBlockUnblock(user!.uid!);
+                  });
                 },
               );
             },

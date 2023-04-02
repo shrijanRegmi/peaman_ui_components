@@ -46,12 +46,22 @@ class _PeamanChatMessageInputState
     extends ConsumerState<PeamanChatMessageInput> {
   PeamanChatProviderState get state => ref.watch(providerOfPeamanChat);
   PeamanChatProvider get notifier => ref.read(providerOfPeamanChat.notifier);
+  PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
 
   @override
   Widget build(BuildContext context) {
-    PeamanChatMessage? messageToReply =
-        widget.messageToReply ?? state.messageToReply;
+    final blockedByUsersStream =
+        ref.watch(providerOfPeamanBlockedByUsersStream);
+    final isUserBlocked = blockedByUsersStream.maybeWhen(
+      data: (data) =>
+          data.map((e) => e.uid).contains(
+              widget.receiverIds.isEmpty ? '' : widget.receiverIds.first) &&
+          widget.chatType == PeamanChatType.oneToOne,
+      orElse: () => false,
+    );
+    if (isUserBlocked) return const PeamanChatCantReplyBuilder();
 
+    var messageToReply = widget.messageToReply ?? state.messageToReply;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

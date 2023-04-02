@@ -11,10 +11,11 @@ final providerOfPeamanChat =
 });
 
 final providerOfPeamanUserChatsStream = StreamProvider<List<PeamanChat>>((ref) {
-  final appUser = ref.watch(providerOfLoggedInUser);
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser == null) return const Stream.empty();
   return ref
       .watch(providerOfPeamanChatRepository)
-      .getUserChatsStream(uid: appUser.uid!);
+      .getUserChatsStream(uid: authUser.uid);
 });
 
 final providerOfSinglePeamanChatFromChatsStream =
@@ -35,10 +36,12 @@ final providerOfPeamanChatMessagesStream = StreamProvider.family
   final chat = ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
   if (chat == null) return const Stream.empty();
 
-  final appUser = ref.read(providerOfLoggedInUser);
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser == null) return const Stream.empty();
+
   final startAfter = chat.startAfters
       .firstWhere(
-        (element) => element.uid == appUser.uid,
+        (element) => element.uid == authUser.uid,
         orElse: PeamanChatStartAfter.new,
       )
       .messageCreatedAt;
@@ -52,16 +55,19 @@ final providerOfPeamanChatMessagesStream = StreamProvider.family
 final providerOfPeamanChatUsersFuture = FutureProvider.family<
     PeamanEither<List<PeamanUser>, PeamanError>, List<String>>(
   (ref, userIds) async {
-    final appUser = ref.watch(providerOfLoggedInUser);
+    var users = <PeamanUser>[];
+
+    final authUser = ref.watch(providerOfPeamanAuthUser);
+    if (authUser == null) return Success(users);
+
     var receiverIds =
-        userIds.where((element) => element != appUser.uid).toList();
+        userIds.where((element) => element != authUser.uid).toList();
 
     receiverIds = receiverIds.sublist(
       0,
       receiverIds.length > 3 ? 3 : receiverIds.length,
     );
 
-    var users = <PeamanUser>[];
     final futures = <Future<PeamanEither<PeamanUser, PeamanError>>>[];
     for (final receiverId in receiverIds) {
       final future = ref
@@ -109,7 +115,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         );
 
   final Ref _ref;
-  PeamanUser get appUser => _ref.read(providerOfLoggedInUser);
+  PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
   PeamanChatRepository get _chatRepository =>
       _ref.watch(providerOfPeamanChatRepository);
   PeamanStorageRepository get _storageRepository =>
@@ -130,8 +136,8 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     var message = PeamanChatMessage(
       chatId: chatId,
       chatType: chatType,
-      senderId: appUser.uid,
-      senderName: appUser.name,
+      senderId: _appUser.uid,
+      senderName: _appUser.name,
       receiverIds: receiverIds,
       parentId: state.messageToReply?.id,
       parentText: state.messageToReply?.text,
@@ -197,7 +203,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
     final result = await _chatRepository.unsendChatMessage(
       chatId: chatId,
-      messageId: appUser.uid!,
+      messageId: _appUser.uid!,
     );
     state = result.when(
       (success) => state.copyWith(
@@ -222,7 +228,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
     final result = await _chatRepository.updateChatMessage(
       chatId: chatId,
-      messageId: appUser.uid!,
+      messageId: _appUser.uid!,
       fields: fields,
     );
     state = result.when(
@@ -247,7 +253,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
     final result = await _chatRepository.deleteChatMessage(
       chatId: chatId,
-      messageId: appUser.uid!,
+      messageId: _appUser.uid!,
     );
     state = result.when(
       (success) => state.copyWith(
@@ -269,7 +275,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     if (chat != null) {
       final unreadMessages = chat.unreadMessages
           .firstWhere(
-            (element) => element.uid == appUser.uid,
+            (element) => element.uid == _appUser.uid,
             orElse: PeamanChatUnreadMessage.new,
           )
           .unreadMessagesCount;
@@ -281,7 +287,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       );
       final result = await _chatRepository.readChatMessages(
         chatId: chatId,
-        uid: appUser.uid!,
+        uid: _appUser.uid!,
       );
       state = result.when(
         (success) => state.copyWith(
@@ -332,7 +338,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
     final result = await _chatRepository.deleteChat(
       chatId: chatId,
-      uid: appUser.uid!,
+      uid: _appUser.uid!,
       lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
     );
     state = result.when(
@@ -356,7 +362,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
     final result = await _chatRepository.archiveChat(
       chatId: chatId,
-      uid: appUser.uid!,
+      uid: _appUser.uid!,
     );
     state = result.when(
       (success) => state.copyWith(
@@ -380,7 +386,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       PeamanChatTypingStatus? typingStatus;
 
       if (typedValue != '') {
-        if (!chat.typingUserIds.contains(appUser.uid)) {
+        if (!chat.typingUserIds.contains(_appUser.uid)) {
           typingStatus = PeamanChatTypingStatus.typing;
         }
       } else {
@@ -394,7 +400,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       );
       final result = await _chatRepository.setTypingStatus(
         chatId: chatId,
-        uid: appUser.uid!,
+        uid: _appUser.uid!,
         typingStatus: typingStatus,
       );
       if (!mounted) return;
@@ -461,8 +467,8 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
     if (files.isNotEmpty) {
       final result = await _storageRepository.uploadFiles(
-        path: 'users/${appUser.uid}/chats/$chatId',
-        fileName: '${appUser.name?.split(' ').join('_').toLowerCase()}.jpg',
+        path: 'users/${_appUser.uid}/chats/$chatId',
+        fileName: '${_appUser.name?.split(' ').join('_').toLowerCase()}.jpg',
         files: files.map((e) => File(e.url)).toList(),
       );
       return result.when(
@@ -496,8 +502,8 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
     if (files.isNotEmpty) {
       final result = await _storageRepository.uploadFiles(
-        path: 'users/${appUser.uid}/chats/$chatId',
-        fileName: '${appUser.name?.split(' ').join('_').toLowerCase()}.jpg',
+        path: 'users/${_appUser.uid}/chats/$chatId',
+        fileName: '${_appUser.name?.split(' ').join('_').toLowerCase()}.jpg',
         files: files.map((e) => File(e.url)).toList(),
       );
       return result.when(
