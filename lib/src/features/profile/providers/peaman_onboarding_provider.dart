@@ -31,6 +31,8 @@ class PeamanOnboardingProvider
   PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
   PeamanStorageRepository get _storageRepository =>
       _ref.watch(providerOfPeamanStorageRepository);
+  PeamanErrorProvider get _errorProvider =>
+      _ref.read(providerOfPeamanError.notifier);
 
   void _initializeValues() {
     state = state.copyWith(
@@ -252,9 +254,12 @@ class PeamanOnboardingProvider
       (success) => state.copyWith(
         updateOnboardingInfoState: UpdateOnboardingInfoState.success(success),
       ),
-      (failure) => state.copyWith(
-        updateOnboardingInfoState: UpdateOnboardingInfoState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          updateOnboardingInfoState: UpdateOnboardingInfoState.error(failure),
+        );
+      },
     );
   }
 
@@ -308,9 +313,12 @@ class PeamanOnboardingProvider
       (success) => state.copyWith(
         updateOnboardingInfoState: UpdateOnboardingInfoState.success(success),
       ),
-      (failure) => state.copyWith(
-        updateOnboardingInfoState: UpdateOnboardingInfoState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          updateOnboardingInfoState: UpdateOnboardingInfoState.error(failure),
+        );
+      },
     );
   }
 

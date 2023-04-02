@@ -114,6 +114,8 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       _ref.watch(providerOfPeamanChatRepository);
   PeamanStorageRepository get _storageRepository =>
       _ref.watch(providerOfPeamanStorageRepository);
+  PeamanErrorProvider get _errorProvider =>
+      _ref.read(providerOfPeamanError.notifier);
 
   Future<void> sendMessage({
     required final String chatId,
@@ -153,6 +155,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       localFiles: localFiles,
     );
     if (filesResult.isFailure) {
+      _errorProvider.logError(filesResult.failure);
       state = state.copyWith(
         sendMessageState: SendMessageState.error(filesResult.failure),
       );
@@ -174,9 +177,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         sendMessageState: SendMessageState.success(success),
       ),
-      (failure) => state.copyWith(
-        sendMessageState: SendMessageState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          sendMessageState: SendMessageState.error(failure),
+        );
+      },
     );
     removeFromToTempMessages(message);
     setTypingStatus(chatId: chatId, typedValue: '');
@@ -197,9 +203,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         unsendMessageState: UnsendMessageState.success(success),
       ),
-      (failure) => state.copyWith(
-        unsendMessageState: UnsendMessageState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          unsendMessageState: UnsendMessageState.error(failure),
+        );
+      },
     );
   }
 
@@ -220,9 +229,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         updateMessageState: UpdateMessageState.success(success),
       ),
-      (failure) => state.copyWith(
-        updateMessageState: UpdateMessageState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          updateMessageState: UpdateMessageState.error(failure),
+        );
+      },
     );
   }
 
@@ -241,9 +253,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         deleteMessageState: DeleteMessageState.success(success),
       ),
-      (failure) => state.copyWith(
-        deleteMessageState: DeleteMessageState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          deleteChatState: DeleteChatState.error(failure),
+        );
+      },
     );
   }
 
@@ -272,9 +287,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         (success) => state.copyWith(
           readChatState: ReadChatState.success(success),
         ),
-        (failure) => state.copyWith(
-          readChatState: ReadChatState.error(failure),
-        ),
+        (failure) {
+          _errorProvider.logError(failure);
+          return state.copyWith(
+            readChatState: ReadChatState.error(failure),
+          );
+        },
       );
     }
   }
@@ -294,9 +312,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         updateChatState: UpdateChatState.success(success),
       ),
-      (failure) => state.copyWith(
-        updateChatState: UpdateChatState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          updateChatState: UpdateChatState.error(failure),
+        );
+      },
     );
   }
 
@@ -318,9 +339,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         deleteChatState: DeleteChatState.success(success),
       ),
-      (failure) => state.copyWith(
-        deleteChatState: DeleteChatState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          deleteChatState: DeleteChatState.error(failure),
+        );
+      },
     );
   }
 
@@ -338,9 +362,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       (success) => state.copyWith(
         archiveChatState: ArchiveChatState.success(success),
       ),
-      (failure) => state.copyWith(
-        archiveChatState: ArchiveChatState.error(failure),
-      ),
+      (failure) {
+        _errorProvider.logError(failure);
+        return state.copyWith(
+          archiveChatState: ArchiveChatState.error(failure),
+        );
+      },
     );
   }
 
@@ -375,9 +402,12 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         (success) => state.copyWith(
           setTypingStatusState: SetTypingStatusState.success(success),
         ),
-        (failure) => state.copyWith(
-          setTypingStatusState: SetTypingStatusState.error(failure),
-        ),
+        (failure) {
+          _errorProvider.logError(failure);
+          return state.copyWith(
+            setTypingStatusState: SetTypingStatusState.error(failure),
+          );
+        },
       );
     }
   }
