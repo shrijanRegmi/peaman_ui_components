@@ -120,7 +120,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       _ref.watch(providerOfPeamanChatRepository);
   PeamanStorageRepository get _storageRepository =>
       _ref.watch(providerOfPeamanStorageRepository);
-  PeamanInfoProvider get _errorProvider =>
+  PeamanInfoProvider get _logProvider =>
       _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> sendMessage({
@@ -161,7 +161,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       localFiles: localFiles,
     );
     if (filesResult.isFailure) {
-      _errorProvider.logError(filesResult.failure.message);
+      _logProvider.logError(filesResult.failure.message);
       state = state.copyWith(
         sendMessageState: SendMessageState.error(filesResult.failure),
       );
@@ -184,7 +184,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         sendMessageState: SendMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           sendMessageState: SendMessageState.error(failure),
         );
@@ -210,7 +210,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         unsendMessageState: UnsendMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           unsendMessageState: UnsendMessageState.error(failure),
         );
@@ -236,7 +236,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         updateMessageState: UpdateMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           updateMessageState: UpdateMessageState.error(failure),
         );
@@ -260,7 +260,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         deleteMessageState: DeleteMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           deleteChatState: DeleteChatState.error(failure),
         );
@@ -294,7 +294,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
           readChatState: ReadChatState.success(success),
         ),
         (failure) {
-          _errorProvider.logError(failure.message);
+          _logProvider.logError(failure.message);
           return state.copyWith(
             readChatState: ReadChatState.error(failure),
           );
@@ -319,7 +319,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         updateChatState: UpdateChatState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           updateChatState: UpdateChatState.error(failure),
         );
@@ -329,6 +329,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> deleteChat({
     required final String chatId,
+    final String? successLogMessage,
   }) async {
     final chat = getSingleChat(chatId, readOnly: true);
     if (chat?.lastMessageCreatedAt == null) return;
@@ -342,11 +343,16 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
     );
     state = result.when(
-      (success) => state.copyWith(
-        deleteChatState: DeleteChatState.success(success),
-      ),
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          deleteChatState: DeleteChatState.success(success),
+        );
+      },
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           deleteChatState: DeleteChatState.error(failure),
         );
@@ -356,6 +362,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> archiveChat({
     required final String chatId,
+    final String? successLogMessage,
   }) async {
     state = state.copyWith(
       archiveChatState: const ArchiveChatState.loading(),
@@ -365,11 +372,16 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       uid: _appUser.uid!,
     );
     state = result.when(
-      (success) => state.copyWith(
-        archiveChatState: ArchiveChatState.success(success),
-      ),
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          archiveChatState: ArchiveChatState.success(success),
+        );
+      },
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           archiveChatState: ArchiveChatState.error(failure),
         );
@@ -409,7 +421,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
           setTypingStatusState: SetTypingStatusState.success(success),
         ),
         (failure) {
-          _errorProvider.logError(failure.message);
+          _logProvider.logError(failure.message);
           return state.copyWith(
             setTypingStatusState: SetTypingStatusState.error(failure),
           );

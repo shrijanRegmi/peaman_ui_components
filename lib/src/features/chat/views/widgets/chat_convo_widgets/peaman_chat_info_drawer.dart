@@ -6,12 +6,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
   final String chatId;
-  final List<String> userIds;
 
   const PeamanChatInfoDrawer({
     super.key,
     required this.chatId,
-    required this.userIds,
   });
 
   @override
@@ -23,38 +21,22 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   Provider<PeamanChat?> get _chatProvider =>
       providerOfSinglePeamanChatFromChatsStream(widget.chatId);
 
+  String get uid => ref.watch(
+        providerOfLoggedInUser.select((value) => value.uid!),
+      );
+  List<String> get _chatUserIds => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+            .select((value) => value!.userIds),
+      );
   AsyncValue<PeamanEither<List<PeamanUser>, PeamanError>>
       get _chatUsersFuture =>
-          ref.watch(providerOfPeamanChatUsersFuture(widget.userIds));
+          ref.watch(providerOfPeamanChatUsersFuture(_chatUserIds));
   PeamanChatType get _chatType => ref.watch(
         _chatProvider.select((value) => value!.type),
       );
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(providerOfPeamanChat, (previous, next) {
-      if (previous?.archiveChatState != next.archiveChatState) {
-        next.archiveChatState.maybeWhen(
-          success: (success) {
-            _chatUsersFuture.maybeWhen(
-              data: (data) {
-                data.when(
-                  (success) {
-                    if (success.isEmpty) return;
-                    ref
-                        .read(providerOfPeamanInfo.notifier)
-                        .logSuccess('Archived chat with ${success.first.name}');
-                  },
-                  (failure) => null,
-                );
-              },
-              orElse: () {},
-            );
-          },
-          orElse: () {},
-        );
-      }
-    });
     return Drawer(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       child: SafeArea(
@@ -289,18 +271,21 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   Widget _chatActionsSet2Builder() {
     final blockedUsersStream = ref.read(providerOfPeamanBlockedUsersStream);
 
-    final user = _chatUsersFuture.maybeWhen(
+    final chatUsers = _chatUsersFuture.maybeWhen(
       data: (data) {
         return data.when(
-          (success) => success.isEmpty ? null : success.first,
-          (failure) => null,
+          (success) => success,
+          (failure) => <PeamanUser>[],
         );
       },
-      orElse: () => null,
+      orElse: () => <PeamanUser>[],
     );
+    final firstChatUser = chatUsers.isEmpty ? null : chatUsers.first;
 
     final isUserBlocked = blockedUsersStream.maybeWhen(
-      data: (data) => data.map((e) => e.uid).toList().contains(user?.uid),
+      data: (data) => data.map((e) => e.uid).toList().contains(
+            firstChatUser?.uid,
+          ),
       orElse: () => false,
     );
 
@@ -328,14 +313,14 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               showPeamanConfirmationDialog(
                 context: context,
                 title:
-                    'Are you sure you want to ${isUserBlocked ? 'unblock' : 'block'} ${user?.name}?',
+                    'Are you sure you want to ${isUserBlocked ? 'unblock' : 'block'} ${firstChatUser?.name}?',
                 description:
                     'This action is not permanent and you can decide to undo this action at any time.',
                 onConfirm: () {
                   Future.delayed(const Duration(milliseconds: 200), () {
                     ref
                         .read(providerOfPeamanUser.notifier)
-                        .toggleBlockUnblock(user!.uid!);
+                        .toggleBlockUnblock(firstChatUser!.uid!);
                   });
                 },
               );
@@ -366,15 +351,17 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               context: context,
               title: 'Are you sure you want to archive this chat?',
               description:
-                  'This chat will not be shown in your chats list until you or ${user?.name} sends a new message to this chat.',
+                  'This chat will not be shown in your chats list until you or ${firstChatUser?.name} sends a new message to this chat.',
               onConfirm: () {
-                ref
-                    .read(providerOfPeamanChat.notifier)
-                    .archiveChat(chatId: widget.chatId);
+                const successLogMessage = 'Successfully archived chat';
+                ref.read(providerOfPeamanChat.notifier).archiveChat(
+                      chatId: widget.chatId,
+                      successLogMessage: successLogMessage,
+                    );
 
-                // context
-                //   ..pop()
-                //   ..pop();
+                context
+                  ..pop()
+                  ..pop();
               },
             );
           },
@@ -396,11 +383,13 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               context: context,
               title: 'Are you sure you want to delete this chat?',
               description:
-                  'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${user?.name} can still see the messages.',
+                  'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${firstChatUser?.name} can still see the messages.',
               onConfirm: () {
-                ref
-                    .read(providerOfPeamanChat.notifier)
-                    .deleteChat(chatId: widget.chatId);
+                const successLogMessage = 'Successfully deleted chat';
+                ref.read(providerOfPeamanChat.notifier).deleteChat(
+                      chatId: widget.chatId,
+                      successLogMessage: successLogMessage,
+                    );
 
                 context
                   ..pop()
@@ -468,11 +457,8 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   String _getHeaderTitle() {
-    final appUserUid = ref.read(
-      providerOfLoggedInUser.select((value) => value.uid),
-    );
     final receiverIds =
-        widget.userIds.where((element) => element != appUserUid).toList();
+        _chatUserIds.where((element) => element != uid).toList();
 
     return _chatUsersFuture.maybeWhen(
       data: (data) {

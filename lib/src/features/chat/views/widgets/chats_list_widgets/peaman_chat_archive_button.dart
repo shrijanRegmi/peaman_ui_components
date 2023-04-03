@@ -55,7 +55,11 @@ class PeamanChatArchiveButton extends ConsumerWidget {
           description:
               'This chat will not be shown in your chats list until you or ${user?.name} sends a new message to this chat.',
           onConfirm: () {
-            ref.read(providerOfPeamanChat.notifier).archiveChat(chatId: chatId);
+            const successLogMessage = 'Successfully archived chat';
+            ref.read(providerOfPeamanChat.notifier).archiveChat(
+                  chatId: chatId,
+                  successLogMessage: successLogMessage,
+                );
           },
         );
         _closeSlidable(context);

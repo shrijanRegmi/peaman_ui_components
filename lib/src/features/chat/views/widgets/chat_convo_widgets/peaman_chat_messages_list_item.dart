@@ -37,10 +37,6 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
 
 class _PeamanChatMessagesListItemState
     extends ConsumerState<PeamanChatMessagesListItem> {
-  String get archivedUids => ref.watch(
-      providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!)
-          .select((value) => value!.archivedByUserIds.toString()));
-
   Provider<PeamanUser> get _appUserProvider => providerOfLoggedInUser;
   String get _uid => ref.watch(_appUserProvider.select((value) => value.uid!));
 

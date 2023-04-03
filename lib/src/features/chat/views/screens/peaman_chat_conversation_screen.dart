@@ -107,7 +107,6 @@ class _PeamanChatConversationScreenState
         ),
         endDrawer: PeamanChatInfoDrawer(
           chatId: widget.chatId,
-          userIds: widget.userIds,
         ),
         body: PeamanChatMessagesList(
           chatId: widget.chatId,

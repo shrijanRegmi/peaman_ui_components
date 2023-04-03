@@ -281,7 +281,7 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
       width: size.w,
       height: size.h,
       decoration: BoxDecoration(
-        color: PeamanColors.extraLightGrey,
+        color: PeamanColors.extraLightGrey2,
         shape: BoxShape.circle,
         border: border
             ? Border.all(
