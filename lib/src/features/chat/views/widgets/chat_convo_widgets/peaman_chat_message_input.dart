@@ -44,14 +44,20 @@ class PeamanChatMessageInput extends ConsumerStatefulWidget {
 
 class _PeamanChatMessageInputState
     extends ConsumerState<PeamanChatMessageInput> {
-  PeamanChatProviderState get state => ref.watch(providerOfPeamanChat);
   PeamanChatProvider get notifier => ref.read(providerOfPeamanChat.notifier);
-  PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
+
+  TextEditingController get _messageController => ref
+      .watch(providerOfPeamanChat.select((value) => value.messageController));
+  PeamanChatMessage? get _messageToReply =>
+      ref.watch(providerOfPeamanChat.select((value) => value.messageToReply));
+  List<PeamanFileUrlExtended> get _files =>
+      ref.watch(providerOfPeamanChat.select((value) => value.files));
 
   @override
   Widget build(BuildContext context) {
-    final blockedByUsersStream =
-        ref.watch(providerOfPeamanBlockedByUsersStream);
+    final blockedByUsersStream = ref.watch(
+      providerOfPeamanBlockedByUsersStream,
+    );
     final isUserBlocked = blockedByUsersStream.maybeWhen(
       data: (data) =>
           data.map((e) => e.uid).contains(
@@ -61,7 +67,7 @@ class _PeamanChatMessageInputState
     );
     if (isUserBlocked) return const PeamanChatCantReplyBuilder();
 
-    var messageToReply = widget.messageToReply ?? state.messageToReply;
+    var messageToReply = widget.messageToReply ?? _messageToReply;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -127,7 +133,7 @@ class _PeamanChatMessageInputState
       minLines: 1,
       maxLines: 5,
       focusNode: widget.focusNode,
-      controller: widget.messageController ?? state.messageController,
+      controller: widget.messageController ?? _messageController,
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.newline,
       textCapitalization: TextCapitalization.sentences,
@@ -190,7 +196,7 @@ class _PeamanChatMessageInputState
   }
 
   Widget _selectedImageBuilder() {
-    final files = widget.files ?? state.files;
+    final files = widget.files ?? _files;
     return SizedBox(
       height: files.isNotEmpty ? 130.0 : 0.0,
       child: ListView.builder(
@@ -244,7 +250,7 @@ class _PeamanChatMessageInputState
 
   Widget _messageToReplyBuilder() {
     PeamanChatMessage? messageToReply =
-        widget.messageToReply ?? state.messageToReply;
+        widget.messageToReply ?? _messageToReply;
     String? replyingToUserName;
 
     if (messageToReply != null) {

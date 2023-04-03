@@ -57,8 +57,6 @@ class _MaterialApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final error = ref.watch(providerOfPeamanError);
-
     return MaterialApp(
       title: title,
       theme: theme ?? PeamanTheme.lightThemePalette,
@@ -75,11 +73,51 @@ class _MaterialApp extends ConsumerWidget {
         return Stack(
           children: [
             child!,
-            if (error != null)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: PeamanErrorPopUp(error: error),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final info = ref.watch(providerOfPeamanInfo);
+                  if (info.success == null) return const SizedBox();
+                  return PeamanInfoOverlay.success(
+                    info: ref.watch(providerOfPeamanInfo).success!,
+                    onPressedClose: () {
+                      ref.read(providerOfPeamanInfo.notifier).removeSuccess();
+                    },
+                  );
+                },
               ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final info = ref.watch(providerOfPeamanInfo);
+                  if (info.warning == null) return const SizedBox();
+                  return PeamanInfoOverlay.warning(
+                    info: ref.watch(providerOfPeamanInfo).warning!,
+                    onPressedClose: () {
+                      ref.read(providerOfPeamanInfo.notifier).removeWarning();
+                    },
+                  );
+                },
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final info = ref.watch(providerOfPeamanInfo);
+                  if (info.error == null) return const SizedBox();
+                  return PeamanInfoOverlay.error(
+                    info: ref.watch(providerOfPeamanInfo).error!,
+                    onPressedClose: () {
+                      ref.read(providerOfPeamanInfo.notifier).removeError();
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         );
       },

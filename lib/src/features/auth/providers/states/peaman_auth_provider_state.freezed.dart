@@ -870,6 +870,8 @@ abstract class _$$_SignInWithEmailPasswordStateFailureCopyWith<$Res> {
       __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -893,6 +895,14 @@ class __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -1520,6 +1530,8 @@ abstract class _$$_SignUpWithEmailPasswordStateFailureCopyWith<$Res> {
       __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -1543,6 +1555,14 @@ class __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -2138,6 +2158,8 @@ abstract class _$$_SignInWithGoogleStateFailureCopyWith<$Res> {
       __$$_SignInWithGoogleStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -2161,6 +2183,14 @@ class __$$_SignInWithGoogleStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -2755,6 +2785,8 @@ abstract class _$$_SignInWithFacebookStateFailureCopyWith<$Res> {
       __$$_SignInWithFacebookStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -2778,6 +2810,14 @@ class __$$_SignInWithFacebookStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -3353,6 +3393,8 @@ abstract class _$$_SignOutStateFailureCopyWith<$Res> {
       __$$_SignOutStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -3374,6 +3416,14 @@ class __$$_SignOutStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 

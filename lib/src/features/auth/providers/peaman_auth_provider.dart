@@ -41,7 +41,7 @@ final providerOfLoggedInUserStream = StreamProvider<PeamanUser?>((ref) {
 });
 
 final providerOfLoggedInUser = Provider<PeamanUser>((ref) {
-  final appUserStream = ref.read(providerOfLoggedInUserStream);
+  final appUserStream = ref.watch(providerOfLoggedInUserStream);
   final loggedInUser = appUserStream.maybeWhen(
     data: (data) => data,
     orElse: () => null,
@@ -71,8 +71,8 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
   final Ref _ref;
   PeamanAuthRepository get _authRepository =>
       _ref.watch(providerOfPeamanAuthRepository);
-  PeamanErrorProvider get _errorProvider =>
-      _ref.read(providerOfPeamanError.notifier);
+  PeamanInfoProvider get _errorProvider =>
+      _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> signInWithEmailAndPassword() async {
     if (state.emailController.text.trim().isEmpty ||
@@ -92,7 +92,7 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
             SignInWithEmailPasswordState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(_getHandledError(failure));
+        _errorProvider.logError(_getHandledError(failure).message);
         return state.copyWith(
           signInWithEmailPasswordState:
               SignInWithEmailPasswordState.error(failure),
@@ -124,7 +124,7 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
             SignUpWithEmailPasswordState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(_getHandledError(failure));
+        _errorProvider.logError(_getHandledError(failure).message);
         return state.copyWith(
           signUpWithEmailPasswordState:
               SignUpWithEmailPasswordState.error(failure),
@@ -143,7 +143,7 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
         signInWithGoogleState: SignInWithGoogleState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(_getHandledError(failure));
+        _errorProvider.logError(_getHandledError(failure).message);
         return state.copyWith(
           signInWithGoogleState: SignInWithGoogleState.error(failure),
         );
@@ -161,7 +161,7 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
         signInWithFacebookState: SignInWithFacebookState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(_getHandledError(failure));
+        _errorProvider.logError(_getHandledError(failure).message);
         return state.copyWith(
           signInWithFacebookState: SignInWithFacebookState.error(failure),
         );
@@ -181,7 +181,7 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
         );
       },
       (failure) {
-        _errorProvider.logError(_getHandledError(failure));
+        _errorProvider.logError(_getHandledError(failure).message);
         return state.copyWith(
           signOutState: SignOutState.error(failure),
         );

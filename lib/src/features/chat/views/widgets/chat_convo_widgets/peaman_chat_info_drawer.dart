@@ -6,10 +6,12 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
   final String chatId;
+  final List<String> userIds;
 
   const PeamanChatInfoDrawer({
     super.key,
     required this.chatId,
+    required this.userIds,
   });
 
   @override
@@ -18,16 +20,48 @@ class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
 }
 
 class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
-  PeamanChat? get chat =>
-      ref.watch(providerOfSinglePeamanChatFromChatsStream(widget.chatId));
-  PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
+  Provider<PeamanChat?> get _chatProvider =>
+      providerOfSinglePeamanChatFromChatsStream(widget.chatId);
+
+  AsyncValue<PeamanEither<List<PeamanUser>, PeamanError>>
+      get _chatUsersFuture =>
+          ref.watch(providerOfPeamanChatUsersFuture(widget.userIds));
+  PeamanChatType get _chatType => ref.watch(
+        _chatProvider.select((value) => value!.type),
+      );
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(providerOfPeamanChat, (previous, next) {
+      if (previous?.archiveChatState != next.archiveChatState) {
+        next.archiveChatState.maybeWhen(
+          success: (success) {
+            _chatUsersFuture.maybeWhen(
+              data: (data) {
+                data.when(
+                  (success) {
+                    if (success.isEmpty) return;
+                    ref
+                        .read(providerOfPeamanInfo.notifier)
+                        .logSuccess('Archived chat with ${success.first.name}');
+                  },
+                  (failure) => null,
+                );
+              },
+              orElse: () {},
+            );
+          },
+          orElse: () {},
+        );
+      }
+    });
     return Drawer(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       child: SafeArea(
-        child: chat == null
+        child: ref.read(
+                  providerOfSinglePeamanChatFromChatsStream(widget.chatId),
+                ) ==
+                null
             ? const PeamanErrorBuilder(
                 title: "Couldn't Load Chat",
                 subTitle:
@@ -70,19 +104,22 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _headerBuilder() {
+    final appUserPhoto = ref.read(
+      providerOfLoggedInUser.select((value) => value.photo),
+    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         PeamanAvatarBuilder.multiNetwork(
           [
             ..._getHeaderAvatars(),
-            if (chat!.type == PeamanChatType.group) appUser.photo,
+            if (_chatType == PeamanChatType.group) appUserPhoto,
           ]..shuffle(),
-          size: chat!.type == PeamanChatType.group ? 80.0 : 100.0,
+          size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
           spreadFactor: 2.5,
         ),
         SizedBox(
-          height: chat!.type == PeamanChatType.group ? 35.h : 10.h,
+          height: _chatType == PeamanChatType.group ? 35.h : 10.h,
         ),
         PeamanText.subtitle2(
           _getHeaderTitle(),
@@ -99,7 +136,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             textAlign: TextAlign.center,
           ).pT(3),
-        if (chat!.type == PeamanChatType.group) _groupActionsBuilder().pT(15),
+        if (_chatType == PeamanChatType.group) _groupActionsBuilder().pT(15),
       ],
     ).pX(20);
   }
@@ -137,7 +174,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
           ),
         ),
-        if (chat!.type == PeamanChatType.group)
+        if (_chatType == PeamanChatType.group)
           ListTile(
             leading: PeamanRoundIconButton(
               icon: Icon(
@@ -161,7 +198,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             onTap: () {},
           ),
-        if (chat!.type == PeamanChatType.oneToOne)
+        if (_chatType == PeamanChatType.oneToOne)
           ListTile(
             leading: PeamanRoundIconButton(
               icon: Icon(
@@ -185,7 +222,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             onTap: () {},
           ),
-        if (chat!.type == PeamanChatType.oneToOne)
+        if (_chatType == PeamanChatType.oneToOne)
           ListTile(
             leading: PeamanRoundIconButton(
               icon: Icon(
@@ -209,7 +246,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             onTap: () {},
           ),
-        if (chat!.type == PeamanChatType.oneToOne)
+        if (_chatType == PeamanChatType.oneToOne)
           ListTile(
             leading: PeamanRoundIconButton(
               icon: Icon(
@@ -250,15 +287,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _chatActionsSet2Builder() {
-    final blockedUsersStream = ref.watch(providerOfPeamanBlockedUsersStream);
-    final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIds),
-    );
+    final blockedUsersStream = ref.read(providerOfPeamanBlockedUsersStream);
 
-    final user = usersFuture.maybeWhen(
+    final user = _chatUsersFuture.maybeWhen(
       data: (data) {
         return data.when(
-          (success) => success.first,
+          (success) => success.isEmpty ? null : success.first,
           (failure) => null,
         );
       },
@@ -287,7 +321,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             style: TextStyle(fontSize: 12.sp),
           ),
         ),
-        if (chat!.type == PeamanChatType.oneToOne)
+        if (_chatType == PeamanChatType.oneToOne)
           SwitchListTile(
             value: isUserBlocked,
             onChanged: (val) {
@@ -338,9 +372,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                     .read(providerOfPeamanChat.notifier)
                     .archiveChat(chatId: widget.chatId);
 
-                context
-                  ..pop()
-                  ..pop();
+                // context
+                //   ..pop()
+                //   ..pop();
               },
             );
           },
@@ -418,11 +452,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   List<String> _getHeaderAvatars() {
-    final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIds),
-    );
-
-    return usersFuture.maybeWhen(
+    return _chatUsersFuture.maybeWhen(
       data: (data) {
         return data.when(
           (success) => success
@@ -438,20 +468,20 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   String _getHeaderTitle() {
-    final receiverIds =
-        chat!.userIds.where((element) => element != appUser.uid).toList();
-    final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIds),
+    final appUserUid = ref.read(
+      providerOfLoggedInUser.select((value) => value.uid),
     );
+    final receiverIds =
+        widget.userIds.where((element) => element != appUserUid).toList();
 
-    return usersFuture.maybeWhen(
+    return _chatUsersFuture.maybeWhen(
       data: (data) {
         final remaining = receiverIds.length - 1;
         return data.when(
           (success) => success.isEmpty
               ? 'Chat Conversation'
               : remaining == 0
-                  ? chat!.type == PeamanChatType.group
+                  ? _chatType == PeamanChatType.group
                       ? 'You and ${success.first.name}'
                       : '${success.first.name}'
                   : 'You, ${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
@@ -464,13 +494,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   String? _getHeaderBody() {
-    if (chat!.type == PeamanChatType.group) return null;
+    if (_chatType == PeamanChatType.group) return null;
 
-    final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIds),
-    );
-
-    return usersFuture.maybeWhen(
+    return _chatUsersFuture.maybeWhen(
       data: (data) {
         return data.when(
           (success) => success.isEmpty ? null : success.first.bio,
@@ -482,13 +508,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   String _getExternalContact() {
-    if (chat!.type == PeamanChatType.group) return '';
+    if (_chatType == PeamanChatType.group) return '';
 
-    final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIds),
-    );
-
-    return usersFuture.maybeWhen(
+    return _chatUsersFuture.maybeWhen(
       data: (data) {
         return data.when(
           (success) => success.isEmpty ? '' : success.first.email!,

@@ -49,23 +49,21 @@ class _PeamanChatConversationScreenState
 
   @override
   Widget build(BuildContext context) {
-    final appUser = ref.watch(providerOfLoggedInUser);
-    final chat =
-        ref.watch(providerOfSinglePeamanChatFromChatsStream(widget.chatId));
+    final uid = ref.watch(providerOfLoggedInUser.select((value) => value.uid));
 
-    if (chat != null) {
-      ref.listen(providerOfSinglePeamanChatFromChatsStream(widget.chatId),
-          (previous, next) {
+    ref.listen(providerOfSinglePeamanChatFromChatsStream(widget.chatId),
+        (previous, next) {
+      if (previous != next) {
         ref.read(providerOfPeamanChat.notifier).readChat(chatId: widget.chatId);
-      });
-    }
+      }
+    });
 
     final usersFuture = ref.watch(
       providerOfPeamanChatUsersFuture(widget.userIds),
     );
 
     final receiverIds =
-        widget.userIds.where((element) => element != appUser.uid).toList();
+        widget.userIds.where((element) => element != uid).toList();
 
     return WillPopScope(
       onWillPop: () async {
@@ -107,7 +105,10 @@ class _PeamanChatConversationScreenState
             )
           ],
         ),
-        endDrawer: PeamanChatInfoDrawer(chatId: widget.chatId),
+        endDrawer: PeamanChatInfoDrawer(
+          chatId: widget.chatId,
+          userIds: widget.userIds,
+        ),
         body: PeamanChatMessagesList(
           chatId: widget.chatId,
           receiverIds: receiverIds,

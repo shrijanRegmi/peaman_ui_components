@@ -873,6 +873,8 @@ abstract class _$$UpdateOnboardingInfoStateErrorCopyWith<$Res> {
       __$$UpdateOnboardingInfoStateErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -896,6 +898,14 @@ class __$$UpdateOnboardingInfoStateErrorCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 

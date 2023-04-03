@@ -120,8 +120,8 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       _ref.watch(providerOfPeamanChatRepository);
   PeamanStorageRepository get _storageRepository =>
       _ref.watch(providerOfPeamanStorageRepository);
-  PeamanErrorProvider get _errorProvider =>
-      _ref.read(providerOfPeamanError.notifier);
+  PeamanInfoProvider get _errorProvider =>
+      _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> sendMessage({
     required final String chatId,
@@ -161,7 +161,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       localFiles: localFiles,
     );
     if (filesResult.isFailure) {
-      _errorProvider.logError(filesResult.failure);
+      _errorProvider.logError(filesResult.failure.message);
       state = state.copyWith(
         sendMessageState: SendMessageState.error(filesResult.failure),
       );
@@ -184,7 +184,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         sendMessageState: SendMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           sendMessageState: SendMessageState.error(failure),
         );
@@ -210,7 +210,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         unsendMessageState: UnsendMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           unsendMessageState: UnsendMessageState.error(failure),
         );
@@ -236,7 +236,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         updateMessageState: UpdateMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           updateMessageState: UpdateMessageState.error(failure),
         );
@@ -260,7 +260,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         deleteMessageState: DeleteMessageState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           deleteChatState: DeleteChatState.error(failure),
         );
@@ -294,7 +294,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
           readChatState: ReadChatState.success(success),
         ),
         (failure) {
-          _errorProvider.logError(failure);
+          _errorProvider.logError(failure.message);
           return state.copyWith(
             readChatState: ReadChatState.error(failure),
           );
@@ -319,7 +319,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         updateChatState: UpdateChatState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           updateChatState: UpdateChatState.error(failure),
         );
@@ -346,7 +346,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         deleteChatState: DeleteChatState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           deleteChatState: DeleteChatState.error(failure),
         );
@@ -369,7 +369,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         archiveChatState: ArchiveChatState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           archiveChatState: ArchiveChatState.error(failure),
         );
@@ -409,7 +409,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
           setTypingStatusState: SetTypingStatusState.success(success),
         ),
         (failure) {
-          _errorProvider.logError(failure);
+          _errorProvider.logError(failure.message);
           return state.copyWith(
             setTypingStatusState: SetTypingStatusState.error(failure),
           );

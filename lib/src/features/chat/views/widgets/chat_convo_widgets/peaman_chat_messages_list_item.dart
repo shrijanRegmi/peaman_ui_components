@@ -37,9 +37,12 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
 
 class _PeamanChatMessagesListItemState
     extends ConsumerState<PeamanChatMessagesListItem> {
-  PeamanChat? get chat => ref
-      .watch(providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!));
-  PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
+  String get archivedUids => ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!)
+          .select((value) => value!.archivedByUserIds.toString()));
+
+  Provider<PeamanUser> get _appUserProvider => providerOfLoggedInUser;
+  String get _uid => ref.watch(_appUserProvider.select((value) => value.uid!));
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class _PeamanChatMessagesListItemState
         onLongPress: () => widget.onLongPressed?.call(widget.message),
         behavior: HitTestBehavior.opaque,
         child: Column(
-          crossAxisAlignment: widget.message.senderId == appUser.uid
+          crossAxisAlignment: widget.message.senderId == _uid
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
@@ -70,7 +73,7 @@ class _PeamanChatMessagesListItemState
               const SizedBox(
                 height: 10.0,
               ),
-            if (isReply) _replyBuilder(context),
+            if (isReply) _replyBuilder(),
             if (isReply && widget.message.parentFiles.isEmpty)
               const SizedBox(
                 height: 5.0,
@@ -83,13 +86,13 @@ class _PeamanChatMessagesListItemState
                   ref
                       .read(providerOfPeamanChat.notifier)
                       .setMessageToReply(message),
-              child: _messageBuilder(context),
+              child: _messageBuilder(),
             ),
             if (isGapRequired)
               const SizedBox(
                 height: 10.0,
               ),
-            if (showSenderInfo) _senderInfo(context, appUser),
+            if (showSenderInfo) _senderInfo(),
             if (showSenderInfo)
               const SizedBox(
                 height: 20.0,
@@ -129,9 +132,7 @@ class _PeamanChatMessagesListItemState
     );
   }
 
-  Widget _messageBuilder(final BuildContext context) {
-    final appUser = ref.watch(providerOfLoggedInUser);
-
+  Widget _messageBuilder() {
     final isWhiteBgRequired = _isWhiteBgRequired();
     final isGapRequired = _isGapBetweenMessagesRequired();
 
@@ -152,28 +153,27 @@ class _PeamanChatMessagesListItemState
                 topLeft: const Radius.circular(10.0),
                 topRight: const Radius.circular(10.0),
                 bottomLeft: Radius.circular(
-                  widget.message.senderId == appUser.uid ? 10.0 : 0.0,
+                  widget.message.senderId == _uid ? 10.0 : 0.0,
                 ),
                 bottomRight: Radius.circular(
-                  widget.message.senderId == appUser.uid ? 0.0 : 10.0,
+                  widget.message.senderId == _uid ? 0.0 : 10.0,
                 ),
               )
             : const BorderRadius.all(Radius.circular(10.0)),
       ),
       child: widget.message.files.isEmpty
           ? _textMessageBuilder()
-          : _imageMessageBuilder(appUser, context),
+          : _imageMessageBuilder(),
     );
   }
 
-  Widget _replyBuilder(final BuildContext context) {
-    final appUser = ref.watch(providerOfLoggedInUser);
+  Widget _replyBuilder() {
     final pictureSize = _getPictureSize();
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.message.senderId != appUser.uid)
+        if (widget.message.senderId != _uid)
           Container(
             width: 2.0,
             height: 20.0,
@@ -182,7 +182,7 @@ class _PeamanChatMessagesListItemState
               borderRadius: BorderRadius.circular(50.0),
             ),
           ),
-        if (widget.message.senderId != appUser.uid)
+        if (widget.message.senderId != _uid)
           const SizedBox(
             width: 5.0,
           ),
@@ -225,7 +225,7 @@ class _PeamanChatMessagesListItemState
                 : Wrap(
                     runSpacing: 5,
                     spacing: 5,
-                    alignment: widget.message.senderId == appUser.uid
+                    alignment: widget.message.senderId == _uid
                         ? WrapAlignment.end
                         : WrapAlignment.start,
                     crossAxisAlignment: WrapCrossAlignment.end,
@@ -251,11 +251,11 @@ class _PeamanChatMessagesListItemState
                   ),
           ),
         ),
-        if (widget.message.senderId == appUser.uid)
+        if (widget.message.senderId == _uid)
           const SizedBox(
             width: 5.0,
           ),
-        if (widget.message.senderId == appUser.uid)
+        if (widget.message.senderId == _uid)
           Container(
             width: 2.0,
             height: 20.0,
@@ -277,10 +277,7 @@ class _PeamanChatMessagesListItemState
     );
   }
 
-  Widget _imageMessageBuilder(
-    final PeamanUser appUser,
-    final BuildContext context,
-  ) {
+  Widget _imageMessageBuilder() {
     final isTempMessage = _isTempMessage();
     final pictureSize = _getPictureSize();
     final pictures = widget.message.files
@@ -292,7 +289,7 @@ class _PeamanChatMessagesListItemState
       child: Wrap(
         runSpacing: 5.0,
         spacing: 5.0,
-        alignment: appUser.uid == widget.message.senderId
+        alignment: _uid == widget.message.senderId
             ? WrapAlignment.end
             : WrapAlignment.start,
         children: [
@@ -333,10 +330,7 @@ class _PeamanChatMessagesListItemState
     );
   }
 
-  Widget _senderInfo(
-    final BuildContext context,
-    final PeamanUser appUser,
-  ) {
+  Widget _senderInfo() {
     final senderFuture = ref.watch(
       providerOfSingleUserByIdFuture(widget.message.senderId!),
     );
@@ -352,7 +346,7 @@ class _PeamanChatMessagesListItemState
       ),
       onPressed: () {
         // TODO(shrijanRegmi)
-        // if (message.senderId == appUser.uid) return;
+        // if (message.senderId == _uid) return;
 
         // Navigator.pushNamed(
         //   context,
@@ -394,8 +388,7 @@ class _PeamanChatMessagesListItemState
   }
 
   bool _showSenderInfo() {
-    return _isGapBetweenMessagesRequired() &&
-        widget.message.senderId != appUser.uid;
+    return _isGapBetweenMessagesRequired() && widget.message.senderId != _uid;
   }
 
   bool _isReply() {

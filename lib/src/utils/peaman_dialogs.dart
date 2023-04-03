@@ -18,16 +18,3 @@ Future<T?> showPeamanConfirmationDialog<T>({
     },
   );
 }
-
-Future<T?> showPeamanErrorDialog<T>({
-  required final BuildContext context,
-  required final PeamanError error,
-}) {
-  return showCupertinoModalPopup<T>(
-    context: context,
-    barrierColor: PeamanColors.transparent,
-    builder: (context) {
-      return PeamanErrorPopUp(error: error);
-    },
-  );
-}

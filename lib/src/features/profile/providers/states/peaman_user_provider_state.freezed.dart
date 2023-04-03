@@ -675,6 +675,8 @@ abstract class _$$_BlockUserStateErrorCopyWith<$Res> {
       __$$_BlockUserStateErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -696,6 +698,14 @@ class __$$_BlockUserStateErrorCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -1272,6 +1282,8 @@ abstract class _$$_UnblockUserStateErrorCopyWith<$Res> {
       __$$_UnblockUserStateErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -1293,6 +1305,14 @@ class __$$_UnblockUserStateErrorCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -1868,6 +1888,8 @@ abstract class _$$_UpdateUserStateErrorCopyWith<$Res> {
       __$$_UpdateUserStateErrorCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -1889,6 +1911,14 @@ class __$$_UpdateUserStateErrorCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 

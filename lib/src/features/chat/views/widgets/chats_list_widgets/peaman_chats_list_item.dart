@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,10 +24,102 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
 }
 
 class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
+  late PeamanChat _chat;
+
+  @override
+  void initState() {
+    super.initState();
+    _chat = widget.chat;
+  }
+
+  @override
+  void didUpdateWidget(covariant PeamanChatsListItem oldWidget) {
+    final oldChat = oldWidget.chat;
+    final newChat = widget.chat;
+
+    final uid = ref.read(
+      providerOfLoggedInUser.select((value) => value.uid),
+    );
+
+    if (oldChat != newChat) {
+      if (oldChat.id != newChat.id) {
+        setState(() {
+          _chat = _chat.copyWith(
+            id: newChat.id,
+          );
+        });
+      }
+
+      if (oldChat.updatedAt != newChat.updatedAt) {
+        setState(() {
+          _chat = _chat.copyWith(
+            updatedAt: newChat.updatedAt,
+          );
+        });
+      }
+
+      if (oldChat.type != newChat.type) {
+        setState(() {
+          _chat = _chat.copyWith(
+            type: newChat.type,
+          );
+        });
+      }
+
+      if (oldChat.lastMessageId != newChat.lastMessageId) {
+        setState(() {
+          _chat = _chat.copyWith(
+            lastMessageId: newChat.lastMessageId,
+          );
+        });
+      }
+
+      if (oldChat.lastMessageCreatedAt != newChat.lastMessageCreatedAt) {
+        setState(() {
+          _chat = _chat.copyWith(
+            lastMessageCreatedAt: newChat.lastMessageCreatedAt,
+          );
+        });
+      }
+
+      if (oldChat.unreadMessages != newChat.unreadMessages) {
+        final oldUnreadMessagesCount = oldChat.unreadMessages
+            .firstWhere(
+              (element) => element.uid == uid,
+              orElse: PeamanChatUnreadMessage.new,
+            )
+            .unreadMessagesCount;
+        final newUnreadMessagesCount = newChat.unreadMessages
+            .firstWhere(
+              (element) => element.uid == uid,
+              orElse: PeamanChatUnreadMessage.new,
+            )
+            .unreadMessagesCount;
+
+        if (oldUnreadMessagesCount != newUnreadMessagesCount) {
+          setState(() {
+            _chat = _chat.copyWith(
+              unreadMessages: newChat.unreadMessages,
+            );
+          });
+        }
+      }
+
+      if (!listEquals(oldChat.userIds, newChat.userIds)) {
+        setState(() {
+          _chat = _chat.copyWith(
+            userIds: newChat.userIds,
+          );
+        });
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   @override
   Widget build(BuildContext context) {
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(widget.chat.userIds),
+      providerOfPeamanChatUsersFuture(_chat.userIds),
     );
     return usersFuture.when(
       data: (data) {
@@ -51,12 +144,12 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
               children: [
                 Expanded(
                   child: PeamanChatArchiveButton(
-                    chatId: widget.chat.id!,
+                    chatId: _chat.id!,
                   ),
                 ),
                 Expanded(
                   child: PeamanChatDeleteButton(
-                    chatId: widget.chat.id!,
+                    chatId: _chat.id!,
                   ),
                 ),
               ],
@@ -102,11 +195,13 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   }
 
   Widget _headerBuilder(final List<PeamanUser> users) {
-    final appUser = ref.watch(providerOfLoggedInUser);
-    final remaining = widget.chat.userIds.length - 2;
+    final appUserPhoto = ref.watch(
+      providerOfLoggedInUser.select((value) => value.photo),
+    );
+    final remaining = _chat.userIds.length - 2;
     final avatars = [
       ...users.map((e) => e.photo).toList(),
-      if (widget.chat.type == PeamanChatType.group) appUser.photo,
+      if (_chat.type == PeamanChatType.group) appUserPhoto,
     ]..shuffle();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +238,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
               users.isEmpty
                   ? 'Unknown'
                   : remaining == 0
-                      ? widget.chat.type == PeamanChatType.group
+                      ? _chat.type == PeamanChatType.group
                           ? 'You and ${users.first.name}'
                           : '${users.first.name}'
                       : 'You, ${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
@@ -158,7 +253,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
         PeamanText.body2(
           timeago.format(
             DateTime.fromMillisecondsSinceEpoch(
-              widget.chat.updatedAt!,
+              _chat.updatedAt!,
             ),
           ),
           style: const TextStyle(
@@ -174,8 +269,8 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   Widget _bodyBuilder() {
     final lastMessageStream = ref.watch(providerOfSinglePeamanChatMessageStream(
       PeamanSingleChatMessageArgs(
-        chatId: widget.chat.id!,
-        messageId: widget.chat.lastMessageId!,
+        chatId: _chat.id!,
+        messageId: _chat.lastMessageId!,
       ),
     ));
 
@@ -187,7 +282,9 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   }
 
   Widget _lastMessageData(final PeamanChatMessage message) {
-    final appUser = ref.watch(providerOfLoggedInUser);
+    final uid = ref.watch(
+      providerOfLoggedInUser.select((value) => value.uid),
+    );
     final pictures =
         message.files.where((e) => e.type == PeamanFileType.image).toList();
     final videos =
@@ -204,10 +301,10 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                 ? 'Shared a post'
                 : 'Sent a message';
 
-    final messageText = message.senderId == appUser.uid ? 'You: $text' : text;
-    final unreadCount = widget.chat.unreadMessages
+    final messageText = message.senderId == uid ? 'You: $text' : text;
+    final unreadCount = _chat.unreadMessages
         .firstWhere(
-          (element) => element.uid == appUser.uid,
+          (element) => element.uid == uid,
           orElse: PeamanChatUnreadMessage.new,
         )
         .unreadMessagesCount;
@@ -225,7 +322,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
             ),
           ),
         ),
-        if (message.senderId != appUser.uid) _countBuilder(count: unreadCount),
+        if (message.senderId != uid) _countBuilder(count: unreadCount),
       ],
     );
   }

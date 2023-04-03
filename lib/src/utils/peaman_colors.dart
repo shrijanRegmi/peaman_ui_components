@@ -18,6 +18,7 @@ class PeamanColors {
   static const Color greyDark = Color(0xFF676767);
   static const Color red = Color(0xFFD23D32);
   static const Color green = Colors.green;
+  static const Color yellow = Color(0xffffc107);
   static const Color white70 = Colors.white70;
   static const Color black87 = Colors.black87;
 }

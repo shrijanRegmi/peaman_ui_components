@@ -44,8 +44,8 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   PeamanUserRepository get _userRepository =>
       _ref.watch(providerOfPeamanUserRepository);
   PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
-  PeamanErrorProvider get _errorProvider =>
-      _ref.read(providerOfPeamanError.notifier);
+  PeamanInfoProvider get _errorProvider =>
+      _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> blockUser({
     final String? uid,
@@ -62,7 +62,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               const error = PeamanError(
                 message: 'The user is already blocked.',
               );
-              _errorProvider.logError(error);
+              _errorProvider.logError(error.message);
               state = state.copyWith(
                 blockUserState: const BlockUserState.error(error),
               );
@@ -78,7 +78,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
                 blockUserState: BlockUserState.success(success),
               ),
               (failure) {
-                _errorProvider.logError(failure);
+                _errorProvider.logError(failure.message);
                 return state.copyWith(
                   blockUserState: BlockUserState.error(failure),
                 );
@@ -86,9 +86,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             );
           },
           error: (e, _) {
-            _errorProvider.logError(
-              PeamanError(message: e.toString()),
-            );
+            _errorProvider.logError(e.toString());
             state = state.copyWith(
               blockUserState: BlockUserState.error(
                 PeamanError(message: e.toString()),
@@ -114,7 +112,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               const error = PeamanError(
                 message: 'The user is not already blocked.',
               );
-              _errorProvider.logError(error);
+              _errorProvider.logError(error.message);
               state = state.copyWith(
                 blockUserState: const BlockUserState.error(error),
               );
@@ -130,7 +128,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
                 unblockUserState: UnblockUserState.success(success),
               ),
               (failure) {
-                _errorProvider.logError(failure);
+                _errorProvider.logError(failure.message);
                 return state.copyWith(
                   unblockUserState: UnblockUserState.error(failure),
                 );
@@ -138,9 +136,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             );
           },
           error: (e, _) {
-            _errorProvider.logError(
-              PeamanError(message: e.toString()),
-            );
+            _errorProvider.logError(e.toString());
             state = state.copyWith(
               unblockUserState: UnblockUserState.error(
                 PeamanError(message: e.toString()),
@@ -164,9 +160,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             }
           },
           error: (e, _) {
-            _errorProvider.logError(
-              PeamanError(message: e.toString()),
-            );
+            _errorProvider.logError(e.toString());
           },
           orElse: () {},
         );
@@ -188,7 +182,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
         updateUserState: UpdateUserState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure);
+        _errorProvider.logError(failure.message);
         return state.copyWith(
           updateUserState: UpdateUserState.error(failure),
         );

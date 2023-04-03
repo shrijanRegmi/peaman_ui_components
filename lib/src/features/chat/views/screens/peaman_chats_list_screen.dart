@@ -86,7 +86,13 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
             ),
             PeamanRoundIconButton(
               onPressed: () {
-                ref.read(providerOfPeamanAuth.notifier).signOut();
+                showPeamanConfirmationDialog(
+                  context: context,
+                  title: 'Are you sure you want to logout?',
+                  onConfirm: () {
+                    ref.read(providerOfPeamanAuth.notifier).signOut();
+                  },
+                );
               },
               icon: Icon(
                 Icons.logout,

@@ -1023,6 +1023,8 @@ abstract class _$$_SendMessageStateFailureCopyWith<$Res> {
       __$$_SendMessageStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -1044,6 +1046,14 @@ class __$$_SendMessageStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -1627,6 +1637,8 @@ abstract class _$$_UpdateMessageStateFailureCopyWith<$Res> {
       __$$_UpdateMessageStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -1649,6 +1661,14 @@ class __$$_UpdateMessageStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -2231,6 +2251,8 @@ abstract class _$$_DeleteMessageStateFailureCopyWith<$Res> {
       __$$_DeleteMessageStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -2253,6 +2275,14 @@ class __$$_DeleteMessageStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -2835,6 +2865,8 @@ abstract class _$$_UnsendMessageStateFailureCopyWith<$Res> {
       __$$_UnsendMessageStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -2857,6 +2889,14 @@ class __$$_UnsendMessageStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -3430,6 +3470,8 @@ abstract class _$$_ReadChatStateFailureCopyWith<$Res> {
       __$$_ReadChatStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -3451,6 +3493,14 @@ class __$$_ReadChatStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -4026,6 +4076,8 @@ abstract class _$$_UpdateChatStateFailureCopyWith<$Res> {
       __$$_UpdateChatStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -4047,6 +4099,14 @@ class __$$_UpdateChatStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -4622,6 +4682,8 @@ abstract class _$$_DeleteChatStateFailureCopyWith<$Res> {
       __$$_DeleteChatStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -4643,6 +4705,14 @@ class __$$_DeleteChatStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -5219,6 +5289,8 @@ abstract class _$$_ArchiveChatStateFailureCopyWith<$Res> {
       __$$_ArchiveChatStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -5240,6 +5312,14 @@ class __$$_ArchiveChatStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -5827,6 +5907,8 @@ abstract class _$$_SetTypingStatusStateFailureCopyWith<$Res> {
       __$$_SetTypingStatusStateFailureCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -5850,6 +5932,14 @@ class __$$_SetTypingStatusStateFailureCopyWithImpl<$Res>
           : error // ignore: cast_nullable_to_non_nullable
               as PeamanError,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
