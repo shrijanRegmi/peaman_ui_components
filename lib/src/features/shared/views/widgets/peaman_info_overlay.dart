@@ -60,9 +60,7 @@ class _PeamanErrorPopUpState extends ConsumerState<PeamanInfoOverlay>
   @override
   void didUpdateWidget(covariant PeamanInfoOverlay oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.info != widget.info) {
-      _slideToPosition(fromDidUpdateWidget: true);
-    }
+    _slideToPosition(fromDidUpdateWidget: true);
   }
 
   @override

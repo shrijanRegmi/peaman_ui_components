@@ -62,19 +62,19 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                                   element.type == PeamanChatType.oneToOne,
                               orElse: () => PeamanChat(
                                 id: PeamanReferenceHelper().uniqueId,
+                                userIds: [user.uid!, appUser.uid!],
                               ),
                             );
-                            context.pushNamed(
-                              PeamanChatConversationScreen.route,
-                              arguments: PeamanChatConversationArgs(
-                                chatId: chat.id!,
-                                chatType: chat.type,
-                                userIds: [
-                                  user.uid!,
-                                  appUser.uid!,
-                                ],
-                              ),
-                            );
+                            context
+                              ..pop()
+                              ..pushNamed(
+                                PeamanChatConversationScreen.route,
+                                arguments: PeamanChatConversationArgs(
+                                  chatId: chat.id!,
+                                  chatType: chat.type,
+                                  userIds: chat.userIds,
+                                ),
+                              );
                           },
                           orElse: () {},
                         );

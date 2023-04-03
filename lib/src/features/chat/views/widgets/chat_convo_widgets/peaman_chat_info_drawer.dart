@@ -47,7 +47,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ? const PeamanErrorBuilder(
                 title: "Couldn't Load Chat",
                 subTitle:
-                    'The chat may have be deleted. Please\nvisit this place later.',
+                    'The chat may have be deleted. Please visit this place later.',
               )
             : SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

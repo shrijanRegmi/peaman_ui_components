@@ -147,7 +147,7 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
         decoration: BoxDecoration(
           color: PeamanColors.extraLightGrey,
           shape: BoxShape.circle,
-          border: Border.all(color: PeamanColors.white),
+          border: widget.border,
           image: DecorationImage(
             image: CachedNetworkImageProvider('${widget.imgUrl}'),
             fit: BoxFit.cover,

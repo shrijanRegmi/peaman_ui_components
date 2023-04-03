@@ -64,6 +64,10 @@ class _PeamanChatConversationScreenState
 
     final receiverIds =
         widget.userIds.where((element) => element != uid).toList();
+    final actualChatId = ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+          .select((value) => value?.id),
+    );
 
     return WillPopScope(
       onWillPop: () async {
@@ -99,15 +103,18 @@ class _PeamanChatConversationScreenState
             def();
           },
           actions: [
-            IconButton(
-              onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
-              icon: const Icon(Icons.more_vert_rounded),
-            )
+            if (actualChatId != null)
+              IconButton(
+                onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+                icon: const Icon(Icons.more_vert_rounded),
+              )
           ],
         ),
-        endDrawer: PeamanChatInfoDrawer(
-          chatId: widget.chatId,
-        ),
+        endDrawer: actualChatId == null
+            ? null
+            : PeamanChatInfoDrawer(
+                chatId: widget.chatId,
+              ),
         body: PeamanChatMessagesList(
           chatId: widget.chatId,
           receiverIds: receiverIds,

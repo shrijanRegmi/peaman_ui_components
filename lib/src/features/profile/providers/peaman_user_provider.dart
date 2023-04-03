@@ -18,7 +18,7 @@ final providerOfPeamanUsersBySearchKeys =
 final providerOfPeamanBlockedUsersStream =
     StreamProvider<List<PeamanSubUser>>((ref) {
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return const Stream.empty();
+  if (authUser == null) return Stream.value([]);
 
   return ref.watch(providerOfPeamanUserRepository).getBlockedUsersStream(
         uid: authUser.uid,
@@ -28,7 +28,7 @@ final providerOfPeamanBlockedUsersStream =
 final providerOfPeamanBlockedByUsersStream =
     StreamProvider<List<PeamanSubUser>>((ref) {
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return const Stream.empty();
+  if (authUser == null) return Stream.value([]);
 
   return ref.watch(providerOfPeamanUserRepository).getBlockedByUsersStream(
         uid: authUser.uid,

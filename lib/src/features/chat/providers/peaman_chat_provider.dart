@@ -12,7 +12,7 @@ final providerOfPeamanChat =
 
 final providerOfPeamanUserChatsStream = StreamProvider<List<PeamanChat>>((ref) {
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return const Stream.empty();
+  if (authUser == null) return Stream.value([]);
   return ref
       .watch(providerOfPeamanChatRepository)
       .getUserChatsStream(uid: authUser.uid);
@@ -34,14 +34,11 @@ final providerOfSinglePeamanChatFromChatsStream =
 final providerOfPeamanChatMessagesStream = StreamProvider.family
     .autoDispose<List<PeamanChatMessage>, String>((ref, chatId) {
   final chat = ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
-  if (chat == null) return const Stream.empty();
-
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return const Stream.empty();
 
-  final startAfter = chat.startAfters
+  final startAfter = chat?.startAfters
       .firstWhere(
-        (element) => element.uid == authUser.uid,
+        (element) => element.uid == authUser?.uid,
         orElse: PeamanChatStartAfter.new,
       )
       .messageCreatedAt;
