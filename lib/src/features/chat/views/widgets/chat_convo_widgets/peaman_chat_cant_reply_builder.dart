@@ -14,11 +14,11 @@ class PeamanChatCantReplyBuilder extends StatelessWidget {
             color: PeamanColors.secondaryDark,
           ),
           padding: const EdgeInsets.all(5.0),
-          child: const Center(
+          child: Center(
             child: PeamanText.body2(
               "You can't reply to this conversation at this moment.",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: PeamanColors.white,
                 fontSize: 12.0,
               ),

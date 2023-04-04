@@ -12,9 +12,8 @@ enum _Type {
 class PeamanUsersList extends StatelessWidget {
   final _Type type;
 
-  final List<String> usersIds;
+  final List<String> userIds;
   final List<PeamanUser> users;
-  final bool scroll;
   final bool requiredSearch;
   final Axis scrollDirection;
   final ScrollPhysics physics;
@@ -30,11 +29,10 @@ class PeamanUsersList extends StatelessWidget {
 
   const PeamanUsersList.expandedByUids({
     Key? key,
-    required this.usersIds,
-    this.scroll = false,
+    required this.userIds,
     this.initialItemPadding,
     this.itemPadding,
-    this.physics = const AlwaysScrollableScrollPhysics(),
+    this.physics = const BouncingScrollPhysics(),
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -51,17 +49,16 @@ class PeamanUsersList extends StatelessWidget {
   const PeamanUsersList.expandedByUsers({
     Key? key,
     required this.users,
-    this.scroll = false,
     this.initialItemPadding,
     this.itemPadding,
-    this.physics = const AlwaysScrollableScrollPhysics(),
+    this.physics = const BouncingScrollPhysics(),
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
     this.actionWidgetsBuilder,
     this.onPressedUser,
   })  : type = _Type.expandedByUsers,
-        usersIds = const [],
+        userIds = const [],
         requiredSearch = false,
         onPressedSearch = null,
         scrollDirection = Axis.vertical,
@@ -70,11 +67,11 @@ class PeamanUsersList extends StatelessWidget {
 
   const PeamanUsersList.roundedByUids({
     Key? key,
-    required this.usersIds,
+    required this.userIds,
     this.requiredSearch = false,
     this.initialItemPadding,
     this.itemPadding,
-    this.physics = const AlwaysScrollableScrollPhysics(),
+    this.physics = const BouncingScrollPhysics(),
     this.scrollDirection = Axis.vertical,
     this.avatarBuilder,
     this.nameBuilder,
@@ -85,7 +82,6 @@ class PeamanUsersList extends StatelessWidget {
         users = const [],
         actionWidgetsBuilder = null,
         captionBuilder = null,
-        scroll = true,
         super(key: key);
 
   const PeamanUsersList.roundedByUsers({
@@ -94,7 +90,7 @@ class PeamanUsersList extends StatelessWidget {
     this.requiredSearch = false,
     this.initialItemPadding,
     this.itemPadding,
-    this.physics = const AlwaysScrollableScrollPhysics(),
+    this.physics = const BouncingScrollPhysics(),
     this.scrollDirection = Axis.vertical,
     this.avatarBuilder,
     this.nameBuilder,
@@ -102,10 +98,9 @@ class PeamanUsersList extends StatelessWidget {
     this.onPressedSearch,
     this.height = 82.0,
   })  : type = _Type.roundedByUsers,
-        usersIds = const [],
+        userIds = const [],
         actionWidgetsBuilder = null,
         captionBuilder = null,
-        scroll = true,
         super(key: key);
 
   @override
@@ -126,10 +121,10 @@ class PeamanUsersList extends StatelessWidget {
   }
 
   Widget _byUidsBuilder() {
-    List<String?> list = usersIds;
+    List<String?> list = userIds;
 
     if (requiredSearch) {
-      list = [null, ...usersIds];
+      list = [null, ...userIds];
     }
 
     return SizedBox(
@@ -139,9 +134,8 @@ class PeamanUsersList extends StatelessWidget {
           : null,
       child: ListView.builder(
         itemCount: list.length,
-        shrinkWrap: !scroll,
         scrollDirection: scrollDirection,
-        physics: scroll ? physics : const NeverScrollableScrollPhysics(),
+        physics: physics,
         itemBuilder: (context, index) {
           final userId = list[index];
 
@@ -150,7 +144,9 @@ class PeamanUsersList extends StatelessWidget {
           return type == _Type.expandedByUids
               ? PeamanUsersListItem.expandedByUid(
                   userId: userId,
-                  padding: index == 0 ? initialItemPadding : itemPadding,
+                  padding: index == 0
+                      ? initialItemPadding ?? itemPadding
+                      : itemPadding,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
                   captionBuilder: captionBuilder,
@@ -183,9 +179,7 @@ class PeamanUsersList extends StatelessWidget {
           : null,
       child: ListView.builder(
         itemCount: list.length,
-        shrinkWrap: !scroll,
         scrollDirection: scrollDirection,
-        physics: scroll ? physics : const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final user = list[index];
 

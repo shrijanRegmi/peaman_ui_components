@@ -26,7 +26,7 @@ class PeamanText extends StatefulWidget {
   final Function(ScrollNotification)? onScroll;
   final Function(bool)? onPressedShowMore;
 
-  const PeamanText.heading1(
+  PeamanText.heading1(
     this.value, {
     Key? key,
     this.style,
@@ -44,7 +44,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.heading1,
         super(key: key);
 
-  const PeamanText.heading2(
+  PeamanText.heading2(
     this.value, {
     Key? key,
     this.style,
@@ -62,7 +62,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.heading2,
         super(key: key);
 
-  const PeamanText.heading3(
+  PeamanText.heading3(
     this.value, {
     Key? key,
     this.style,
@@ -80,7 +80,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.heading3,
         super(key: key);
 
-  const PeamanText.heading4(
+  PeamanText.heading4(
     this.value, {
     Key? key,
     this.style,
@@ -98,7 +98,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.heading4,
         super(key: key);
 
-  const PeamanText.heading5(
+  PeamanText.heading5(
     this.value, {
     Key? key,
     this.style,
@@ -116,7 +116,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.heading5,
         super(key: key);
 
-  const PeamanText.heading6(
+  PeamanText.heading6(
     this.value, {
     Key? key,
     this.style,
@@ -134,7 +134,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.heading6,
         super(key: key);
 
-  const PeamanText.subtitle1(
+  PeamanText.subtitle1(
     this.value, {
     Key? key,
     this.style,
@@ -152,7 +152,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.subtitle1,
         super(key: key);
 
-  const PeamanText.subtitle2(
+  PeamanText.subtitle2(
     this.value, {
     Key? key,
     this.style,
@@ -170,7 +170,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.subtitle2,
         super(key: key);
 
-  const PeamanText.body1(
+  PeamanText.body1(
     this.value, {
     Key? key,
     this.style,
@@ -188,7 +188,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.body1,
         super(key: key);
 
-  const PeamanText.body2(
+  PeamanText.body2(
     this.value, {
     Key? key,
     this.style,
@@ -206,7 +206,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.body2,
         super(key: key);
 
-  const PeamanText.button(
+  PeamanText.button(
     this.value, {
     Key? key,
     this.style,
@@ -224,7 +224,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.button,
         super(key: key);
 
-  const PeamanText.caption(
+  PeamanText.caption(
     this.value, {
     Key? key,
     this.style,
@@ -242,7 +242,7 @@ class PeamanText extends StatefulWidget {
   })  : defaultStyle = PeamanTextStyles.caption,
         super(key: key);
 
-  const PeamanText.overline(
+  PeamanText.overline(
     this.value, {
     Key? key,
     this.style,

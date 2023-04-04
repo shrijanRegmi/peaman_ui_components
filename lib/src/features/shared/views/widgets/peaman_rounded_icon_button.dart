@@ -29,7 +29,7 @@ class PeamanRoundIconButton extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: bgColor ?? context.theme.colorScheme.background,
+              color: bgColor ?? PeamanColors.extraLightGrey.withOpacity(0.2),
               boxShadow: [
                 shadow ??
                     const BoxShadow(

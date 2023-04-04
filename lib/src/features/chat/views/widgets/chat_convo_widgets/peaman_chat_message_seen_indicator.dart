@@ -47,6 +47,16 @@ class PeamanChatMessageSeenIndicator extends ConsumerWidget {
         color: PeamanColors.grey,
         fontSize: 12.0,
       ),
+      onPressed: () {
+        showNormalBottomsheet(
+          context: context,
+          borderRadius: 15.0,
+          widget: PeamanUsersListBottomsheet.expandedByUids(
+            title: 'Seen By',
+            userIds: seenUserIds,
+          ),
+        );
+      },
     );
   }
 }

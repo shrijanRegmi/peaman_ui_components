@@ -81,7 +81,7 @@ class _PeamanViewChatMediasScreenState
           ),
         ).pL(20),
         PeamanUsersList.roundedByUids(
-          usersIds: chat!.userIds,
+          userIds: chat!.userIds,
           scrollDirection: Axis.horizontal,
           itemPadding: EdgeInsets.all(5.w),
           initialItemPadding: EdgeInsets.fromLTRB(20.w, 5.w, 5.w, 5.w),

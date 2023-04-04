@@ -160,10 +160,10 @@ class _PeamanOnboardingScreenState
         const SizedBox(
           height: 15.0,
         ),
-        const PeamanText.subtitle1(
+        PeamanText.subtitle1(
           "Tell us more about yourself",
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),

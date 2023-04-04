@@ -189,7 +189,16 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               'Group members',
               style: TextStyle(fontSize: 12.sp),
             ),
-            onTap: () {},
+            onTap: () {
+              showNormalBottomsheet(
+                context: context,
+                borderRadius: 15.0,
+                widget: PeamanUsersListBottomsheet.expandedByUids(
+                  userIds: _chatUserIds,
+                  title: 'Group Members',
+                ),
+              );
+            },
           ),
         if (_chatType == PeamanChatType.oneToOne)
           ListTile(
