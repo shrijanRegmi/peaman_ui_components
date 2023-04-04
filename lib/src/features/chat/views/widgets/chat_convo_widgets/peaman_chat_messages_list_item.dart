@@ -100,9 +100,10 @@ class _PeamanChatMessagesListItemState
                   PeamanChatMessageTypingIndicator(
                     chatId: widget.message.chatId!,
                   ),
-                  PeamanChatMessageSeenIndicator(
-                    chatId: widget.message.chatId!,
-                  ),
+                  if (widget.message.senderId == _uid)
+                    PeamanChatMessageSeenIndicator(
+                      chatId: widget.message.chatId!,
+                    ),
                 ],
               ),
             if (isTempMessage)

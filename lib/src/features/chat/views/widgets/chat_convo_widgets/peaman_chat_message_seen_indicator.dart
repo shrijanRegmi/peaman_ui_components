@@ -11,17 +11,18 @@ class PeamanChatMessageSeenIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appUser = ref.watch(providerOfLoggedInUser);
+    final uid = ref.watch(providerOfLoggedInUser.select((value) => value.uid));
     final chat = ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId));
-    final unreadMessages = chat?.unreadMessages
-            .where((element) => element.uid != appUser.uid)
-            .toList() ??
-        [];
+    final receiverIds =
+        chat?.userIds.where((element) => element != uid).toList() ?? [];
+    final unreadMessages =
+        chat?.unreadMessages.where((element) => element.uid != uid).toList() ??
+            [];
 
-    final seenUserIds = <String>[];
+    final seenUserIds = List<String>.from(receiverIds);
     for (var element in unreadMessages) {
-      if (element.unreadMessagesCount == 0) {
-        seenUserIds.add(element.uid!);
+      if (element.unreadMessagesCount > 0) {
+        seenUserIds.remove(element.uid!);
       }
     }
     if (seenUserIds.isEmpty) return const SizedBox();
