@@ -75,7 +75,7 @@ class PeamanOnboardingDetailsInfoStep extends StatelessWidget {
             trailing: const Icon(Icons.person_rounded),
             textInputType: TextInputType.multiline,
             textCapitalization: TextCapitalization.sentences,
-            limit: 150,
+            limit: 100,
           ),
         ],
       ),

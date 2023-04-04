@@ -22,6 +22,8 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
     @Default(DeleteChatState.initial()) final DeleteChatState deleteChatState,
     @Default(ArchiveChatState.initial())
         final ArchiveChatState archiveChatState,
+    @Default(MuteChatState.initial()) final MuteChatState muteChatState,
+    @Default(UnmuteChatState.initial()) final UnmuteChatState unmuteChatState,
     @Default(SetTypingStatusState.initial())
         final SetTypingStatusState setTypingStatusState,
     @Default(<PeamanChatMessage>[]) final List<PeamanChatMessage> tempMessages,
@@ -135,4 +137,28 @@ class SetTypingStatusState with _$SetTypingStatusState {
   const factory SetTypingStatusState.error(
     final PeamanError error,
   ) = _SetTypingStatusStateFailure;
+}
+
+@freezed
+class MuteChatState with _$MuteChatState {
+  const factory MuteChatState.initial() = _MuteChatStateInitial;
+  const factory MuteChatState.loading() = _MuteChatStateLoading;
+  const factory MuteChatState.success(
+    final bool result,
+  ) = _MuteChatStateSuccess;
+  const factory MuteChatState.error(
+    final PeamanError error,
+  ) = _MuteChatStateFailure;
+}
+
+@freezed
+class UnmuteChatState with _$UnmuteChatState {
+  const factory UnmuteChatState.initial() = _UnmuteChatStateInitial;
+  const factory UnmuteChatState.loading() = _UnmuteChatStateLoading;
+  const factory UnmuteChatState.success(
+    final bool result,
+  ) = _UnmuteChatStateSuccess;
+  const factory UnmuteChatState.error(
+    final PeamanError error,
+  ) = _UnmuteChatStateFailure;
 }

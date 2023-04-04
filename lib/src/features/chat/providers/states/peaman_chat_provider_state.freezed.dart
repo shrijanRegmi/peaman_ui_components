@@ -30,6 +30,8 @@ mixin _$PeamanChatProviderState {
   UpdateChatState get updateChatState => throw _privateConstructorUsedError;
   DeleteChatState get deleteChatState => throw _privateConstructorUsedError;
   ArchiveChatState get archiveChatState => throw _privateConstructorUsedError;
+  MuteChatState get muteChatState => throw _privateConstructorUsedError;
+  UnmuteChatState get unmuteChatState => throw _privateConstructorUsedError;
   SetTypingStatusState get setTypingStatusState =>
       throw _privateConstructorUsedError;
   List<PeamanChatMessage> get tempMessages =>
@@ -58,6 +60,8 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       UpdateChatState updateChatState,
       DeleteChatState deleteChatState,
       ArchiveChatState archiveChatState,
+      MuteChatState muteChatState,
+      UnmuteChatState unmuteChatState,
       SetTypingStatusState setTypingStatusState,
       List<PeamanChatMessage> tempMessages,
       PeamanChatMessage? messageToReply});
@@ -70,6 +74,8 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
   $UpdateChatStateCopyWith<$Res> get updateChatState;
   $DeleteChatStateCopyWith<$Res> get deleteChatState;
   $ArchiveChatStateCopyWith<$Res> get archiveChatState;
+  $MuteChatStateCopyWith<$Res> get muteChatState;
+  $UnmuteChatStateCopyWith<$Res> get unmuteChatState;
   $SetTypingStatusStateCopyWith<$Res> get setTypingStatusState;
   $PeamanChatMessageCopyWith<$Res>? get messageToReply;
 }
@@ -98,6 +104,8 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     Object? updateChatState = null,
     Object? deleteChatState = null,
     Object? archiveChatState = null,
+    Object? muteChatState = null,
+    Object? unmuteChatState = null,
     Object? setTypingStatusState = null,
     Object? tempMessages = null,
     Object? messageToReply = freezed,
@@ -143,6 +151,14 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
           ? _value.archiveChatState
           : archiveChatState // ignore: cast_nullable_to_non_nullable
               as ArchiveChatState,
+      muteChatState: null == muteChatState
+          ? _value.muteChatState
+          : muteChatState // ignore: cast_nullable_to_non_nullable
+              as MuteChatState,
+      unmuteChatState: null == unmuteChatState
+          ? _value.unmuteChatState
+          : unmuteChatState // ignore: cast_nullable_to_non_nullable
+              as UnmuteChatState,
       setTypingStatusState: null == setTypingStatusState
           ? _value.setTypingStatusState
           : setTypingStatusState // ignore: cast_nullable_to_non_nullable
@@ -227,6 +243,22 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $MuteChatStateCopyWith<$Res> get muteChatState {
+    return $MuteChatStateCopyWith<$Res>(_value.muteChatState, (value) {
+      return _then(_value.copyWith(muteChatState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UnmuteChatStateCopyWith<$Res> get unmuteChatState {
+    return $UnmuteChatStateCopyWith<$Res>(_value.unmuteChatState, (value) {
+      return _then(_value.copyWith(unmuteChatState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $SetTypingStatusStateCopyWith<$Res> get setTypingStatusState {
     return $SetTypingStatusStateCopyWith<$Res>(_value.setTypingStatusState,
         (value) {
@@ -266,6 +298,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
       UpdateChatState updateChatState,
       DeleteChatState deleteChatState,
       ArchiveChatState archiveChatState,
+      MuteChatState muteChatState,
+      UnmuteChatState unmuteChatState,
       SetTypingStatusState setTypingStatusState,
       List<PeamanChatMessage> tempMessages,
       PeamanChatMessage? messageToReply});
@@ -286,6 +320,10 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
   $DeleteChatStateCopyWith<$Res> get deleteChatState;
   @override
   $ArchiveChatStateCopyWith<$Res> get archiveChatState;
+  @override
+  $MuteChatStateCopyWith<$Res> get muteChatState;
+  @override
+  $UnmuteChatStateCopyWith<$Res> get unmuteChatState;
   @override
   $SetTypingStatusStateCopyWith<$Res> get setTypingStatusState;
   @override
@@ -314,6 +352,8 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? updateChatState = null,
     Object? deleteChatState = null,
     Object? archiveChatState = null,
+    Object? muteChatState = null,
+    Object? unmuteChatState = null,
     Object? setTypingStatusState = null,
     Object? tempMessages = null,
     Object? messageToReply = freezed,
@@ -359,6 +399,14 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
           ? _value.archiveChatState
           : archiveChatState // ignore: cast_nullable_to_non_nullable
               as ArchiveChatState,
+      muteChatState: null == muteChatState
+          ? _value.muteChatState
+          : muteChatState // ignore: cast_nullable_to_non_nullable
+              as MuteChatState,
+      unmuteChatState: null == unmuteChatState
+          ? _value.unmuteChatState
+          : unmuteChatState // ignore: cast_nullable_to_non_nullable
+              as UnmuteChatState,
       setTypingStatusState: null == setTypingStatusState
           ? _value.setTypingStatusState
           : setTypingStatusState // ignore: cast_nullable_to_non_nullable
@@ -389,6 +437,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       this.updateChatState = const UpdateChatState.initial(),
       this.deleteChatState = const DeleteChatState.initial(),
       this.archiveChatState = const ArchiveChatState.initial(),
+      this.muteChatState = const MuteChatState.initial(),
+      this.unmuteChatState = const UnmuteChatState.initial(),
       this.setTypingStatusState = const SetTypingStatusState.initial(),
       final List<PeamanChatMessage> tempMessages = const <PeamanChatMessage>[],
       this.messageToReply})
@@ -432,6 +482,12 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   final ArchiveChatState archiveChatState;
   @override
   @JsonKey()
+  final MuteChatState muteChatState;
+  @override
+  @JsonKey()
+  final UnmuteChatState unmuteChatState;
+  @override
+  @JsonKey()
   final SetTypingStatusState setTypingStatusState;
   final List<PeamanChatMessage> _tempMessages;
   @override
@@ -447,7 +503,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
 
   @override
   String toString() {
-    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
+    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
   }
 
   @override
@@ -474,6 +530,10 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
                 other.deleteChatState == deleteChatState) &&
             (identical(other.archiveChatState, archiveChatState) ||
                 other.archiveChatState == archiveChatState) &&
+            (identical(other.muteChatState, muteChatState) ||
+                other.muteChatState == muteChatState) &&
+            (identical(other.unmuteChatState, unmuteChatState) ||
+                other.unmuteChatState == unmuteChatState) &&
             (identical(other.setTypingStatusState, setTypingStatusState) ||
                 other.setTypingStatusState == setTypingStatusState) &&
             const DeepCollectionEquality()
@@ -495,6 +555,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       updateChatState,
       deleteChatState,
       archiveChatState,
+      muteChatState,
+      unmuteChatState,
       setTypingStatusState,
       const DeepCollectionEquality().hash(_tempMessages),
       messageToReply);
@@ -520,6 +582,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       final UpdateChatState updateChatState,
       final DeleteChatState deleteChatState,
       final ArchiveChatState archiveChatState,
+      final MuteChatState muteChatState,
+      final UnmuteChatState unmuteChatState,
       final SetTypingStatusState setTypingStatusState,
       final List<PeamanChatMessage> tempMessages,
       final PeamanChatMessage? messageToReply}) = _$_PeamanChatProviderState;
@@ -544,6 +608,10 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   DeleteChatState get deleteChatState;
   @override
   ArchiveChatState get archiveChatState;
+  @override
+  MuteChatState get muteChatState;
+  @override
+  UnmuteChatState get unmuteChatState;
   @override
   SetTypingStatusState get setTypingStatusState;
   @override
@@ -6057,4 +6125,1214 @@ abstract class _SetTypingStatusStateFailure implements SetTypingStatusState {
   @JsonKey(ignore: true)
   _$$_SetTypingStatusStateFailureCopyWith<_$_SetTypingStatusStateFailure>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$MuteChatState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MuteChatStateInitial value) initial,
+    required TResult Function(_MuteChatStateLoading value) loading,
+    required TResult Function(_MuteChatStateSuccess value) success,
+    required TResult Function(_MuteChatStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MuteChatStateInitial value)? initial,
+    TResult? Function(_MuteChatStateLoading value)? loading,
+    TResult? Function(_MuteChatStateSuccess value)? success,
+    TResult? Function(_MuteChatStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MuteChatStateInitial value)? initial,
+    TResult Function(_MuteChatStateLoading value)? loading,
+    TResult Function(_MuteChatStateSuccess value)? success,
+    TResult Function(_MuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MuteChatStateCopyWith<$Res> {
+  factory $MuteChatStateCopyWith(
+          MuteChatState value, $Res Function(MuteChatState) then) =
+      _$MuteChatStateCopyWithImpl<$Res, MuteChatState>;
+}
+
+/// @nodoc
+class _$MuteChatStateCopyWithImpl<$Res, $Val extends MuteChatState>
+    implements $MuteChatStateCopyWith<$Res> {
+  _$MuteChatStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_MuteChatStateInitialCopyWith<$Res> {
+  factory _$$_MuteChatStateInitialCopyWith(_$_MuteChatStateInitial value,
+          $Res Function(_$_MuteChatStateInitial) then) =
+      __$$_MuteChatStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_MuteChatStateInitialCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateInitial>
+    implements _$$_MuteChatStateInitialCopyWith<$Res> {
+  __$$_MuteChatStateInitialCopyWithImpl(_$_MuteChatStateInitial _value,
+      $Res Function(_$_MuteChatStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_MuteChatStateInitial implements _MuteChatStateInitial {
+  const _$_MuteChatStateInitial();
+
+  @override
+  String toString() {
+    return 'MuteChatState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_MuteChatStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MuteChatStateInitial value) initial,
+    required TResult Function(_MuteChatStateLoading value) loading,
+    required TResult Function(_MuteChatStateSuccess value) success,
+    required TResult Function(_MuteChatStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MuteChatStateInitial value)? initial,
+    TResult? Function(_MuteChatStateLoading value)? loading,
+    TResult? Function(_MuteChatStateSuccess value)? success,
+    TResult? Function(_MuteChatStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MuteChatStateInitial value)? initial,
+    TResult Function(_MuteChatStateLoading value)? loading,
+    TResult Function(_MuteChatStateSuccess value)? success,
+    TResult Function(_MuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MuteChatStateInitial implements MuteChatState {
+  const factory _MuteChatStateInitial() = _$_MuteChatStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_MuteChatStateLoadingCopyWith<$Res> {
+  factory _$$_MuteChatStateLoadingCopyWith(_$_MuteChatStateLoading value,
+          $Res Function(_$_MuteChatStateLoading) then) =
+      __$$_MuteChatStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_MuteChatStateLoadingCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateLoading>
+    implements _$$_MuteChatStateLoadingCopyWith<$Res> {
+  __$$_MuteChatStateLoadingCopyWithImpl(_$_MuteChatStateLoading _value,
+      $Res Function(_$_MuteChatStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_MuteChatStateLoading implements _MuteChatStateLoading {
+  const _$_MuteChatStateLoading();
+
+  @override
+  String toString() {
+    return 'MuteChatState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_MuteChatStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MuteChatStateInitial value) initial,
+    required TResult Function(_MuteChatStateLoading value) loading,
+    required TResult Function(_MuteChatStateSuccess value) success,
+    required TResult Function(_MuteChatStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MuteChatStateInitial value)? initial,
+    TResult? Function(_MuteChatStateLoading value)? loading,
+    TResult? Function(_MuteChatStateSuccess value)? success,
+    TResult? Function(_MuteChatStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MuteChatStateInitial value)? initial,
+    TResult Function(_MuteChatStateLoading value)? loading,
+    TResult Function(_MuteChatStateSuccess value)? success,
+    TResult Function(_MuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MuteChatStateLoading implements MuteChatState {
+  const factory _MuteChatStateLoading() = _$_MuteChatStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_MuteChatStateSuccessCopyWith<$Res> {
+  factory _$$_MuteChatStateSuccessCopyWith(_$_MuteChatStateSuccess value,
+          $Res Function(_$_MuteChatStateSuccess) then) =
+      __$$_MuteChatStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool result});
+}
+
+/// @nodoc
+class __$$_MuteChatStateSuccessCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateSuccess>
+    implements _$$_MuteChatStateSuccessCopyWith<$Res> {
+  __$$_MuteChatStateSuccessCopyWithImpl(_$_MuteChatStateSuccess _value,
+      $Res Function(_$_MuteChatStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_MuteChatStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_MuteChatStateSuccess implements _MuteChatStateSuccess {
+  const _$_MuteChatStateSuccess(this.result);
+
+  @override
+  final bool result;
+
+  @override
+  String toString() {
+    return 'MuteChatState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_MuteChatStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_MuteChatStateSuccessCopyWith<_$_MuteChatStateSuccess> get copyWith =>
+      __$$_MuteChatStateSuccessCopyWithImpl<_$_MuteChatStateSuccess>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MuteChatStateInitial value) initial,
+    required TResult Function(_MuteChatStateLoading value) loading,
+    required TResult Function(_MuteChatStateSuccess value) success,
+    required TResult Function(_MuteChatStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MuteChatStateInitial value)? initial,
+    TResult? Function(_MuteChatStateLoading value)? loading,
+    TResult? Function(_MuteChatStateSuccess value)? success,
+    TResult? Function(_MuteChatStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MuteChatStateInitial value)? initial,
+    TResult Function(_MuteChatStateLoading value)? loading,
+    TResult Function(_MuteChatStateSuccess value)? success,
+    TResult Function(_MuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MuteChatStateSuccess implements MuteChatState {
+  const factory _MuteChatStateSuccess(final bool result) =
+      _$_MuteChatStateSuccess;
+
+  bool get result;
+  @JsonKey(ignore: true)
+  _$$_MuteChatStateSuccessCopyWith<_$_MuteChatStateSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_MuteChatStateFailureCopyWith<$Res> {
+  factory _$$_MuteChatStateFailureCopyWith(_$_MuteChatStateFailure value,
+          $Res Function(_$_MuteChatStateFailure) then) =
+      __$$_MuteChatStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_MuteChatStateFailureCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateFailure>
+    implements _$$_MuteChatStateFailureCopyWith<$Res> {
+  __$$_MuteChatStateFailureCopyWithImpl(_$_MuteChatStateFailure _value,
+      $Res Function(_$_MuteChatStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_MuteChatStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_MuteChatStateFailure implements _MuteChatStateFailure {
+  const _$_MuteChatStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'MuteChatState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_MuteChatStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_MuteChatStateFailureCopyWith<_$_MuteChatStateFailure> get copyWith =>
+      __$$_MuteChatStateFailureCopyWithImpl<_$_MuteChatStateFailure>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MuteChatStateInitial value) initial,
+    required TResult Function(_MuteChatStateLoading value) loading,
+    required TResult Function(_MuteChatStateSuccess value) success,
+    required TResult Function(_MuteChatStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MuteChatStateInitial value)? initial,
+    TResult? Function(_MuteChatStateLoading value)? loading,
+    TResult? Function(_MuteChatStateSuccess value)? success,
+    TResult? Function(_MuteChatStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MuteChatStateInitial value)? initial,
+    TResult Function(_MuteChatStateLoading value)? loading,
+    TResult Function(_MuteChatStateSuccess value)? success,
+    TResult Function(_MuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MuteChatStateFailure implements MuteChatState {
+  const factory _MuteChatStateFailure(final PeamanError error) =
+      _$_MuteChatStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_MuteChatStateFailureCopyWith<_$_MuteChatStateFailure> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$UnmuteChatState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UnmuteChatStateInitial value) initial,
+    required TResult Function(_UnmuteChatStateLoading value) loading,
+    required TResult Function(_UnmuteChatStateSuccess value) success,
+    required TResult Function(_UnmuteChatStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UnmuteChatStateInitial value)? initial,
+    TResult? Function(_UnmuteChatStateLoading value)? loading,
+    TResult? Function(_UnmuteChatStateSuccess value)? success,
+    TResult? Function(_UnmuteChatStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UnmuteChatStateInitial value)? initial,
+    TResult Function(_UnmuteChatStateLoading value)? loading,
+    TResult Function(_UnmuteChatStateSuccess value)? success,
+    TResult Function(_UnmuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UnmuteChatStateCopyWith<$Res> {
+  factory $UnmuteChatStateCopyWith(
+          UnmuteChatState value, $Res Function(UnmuteChatState) then) =
+      _$UnmuteChatStateCopyWithImpl<$Res, UnmuteChatState>;
+}
+
+/// @nodoc
+class _$UnmuteChatStateCopyWithImpl<$Res, $Val extends UnmuteChatState>
+    implements $UnmuteChatStateCopyWith<$Res> {
+  _$UnmuteChatStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_UnmuteChatStateInitialCopyWith<$Res> {
+  factory _$$_UnmuteChatStateInitialCopyWith(_$_UnmuteChatStateInitial value,
+          $Res Function(_$_UnmuteChatStateInitial) then) =
+      __$$_UnmuteChatStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_UnmuteChatStateInitialCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateInitial>
+    implements _$$_UnmuteChatStateInitialCopyWith<$Res> {
+  __$$_UnmuteChatStateInitialCopyWithImpl(_$_UnmuteChatStateInitial _value,
+      $Res Function(_$_UnmuteChatStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_UnmuteChatStateInitial implements _UnmuteChatStateInitial {
+  const _$_UnmuteChatStateInitial();
+
+  @override
+  String toString() {
+    return 'UnmuteChatState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UnmuteChatStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UnmuteChatStateInitial value) initial,
+    required TResult Function(_UnmuteChatStateLoading value) loading,
+    required TResult Function(_UnmuteChatStateSuccess value) success,
+    required TResult Function(_UnmuteChatStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UnmuteChatStateInitial value)? initial,
+    TResult? Function(_UnmuteChatStateLoading value)? loading,
+    TResult? Function(_UnmuteChatStateSuccess value)? success,
+    TResult? Function(_UnmuteChatStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UnmuteChatStateInitial value)? initial,
+    TResult Function(_UnmuteChatStateLoading value)? loading,
+    TResult Function(_UnmuteChatStateSuccess value)? success,
+    TResult Function(_UnmuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnmuteChatStateInitial implements UnmuteChatState {
+  const factory _UnmuteChatStateInitial() = _$_UnmuteChatStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_UnmuteChatStateLoadingCopyWith<$Res> {
+  factory _$$_UnmuteChatStateLoadingCopyWith(_$_UnmuteChatStateLoading value,
+          $Res Function(_$_UnmuteChatStateLoading) then) =
+      __$$_UnmuteChatStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_UnmuteChatStateLoadingCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateLoading>
+    implements _$$_UnmuteChatStateLoadingCopyWith<$Res> {
+  __$$_UnmuteChatStateLoadingCopyWithImpl(_$_UnmuteChatStateLoading _value,
+      $Res Function(_$_UnmuteChatStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_UnmuteChatStateLoading implements _UnmuteChatStateLoading {
+  const _$_UnmuteChatStateLoading();
+
+  @override
+  String toString() {
+    return 'UnmuteChatState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UnmuteChatStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UnmuteChatStateInitial value) initial,
+    required TResult Function(_UnmuteChatStateLoading value) loading,
+    required TResult Function(_UnmuteChatStateSuccess value) success,
+    required TResult Function(_UnmuteChatStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UnmuteChatStateInitial value)? initial,
+    TResult? Function(_UnmuteChatStateLoading value)? loading,
+    TResult? Function(_UnmuteChatStateSuccess value)? success,
+    TResult? Function(_UnmuteChatStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UnmuteChatStateInitial value)? initial,
+    TResult Function(_UnmuteChatStateLoading value)? loading,
+    TResult Function(_UnmuteChatStateSuccess value)? success,
+    TResult Function(_UnmuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnmuteChatStateLoading implements UnmuteChatState {
+  const factory _UnmuteChatStateLoading() = _$_UnmuteChatStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_UnmuteChatStateSuccessCopyWith<$Res> {
+  factory _$$_UnmuteChatStateSuccessCopyWith(_$_UnmuteChatStateSuccess value,
+          $Res Function(_$_UnmuteChatStateSuccess) then) =
+      __$$_UnmuteChatStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool result});
+}
+
+/// @nodoc
+class __$$_UnmuteChatStateSuccessCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateSuccess>
+    implements _$$_UnmuteChatStateSuccessCopyWith<$Res> {
+  __$$_UnmuteChatStateSuccessCopyWithImpl(_$_UnmuteChatStateSuccess _value,
+      $Res Function(_$_UnmuteChatStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_UnmuteChatStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UnmuteChatStateSuccess implements _UnmuteChatStateSuccess {
+  const _$_UnmuteChatStateSuccess(this.result);
+
+  @override
+  final bool result;
+
+  @override
+  String toString() {
+    return 'UnmuteChatState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UnmuteChatStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UnmuteChatStateSuccessCopyWith<_$_UnmuteChatStateSuccess> get copyWith =>
+      __$$_UnmuteChatStateSuccessCopyWithImpl<_$_UnmuteChatStateSuccess>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UnmuteChatStateInitial value) initial,
+    required TResult Function(_UnmuteChatStateLoading value) loading,
+    required TResult Function(_UnmuteChatStateSuccess value) success,
+    required TResult Function(_UnmuteChatStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UnmuteChatStateInitial value)? initial,
+    TResult? Function(_UnmuteChatStateLoading value)? loading,
+    TResult? Function(_UnmuteChatStateSuccess value)? success,
+    TResult? Function(_UnmuteChatStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UnmuteChatStateInitial value)? initial,
+    TResult Function(_UnmuteChatStateLoading value)? loading,
+    TResult Function(_UnmuteChatStateSuccess value)? success,
+    TResult Function(_UnmuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnmuteChatStateSuccess implements UnmuteChatState {
+  const factory _UnmuteChatStateSuccess(final bool result) =
+      _$_UnmuteChatStateSuccess;
+
+  bool get result;
+  @JsonKey(ignore: true)
+  _$$_UnmuteChatStateSuccessCopyWith<_$_UnmuteChatStateSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_UnmuteChatStateFailureCopyWith<$Res> {
+  factory _$$_UnmuteChatStateFailureCopyWith(_$_UnmuteChatStateFailure value,
+          $Res Function(_$_UnmuteChatStateFailure) then) =
+      __$$_UnmuteChatStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_UnmuteChatStateFailureCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateFailure>
+    implements _$$_UnmuteChatStateFailureCopyWith<$Res> {
+  __$$_UnmuteChatStateFailureCopyWithImpl(_$_UnmuteChatStateFailure _value,
+      $Res Function(_$_UnmuteChatStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_UnmuteChatStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_UnmuteChatStateFailure implements _UnmuteChatStateFailure {
+  const _$_UnmuteChatStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'UnmuteChatState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UnmuteChatStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UnmuteChatStateFailureCopyWith<_$_UnmuteChatStateFailure> get copyWith =>
+      __$$_UnmuteChatStateFailureCopyWithImpl<_$_UnmuteChatStateFailure>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UnmuteChatStateInitial value) initial,
+    required TResult Function(_UnmuteChatStateLoading value) loading,
+    required TResult Function(_UnmuteChatStateSuccess value) success,
+    required TResult Function(_UnmuteChatStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UnmuteChatStateInitial value)? initial,
+    TResult? Function(_UnmuteChatStateLoading value)? loading,
+    TResult? Function(_UnmuteChatStateSuccess value)? success,
+    TResult? Function(_UnmuteChatStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UnmuteChatStateInitial value)? initial,
+    TResult Function(_UnmuteChatStateLoading value)? loading,
+    TResult Function(_UnmuteChatStateSuccess value)? success,
+    TResult Function(_UnmuteChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnmuteChatStateFailure implements UnmuteChatState {
+  const factory _UnmuteChatStateFailure(final PeamanError error) =
+      _$_UnmuteChatStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_UnmuteChatStateFailureCopyWith<_$_UnmuteChatStateFailure> get copyWith =>
+      throw _privateConstructorUsedError;
 }

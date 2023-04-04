@@ -386,6 +386,70 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
   }
 
+  Future<void> muteChat({
+    required final String chatId,
+    required final int mutedAt,
+    required final int mutedUntil,
+    final String? uid,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      muteChatState: const MuteChatState.loading(),
+    );
+    final result = await _chatRepository.muteChat(
+      chatId: chatId,
+      uid: uid ?? _appUser.uid!,
+      mutedAt: mutedAt,
+      mutedUntil: mutedUntil,
+    );
+    state = result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          muteChatState: MuteChatState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          muteChatState: MuteChatState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> unmuteChat({
+    required final String chatId,
+    final String? uid,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      unmuteChatState: const UnmuteChatState.loading(),
+    );
+    final result = await _chatRepository.unmuteChat(
+      chatId: chatId,
+      uid: uid ?? _appUser.uid!,
+    );
+    state = result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          unmuteChatState: UnmuteChatState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          unmuteChatState: UnmuteChatState.error(failure),
+        );
+      },
+    );
+  }
+
   Future<void> setTypingStatus({
     required final String chatId,
     required final String typedValue,

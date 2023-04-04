@@ -21,8 +21,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   Provider<PeamanChat?> get _chatProvider =>
       providerOfSinglePeamanChatFromChatsStream(widget.chatId);
 
-  String get uid => ref.watch(
+  String get _uid => ref.watch(
         providerOfLoggedInUser.select((value) => value.uid!),
+      );
+  String? get _chatId => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+            .select((value) => value?.id),
       );
   List<String> get _chatUserIds => ref.watch(
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
@@ -35,15 +39,17 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
         _chatProvider.select((value) => value!.type),
       );
 
+  List<PeamanChatMutedUntil> get _chatUserMutedUntils => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+            .select((value) => value!.mutedUntils),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       child: SafeArea(
-        child: ref.read(
-                  providerOfSinglePeamanChatFromChatsStream(widget.chatId),
-                ) ==
-                null
+        child: _chatId == null
             ? const PeamanErrorBuilder(
                 title: "Couldn't Load Chat",
                 subTitle:
@@ -86,41 +92,46 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _headerBuilder() {
-    final appUserPhoto = ref.read(
+    final appUserPhoto = ref.watch(
       providerOfLoggedInUser.select((value) => value.photo),
     );
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        PeamanAvatarBuilder.multiNetwork(
-          [
-            ..._getHeaderAvatars(),
-            if (_chatType == PeamanChatType.group) appUserPhoto,
-          ]..shuffle(),
-          size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
-          spreadFactor: 2.5,
-        ),
-        SizedBox(
-          height: _chatType == PeamanChatType.group ? 35.h : 10.h,
-        ),
-        PeamanText.subtitle2(
-          _getHeaderTitle(),
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: 170.h,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          PeamanAvatarBuilder.multiNetwork(
+            [
+              ..._getHeaderAvatars(),
+              if (_chatType == PeamanChatType.group) appUserPhoto,
+            ]..shuffle(),
+            size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
+            spreadFactor: 2.5,
           ),
-        ),
-        if (_getHeaderBody() != null)
-          PeamanText.body2(
-            _getHeaderBody(),
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: PeamanColors.greyDark,
+          SizedBox(
+            height: _chatType == PeamanChatType.group ? 35.h : 10.h,
+          ),
+          PeamanText.subtitle2(
+            _getHeaderTitle(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.center,
-          ).pT(3),
-        if (_chatType == PeamanChatType.group) _groupActionsBuilder().pT(15),
-      ],
-    ).pX(20);
+          ),
+          if (_getHeaderBody() != null)
+            PeamanText.body2(
+              _getHeaderBody(),
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: PeamanColors.greyDark,
+              ),
+              textAlign: TextAlign.center,
+            ).pT(3),
+          if (_chatType == PeamanChatType.group) _groupActionsBuilder().pT(15),
+        ],
+      ).pX(20),
+    );
   }
 
   Widget _chatActionsSet1Builder() {
@@ -269,7 +280,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _chatActionsSet2Builder() {
-    final blockedUsersStream = ref.read(providerOfPeamanBlockedUsersStream);
+    final blockedUsersStream = ref.watch(providerOfPeamanBlockedUsersStream);
 
     final chatUsers = _chatUsersFuture.maybeWhen(
       data: (data) {
@@ -289,11 +300,101 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       orElse: () => false,
     );
 
+    final chatMutedUntil = _chatUserMutedUntils.firstWhere(
+      (element) => element.uid == _uid,
+      orElse: PeamanChatMutedUntil.new,
+    );
+
     return Column(
       children: [
         SwitchListTile(
-          value: false,
-          onChanged: (val) {},
+          value: chatMutedUntil.mutedUntil != null,
+          onChanged: (val) {
+            if (chatMutedUntil.mutedUntil != null) {
+              const successLogMessage = 'Successfully unmuted chat';
+              ref.read(providerOfPeamanChat.notifier).unmuteChat(
+                    chatId: widget.chatId,
+                    successLogMessage: successLogMessage,
+                  );
+              return;
+            }
+
+            final options = [
+              const PeamanSelectableOption(
+                id: 0,
+                title: 'For 1 hour',
+              ),
+              const PeamanSelectableOption(
+                id: 1,
+                title: 'For 2 hours',
+              ),
+              const PeamanSelectableOption(
+                id: 2,
+                title: 'For 8 hours',
+              ),
+              const PeamanSelectableOption(
+                id: 3,
+                title: 'For 24 hours',
+              ),
+              const PeamanSelectableOption(
+                id: 4,
+                title: 'Until I turn it on',
+              ),
+            ];
+            showPeamanSelectableOptionsBottomsheet(
+                context: context,
+                options: options,
+                borderRadius: 15.0,
+                onSelectOption: (option) {
+                  final currentDate = DateTime.now();
+                  int? mutedUntilHours;
+                  switch (option.id) {
+                    case 0:
+                      mutedUntilHours = 1;
+                      break;
+                    case 1:
+                      mutedUntilHours = 2;
+                      break;
+                    case 2:
+                      mutedUntilHours = 8;
+                      break;
+                    case 3:
+                      mutedUntilHours = 24;
+                      break;
+                    case 4:
+                      mutedUntilHours = -1;
+                      break;
+                    default:
+                  }
+
+                  if (mutedUntilHours != null) {
+                    final mutedAt = currentDate.millisecondsSinceEpoch;
+                    var mutedUntil = -1;
+
+                    if (mutedUntilHours == -1) {
+                      mutedUntil = -1;
+                    } else {
+                      final muteUntilDate = currentDate.add(
+                        Duration(hours: mutedUntilHours),
+                      );
+                      mutedUntil = muteUntilDate.millisecondsSinceEpoch;
+                    }
+
+                    final successLogMessage = mutedUntilHours == -1
+                        ? 'Muted chat until you turn it back on'
+                        : 'Muted chat for $mutedUntilHours ${mutedUntilHours > 1 ? 'hours' : 'hour'}';
+
+                    if (chatMutedUntil.mutedUntil == null) {
+                      ref.read(providerOfPeamanChat.notifier).muteChat(
+                            chatId: widget.chatId,
+                            mutedAt: mutedAt,
+                            mutedUntil: mutedUntil,
+                            successLogMessage: successLogMessage,
+                          );
+                    }
+                  }
+                });
+          },
           activeColor: context.isDarkMode
               ? PeamanColors.containerBgDark
               : PeamanColors.secondary,
@@ -302,7 +403,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             vertical: 0.0,
           ),
           title: PeamanText.subtitle1(
-            'Mute chat',
+            _getMutedUntilText(chatMutedUntil),
             style: TextStyle(fontSize: 12.sp),
           ),
         ),
@@ -318,9 +419,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                     'This action is not permanent and you can decide to undo this action at any time.',
                 onConfirm: () {
                   Future.delayed(const Duration(milliseconds: 200), () {
-                    ref
-                        .read(providerOfPeamanUser.notifier)
-                        .toggleBlockUnblock(firstChatUser!.uid!);
+                    final successLogMessage =
+                        '${firstChatUser?.name} has been ${isUserBlocked ? 'unblocked' : 'blocked'}';
+                    ref.read(providerOfPeamanUser.notifier).toggleBlockUnblock(
+                          friendId: firstChatUser!.uid!,
+                          successLogMessage: successLogMessage,
+                        );
                   });
                 },
               );
@@ -458,7 +562,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
 
   String _getHeaderTitle() {
     final receiverIds =
-        _chatUserIds.where((element) => element != uid).toList();
+        _chatUserIds.where((element) => element != _uid).toList();
 
     return _chatUsersFuture.maybeWhen(
       data: (data) {
@@ -505,6 +609,24 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       },
       orElse: () => PeamanCommonStrings.loading,
     );
+  }
+
+  String _getMutedUntilText(final PeamanChatMutedUntil chatMutedUntil) {
+    if (chatMutedUntil.mutedAt == null || chatMutedUntil.mutedUntil == null) {
+      return 'Mute chat';
+    }
+
+    if (chatMutedUntil.mutedUntil == -1) {
+      return 'Muted until manually changed';
+    }
+
+    final mutedAtDate =
+        DateTime.fromMillisecondsSinceEpoch(chatMutedUntil.mutedAt!);
+    final mutedUntilDate =
+        DateTime.fromMillisecondsSinceEpoch(chatMutedUntil.mutedUntil!);
+
+    final duration = mutedUntilDate.difference(mutedAtDate);
+    return 'Muted for ${duration.inHours.toString()} hour';
   }
 
   void _lauchExternalContact() async {

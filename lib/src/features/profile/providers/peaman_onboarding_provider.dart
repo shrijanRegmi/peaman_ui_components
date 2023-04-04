@@ -102,13 +102,16 @@ class PeamanOnboardingProvider
     required final BuildContext context,
   }) {
     final options = <PeamanSelectableOption>[
-      PeamanSelectableOption(
+      const PeamanSelectableOption(
+        id: 0,
         title: 'Male',
       ),
-      PeamanSelectableOption(
+      const PeamanSelectableOption(
+        id: 0,
         title: 'Female',
       ),
-      PeamanSelectableOption(
+      const PeamanSelectableOption(
+        id: 0,
         title: 'Other',
       ),
     ];

@@ -44,12 +44,13 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   PeamanUserRepository get _userRepository =>
       _ref.watch(providerOfPeamanUserRepository);
   PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
-  PeamanInfoProvider get _errorProvider =>
+  PeamanInfoProvider get _logProvider =>
       _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> blockUser({
-    final String? uid,
     required final String friendId,
+    final String? uid,
+    final String? successLogMessage,
   }) async {
     state = state.copyWith(
       blockUserState: const BlockUserState.loading(),
@@ -62,7 +63,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               const error = PeamanError(
                 message: 'The user is already blocked.',
               );
-              _errorProvider.logError(error.message);
+              _logProvider.logError(error.message);
               state = state.copyWith(
                 blockUserState: const BlockUserState.error(error),
               );
@@ -74,11 +75,16 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               friendId: friendId,
             );
             state = result.when(
-              (success) => state.copyWith(
-                blockUserState: BlockUserState.success(success),
-              ),
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  unblockUserState: UnblockUserState.success(success),
+                );
+              },
               (failure) {
-                _errorProvider.logError(failure.message);
+                _logProvider.logError(failure.message);
                 return state.copyWith(
                   blockUserState: BlockUserState.error(failure),
                 );
@@ -86,7 +92,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             );
           },
           error: (e, _) {
-            _errorProvider.logError(e.toString());
+            _logProvider.logError(e.toString());
             state = state.copyWith(
               blockUserState: BlockUserState.error(
                 PeamanError(message: e.toString()),
@@ -98,8 +104,9 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   }
 
   Future<void> unblockUser({
-    final String? uid,
     required final String friendId,
+    final String? uid,
+    final String? successLogMessage,
   }) async {
     state = state.copyWith(
       unblockUserState: const UnblockUserState.loading(),
@@ -112,7 +119,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               const error = PeamanError(
                 message: 'The user is not already blocked.',
               );
-              _errorProvider.logError(error.message);
+              _logProvider.logError(error.message);
               state = state.copyWith(
                 blockUserState: const BlockUserState.error(error),
               );
@@ -124,11 +131,16 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               friendId: friendId,
             );
             state = result.when(
-              (success) => state.copyWith(
-                unblockUserState: UnblockUserState.success(success),
-              ),
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  unblockUserState: UnblockUserState.success(success),
+                );
+              },
               (failure) {
-                _errorProvider.logError(failure.message);
+                _logProvider.logError(failure.message);
                 return state.copyWith(
                   unblockUserState: UnblockUserState.error(failure),
                 );
@@ -136,7 +148,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             );
           },
           error: (e, _) {
-            _errorProvider.logError(e.toString());
+            _logProvider.logError(e.toString());
             state = state.copyWith(
               unblockUserState: UnblockUserState.error(
                 PeamanError(message: e.toString()),
@@ -147,20 +159,27 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
         );
   }
 
-  Future<void> toggleBlockUnblock(
-    final String friendId,
-  ) async {
+  Future<void> toggleBlockUnblock({
+    required final String friendId,
+    final String? successLogMessage,
+  }) async {
     await _ref.read(providerOfPeamanBlockedUsersStream).maybeWhen(
           data: (data) async {
             final blockedUids = data.map((e) => e.uid).toList();
             if (blockedUids.contains(friendId)) {
-              await unblockUser(friendId: friendId);
+              await unblockUser(
+                friendId: friendId,
+                successLogMessage: successLogMessage,
+              );
             } else {
-              await blockUser(friendId: friendId);
+              await blockUser(
+                friendId: friendId,
+                successLogMessage: successLogMessage,
+              );
             }
           },
           error: (e, _) {
-            _errorProvider.logError(e.toString());
+            _logProvider.logError(e.toString());
           },
           orElse: () {},
         );
@@ -182,7 +201,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
         updateUserState: UpdateUserState.success(success),
       ),
       (failure) {
-        _errorProvider.logError(failure.message);
+        _logProvider.logError(failure.message);
         return state.copyWith(
           updateUserState: UpdateUserState.error(failure),
         );
