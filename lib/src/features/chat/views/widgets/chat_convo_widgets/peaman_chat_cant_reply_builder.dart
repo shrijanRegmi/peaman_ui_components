@@ -10,8 +10,8 @@ class PeamanChatCantReplyBuilder extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: PeamanColors.secondaryDark,
+          decoration: BoxDecoration(
+            color: context.theme.colorScheme.primary,
           ),
           padding: const EdgeInsets.all(5.0),
           child: Center(

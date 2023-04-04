@@ -213,9 +213,9 @@ class _PeamanChatMessagesListItemState
                     style: const TextStyle(
                       fontSize: 14.0,
                     ),
-                    readMoreTextStyle: const TextStyle(
+                    readMoreTextStyle: TextStyle(
                       fontSize: 12.0,
-                      color: PeamanColors.secondaryDark,
+                      color: context.theme.colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   )

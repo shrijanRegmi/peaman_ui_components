@@ -30,7 +30,7 @@ class PeamanTheme {
       ),
       colorScheme: _defaultTheme.colorScheme.copyWith(
         primary: PeamanColors.primary,
-        secondary: PeamanColors.secondary,
+        secondary: PeamanColors.primary,
         background: PeamanColors.containerBg,
         shadow: PeamanColors.extraLightGrey,
       ),
@@ -44,8 +44,8 @@ class PeamanTheme {
       ),
       inputDecorationTheme: _defaultTheme.inputDecorationTheme.copyWith(
         fillColor: PeamanColors.white,
-        prefixIconColor: PeamanColors.secondary,
-        suffixIconColor: PeamanColors.secondary,
+        prefixIconColor: PeamanColors.primary,
+        suffixIconColor: PeamanColors.primary,
       ),
     );
   }
@@ -61,7 +61,7 @@ class PeamanTheme {
       ),
       colorScheme: _defaultTheme.colorScheme.copyWith(
         primary: PeamanColors.primaryDark,
-        secondary: PeamanColors.secondaryDark,
+        secondary: PeamanColors.primaryDark,
         background: PeamanColors.containerBgDark,
         shadow: PeamanColors.black.withOpacity(0.5),
       ),

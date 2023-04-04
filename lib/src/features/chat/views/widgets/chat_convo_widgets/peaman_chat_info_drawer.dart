@@ -145,9 +145,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               size: 12.w,
             ),
             padding: EdgeInsets.all(7.w),
-            bgColor: context.isDarkMode
-                ? PeamanColors.containerBgDark
-                : PeamanColors.secondary,
+            bgColor: context.theme.colorScheme.primary,
           ),
           minLeadingWidth: 10.w,
           contentPadding: EdgeInsets.symmetric(
@@ -176,9 +174,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
-              bgColor: context.isDarkMode
-                  ? PeamanColors.containerBgDark
-                  : PeamanColors.secondary,
+              bgColor: context.theme.colorScheme.primary,
             ),
             minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
@@ -209,9 +205,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
-              bgColor: context.isDarkMode
-                  ? PeamanColors.containerBgDark
-                  : PeamanColors.secondary,
+              bgColor: context.theme.colorScheme.primary,
             ),
             minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
@@ -233,9 +227,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
-              bgColor: context.isDarkMode
-                  ? PeamanColors.containerBgDark
-                  : PeamanColors.secondary,
+              bgColor: context.theme.colorScheme.primary,
             ),
             minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
@@ -257,9 +249,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
-              bgColor: context.isDarkMode
-                  ? PeamanColors.containerBgDark
-                  : PeamanColors.secondary,
+              bgColor: context.theme.colorScheme.primary,
             ),
             minLeadingWidth: 10.w,
             contentPadding: EdgeInsets.symmetric(
@@ -406,7 +396,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
           },
           activeColor: context.isDarkMode
               ? PeamanColors.containerBgDark
-              : PeamanColors.secondary,
+              : PeamanColors.primary,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 15.w,
             vertical: 0.0,
@@ -440,7 +430,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             },
             activeColor: context.isDarkMode
                 ? PeamanColors.containerBgDark
-                : PeamanColors.secondary,
+                : PeamanColors.primary,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15.w,
               vertical: 0.0,
@@ -526,7 +516,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               Icons.group_add_rounded,
               color: context.isDarkMode
                   ? PeamanColors.white
-                  : PeamanColors.secondary,
+                  : PeamanColors.primary,
               size: 16.w,
             ),
             padding: EdgeInsets.all(9.w),
@@ -541,7 +531,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               Icons.logout_rounded,
               color: context.isDarkMode
                   ? PeamanColors.white
-                  : PeamanColors.secondary,
+                  : PeamanColors.primary,
               size: 16.w,
             ),
             padding: EdgeInsets.all(9.w),
