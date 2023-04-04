@@ -65,7 +65,7 @@ class _PeamanChatMessageInputState
           widget.chatType == PeamanChatType.oneToOne,
       orElse: () => false,
     );
-    if (!isUserBlocked) return const PeamanChatCantReplyBuilder();
+    if (isUserBlocked) return const PeamanChatCantReplyBuilder();
 
     var messageToReply = widget.messageToReply ?? _messageToReply;
     return Column(

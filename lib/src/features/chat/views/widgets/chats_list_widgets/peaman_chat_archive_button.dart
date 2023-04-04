@@ -38,7 +38,7 @@ class PeamanChatArchiveButton extends ConsumerWidget {
     return Container(
       height: double.infinity,
       decoration: const BoxDecoration(
-        color: PeamanColors.primaryDark,
+        color: PeamanColors.secondaryDark,
       ),
       child: Center(
         child: Icon(
