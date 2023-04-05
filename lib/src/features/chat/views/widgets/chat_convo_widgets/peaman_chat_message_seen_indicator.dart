@@ -48,7 +48,7 @@ class PeamanChatMessageSeenIndicator extends ConsumerWidget {
         fontSize: 12.0,
       ),
       onPressed: () {
-        showNormalBottomsheet(
+        showPeamanNormalBottomsheet(
           context: context,
           borderRadius: 15.0,
           widget: PeamanUsersListBottomsheet.expandedByUids(

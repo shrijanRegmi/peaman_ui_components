@@ -88,7 +88,7 @@ class _PeamanChatMessagesListItemState
               const SizedBox(
                 height: 10.0,
               ),
-            if (showSenderInfo) _senderInfo(),
+            if (showSenderInfo) _senderInfoBuilder(),
             if (showSenderInfo)
               const SizedBox(
                 height: 20.0,
@@ -327,7 +327,7 @@ class _PeamanChatMessagesListItemState
     );
   }
 
-  Widget _senderInfo() {
+  Widget _senderInfoBuilder() {
     final senderFuture = ref.watch(
       providerOfSingleUserByIdFuture(widget.message.senderId!),
     );
@@ -342,16 +342,43 @@ class _PeamanChatMessagesListItemState
         orElse: () => null,
       ),
       onPressed: () {
-        // TODO(shrijanRegmi)
-        // if (message.senderId == _uid) return;
+        if (widget.message.senderId == _uid) return;
+        showPeamanChatUserInfoDialog(
+          context: context,
+          onSelectOption: (val) {
+            switch (val.id) {
+              case 0:
+                final chatsStream = ref.read(providerOfPeamanUserChatsStream);
+                chatsStream.maybeWhen(
+                  data: (data) {
+                    final chat = data.firstWhere(
+                      (element) =>
+                          element.userIds.contains(widget.message.senderId) &&
+                          element.type == PeamanChatType.oneToOne,
+                      orElse: () => PeamanChat(
+                        id: PeamanReferenceHelper().uniqueId,
+                        userIds: [_uid, widget.message.senderId!],
+                      ),
+                    );
+                    context
+                      ..pop()
+                      ..pushNamed(
+                        PeamanChatConversationScreen.route,
+                        arguments: PeamanChatConversationArgs(
+                          chatId: chat.id!,
+                          chatType: chat.type,
+                          userIds: chat.userIds,
+                        ),
+                      );
+                  },
+                  orElse: () {},
+                );
 
-        // Navigator.pushNamed(
-        //   context,
-        //   AppRoutes.friendProfileScreen,
-        //   arguments: FriendProfileScreenArgs.byFriendId(
-        //     friendId: receivers.uid,
-        //   ),
-        // );
+                break;
+              default:
+            }
+          },
+        );
       },
     );
   }

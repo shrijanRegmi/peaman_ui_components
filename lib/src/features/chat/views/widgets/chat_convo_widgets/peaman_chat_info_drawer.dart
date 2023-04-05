@@ -186,12 +186,18 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               style: TextStyle(fontSize: 12.sp),
             ),
             onTap: () {
-              showNormalBottomsheet(
+              showPeamanNormalBottomsheet(
                 context: context,
                 borderRadius: 15.0,
                 widget: PeamanUsersListBottomsheet.expandedByUids(
                   userIds: _chatUserIds,
                   title: 'Group Members',
+                  onPressedUser: (user) {
+                    showPeamanChatUserInfoDialog(
+                      context: context,
+                      onSelectOption: (val) {},
+                    );
+                  },
                 ),
               );
             },

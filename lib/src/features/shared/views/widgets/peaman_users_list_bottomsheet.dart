@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
@@ -74,14 +75,26 @@ class _PeamanUsersListBottomsheetState
     extends ConsumerState<PeamanUsersListBottomsheet> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _headerBuilder().pX(20).pT(20).pB(15),
-        if (widget.searchType != PeamanSearchType.none) _searchBuilder().pB(10),
-        Expanded(
-          child: _listBuilder(),
-        ),
-      ],
+    return KeyboardVisibilityBuilder(
+      builder: (context, visible) {
+        return SizedBox(
+          height: visible
+              ? ScreenUtil().screenHeight - ScreenUtil().statusBarHeight
+              : 500.0,
+          child: SafeArea(
+            child: Column(
+              children: [
+                _headerBuilder().pX(20).pT(20).pB(15),
+                if (widget.searchType != PeamanSearchType.none)
+                  _searchBuilder().pB(10),
+                Expanded(
+                  child: _listBuilder(),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
