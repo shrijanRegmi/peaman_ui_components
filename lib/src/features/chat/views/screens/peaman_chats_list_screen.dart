@@ -56,23 +56,13 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                             ref.read(providerOfPeamanUserChatsStream);
                         chatsStream.maybeWhen(
                           data: (data) {
-                            final chat = data.firstWhere(
-                              (element) =>
-                                  element.userIds.contains(user.uid) &&
-                                  element.type == PeamanChatType.oneToOne,
-                              orElse: () => PeamanChat(
-                                id: PeamanReferenceHelper().uniqueId,
-                                userIds: [user.uid!, appUser.uid!],
-                              ),
-                            );
                             context
                               ..pop()
                               ..pushNamed(
                                 PeamanChatConversationScreen.route,
-                                arguments: PeamanChatConversationArgs(
-                                  chatId: chat.id!,
-                                  chatType: chat.type,
-                                  userIds: chat.userIds,
+                                arguments: PeamanChatConversationArgs.byUserIds(
+                                  userIds: [user.uid!, appUser.uid!],
+                                  chatType: PeamanChatType.oneToOne,
                                 ),
                               );
                           },

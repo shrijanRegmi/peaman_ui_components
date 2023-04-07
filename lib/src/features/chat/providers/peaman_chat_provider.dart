@@ -33,6 +33,7 @@ final providerOfSinglePeamanChatFromChatsStream =
 
 final providerOfPeamanChatMessagesStream = StreamProvider.family
     .autoDispose<List<PeamanChatMessage>, String>((ref, chatId) {
+  if (chatId.trim().isEmpty) return Stream.value([]);
   final chat = ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
   final authUser = ref.watch(providerOfPeamanAuthUser);
 

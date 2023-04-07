@@ -114,10 +114,8 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
   ) {
     context.pushNamed(
       PeamanChatConversationScreen.route,
-      arguments: PeamanChatConversationArgs(
+      arguments: PeamanChatConversationArgs.byChatId(
         chatId: chat.id!,
-        chatType: chat.type,
-        userIds: chat.userIds,
       ),
     );
   }

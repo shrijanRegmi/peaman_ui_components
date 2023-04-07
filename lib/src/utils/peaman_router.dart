@@ -32,11 +32,14 @@ class PeamanRouter {
         final arguments = settings.arguments as PeamanChatConversationArgs;
         return buildRoute(
           settings,
-          PeamanChatConversationScreen(
-            chatId: arguments.chatId,
-            chatType: arguments.chatType,
-            userIds: arguments.userIds,
-          ),
+          arguments.chatId.trim().isNotEmpty
+              ? PeamanChatConversationScreen.byChatId(
+                  chatId: arguments.chatId,
+                )
+              : PeamanChatConversationScreen.byUserIds(
+                  userIds: arguments.userIds,
+                  chatType: arguments.chatType,
+                ),
         );
 
       case PeamanViewChatMediasScreen.route:

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
@@ -12,24 +13,36 @@ class PeamanChatConversationArgs {
   final PeamanChatType chatType;
   final List<String> userIds;
 
-  PeamanChatConversationArgs({
+  PeamanChatConversationArgs.byChatId({
     required this.chatId,
-    required this.chatType,
+  })  : userIds = const [],
+        chatType = PeamanChatType.oneToOne;
+
+  PeamanChatConversationArgs.byUserIds({
     required this.userIds,
-  });
+    required this.chatType,
+  }) : chatId = '';
 }
 
 class PeamanChatConversationScreen extends ConsumerStatefulWidget {
   final String chatId;
   final PeamanChatType chatType;
   final List<String> userIds;
+  final _Type type;
 
-  const PeamanChatConversationScreen({
+  const PeamanChatConversationScreen.byChatId({
     super.key,
     required this.chatId,
-    required this.chatType,
+  })  : userIds = const [],
+        type = _Type.byChatId,
+        chatType = PeamanChatType.oneToOne;
+
+  const PeamanChatConversationScreen.byUserIds({
+    super.key,
     required this.userIds,
-  });
+    required this.chatType,
+  })  : chatId = '',
+        type = _Type.byUserIds;
 
   static const route = '/peaman_chat_conversation_screen';
 
@@ -42,12 +55,52 @@ class _PeamanChatConversationScreenState
     extends ConsumerState<PeamanChatConversationScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String get _chatId {
+    if (widget.type == _Type.byUserIds) {
+      return ref.watch(providerOfPeamanUserChatsStream).maybeWhen(
+        data: (data) {
+          final index = data.indexWhere(
+            (element) =>
+                listEquals(element.userIds, widget.userIds) &&
+                element.type == widget.chatType,
+          );
+          if (index != -1) {
+            return data[index].id!;
+          }
+          return ref.watch(
+            providerOfSinglePeamanChatFromChatsStream(widget.chatId).select(
+                (value) => value?.id ?? PeamanReferenceHelper().uniqueId),
+          );
+        },
+        orElse: () {
+          return ref.watch(
+            providerOfSinglePeamanChatFromChatsStream(widget.chatId).select(
+                (value) => value?.id ?? PeamanReferenceHelper().uniqueId),
+          );
+        },
+      );
+    }
+    return ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+          .select((value) => value?.id ?? PeamanReferenceHelper().uniqueId),
+    );
+  }
+
+  List<String> get _chatUserIds => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(_chatId)
+            .select((value) => value?.userIds ?? widget.userIds),
+      );
+
+  PeamanChatType get _chatType =>
+      ref.watch(providerOfSinglePeamanChatFromChatsStream(_chatId)
+          .select((value) => value?.type ?? widget.chatType));
+
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 10), () {
       if (mounted) {
-        ref.read(providerOfPeamanChat.notifier).readChat(chatId: widget.chatId);
+        ref.read(providerOfPeamanChat.notifier).readChat(chatId: _chatId);
       }
     });
   }
@@ -56,28 +109,24 @@ class _PeamanChatConversationScreenState
   Widget build(BuildContext context) {
     final uid = ref.watch(providerOfLoggedInUser.select((value) => value.uid));
 
-    ref.listen(providerOfSinglePeamanChatFromChatsStream(widget.chatId),
+    ref.listen(providerOfSinglePeamanChatFromChatsStream(_chatId),
         (previous, next) {
       if (previous != next) {
-        ref.read(providerOfPeamanChat.notifier).readChat(chatId: widget.chatId);
+        ref.read(providerOfPeamanChat.notifier).readChat(chatId: _chatId);
       }
     });
 
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(widget.userIds),
+      providerOfPeamanChatUsersFuture(_chatUserIds),
     );
 
     final receiverIds =
-        widget.userIds.where((element) => element != uid).toList();
-    final actualChatId = ref.watch(
-      providerOfSinglePeamanChatFromChatsStream(widget.chatId)
-          .select((value) => value?.id),
-    );
+        _chatUserIds.where((element) => element != uid).toList();
 
     return WillPopScope(
       onWillPop: () async {
         ref.read(providerOfPeamanChat.notifier)
-          ..setTypingStatus(chatId: widget.chatId, typedValue: '')
+          ..setTypingStatus(chatId: _chatId, typedValue: '')
           ..clearValues();
         return true;
       },
@@ -91,7 +140,7 @@ class _PeamanChatConversationScreenState
                 (success) => success.isEmpty
                     ? 'Chat Conversation'
                     : remaining == 0
-                        ? widget.chatType == PeamanChatType.group
+                        ? _chatType == PeamanChatType.group
                             ? 'You and ${success.first.name}'
                             : '${success.first.name}'
                         : 'You, ${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
@@ -103,33 +152,33 @@ class _PeamanChatConversationScreenState
           ),
           onPressedLeading: (def) {
             ref.read(providerOfPeamanChat.notifier)
-              ..setTypingStatus(chatId: widget.chatId, typedValue: '')
+              ..setTypingStatus(chatId: _chatId, typedValue: '')
               ..clearValues();
             def();
           },
           actions: [
-            if (actualChatId != null)
+            if (_chatId.isNotEmpty)
               IconButton(
                 onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
                 icon: const Icon(Icons.more_vert_rounded),
               )
           ],
         ),
-        endDrawer: actualChatId == null
+        endDrawer: _chatId.isEmpty
             ? null
             : PeamanChatInfoDrawer(
-                chatId: widget.chatId,
+                chatId: _chatId,
               ),
         body: PeamanChatMessagesList(
-          chatId: widget.chatId,
+          chatId: _chatId,
           receiverIds: receiverIds,
           onSwippedMessage: (message, user, func) {},
         ).onPressed(() => context.unfocus()),
         bottomNavigationBar: Padding(
           padding: MediaQuery.of(context).viewInsets,
           child: PeamanChatMessageInput(
-            chatId: widget.chatId,
-            chatType: widget.chatType,
+            chatId: _chatId,
+            chatType: _chatType,
             receiverIds: receiverIds,
           ),
         ),

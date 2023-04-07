@@ -348,31 +348,15 @@ class _PeamanChatMessagesListItemState
           onSelectOption: (val) {
             switch (val.id) {
               case 0:
-                final chatsStream = ref.read(providerOfPeamanUserChatsStream);
-                chatsStream.maybeWhen(
-                  data: (data) {
-                    final chat = data.firstWhere(
-                      (element) =>
-                          element.userIds.contains(widget.message.senderId) &&
-                          element.type == PeamanChatType.oneToOne,
-                      orElse: () => PeamanChat(
-                        id: PeamanReferenceHelper().uniqueId,
-                        userIds: [_uid, widget.message.senderId!],
-                      ),
-                    );
-                    context
-                      ..pop()
-                      ..pushNamed(
-                        PeamanChatConversationScreen.route,
-                        arguments: PeamanChatConversationArgs(
-                          chatId: chat.id!,
-                          chatType: chat.type,
-                          userIds: chat.userIds,
-                        ),
-                      );
-                  },
-                  orElse: () {},
-                );
+                context
+                  ..pop()
+                  ..pushNamed(
+                    PeamanChatConversationScreen.route,
+                    arguments: PeamanChatConversationArgs.byUserIds(
+                      userIds: [_uid, widget.message.senderId!],
+                      chatType: PeamanChatType.oneToOne,
+                    ),
+                  );
 
                 break;
               default:
