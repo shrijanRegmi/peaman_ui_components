@@ -9,8 +9,8 @@ enum _Type {
   expandedByUsers,
 }
 
-class PeamanUsersListBottomsheet extends ConsumerStatefulWidget {
-  const PeamanUsersListBottomsheet.expandedByUids({
+class PeamanUsersListPopup extends ConsumerStatefulWidget {
+  const PeamanUsersListPopup.expandedByUids({
     super.key,
     required this.userIds,
     this.title,
@@ -29,7 +29,7 @@ class PeamanUsersListBottomsheet extends ConsumerStatefulWidget {
         scrollDirection = Axis.vertical,
         height = 0.0;
 
-  const PeamanUsersListBottomsheet.expandedByUsers({
+  const PeamanUsersListPopup.expandedByUsers({
     super.key,
     required this.users,
     this.title,
@@ -72,7 +72,7 @@ class PeamanUsersListBottomsheet extends ConsumerStatefulWidget {
 }
 
 class _PeamanUsersListBottomsheetState
-    extends ConsumerState<PeamanUsersListBottomsheet> {
+    extends ConsumerState<PeamanUsersListPopup> {
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(

@@ -51,7 +51,7 @@ class PeamanChatMessageSeenIndicator extends ConsumerWidget {
         showPeamanNormalBottomsheet(
           context: context,
           borderRadius: 15.0,
-          widget: PeamanUsersListBottomsheet.expandedByUids(
+          widget: PeamanUsersListPopup.expandedByUids(
             title: 'Seen By',
             userIds: seenUserIds,
           ),

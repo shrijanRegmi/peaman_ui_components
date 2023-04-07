@@ -189,7 +189,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               showPeamanNormalBottomsheet(
                 context: context,
                 borderRadius: 15.0,
-                widget: PeamanUsersListBottomsheet.expandedByUids(
+                widget: PeamanUsersListPopup.expandedByUids(
                   userIds: _chatUserIds,
                   title: 'Group Members',
                   onPressedUser: (user) {

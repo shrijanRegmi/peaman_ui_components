@@ -25,7 +25,7 @@ export 'views/widgets/peaman_error_builder.dart';
 export 'views/widgets/peaman_chip.dart';
 export 'views/widgets/peaman_confirmation_dialog.dart';
 export 'views/widgets/peaman_info_overlay.dart';
-export 'views/widgets/peaman_users_list_bottomsheet.dart';
+export 'views/widgets/peaman_users_list_popup.dart';
 
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_selectable_option_model.dart';
