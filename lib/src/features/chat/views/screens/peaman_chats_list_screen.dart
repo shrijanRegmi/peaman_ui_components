@@ -52,22 +52,15 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                       searchUsersGlobally: widget.searchUsersGlobally,
                       onPressedUser: (user) {
                         final appUser = ref.read(providerOfLoggedInUser);
-                        final chatsStream =
-                            ref.read(providerOfPeamanUserChatsStream);
-                        chatsStream.maybeWhen(
-                          data: (data) {
-                            context
-                              ..pop()
-                              ..pushNamed(
-                                PeamanChatConversationScreen.route,
-                                arguments: PeamanChatConversationArgs.byUserIds(
-                                  userIds: [user.uid!, appUser.uid!],
-                                  chatType: PeamanChatType.oneToOne,
-                                ),
-                              );
-                          },
-                          orElse: () {},
-                        );
+                        context
+                          ..pop()
+                          ..pushNamed(
+                            PeamanChatConversationScreen.route,
+                            arguments: PeamanChatConversationArgs.byUserIds(
+                              userIds: [user.uid!, appUser.uid!]..sort(),
+                              chatType: PeamanChatType.oneToOne,
+                            ),
+                          );
                       },
                     ),
                   );

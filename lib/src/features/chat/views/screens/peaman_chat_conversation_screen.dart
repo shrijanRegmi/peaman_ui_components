@@ -59,11 +59,12 @@ class _PeamanChatConversationScreenState
     if (widget.type == _Type.byUserIds) {
       return ref.watch(providerOfPeamanUserChatsStream).maybeWhen(
         data: (data) {
-          final index = data.indexWhere(
-            (element) =>
-                listEquals(element.userIds, widget.userIds) &&
-                element.type == widget.chatType,
-          );
+          final index = data.indexWhere((element) {
+            final elementUids = List<String>.from(element.userIds)..sort();
+            final widgetUids = List<String>.from(widget.userIds)..sort();
+            return listEquals(elementUids, widgetUids) &&
+                element.type == widget.chatType;
+          });
           if (index != -1) {
             return data[index].id!;
           }

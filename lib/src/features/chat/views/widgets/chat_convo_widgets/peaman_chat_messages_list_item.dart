@@ -353,7 +353,7 @@ class _PeamanChatMessagesListItemState
                   ..pushNamed(
                     PeamanChatConversationScreen.route,
                     arguments: PeamanChatConversationArgs.byUserIds(
-                      userIds: [_uid, widget.message.senderId!],
+                      userIds: [_uid, widget.message.senderId!]..sort(),
                       chatType: PeamanChatType.oneToOne,
                     ),
                   );

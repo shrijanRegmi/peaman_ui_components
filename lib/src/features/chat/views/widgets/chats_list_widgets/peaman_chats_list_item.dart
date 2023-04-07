@@ -105,7 +105,9 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
         }
       }
 
-      if (!listEquals(oldChat.userIds, newChat.userIds)) {
+      final oldChatUids = List<String>.from(oldChat.userIds)..sort();
+      final newChatUids = List<String>.from(newChat.userIds)..sort();
+      if (!listEquals(oldChatUids, newChatUids)) {
         setState(() {
           _chat = _chat.copyWith(
             userIds: newChat.userIds,
