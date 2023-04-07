@@ -22,3 +22,5 @@ export 'views/widgets/chat_convo_widgets/peaman_chat_cant_reply_builder.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_info_drawer.dart';
 
 export 'utils/peaman_chat_dialogs.dart';
+
+export 'extensions/peaman_chat_extension.dart';

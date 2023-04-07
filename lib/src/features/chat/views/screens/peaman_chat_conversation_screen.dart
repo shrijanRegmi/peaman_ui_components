@@ -86,9 +86,12 @@ class _PeamanChatConversationScreenState
     );
   }
 
-  List<String> get _chatUserIds => ref.watch(
-        providerOfSinglePeamanChatFromChatsStream(_chatId)
-            .select((value) => value?.userIds ?? widget.userIds),
+  PeamanListWrapper<String> get _chatUserIdsWrapper => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(_chatId).select(
+          (value) =>
+              value?.userIdsWrapper ??
+              PeamanListWrapper<String>(values: widget.userIds),
+        ),
       );
 
   PeamanChatType get _chatType =>
@@ -117,11 +120,11 @@ class _PeamanChatConversationScreenState
     });
 
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(_chatUserIds),
+      providerOfPeamanChatUsersFuture(_chatUserIdsWrapper),
     );
 
     final receiverIds =
-        _chatUserIds.where((element) => element != uid).toList();
+        _chatUserIdsWrapper.values.where((element) => element != uid).toList();
 
     return WillPopScope(
       onWillPop: () async {

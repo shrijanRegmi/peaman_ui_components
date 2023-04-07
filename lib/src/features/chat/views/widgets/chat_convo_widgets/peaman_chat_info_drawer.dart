@@ -18,6 +18,7 @@ class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
 }
 
 class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
+  bool _isAvatarShuffled = false;
   Provider<PeamanChat?> get _chatProvider =>
       providerOfSinglePeamanChatFromChatsStream(widget.chatId);
 
@@ -28,20 +29,22 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
             .select((value) => value?.id),
       );
-  List<String> get _chatUserIds => ref.watch(
+  PeamanListWrapper<String> get _chatUserIdsWrapper => ref.watch(
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
-            .select((value) => value!.userIds),
+            .select((value) => value!.userIdsWrapper),
       );
   AsyncValue<PeamanEither<List<PeamanUser>, PeamanError>>
       get _chatUsersFuture =>
-          ref.watch(providerOfPeamanChatUsersFuture(_chatUserIds));
+          ref.watch(providerOfPeamanChatUsersFuture(_chatUserIdsWrapper));
+
   PeamanChatType get _chatType => ref.watch(
         _chatProvider.select((value) => value!.type),
       );
 
-  List<PeamanChatMutedUntil> get _chatUserMutedUntils => ref.watch(
+  PeamanListWrapper<PeamanChatMutedUntil> get _chatUserMutedUntilsWrapper =>
+      ref.watch(
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
-            .select((value) => value!.mutedUntils),
+            .select((value) => value!.mutedUntilsWrapper),
       );
 
   @override
@@ -95,6 +98,15 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     final appUserPhoto = ref.watch(
       providerOfLoggedInUser.select((value) => value.photo),
     );
+    final avatars = [
+      ..._getHeaderAvatars(),
+      if (_chatType == PeamanChatType.group) appUserPhoto,
+    ];
+
+    if (!_isAvatarShuffled) {
+      _isAvatarShuffled = true;
+      avatars.shuffle();
+    }
     return Container(
       constraints: BoxConstraints(
         minHeight: 170.h,
@@ -103,10 +115,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           PeamanAvatarBuilder.multiNetwork(
-            [
-              ..._getHeaderAvatars(),
-              if (_chatType == PeamanChatType.group) appUserPhoto,
-            ]..shuffle(),
+            avatars,
             size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
             spreadFactor: 2.5,
           ),
@@ -190,7 +199,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 context: context,
                 borderRadius: 15.0,
                 widget: PeamanUsersListPopup.expandedByUids(
-                  userIds: _chatUserIds,
+                  userIds: _chatUserIdsWrapper.values,
                   title: 'Group Members',
                   onPressedUser: (user) {
                     showPeamanChatUserInfoDialog(
@@ -305,7 +314,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       orElse: () => false,
     );
 
-    final chatMutedUntil = _chatUserMutedUntils.firstWhere(
+    final chatMutedUntil = _chatUserMutedUntilsWrapper.values.firstWhere(
       (element) => element.uid == _uid,
       orElse: PeamanChatMutedUntil.new,
     );
@@ -316,7 +325,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
           value: chatMutedUntil.mutedUntil != null,
           onChanged: (val) {
             if (chatMutedUntil.mutedUntil != null) {
-              const successLogMessage = 'Successfully unmuted chat';
+              const successLogMessage = 'The chat has been unmuted';
               ref.read(providerOfPeamanChat.notifier).unmuteChat(
                     chatId: widget.chatId,
                     successLogMessage: successLogMessage,
@@ -386,8 +395,8 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                     }
 
                     final successLogMessage = mutedUntilHours == -1
-                        ? 'Muted chat until you turn it back on'
-                        : 'Muted chat for $mutedUntilHours ${mutedUntilHours > 1 ? 'hours' : 'hour'}';
+                        ? 'The chat has been muted until you turn it back on'
+                        : 'The chat has been muted for $mutedUntilHours ${mutedUntilHours > 1 ? 'hours' : 'hour'}';
 
                     if (chatMutedUntil.mutedUntil == null) {
                       ref.read(providerOfPeamanChat.notifier).muteChat(
@@ -462,7 +471,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               description:
                   'This chat will not be shown in your chats list until you or ${firstChatUser?.name} sends a new message to this chat.',
               onConfirm: () {
-                const successLogMessage = 'Successfully archived chat';
+                const successLogMessage = 'The chat has been archived';
                 ref.read(providerOfPeamanChat.notifier).archiveChat(
                       chatId: widget.chatId,
                       successLogMessage: successLogMessage,
@@ -494,7 +503,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               description:
                   'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${firstChatUser?.name} can still see the messages.',
               onConfirm: () {
-                const successLogMessage = 'Successfully deleted chat';
+                const successLogMessage = 'The chat has been deleted';
                 ref.read(providerOfPeamanChat.notifier).deleteChat(
                       chatId: widget.chatId,
                       successLogMessage: successLogMessage,
@@ -567,7 +576,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
 
   String _getHeaderTitle() {
     final receiverIds =
-        _chatUserIds.where((element) => element != _uid).toList();
+        _chatUserIdsWrapper.values.where((element) => element != _uid).toList();
 
     return _chatUsersFuture.maybeWhen(
       data: (data) {

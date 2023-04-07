@@ -51,15 +51,16 @@ final providerOfPeamanChatMessagesStream = StreamProvider.family
 });
 
 final providerOfPeamanChatUsersFuture = FutureProvider.family<
-    PeamanEither<List<PeamanUser>, PeamanError>, List<String>>(
-  (ref, userIds) async {
+    PeamanEither<List<PeamanUser>, PeamanError>, PeamanListWrapper<String>>(
+  (ref, userIdsWrapper) async {
     var users = <PeamanUser>[];
 
     final authUser = ref.watch(providerOfPeamanAuthUser);
     if (authUser == null) return Success(users);
 
-    var receiverIds =
-        userIds.where((element) => element != authUser.uid).toList();
+    var receiverIds = userIdsWrapper.values
+        .where((element) => element != authUser.uid)
+        .toList();
 
     receiverIds = receiverIds.sublist(
       0,

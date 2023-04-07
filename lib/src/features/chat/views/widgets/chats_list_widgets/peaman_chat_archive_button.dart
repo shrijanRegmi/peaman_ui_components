@@ -20,9 +20,10 @@ class PeamanChatArchiveButton extends ConsumerWidget {
     final chat = ref.watch(
       providerOfSinglePeamanChatFromChatsStream(chatId),
     );
+    if (chat == null) return const SizedBox();
 
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat?.userIds ?? []),
+      providerOfPeamanChatUsersFuture(chat.userIdsWrapper),
     );
 
     final user = usersFuture.maybeWhen(

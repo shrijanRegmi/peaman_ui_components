@@ -100,7 +100,7 @@ class _PeamanErrorPopUpState extends ConsumerState<PeamanInfoOverlay>
         setState(() {
           _opacity = 0.0;
         });
-        _closeOverlayTimer = Timer(const Duration(milliseconds: 3000), () {
+        _closeOverlayTimer = Timer(const Duration(milliseconds: 2000), () {
           if (mounted) {
             widget.onPressedClose?.call();
           }

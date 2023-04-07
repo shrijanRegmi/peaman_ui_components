@@ -119,7 +119,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   @override
   Widget build(BuildContext context) {
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(_chat.userIds),
+      providerOfPeamanChatUsersFuture(_chat.userIdsWrapper),
     );
     return usersFuture.when(
       data: (data) {

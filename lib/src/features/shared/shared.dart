@@ -30,6 +30,7 @@ export 'views/widgets/peaman_users_list_popup.dart';
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_selectable_option_model.dart';
 export 'models/peaman_file_url_extended.dart';
+export 'models/peaman_list_wrapper.dart';
 
 export 'helpers/peaman_dialog_provider.dart';
 export 'helpers/peaman_date_time_helper.dart';
