@@ -26,7 +26,7 @@ final providerOfLoggedInUserStream = StreamProvider<PeamanUser?>((ref) {
 
   return authUserStream.maybeWhen(
     data: (data) {
-      if (data == null) {
+      if (data.isNull) {
         return () async* {
           yield null;
         } as Stream<PeamanUser?>;
@@ -34,7 +34,7 @@ final providerOfLoggedInUserStream = StreamProvider<PeamanUser?>((ref) {
 
       return ref
           .watch(providerOfPeamanUserRepository)
-          .getSingleUserStream(uid: data.uid);
+          .getSingleUserStream(uid: data!.uid);
     },
     orElse: () async* {},
   );

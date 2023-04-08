@@ -145,7 +145,7 @@ class _ViewPictureScreenState extends State<PeamanViewPicturesScreen>
                               //       await ImageDownloader.downloadImage(
                               //     widget.pictures[_activeIndex],
                               //   );
-                              //   if (imgId == null) {
+                              //   if (imgId.isNull) {
                               //     throw Exception('imageId was null');
                               //   }
                               //   Fluttertoast.showToast(

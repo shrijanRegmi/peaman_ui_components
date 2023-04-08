@@ -34,14 +34,14 @@ class PeamanChatMessageSeenIndicator extends ConsumerWidget {
       data: (data) => data.when((success) => success, (failure) => null),
       orElse: () => null,
     );
-    if (firstSeenUser == null) return const SizedBox();
+    if (firstSeenUser.isNull) return const SizedBox();
 
     final remaining = seenUserIds.length - 1;
 
     return PeamanText.body2(
       remaining == 0
-          ? 'Seen by ${firstSeenUser.name}'
-          : 'Seen by ${firstSeenUser.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+          ? 'Seen by ${firstSeenUser!.name}'
+          : 'Seen by ${firstSeenUser!.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
       style: const TextStyle(
         fontStyle: FontStyle.italic,
         color: PeamanColors.grey,

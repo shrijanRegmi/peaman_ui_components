@@ -21,7 +21,7 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: title == null
+      title: title.isNull
           ? null
           : PeamanText.subtitle2(
               title,
@@ -35,7 +35,7 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
           Icons.arrow_back_ios_new_rounded,
         ),
         iconSize: 20.0,
-        onPressed: () => onPressedLeading == null
+        onPressed: () => onPressedLeading.isNull
             ? context.pop()
             : onPressedLeading?.call(() => context.pop()),
       ),

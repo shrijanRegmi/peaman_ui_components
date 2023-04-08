@@ -18,21 +18,37 @@ final providerOfPeamanUsersBySearchKeys =
 final providerOfPeamanBlockedUsersStream =
     StreamProvider<List<PeamanSubUser>>((ref) {
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return Stream.value([]);
-
-  return ref.watch(providerOfPeamanUserRepository).getBlockedUsersStream(
-        uid: authUser.uid,
-      );
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanUserRepository)
+      .getBlockedUsersStream(uid: authUser!.uid);
 });
 
 final providerOfPeamanBlockedByUsersStream =
     StreamProvider<List<PeamanSubUser>>((ref) {
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return Stream.value([]);
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanUserRepository)
+      .getBlockedByUsersStream(uid: authUser!.uid);
+});
 
-  return ref.watch(providerOfPeamanUserRepository).getBlockedByUsersStream(
-        uid: authUser.uid,
-      );
+final providerOfPeamanFollowersStream =
+    StreamProvider<List<PeamanSubUser>>((ref) {
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanUserRepository)
+      .getFollowersStream(uid: authUser!.uid);
+});
+
+final providerOfPeamanFollowingsStream =
+    StreamProvider<List<PeamanSubUser>>((ref) {
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanUserRepository)
+      .getFollowingsStream(uid: authUser!.uid);
 });
 
 class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {

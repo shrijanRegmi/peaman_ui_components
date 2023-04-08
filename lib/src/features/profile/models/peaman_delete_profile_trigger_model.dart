@@ -48,6 +48,6 @@ class PeamanDeleteProfileTrigger {
       'updated_at': updatedAt,
     };
 
-    return data..removeWhere((key, value) => value == null);
+    return data..removeWhere((key, value) => value.isNull);
   }
 }

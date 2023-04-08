@@ -29,7 +29,7 @@ class PeamanOnboardingDetailsInfoStep extends StatelessWidget {
             title: 'Birthday',
             hintText: 'Select Your Birthday',
             enabled: false,
-            initialValue: selectedBirthday == null
+            initialValue: selectedBirthday.isNull
                 ? null
                 : PeamanDateTimeHelper.getFormattedDate(selectedBirthday!),
             onPressed: onSelectBirthday,

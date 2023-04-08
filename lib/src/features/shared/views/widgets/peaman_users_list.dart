@@ -139,7 +139,7 @@ class PeamanUsersList extends StatelessWidget {
         itemBuilder: (context, index) {
           final userId = list[index];
 
-          if (userId == null) return _searchUserBuilder(context);
+          if (userId.isNull) return _searchUserBuilder(context);
 
           return type == _Type.expandedByUids
               ? PeamanUsersListItem.expandedByUid(
@@ -183,7 +183,7 @@ class PeamanUsersList extends StatelessWidget {
         itemBuilder: (context, index) {
           final user = list[index];
 
-          if (user == null) return _searchUserBuilder(context);
+          if (user.isNull) return _searchUserBuilder(context);
 
           return type == _Type.expandedByUsers
               ? PeamanUsersListItem.expandedByUser(

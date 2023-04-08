@@ -20,10 +20,10 @@ class PeamanChatDeleteButton extends ConsumerWidget {
     final chat = ref.watch(
       providerOfSinglePeamanChatFromChatsStream(chatId),
     );
-    if (chat == null) return const SizedBox();
+    if (chat.isNull) return const SizedBox();
 
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat.userIdsWrapper),
+      providerOfPeamanChatUsersFuture(chat!.userIdsWrapper),
     );
 
     final user = usersFuture.maybeWhen(
@@ -53,7 +53,7 @@ class PeamanChatDeleteButton extends ConsumerWidget {
         ),
       ),
     ).onPressed(() async {
-      if (onPressed == null) {
+      if (onPressed.isNull) {
         await showPeamanConfirmationDialog(
           context: context,
           title: 'Are you sure you want to delete this chat?',

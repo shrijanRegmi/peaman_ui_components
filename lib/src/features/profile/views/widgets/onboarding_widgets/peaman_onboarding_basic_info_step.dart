@@ -78,7 +78,7 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: profilePicture != null ? null : PeamanColors.extraLightGrey,
-        image: profilePicture == null
+        image: profilePicture.isNull
             ? null
             : DecorationImage(
                 image: profilePicture!.isLocal
@@ -105,7 +105,7 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  profilePicture == null
+                  profilePicture.isNull
                       ? profileImgWidget
                       : Hero(
                           tag: profilePicture!.url,

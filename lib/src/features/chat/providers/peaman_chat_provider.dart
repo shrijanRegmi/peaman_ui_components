@@ -12,10 +12,10 @@ final providerOfPeamanChat =
 
 final providerOfPeamanUserChatsStream = StreamProvider<List<PeamanChat>>((ref) {
   final authUser = ref.watch(providerOfPeamanAuthUser);
-  if (authUser == null) return Stream.value([]);
+  if (authUser.isNull) return Stream.value([]);
   return ref
       .watch(providerOfPeamanChatRepository)
-      .getUserChatsStream(uid: authUser.uid);
+      .getUserChatsStream(uid: authUser!.uid);
 });
 
 final providerOfSinglePeamanChatFromChatsStream =
@@ -56,10 +56,10 @@ final providerOfPeamanChatUsersFuture = FutureProvider.family<
     var users = <PeamanUser>[];
 
     final authUser = ref.watch(providerOfPeamanAuthUser);
-    if (authUser == null) return Success(users);
+    if (authUser.isNull) return Success(users);
 
     var receiverIds = userIdsWrapper.values
-        .where((element) => element != authUser.uid)
+        .where((element) => element != authUser!.uid)
         .toList();
 
     receiverIds = receiverIds.sublist(
@@ -331,7 +331,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     final String? successLogMessage,
   }) async {
     final chat = getSingleChat(chatId, readOnly: true);
-    if (chat?.lastMessageCreatedAt == null) return;
+    if (chat?.lastMessageCreatedAt.isNull == true) return;
 
     state = state.copyWith(
       deleteChatState: const DeleteChatState.loading(),
@@ -468,7 +468,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         typingStatus = PeamanChatTypingStatus.idle;
       }
 
-      if (typingStatus == null) return;
+      if (typingStatus.isNull) return;
 
       state = state.copyWith(
         setTypingStatusState: const SetTypingStatusState.loading(),
@@ -476,7 +476,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       final result = await _chatRepository.setTypingStatus(
         chatId: chatId,
         uid: _appUser.uid!,
-        typingStatus: typingStatus,
+        typingStatus: typingStatus!,
       );
       if (!mounted) return;
       state = result.when(

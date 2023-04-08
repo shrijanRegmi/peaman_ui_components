@@ -24,13 +24,13 @@ class PeamanChatMessageTypingIndicator extends ConsumerWidget {
       data: (data) => data.when((success) => success, (failure) => null),
       orElse: () => null,
     );
-    if (firstTypingUser == null) return const SizedBox();
+    if (firstTypingUser.isNull) return const SizedBox();
 
     final remaining = typingUserIds.length - 1;
     return PeamanText.body2(
       remaining == 0
-          ? '${firstTypingUser.name} is typing...'
-          : '${firstTypingUser.name} and $remaining ${remaining > 1 ? 'others' : 'other'} are typing...',
+          ? '${firstTypingUser!.name} is typing...'
+          : '${firstTypingUser!.name} and $remaining ${remaining > 1 ? 'others' : 'other'} are typing...',
       style: const TextStyle(
         fontStyle: FontStyle.italic,
         color: PeamanColors.grey,

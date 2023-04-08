@@ -382,7 +382,7 @@ class _PeamanChatMessagesListItemState
   }
 
   bool _isWhiteBgRequired() {
-    return widget.message.extraId == null && widget.message.files.isEmpty;
+    return widget.message.extraId.isNull && widget.message.files.isEmpty;
   }
 
   bool _isTempMessage() {

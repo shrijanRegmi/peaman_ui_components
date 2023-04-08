@@ -269,7 +269,7 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
   @override
   @pragma('vm:prefer-inline')
   $PeamanChatMessageCopyWith<$Res>? get messageToReply {
-    if (_value.messageToReply == null) {
+    if (_value.messageToReply.isNull) {
       return null;
     }
 

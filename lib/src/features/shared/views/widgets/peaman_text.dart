@@ -270,14 +270,14 @@ class _PTextState extends State<PeamanText> {
   @override
   void initState() {
     super.initState();
-    _showAll = widget.limit == null;
+    _showAll = widget.limit.isNull;
   }
 
   @override
   void didUpdateWidget(covariant PeamanText oldWidget) {
     if (oldWidget.limit != widget.limit) {
       setState(() {
-        _showAll = widget.limit == null;
+        _showAll = widget.limit.isNull;
       });
     }
     super.didUpdateWidget(oldWidget);
@@ -285,7 +285,7 @@ class _PTextState extends State<PeamanText> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.value == null) return Container();
+    if (widget.value.isNull) return Container();
 
     return widget.height != null && _showAll
         ? SizedBox(

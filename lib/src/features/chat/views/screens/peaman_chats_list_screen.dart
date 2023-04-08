@@ -27,6 +27,7 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
         child: _searchBuilder(context),
       ),
       body: const PeamanChatsList(),
+      floatingActionButton: const PeamanChatInitiatorButton(),
     );
   }
 

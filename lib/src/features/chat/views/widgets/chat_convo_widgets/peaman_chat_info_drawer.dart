@@ -52,7 +52,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     return Drawer(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       child: SafeArea(
-        child: _chatId == null
+        child: _chatId.isNull
             ? const PeamanErrorBuilder(
                 title: "Couldn't Load Chat",
                 subTitle:
@@ -398,7 +398,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                         ? 'The chat has been muted until you turn it back on'
                         : 'The chat has been muted for $mutedUntilHours ${mutedUntilHours > 1 ? 'hours' : 'hour'}';
 
-                    if (chatMutedUntil.mutedUntil == null) {
+                    if (chatMutedUntil.mutedUntil.isNull) {
                       ref.read(providerOfPeamanChat.notifier).muteChat(
                             chatId: widget.chatId,
                             mutedAt: mutedAt,
@@ -626,7 +626,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   String _getMutedUntilText(final PeamanChatMutedUntil chatMutedUntil) {
-    if (chatMutedUntil.mutedAt == null || chatMutedUntil.mutedUntil == null) {
+    if (chatMutedUntil.mutedAt.isNull || chatMutedUntil.mutedUntil.isNull) {
       return 'Mute chat';
     }
 

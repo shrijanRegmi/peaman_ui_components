@@ -110,7 +110,7 @@ class PeamanUsersListItem extends ConsumerWidget {
   }
 
   Widget _expandedBuilder(final PeamanUser user) {
-    final userBody = user.bio == null || (user.bio?.isEmpty ?? true)
+    final userBody = user.bio.isNull || (user.bio?.isEmpty ?? true)
         ? user.country
         : user.bio;
     return InkWell(

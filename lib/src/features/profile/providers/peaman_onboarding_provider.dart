@@ -40,7 +40,7 @@ class PeamanOnboardingProvider
       usernameController: TextEditingController()
         ..text = _appUser.userName ?? '',
       bioController: TextEditingController()..text = _appUser.bio ?? '',
-      selectedProfilePicture: _appUser.photo == null
+      selectedProfilePicture: _appUser.photo.isNull
           ? null
           : PeamanFileUrlExtended(
               url: _appUser.photo!,
@@ -48,7 +48,7 @@ class PeamanOnboardingProvider
               isLocal: false,
             ),
       selectedCountry: _appUser.country,
-      selectedDateOfBirth: _appUser.dob == null
+      selectedDateOfBirth: _appUser.dob.isNull
           ? null
           : DateTime.fromMillisecondsSinceEpoch(_appUser.dob!),
       selectedGender: _appUser.gender,
@@ -60,10 +60,10 @@ class PeamanOnboardingProvider
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
-    if (pickedImage == null) return;
+    if (pickedImage.isNull) return;
 
     final file = PeamanFileUrlExtended(
-      url: pickedImage.path,
+      url: pickedImage!.path,
       type: PeamanFileType.image,
       isLocal: true,
     );
@@ -178,7 +178,7 @@ class PeamanOnboardingProvider
     if (state.usernameController.text.trim().isEmpty) {
       error = const PeamanError(message: 'Username cannot be empty');
     }
-    if (state.selectedCountry == null) {
+    if (state.selectedCountry.isNull) {
       error = const PeamanError(message: 'Country cannot be empty');
     }
     if (error != null) {
@@ -268,7 +268,7 @@ class PeamanOnboardingProvider
 
   Future<void> _saveDetailedInfo() async {
     PeamanError? error;
-    if (state.selectedDateOfBirth == null) {
+    if (state.selectedDateOfBirth.isNull) {
       error = const PeamanError(message: 'Date of birth cannot be empty');
     }
     if (state.selectedGender == PeamanGender.unknown) {
