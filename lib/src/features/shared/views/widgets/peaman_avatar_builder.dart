@@ -29,12 +29,14 @@ class PeamanAvatarBuilder extends StatefulWidget {
   final Widget? overlayWidget;
   final Border? border;
   final double spreadFactor;
+  final double opacity;
   final Function()? onPressed;
 
   const PeamanAvatarBuilder.network(
     this.imgUrl, {
     super.key,
     this.size = 50.0,
+    this.opacity = 1.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -52,6 +54,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.imgUrls, {
     super.key,
     this.size = 50.0,
+    this.opacity = 1.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -69,6 +72,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.file, {
     super.key,
     this.size = 50.0,
+    this.opacity = 1.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -86,6 +90,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.assetPath, {
     super.key,
     this.size = 50.0,
+    this.opacity = 1.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -104,6 +109,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     super.key,
     this.letterStyle,
     this.size = 50.0,
+    this.opacity = 1.0,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -256,24 +262,23 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
   }
 
   Widget _baseBuilder(Widget child) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: widget.onPressed,
-          behavior: HitTestBehavior.opaque,
-          child: Container(
+    return Opacity(
+      opacity: widget.opacity,
+      child: Stack(
+        children: [
+          Container(
             width: (widget.size + 2).w,
             height: (widget.size + 2).h,
-            padding: const EdgeInsets.all(2.0),
+            padding: EdgeInsets.all(2.w),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: widget.border,
             ),
             child: child,
-          ),
-        ),
-        widget.overlayWidget ?? const SizedBox(),
-      ],
+          ).onPressed(widget.onPressed),
+          widget.overlayWidget ?? const SizedBox(),
+        ],
+      ),
     );
   }
 

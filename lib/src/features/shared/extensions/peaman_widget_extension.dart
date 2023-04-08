@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 extension WidgetExt on Widget {
-  Widget onPressed(final Function() onPressed) => GestureDetector(
+  Widget onPressed(final Function()? onPressed) => GestureDetector(
         onTap: onPressed,
         behavior: HitTestBehavior.opaque,
         child: this,
       );
-  Widget onPressedDown(final Function(TapDownDetails) onPressed) =>
+  Widget onPressedDown(final Function(TapDownDetails)? onPressed) =>
       GestureDetector(
         onTapDown: onPressed,
         behavior: HitTestBehavior.opaque,
         child: this,
       );
-  Widget onPressedUp(final Function(TapUpDetails) onPressed) => GestureDetector(
+  Widget onPressedUp(final Function(TapUpDetails)? onPressed) =>
+      GestureDetector(
         onTapUp: onPressed,
         behavior: HitTestBehavior.opaque,
         child: this,
       );
-  Widget onLongPressed(final Function() onLongPressed) => GestureDetector(
+  Widget onLongPressed(final Function()? onLongPressed) => GestureDetector(
         onLongPress: onLongPressed,
         behavior: HitTestBehavior.opaque,
         child: this,

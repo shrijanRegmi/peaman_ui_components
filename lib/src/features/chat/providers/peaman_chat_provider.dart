@@ -452,7 +452,6 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> leaveChat({
     required final String chatId,
-    required final List<String> friendIds,
     final String? uid,
     final String? successLogMessage,
   }) async {

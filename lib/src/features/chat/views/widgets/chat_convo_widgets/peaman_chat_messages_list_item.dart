@@ -40,6 +40,13 @@ class _PeamanChatMessagesListItemState
   Provider<PeamanUser> get _appUserProvider => providerOfLoggedInUser;
   String get _uid => ref.watch(_appUserProvider.select((value) => value.uid!));
 
+  PeamanListWrapper<String> get _chatUserIdsWrapper => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!)
+            .select((value) =>
+                value?.activeUserIdsWrapper ??
+                const PeamanListWrapper(values: [])),
+      );
+
   @override
   Widget build(BuildContext context) {
     final isTempMessage = _isTempMessage();
@@ -347,6 +354,22 @@ class _PeamanChatMessagesListItemState
     );
     return PeamanAvatarBuilder.network(
       sender?.photo,
+      opacity: _chatUserIdsWrapper.values.contains(sender?.uid) ? 1.0 : 0.5,
+      overlayWidget: _chatUserIdsWrapper.values.contains(sender?.uid)
+          ? null
+          : Positioned(
+              bottom: 3.h,
+              right: 3.w,
+              child: PeamanRoundIconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: PeamanColors.white,
+                  size: 12.w,
+                ),
+                padding: EdgeInsets.all(2.w),
+                bgColor: PeamanColors.red,
+              ),
+            ),
       onPressed: () {
         if (widget.message.senderId == _uid) return;
         showPeamanChatUserInfoDialog(

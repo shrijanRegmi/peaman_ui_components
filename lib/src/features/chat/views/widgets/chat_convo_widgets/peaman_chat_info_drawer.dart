@@ -551,7 +551,23 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             padding: EdgeInsets.all(9.w),
             bgColor: PeamanColors.extraLightGrey.withOpacity(0.2),
-            onPressed: () {},
+            onPressed: () {
+              showPeamanConfirmationDialog(
+                context: context,
+                title: 'Are you sure you want to leave this chat?',
+                description:
+                    "You will neither be able to view new messages nor be able to send new messages to this chat until you are added back to the chat.",
+                onConfirm: () {
+                  const successLogMessage = 'You left the chat';
+                  ref.read(providerOfPeamanChat.notifier).leaveChat(
+                        chatId: widget.chatId,
+                        successLogMessage: successLogMessage,
+                      );
+
+                  context.pop();
+                },
+              );
+            },
           ),
         ],
       ),
