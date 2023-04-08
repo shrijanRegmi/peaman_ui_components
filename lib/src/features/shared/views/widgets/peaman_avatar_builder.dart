@@ -28,6 +28,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   final String? heroTag;
   final Widget? overlayWidget;
   final Border? border;
+  final String? package;
   final double spreadFactor;
   final double opacity;
   final Function()? onPressed;
@@ -48,6 +49,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         letter = null,
         letterStyle = null,
         spreadFactor = 1.0,
+        package = null,
         _type = _Type.network;
 
   const PeamanAvatarBuilder.multiNetwork(
@@ -66,6 +68,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         assetPath = null,
         letter = null,
         letterStyle = null,
+        package = null,
         _type = _Type.multiNetwork;
 
   const PeamanAvatarBuilder.file(
@@ -82,6 +85,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
         imgUrls = const [],
         assetPath = null,
         letter = null,
+        package = null,
         letterStyle = null,
         spreadFactor = 1.0,
         _type = _Type.file;
@@ -91,6 +95,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     super.key,
     this.size = 50.0,
     this.opacity = 1.0,
+    this.package,
     this.color,
     this.heroTag,
     this.overlayWidget,
@@ -118,6 +123,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   })  : imgUrl = null,
         imgUrls = const [],
         file = null,
+        package = null,
         assetPath = null,
         spreadFactor = 1.0,
         _type = _Type.letter;
@@ -234,7 +240,10 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
           color: widget.color,
           shape: BoxShape.circle,
           image: DecorationImage(
-            image: AssetImage(widget.assetPath!),
+            image: AssetImage(
+              widget.assetPath!,
+              package: widget.package,
+            ),
             fit: BoxFit.cover,
           ),
         ),

@@ -388,7 +388,7 @@ class _PeamanChatMessagesListItemState
                     ),
                   );
                 break;
-              case 3:
+              case 2:
                 showPeamanConfirmationDialog(
                   context: context,
                   title:
@@ -402,6 +402,24 @@ class _PeamanChatMessagesListItemState
                         chatId: widget.message.chatId!,
                         friendIds: [sender!.uid!],
                         successLogMessage: successLogMessage);
+                  },
+                );
+                break;
+              case 3:
+                showPeamanConfirmationDialog(
+                  context: context,
+                  title:
+                      'Are you sure you want to add back ${sender?.name} to this chat?',
+                  description:
+                      "${sender?.name} will be able to view all the old messages and send new messages to this chat.",
+                  onConfirm: () {
+                    final successLogMessage =
+                        '${sender?.name} has been added back to the chat';
+                    ref.read(providerOfPeamanChat.notifier).addChatMembers(
+                          chatId: widget.message.chatId!,
+                          friendIds: [sender!.uid!],
+                          successLogMessage: successLogMessage,
+                        );
                   },
                 );
                 break;

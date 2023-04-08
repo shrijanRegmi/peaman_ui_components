@@ -52,6 +52,13 @@ class _PeamanChatMessageInputState
       ref.watch(providerOfPeamanChat.select((value) => value.messageToReply));
   List<PeamanFileUrlExtended> get _files =>
       ref.watch(providerOfPeamanChat.select((value) => value.files));
+  PeamanListWrapper<PeamanChatRemovedBy>? get _chatRemovedBysWrapper =>
+      ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+            .select((value) => value?.removedBysWrapper),
+      );
+  String get _uid =>
+      ref.watch(providerOfLoggedInUser.select((value) => value.uid!));
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +72,17 @@ class _PeamanChatMessageInputState
           widget.chatType == PeamanChatType.oneToOne,
       orElse: () => false,
     );
-    if (isUserBlocked) return const PeamanChatCantReplyBuilder();
+    final isRemovedFromChat = _chatRemovedBysWrapper?.values
+            .firstWhere(
+              (element) => element.uid == _uid,
+              orElse: PeamanChatRemovedBy.new,
+            )
+            .uid !=
+        null;
+
+    if (isUserBlocked || isRemovedFromChat) {
+      return const PeamanChatCantReplyBuilder();
+    }
 
     var messageToReply = widget.messageToReply ?? _messageToReply;
     return Column(

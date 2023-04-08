@@ -46,7 +46,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
       ),
       if (canRemoveMembers)
         PeamanSelectableOption(
-          id: 3,
+          id: 2,
           leading: PeamanRoundIconButton(
             icon: Icon(
               Icons.group_remove_rounded,
@@ -58,8 +58,22 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           ),
           title: 'Remove from group',
         ),
+      if (canRemoveMembers)
+        PeamanSelectableOption(
+          id: 3,
+          leading: PeamanRoundIconButton(
+            icon: Icon(
+              Icons.group_remove_rounded,
+              color: PeamanColors.white,
+              size: 12.w,
+            ),
+            padding: EdgeInsets.all(7.w),
+            bgColor: context.theme.colorScheme.primary,
+          ),
+          title: 'Add back to group',
+        ),
       PeamanSelectableOption(
-        id: 2,
+        id: 4,
         leading: PeamanRoundIconButton(
           icon: Icon(
             Icons.group_add_rounded,

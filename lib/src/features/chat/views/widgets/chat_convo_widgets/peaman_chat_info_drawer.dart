@@ -114,11 +114,17 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          PeamanAvatarBuilder.multiNetwork(
-            avatars,
-            size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
-            spreadFactor: 2.5,
-          ),
+          !_chatUserIdsWrapper.values.contains(_uid)
+              ? PeamanAvatarBuilder.asset(
+                  const PeamanUser().genderStringImage,
+                  package: 'peaman_ui_components',
+                  size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
+                )
+              : PeamanAvatarBuilder.multiNetwork(
+                  avatars,
+                  size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
+                  spreadFactor: 2.5,
+                ),
           SizedBox(
             height: _chatType == PeamanChatType.group ? 35.h : 10.h,
           ),
@@ -144,6 +150,23 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _chatActionsSet1Builder() {
+    final chatAdminId = ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(widget.chatId).select(
+        (value) => value?.chatRequestSenderId,
+      ),
+    );
+
+    final chatUsers = _chatUsersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success,
+          (failure) => <PeamanUser>[],
+        );
+      },
+      orElse: () => <PeamanUser>[],
+    );
+
+    final firstChatUser = chatUsers.isEmpty ? null : chatUsers.first;
     return Column(
       children: [
         ListTile(
@@ -204,7 +227,62 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                   onPressedUser: (user) {
                     showPeamanChatUserInfoDialog(
                       context: context,
-                      onSelectOption: (val) {},
+                      canRemoveMembers: chatAdminId == _uid,
+                      onSelectOption: (val) {
+                        switch (val.id) {
+                          case 0:
+                            context
+                              ..pop()
+                              ..pushNamed(
+                                PeamanChatConversationScreen.route,
+                                arguments: PeamanChatConversationArgs.byUserIds(
+                                  userIds: [_uid, firstChatUser!.uid!]..sort(),
+                                  chatType: PeamanChatType.oneToOne,
+                                ),
+                              );
+                            break;
+                          case 2:
+                            showPeamanConfirmationDialog(
+                              context: context,
+                              title:
+                                  'Are you sure you want to remove ${firstChatUser?.name} from this chat?',
+                              description:
+                                  "${firstChatUser?.name} will neither be able to view new messages nor be able to send new messages to this chat until ${firstChatUser?.genderStringSubject} is added back to the chat.",
+                              onConfirm: () {
+                                final successLogMessage =
+                                    '${firstChatUser?.name} has been removed from the chat';
+                                ref
+                                    .read(providerOfPeamanChat.notifier)
+                                    .removeChatMembers(
+                                        chatId: widget.chatId,
+                                        friendIds: [firstChatUser!.uid!],
+                                        successLogMessage: successLogMessage);
+                              },
+                            );
+                            break;
+                          case 3:
+                            showPeamanConfirmationDialog(
+                              context: context,
+                              title:
+                                  'Are you sure you want to add back ${firstChatUser?.name} to this chat?',
+                              description:
+                                  "${firstChatUser?.name} will be able to view all the old messages and send new messages to this chat.",
+                              onConfirm: () {
+                                final successLogMessage =
+                                    '${firstChatUser?.name} has been added back to the chat';
+                                ref
+                                    .read(providerOfPeamanChat.notifier)
+                                    .addChatMembers(
+                                      chatId: widget.chatId,
+                                      friendIds: [firstChatUser!.uid!],
+                                      successLogMessage: successLogMessage,
+                                    );
+                              },
+                            );
+                            break;
+                          default:
+                        }
+                      },
                     );
                   },
                 ),
@@ -598,8 +676,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       data: (data) {
         final remaining = receiverIds.length - 1;
         return data.when(
-          (success) => success.isEmpty
-              ? 'Chat Conversation'
+          (success) => success.isEmpty ||
+                  !_chatUserIdsWrapper.values.contains(_uid)
+              ? 'Unknown Conversation'
               : remaining == 0
                   ? _chatType == PeamanChatType.group
                       ? 'You and ${success.first.name}'

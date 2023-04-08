@@ -99,6 +99,10 @@ class _PeamanChatConversationScreenState
       ref.watch(providerOfSinglePeamanChatFromChatsStream(_chatId)
           .select((value) => value?.type ?? widget.chatType));
 
+  String get _uid => ref.watch(
+        providerOfLoggedInUser.select((value) => value.uid!),
+      );
+
   @override
   void initState() {
     super.initState();
@@ -141,8 +145,9 @@ class _PeamanChatConversationScreenState
             data: (data) {
               final remaining = receiverIds.length - 1;
               return data.when(
-                (success) => success.isEmpty
-                    ? 'Chat Conversation'
+                (success) => success.isEmpty ||
+                        !_chatUserIdsWrapper.values.contains(_uid)
+                    ? 'Unknown Conversation'
                     : remaining == 0
                         ? _chatType == PeamanChatType.group
                             ? 'You and ${success.first.name}'
@@ -161,14 +166,14 @@ class _PeamanChatConversationScreenState
             def();
           },
           actions: [
-            if (_chatId.isNotEmpty)
+            if (_chatId.isNotEmpty && _chatUserIdsWrapper.values.contains(_uid))
               IconButton(
                 onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
                 icon: const Icon(Icons.more_vert_rounded),
               )
           ],
         ),
-        endDrawer: _chatId.isEmpty
+        endDrawer: _chatId.isEmpty || !_chatUserIdsWrapper.values.contains(_uid)
             ? null
             : PeamanChatInfoDrawer(
                 chatId: _chatId,

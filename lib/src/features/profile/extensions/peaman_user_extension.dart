@@ -42,4 +42,15 @@ extension PeamanUserExt on PeamanUser {
     }
     return value;
   }
+
+  String get genderStringImage {
+    var value = 'assets/images/avatar_boy.png';
+    switch (gender) {
+      case PeamanGender.female:
+        value = 'assets/images/avatar_girl.png';
+        break;
+      default:
+    }
+    return value;
+  }
 }

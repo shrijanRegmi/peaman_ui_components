@@ -26,6 +26,10 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
 class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   late PeamanChat _chat;
 
+  String get _uid => ref.watch(
+        providerOfLoggedInUser.select((value) => value.uid!),
+      );
+
   @override
   void initState() {
     super.initState();
@@ -225,35 +229,24 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
       children: [
         Row(
           children: [
-            PeamanAvatarBuilder.multiNetwork(
-              // TODO(shrijanRegmi)
-              // CommonHelper.isUserInfoHidden(context, user: user)
-              //     ? null
-              //     : user.photo,
-              avatars,
-              size: 45.0,
-              onPressed: () {
-                // TODO(shrijanRegmi)
-                // if (user.uid == appUser.uid) return;
-                // Navigator.pushNamed(
-                //   context,
-                //   AppRoutes.friendProfileScreen,
-                //   arguments: FriendProfileScreenArgs.byFriend(
-                //     friend: user,
-                //   ),
-                // );
-              },
-            ),
+            users.isEmpty || !_chat.activeUserIds.contains(_uid)
+                ? PeamanAvatarBuilder.asset(
+                    const PeamanUser().genderStringImage,
+                    package: 'peaman_ui_components',
+                    size: 45.0,
+                    onPressed: () {},
+                  )
+                : PeamanAvatarBuilder.multiNetwork(
+                    avatars,
+                    size: 45.0,
+                    onPressed: () {},
+                  ),
             SizedBox(
               width: avatars.length >= 3 ? 10.0 : 5.0,
             ),
             PeamanText.body2(
-              // TODO(shrijanRegmi)
-              // CommonHelper.isUserInfoHidden(context, user: user)
-              //     ? 'App User'
-              //     : user.name,
-              users.isEmpty
-                  ? 'Unknown'
+              users.isEmpty || !_chat.activeUserIds.contains(_uid)
+                  ? 'Unknown Conversation'
                   : remaining == 0
                       ? _chat.type == PeamanChatType.group
                           ? 'You and ${users.first.name}'
