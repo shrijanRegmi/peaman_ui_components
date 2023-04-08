@@ -24,6 +24,11 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
         final ArchiveChatState archiveChatState,
     @Default(MuteChatState.initial()) final MuteChatState muteChatState,
     @Default(UnmuteChatState.initial()) final UnmuteChatState unmuteChatState,
+    @Default(LeaveChatState.initial()) final LeaveChatState leaveChatState,
+    @Default(AddChatMembersState.initial())
+        final AddChatMembersState addChatMembersState,
+    @Default(RemoveChatMembersState.initial())
+        final RemoveChatMembersState removeChatMembersState,
     @Default(SetTypingStatusState.initial())
         final SetTypingStatusState setTypingStatusState,
     @Default(<PeamanChatMessage>[]) final List<PeamanChatMessage> tempMessages,
@@ -161,4 +166,42 @@ class UnmuteChatState with _$UnmuteChatState {
   const factory UnmuteChatState.error(
     final PeamanError error,
   ) = _UnmuteChatStateFailure;
+}
+
+@freezed
+class LeaveChatState with _$LeaveChatState {
+  const factory LeaveChatState.initial() = _LeaveChatStateInitial;
+  const factory LeaveChatState.loading() = _LeaveChatStateLoading;
+  const factory LeaveChatState.success(
+    final bool result,
+  ) = _LeaveChatStateSuccess;
+  const factory LeaveChatState.error(
+    final PeamanError error,
+  ) = _LeaveChatStateFailure;
+}
+
+@freezed
+class AddChatMembersState with _$AddChatMembersState {
+  const factory AddChatMembersState.initial() = _AddChatMembersStateInitial;
+  const factory AddChatMembersState.loading() = _AddChatMembersStateLoading;
+  const factory AddChatMembersState.success(
+    final bool result,
+  ) = _AddChatMembersStateSuccess;
+  const factory AddChatMembersState.error(
+    final PeamanError error,
+  ) = _AddChatMembersStateFailure;
+}
+
+@freezed
+class RemoveChatMembersState with _$RemoveChatMembersState {
+  const factory RemoveChatMembersState.initial() =
+      _RemoveChatMembersStateInitial;
+  const factory RemoveChatMembersState.loading() =
+      _RemoveChatMembersStateLoading;
+  const factory RemoveChatMembersState.success(
+    final bool result,
+  ) = _RemoveChatMembersStateSuccess;
+  const factory RemoveChatMembersState.error(
+    final PeamanError error,
+  ) = _RemoveChatMembersStateFailure;
 }

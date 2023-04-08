@@ -498,7 +498,7 @@ packages:
       name: google_sign_in
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.2"
+    version: "6.1.0"
   google_sign_in_android:
     dependency: transitive
     description:
@@ -519,14 +519,14 @@ packages:
       name: google_sign_in_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.4.0"
   google_sign_in_web:
     dependency: transitive
     description:
       name: google_sign_in_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0+2"
+    version: "0.12.0"
   hooks_riverpod:
     dependency: transitive
     description:
@@ -728,7 +728,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: "31641442df9f62535e331467bbddf9a096c6a739"
+      resolved-ref: "6160fb28848ae953612fb98c92c33399c7b3ce66"
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"

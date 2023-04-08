@@ -114,6 +114,21 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
           );
         });
       }
+
+      final oldChatActiveUids = List<String>.from(
+        oldChat.activeUserIds,
+      )..sort();
+      final newChatActiveUids = List<String>.from(
+        newChat.activeUserIds,
+      )..sort();
+      if (!listEquals(oldChatActiveUids, newChatActiveUids)) {
+        setState(() {
+          _chat = _chat.copyWith(
+            removedBys: newChat.removedBys,
+            addedBys: newChat.addedBys,
+          );
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -121,7 +136,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   @override
   Widget build(BuildContext context) {
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(_chat.userIdsWrapper),
+      providerOfPeamanChatUsersFuture(_chat.activeUserIdsWrapper),
     );
     return usersFuture.when(
       data: (data) {
@@ -200,7 +215,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
     final appUserPhoto = ref.watch(
       providerOfLoggedInUser.select((value) => value.photo),
     );
-    final remaining = _chat.userIds.length - 2;
+    final remaining = _chat.activeUserIdsWrapper.values.length - 2;
     final avatars = [
       ...users.map((e) => e.photo).toList(),
       if (_chat.type == PeamanChatType.group) appUserPhoto,

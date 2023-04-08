@@ -90,7 +90,7 @@ class _PeamanChatConversationScreenState
   PeamanListWrapper<String> get _chatUserIdsWrapper => ref.watch(
         providerOfSinglePeamanChatFromChatsStream(_chatId).select(
           (value) =>
-              value?.userIdsWrapper ??
+              value?.activeUserIdsWrapper ??
               PeamanListWrapper<String>(values: widget.userIds),
         ),
       );

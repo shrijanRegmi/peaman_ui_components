@@ -31,7 +31,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       );
   PeamanListWrapper<String> get _chatUserIdsWrapper => ref.watch(
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
-            .select((value) => value!.userIdsWrapper),
+            .select((value) => value!.activeUserIdsWrapper),
       );
   AsyncValue<PeamanEither<List<PeamanUser>, PeamanError>>
       get _chatUsersFuture =>

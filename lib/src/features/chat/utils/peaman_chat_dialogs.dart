@@ -4,6 +4,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 Future<T?> showPeamanChatUserInfoDialog<T>({
   required final BuildContext context,
+  final bool canRemoveMembers = false,
   final Function(PeamanSelectableOption)? onSelectOption,
 }) {
   return showPeamanSelectableOptionsDialog<T>(
@@ -54,8 +55,22 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           padding: EdgeInsets.all(7.w),
           bgColor: context.theme.colorScheme.primary,
         ),
-        title: 'Add to group',
+        title: 'Add to another group',
       ),
+      if (canRemoveMembers)
+        PeamanSelectableOption(
+          id: 3,
+          leading: PeamanRoundIconButton(
+            icon: Icon(
+              Icons.group_remove_rounded,
+              color: PeamanColors.white,
+              size: 12.w,
+            ),
+            padding: EdgeInsets.all(7.w),
+            bgColor: context.theme.colorScheme.primary,
+          ),
+          title: 'Remove from this group',
+        ),
     ],
   );
 }

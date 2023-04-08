@@ -256,19 +256,24 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
   }
 
   Widget _baseBuilder(Widget child) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        width: (widget.size + 2).w,
-        height: (widget.size + 2).h,
-        padding: const EdgeInsets.all(2.0),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: widget.border,
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: widget.onPressed,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            width: (widget.size + 2).w,
+            height: (widget.size + 2).h,
+            padding: const EdgeInsets.all(2.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: widget.border,
+            ),
+            child: child,
+          ),
         ),
-        child: child,
-      ),
+        widget.overlayWidget ?? const SizedBox(),
+      ],
     );
   }
 

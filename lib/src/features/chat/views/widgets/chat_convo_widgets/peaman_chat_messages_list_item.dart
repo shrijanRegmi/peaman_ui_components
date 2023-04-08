@@ -328,23 +328,30 @@ class _PeamanChatMessagesListItemState
   }
 
   Widget _senderInfoBuilder() {
+    final chatAdminId = ref.watch(
+      providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!).select(
+        (value) => value?.chatRequestSenderId,
+      ),
+    );
     final senderFuture = ref.watch(
       providerOfSingleUserByIdFuture(widget.message.senderId!),
     );
+    final sender = senderFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success,
+          (failure) => null,
+        );
+      },
+      orElse: () => null,
+    );
     return PeamanAvatarBuilder.network(
-      senderFuture.maybeWhen(
-        data: (data) {
-          return data.when(
-            (success) => success.photo,
-            (failure) => null,
-          );
-        },
-        orElse: () => null,
-      ),
+      sender?.photo,
       onPressed: () {
         if (widget.message.senderId == _uid) return;
         showPeamanChatUserInfoDialog(
           context: context,
+          canRemoveMembers: chatAdminId == _uid,
           onSelectOption: (val) {
             switch (val.id) {
               case 0:
@@ -357,7 +364,23 @@ class _PeamanChatMessagesListItemState
                       chatType: PeamanChatType.oneToOne,
                     ),
                   );
-
+                break;
+              case 3:
+                showPeamanConfirmationDialog(
+                  context: context,
+                  title:
+                      'Are you sure you want to remove ${sender?.name} from this chat?',
+                  description:
+                      "${sender?.name} will neither be able to view new messages nor be able to send new messages to this chat until ${sender?.genderStringSubject} is added back to the chat.",
+                  onConfirm: () {
+                    final successLogMessage =
+                        '${sender?.name} has been removed from the chat';
+                    ref.read(providerOfPeamanChat.notifier).removeChatMembers(
+                        chatId: widget.message.chatId!,
+                        friendIds: [sender!.uid!],
+                        successLogMessage: successLogMessage);
+                  },
+                );
                 break;
               default:
             }

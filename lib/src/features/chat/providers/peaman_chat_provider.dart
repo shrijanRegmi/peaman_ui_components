@@ -37,16 +37,14 @@ final providerOfPeamanChatMessagesStream = StreamProvider.family
   final chat = ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
   final authUser = ref.watch(providerOfPeamanAuthUser);
 
-  final startAfter = chat?.startAfters
-      .firstWhere(
-        (element) => element.uid == authUser?.uid,
-        orElse: PeamanChatStartAfter.new,
-      )
-      .messageCreatedAt;
+  final messagesCursor = chat?.messagesCursors.firstWhere(
+    (element) => element.uid == authUser?.uid,
+    orElse: PeamanChatMessagesCursor.new,
+  );
 
   return ref.watch(providerOfPeamanChatRepository).getChatMessagesStream(
         chatId: chatId,
-        startAfter: startAfter,
+        messagesCursor: messagesCursor,
       );
 });
 
@@ -330,7 +328,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     required final String chatId,
     final String? successLogMessage,
   }) async {
-    final chat = getSingleChat(chatId, readOnly: true);
+    final chat = getSingleChat(chatId);
     if (chat?.lastMessageCreatedAt.isNull == true) return;
 
     state = state.copyWith(
@@ -447,6 +445,109 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         _logProvider.logError(failure.message);
         return state.copyWith(
           unmuteChatState: UnmuteChatState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> leaveChat({
+    required final String chatId,
+    required final List<String> friendIds,
+    final String? uid,
+    final String? successLogMessage,
+  }) async {
+    final chat = getSingleChat(chatId);
+    if (chat?.lastMessageCreatedAt.isNull == true) return;
+
+    state = state.copyWith(
+      leaveChatState: const LeaveChatState.loading(),
+    );
+    final result = await _chatRepository.leaveChat(
+      chatId: chatId,
+      uid: uid ?? _appUser.uid!,
+      lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
+    );
+    state = result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          leaveChatState: LeaveChatState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          leaveChatState: LeaveChatState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> addChatMembers({
+    required final String chatId,
+    required final List<String> friendIds,
+    final String? uid,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      addChatMembersState: const AddChatMembersState.loading(),
+    );
+    final result = await _chatRepository.addChatMembers(
+      chatId: chatId,
+      uid: uid ?? _appUser.uid!,
+      friendIds: friendIds,
+    );
+    state = result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          addChatMembersState: AddChatMembersState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          addChatMembersState: AddChatMembersState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> removeChatMembers({
+    required final String chatId,
+    required final List<String> friendIds,
+    final String? uid,
+    final String? successLogMessage,
+  }) async {
+    final chat = getSingleChat(chatId);
+    if (chat?.lastMessageCreatedAt.isNull == true) return;
+
+    state = state.copyWith(
+      removeChatMembersState: const RemoveChatMembersState.loading(),
+    );
+    final result = await _chatRepository.removeChatMembers(
+      chatId: chatId,
+      uid: uid ?? _appUser.uid!,
+      friendIds: friendIds,
+      lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
+    );
+    state = result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          removeChatMembersState: RemoveChatMembersState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          removeChatMembersState: RemoveChatMembersState.error(failure),
         );
       },
     );
@@ -600,14 +701,8 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     return const Success(<PeamanFileUrl>[]);
   }
 
-  PeamanChat? getSingleChat(
-    final String chatId, {
-    final bool readOnly = true,
-  }) {
-    if (readOnly) {
-      return _ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
-    }
-    return _ref.watch(providerOfSinglePeamanChatFromChatsStream(chatId));
+  PeamanChat? getSingleChat(final String chatId) {
+    return _ref.read(providerOfSinglePeamanChatFromChatsStream(chatId));
   }
 
   Future<void> pickImage() async {
