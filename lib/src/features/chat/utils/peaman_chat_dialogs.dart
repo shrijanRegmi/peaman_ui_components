@@ -96,10 +96,16 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           (value) => value?.chatRequestSenderId,
         ),
       );
+      final chatType = ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(chatId).select(
+          (value) => value?.type,
+        ),
+      );
       final uid = ref.watch(
         providerOfLoggedInUser.select((value) => value.uid!),
       );
       final isChatAdmin = chatAdminId == uid;
+      final isGroupChat = chatType == PeamanChatType.group;
       final isRemoved =
           !(chatActiveUserIdsWrapper?.values.contains(user.uid) ?? false);
 
@@ -130,7 +136,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           ),
           title: 'View profile',
         ),
-        if (isChatAdmin && !isRemoved)
+        if (isGroupChat && isChatAdmin && !isRemoved)
           PeamanSelectableOption(
             id: 2,
             leading: PeamanRoundIconButton(
@@ -144,7 +150,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
             ),
             title: 'Remove from group',
           ),
-        if (isRemoved)
+        if (isGroupChat && isRemoved)
           PeamanSelectableOption(
             id: 3,
             leading: PeamanRoundIconButton(
