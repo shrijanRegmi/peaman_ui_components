@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -9,7 +10,7 @@ enum _Type {
   roundedByUsers,
 }
 
-class PeamanUsersList extends StatelessWidget {
+class PeamanUsersList extends ConsumerWidget {
   final _Type type;
 
   final List<String> userIds;
@@ -20,11 +21,12 @@ class PeamanUsersList extends StatelessWidget {
   final EdgeInsets? initialItemPadding;
   final EdgeInsets? itemPadding;
   final double height;
-  final Widget Function(PeamanUser)? avatarBuilder;
-  final Widget Function(PeamanUser)? nameBuilder;
-  final Widget Function(PeamanUser)? captionBuilder;
-  final List<Widget> Function(PeamanUser)? actionWidgetsBuilder;
-  final Function(PeamanUser)? onPressedUser;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
+  final List<Widget> Function(BuildContext, WidgetRef, PeamanUser)?
+      actionWidgetsBuilder;
+  final Function(BuildContext, WidgetRef, PeamanUser)? onPressedUser;
   final Function()? onPressedSearch;
 
   const PeamanUsersList.expandedByUids({
@@ -104,7 +106,7 @@ class PeamanUsersList extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     switch (type) {
       case _Type.expandedByUids:
         return _byUidsBuilder();

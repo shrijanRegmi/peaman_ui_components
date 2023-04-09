@@ -212,32 +212,32 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 widget: PeamanUsersListPopup.expandedByUids(
                   userIds: _chatUserIdsWrapper.values,
                   title: 'Group Members',
-                  captionBuilder: (user) {
+                  captionBuilder: (context, ref, user) {
                     final addedBy = _chatAddedBysWrapper.values.firstWhere(
                       (element) => element.uid == user.uid,
                       orElse: PeamanChatAddedBy.new,
                     );
+                    var addedByName = 'Unknown';
                     if (addedBy.addedBy != null) {
                       final addedByFuture = ref.watch(
                         providerOfSingleUserByIdFuture(addedBy.addedBy!),
                       );
-                      final addedByName = addedByFuture.maybeWhen(
+                      addedByName = addedByFuture.maybeWhen(
                         data: (data) => data.when(
                           (success) =>
-                              success.uid == _uid ? 'You' : success.name,
+                              success.uid == _uid ? 'You' : success.name!,
                           (failure) => 'Unknown',
                         ),
                         loading: () => 'Loading...',
                         orElse: () => 'Unknown',
                       );
-                      return PeamanText.caption(
-                        'Added by $addedByName',
-                        limit: 60,
-                      );
                     }
-                    return PeamanText.caption('');
+                    return PeamanText.caption(
+                      'Added by $addedByName',
+                      limit: 60,
+                    );
                   },
-                  onPressedUser: (user) {
+                  onPressedUser: (context, ref, user) {
                     if (user.uid == _uid) return;
 
                     showPeamanChatUserInfoDialog(

@@ -154,7 +154,8 @@ class _PeamanUsersSearchScreenState
             }
             return PeamanUsersList.expandedByUsers(
               users: filteredUsers,
-              onPressedUser: (user) => widget.onPressedUser?.call(user),
+              onPressedUser: (context, ref, user) =>
+                  widget.onPressedUser?.call(user),
             );
           },
           (failure) => PeamanErrorBuilder(

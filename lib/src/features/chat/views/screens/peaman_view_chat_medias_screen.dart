@@ -86,7 +86,7 @@ class _PeamanViewChatMediasScreenState
           itemPadding: EdgeInsets.all(5.w),
           initialItemPadding: EdgeInsets.fromLTRB(20.w, 5.w, 5.w, 5.w),
           physics: const BouncingScrollPhysics(),
-          nameBuilder: (user) => PeamanText.body2(
+          nameBuilder: (context, ref, user) => PeamanText.body2(
             appUser.uid == user.uid ? 'You' : user.name?.split(' ').first,
             style: TextStyle(
               fontSize: 12.sp,

@@ -9,17 +9,18 @@ enum _Type {
   roundedByUser,
 }
 
-class PeamanUsersListItem extends ConsumerWidget {
+class PeamanUsersListItem extends ConsumerStatefulWidget {
   final _Type type;
 
   final String? userId;
   final PeamanUser? user;
   final EdgeInsets? padding;
-  final Widget Function(PeamanUser)? avatarBuilder;
-  final Widget Function(PeamanUser)? nameBuilder;
-  final Widget Function(PeamanUser)? captionBuilder;
-  final List<Widget> Function(PeamanUser)? actionWidgetsBuilder;
-  final Function(PeamanUser)? onPressed;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
+  final List<Widget> Function(BuildContext, WidgetRef, PeamanUser)?
+      actionWidgetsBuilder;
+  final Function(BuildContext, WidgetRef, PeamanUser)? onPressed;
 
   const PeamanUsersListItem.expandedByUid({
     Key? key,
@@ -74,14 +75,22 @@ class PeamanUsersListItem extends ConsumerWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if ((type == _Type.expandedByUid || type == _Type.roundedByUid) &&
-        userId != null) {
-      final userFuture = ref.watch(providerOfSingleUserByIdFuture(userId!));
+  ConsumerState<PeamanUsersListItem> createState() =>
+      _PeamanUsersListItemState();
+}
+
+class _PeamanUsersListItemState extends ConsumerState<PeamanUsersListItem> {
+  @override
+  Widget build(BuildContext context) {
+    if ((widget.type == _Type.expandedByUid ||
+            widget.type == _Type.roundedByUid) &&
+        widget.userId != null) {
+      final userFuture =
+          ref.watch(providerOfSingleUserByIdFuture(widget.userId!));
       return userFuture.when(
         data: (data) {
           return data.when(
-            (success) => type == _Type.expandedByUid
+            (success) => widget.type == _Type.expandedByUid
                 ? _expandedBuilder(success)
                 : _roundedBuilder(success),
             (failure) => _loadingBuilder(),
@@ -90,10 +99,10 @@ class PeamanUsersListItem extends ConsumerWidget {
         error: (e, _) => _errorBuilder(e.toString()),
         loading: () => _loadingBuilder(),
       );
-    } else if (user != null) {
-      return type == _Type.expandedByUser
-          ? _expandedBuilder(user!)
-          : _roundedBuilder(user!);
+    } else if (widget.user != null) {
+      return widget.type == _Type.expandedByUser
+          ? _expandedBuilder(widget.user!)
+          : _roundedBuilder(widget.user!);
     }
 
     return Container();
@@ -114,16 +123,16 @@ class PeamanUsersListItem extends ConsumerWidget {
         ? user.country
         : user.bio;
     return InkWell(
-      onTap: () => onPressed?.call(user),
+      onTap: () => widget.onPressed?.call(context, ref, user),
       child: Padding(
-        padding: padding ??
+        padding: widget.padding ??
             const EdgeInsets.symmetric(
               vertical: 10.0,
               horizontal: 20.0,
             ),
         child: Row(
           children: [
-            avatarBuilder?.call(user) ??
+            widget.avatarBuilder?.call(context, ref, user) ??
                 PeamanAvatarBuilder.network(
                   user.photo,
                 ),
@@ -136,7 +145,7 @@ class PeamanUsersListItem extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      nameBuilder?.call(user) ??
+                      widget.nameBuilder?.call(context, ref, user) ??
                           PeamanText.subtitle1(
                             user.name,
                             style: const TextStyle(
@@ -148,7 +157,7 @@ class PeamanUsersListItem extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  captionBuilder?.call(user) ??
+                  widget.captionBuilder?.call(context, ref, user) ??
                       PeamanText.body2(
                         userBody,
                         limit: 60,
@@ -156,12 +165,12 @@ class PeamanUsersListItem extends ConsumerWidget {
                 ],
               ),
             ),
-            if (actionWidgetsBuilder != null)
+            if (widget.actionWidgetsBuilder != null)
               const SizedBox(
                 width: 10.0,
               ),
-            if (actionWidgetsBuilder != null)
-              ...(actionWidgetsBuilder?.call(user) ?? []),
+            if (widget.actionWidgetsBuilder != null)
+              ...(widget.actionWidgetsBuilder?.call(context, ref, user) ?? []),
           ],
         ),
       ),
@@ -170,21 +179,21 @@ class PeamanUsersListItem extends ConsumerWidget {
 
   Widget _roundedBuilder(final PeamanUser user) {
     return GestureDetector(
-      onTap: () => onPressed?.call(user),
+      onTap: () => widget.onPressed?.call(context, ref, user),
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(10.0),
+        padding: widget.padding ?? const EdgeInsets.all(10.0),
         child: Row(
           children: [
             Column(
               children: [
-                avatarBuilder?.call(user) ??
+                widget.avatarBuilder?.call(context, ref, user) ??
                     PeamanAvatarBuilder.network(
                       user.photo,
                     ),
                 const SizedBox(
                   height: 5.0,
                 ),
-                nameBuilder?.call(user) ??
+                widget.nameBuilder?.call(context, ref, user) ??
                     PeamanText.body2(
                       user.name,
                     ),

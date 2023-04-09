@@ -59,11 +59,12 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
   final EdgeInsets? initialItemPadding;
   final EdgeInsets? itemPadding;
   final double height;
-  final Widget Function(PeamanUser)? avatarBuilder;
-  final Widget Function(PeamanUser)? nameBuilder;
-  final Widget Function(PeamanUser)? captionBuilder;
-  final List<Widget> Function(PeamanUser)? actionWidgetsBuilder;
-  final Function(PeamanUser)? onPressedUser;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
+  final List<Widget> Function(BuildContext, WidgetRef, PeamanUser)?
+      actionWidgetsBuilder;
+  final Function(BuildContext, WidgetRef, PeamanUser)? onPressedUser;
   final Function()? onPressedSearch;
 
   @override
@@ -140,19 +141,19 @@ class _PeamanUsersListBottomsheetState
               ),
           physics: widget.physics,
           avatarBuilder: widget.avatarBuilder ??
-              (user) => PeamanAvatarBuilder.network(
+              (context, ref, user) => PeamanAvatarBuilder.network(
                     user.photo,
                     size: 45,
                   ),
           nameBuilder: widget.nameBuilder ??
-              (user) => PeamanText.subtitle2(
+              (context, ref, user) => PeamanText.subtitle2(
                     user.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-          captionBuilder:
-              widget.captionBuilder ?? (user) => PeamanText.caption(user.bio),
+          captionBuilder: widget.captionBuilder ??
+              (context, ref, user) => PeamanText.caption(user.bio),
           actionWidgetsBuilder: widget.actionWidgetsBuilder,
           onPressedUser: widget.onPressedUser,
         );
@@ -167,19 +168,20 @@ class _PeamanUsersListBottomsheetState
               ),
           physics: widget.physics,
           avatarBuilder: widget.avatarBuilder ??
-              (user) => PeamanAvatarBuilder.network(
+              (context, ref, user) => PeamanAvatarBuilder.network(
                     user.photo,
                     size: 45,
                   ),
           nameBuilder: widget.nameBuilder ??
-              (user) => PeamanText.subtitle2(
+              (context, ref, user) => PeamanText.subtitle2(
                     user.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-          captionBuilder:
-              widget.captionBuilder ?? (user) => PeamanText.caption(user.bio),
+          captionBuilder: (context, ref, user) =>
+              widget.captionBuilder?.call(context, ref, user) ??
+              PeamanText.caption(user.bio),
           actionWidgetsBuilder: widget.actionWidgetsBuilder,
           onPressedUser: widget.onPressedUser,
         );
