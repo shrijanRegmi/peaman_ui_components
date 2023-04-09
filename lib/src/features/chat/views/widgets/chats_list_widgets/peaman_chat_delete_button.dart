@@ -59,7 +59,7 @@ class PeamanChatDeleteButton extends ConsumerWidget {
           title: 'Are you sure you want to delete this chat?',
           description:
               'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${user?.name} can still see the messages.',
-          onConfirm: () {
+          onConfirm: (context, ref) {
             const successLogMessage = 'Successfully deleted chat';
             ref.read(providerOfPeamanChat.notifier).deleteChat(
                   chatId: chatId,

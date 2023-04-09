@@ -73,7 +73,7 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
                 showPeamanConfirmationDialog(
                   context: context,
                   title: 'Are you sure you want to logout?',
-                  onConfirm: () {
+                  onConfirm: (context, ref) {
                     ref.read(providerOfPeamanAuth.notifier).signOut();
                   },
                 );

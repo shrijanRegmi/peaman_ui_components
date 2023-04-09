@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanSelectableOptionsBottomsheet extends StatefulWidget {
+class PeamanSelectableOptionsBottomsheet extends ConsumerStatefulWidget {
   final int? activeIndex;
-  final List<PeamanSelectableOption> options;
-  final Function(PeamanSelectableOption)? onSelectOption;
+  final List<PeamanSelectableOption> Function(BuildContext, WidgetRef)
+      optionsBuilder;
+  final Function(BuildContext, WidgetRef, PeamanSelectableOption)?
+      onSelectOption;
   final bool radio;
+  final bool popNavigationOnSelect;
   final EdgeInsets? padding;
   final EdgeInsets? itemPadding;
   const PeamanSelectableOptionsBottomsheet({
     super.key,
     this.activeIndex,
-    required this.options,
+    required this.optionsBuilder,
     this.onSelectOption,
     this.radio = true,
+    this.popNavigationOnSelect = true,
     this.padding,
     this.itemPadding,
   });
 
   @override
-  State<PeamanSelectableOptionsBottomsheet> createState() =>
+  ConsumerState<PeamanSelectableOptionsBottomsheet> createState() =>
       _SelectableOptionsBottomsheetContentState();
 }
 
 class _SelectableOptionsBottomsheetContentState
-    extends State<PeamanSelectableOptionsBottomsheet> {
+    extends ConsumerState<PeamanSelectableOptionsBottomsheet> {
   int? _selectedValue;
 
   @override
@@ -35,12 +40,13 @@ class _SelectableOptionsBottomsheetContentState
 
   @override
   Widget build(BuildContext context) {
+    final options = widget.optionsBuilder(context, ref);
     return Padding(
       padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          for (int i = 0; i < widget.options.length; i++)
+          for (int i = 0; i < options.length; i++)
             !widget.radio
                 ? ListTile(
                     contentPadding: widget.itemPadding,
@@ -49,28 +55,27 @@ class _SelectableOptionsBottomsheetContentState
                         Expanded(
                           child: Row(
                             children: [
-                              if (widget.options[i].leading != null)
-                                widget.options[i].leading!,
-                              if (widget.options[i].leading != null)
+                              if (options[i].leading != null)
+                                options[i].leading!,
+                              if (options[i].leading != null)
                                 const SizedBox(
                                   width: 20.0,
                                 ),
-                              if (widget.options[i].title != null)
-                                Text(widget.options[i].title!),
+                              if (options[i].title != null)
+                                Text(options[i].title!),
                             ],
                           ),
                         ),
-                        if (widget.options[i].trailing != null)
+                        if (options[i].trailing != null)
                           const SizedBox(
                             width: 20.0,
                           ),
-                        if (widget.options[i].trailing != null)
-                          widget.options[i].trailing!,
+                        if (options[i].trailing != null) options[i].trailing!,
                       ],
                     ),
                     onTap: () {
-                      context.pop();
-                      widget.onSelectOption?.call(widget.options[i]);
+                      if (widget.popNavigationOnSelect) context.pop();
+                      widget.onSelectOption?.call(context, ref, options[i]);
                     },
                   )
                 : RadioListTile<int?>(
@@ -82,23 +87,22 @@ class _SelectableOptionsBottomsheetContentState
                         Expanded(
                           child: Row(
                             children: [
-                              if (widget.options[i].leading != null)
-                                widget.options[i].leading!,
-                              if (widget.options[i].leading != null)
+                              if (options[i].leading != null)
+                                options[i].leading!,
+                              if (options[i].leading != null)
                                 const SizedBox(
                                   width: 20.0,
                                 ),
-                              if (widget.options[i].title != null)
-                                Text(widget.options[i].title!),
+                              if (options[i].title != null)
+                                Text(options[i].title!),
                             ],
                           ),
                         ),
-                        if (widget.options[i].trailing != null)
+                        if (options[i].trailing != null)
                           const SizedBox(
                             width: 20.0,
                           ),
-                        if (widget.options[i].trailing != null)
-                          widget.options[i].trailing!,
+                        if (options[i].trailing != null) options[i].trailing!,
                       ],
                     ),
                     onChanged: (val) {
@@ -109,8 +113,8 @@ class _SelectableOptionsBottomsheetContentState
                       Future.delayed(
                         const Duration(milliseconds: 300),
                         () {
-                          context.pop();
-                          widget.onSelectOption?.call(widget.options[val ?? 0]);
+                          if (widget.popNavigationOnSelect) context.pop();
+                          widget.onSelectOption?.call(context, ref, options[i]);
                         },
                       );
                     },

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanConfirmationDialog extends StatelessWidget {
+class PeamanConfirmationDialog extends ConsumerWidget {
   final String title;
   final String? description;
-  final Function() onConfirm;
+  final Function(BuildContext, WidgetRef) onConfirm;
   const PeamanConfirmationDialog({
     super.key,
     required this.title,
@@ -14,7 +15,7 @@ class PeamanConfirmationDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.r),
@@ -59,7 +60,7 @@ class PeamanConfirmationDialog extends StatelessWidget {
                   value: 'Confirm',
                   onPressed: () {
                     context.pop();
-                    onConfirm();
+                    onConfirm(context, ref);
                   },
                 ),
               ),

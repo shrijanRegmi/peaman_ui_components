@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 Future<T?> showPeamanNormalBottomsheet<T>({
@@ -41,7 +42,7 @@ Future<T?> showPeamanNormalDialog<T>({
 Future<T?> showPeamanConfirmationDialog<T>({
   required final BuildContext context,
   required final String title,
-  required final Function() onConfirm,
+  required final Function(BuildContext, WidgetRef) onConfirm,
   final String? description,
 }) {
   return showCupertinoModalPopup<T>(
@@ -58,9 +59,12 @@ Future<T?> showPeamanConfirmationDialog<T>({
 
 Future<T?> showPeamanSelectableOptionsDialog<T>({
   required final BuildContext context,
-  required final List<PeamanSelectableOption> options,
-  final Function(PeamanSelectableOption)? onSelectOption,
+  required final List<PeamanSelectableOption> Function(BuildContext, WidgetRef)
+      optionsBuilder,
+  final Function(BuildContext, WidgetRef, PeamanSelectableOption)?
+      onSelectOption,
   final bool radio = true,
+  final bool popNavigationOnSelect = true,
   final double borderRadius = 0.0,
   final int? activeIndex,
   final EdgeInsets? padding,
@@ -70,10 +74,11 @@ Future<T?> showPeamanSelectableOptionsDialog<T>({
     context: context,
     borderRadius: borderRadius,
     widget: PeamanSelectableOptionsBottomsheet(
-      options: options,
+      optionsBuilder: optionsBuilder,
       activeIndex: activeIndex,
       onSelectOption: onSelectOption,
       radio: radio,
+      popNavigationOnSelect: popNavigationOnSelect,
       padding: padding,
       itemPadding: itemPadding,
     ),
@@ -82,8 +87,10 @@ Future<T?> showPeamanSelectableOptionsDialog<T>({
 
 Future<T?> showPeamanSelectableOptionsBottomsheet<T>({
   required final BuildContext context,
-  required final List<PeamanSelectableOption> options,
-  final Function(PeamanSelectableOption)? onSelectOption,
+  required final List<PeamanSelectableOption> Function(BuildContext, WidgetRef)
+      optionsBuilder,
+  final Function(BuildContext, WidgetRef, PeamanSelectableOption)?
+      onSelectOption,
   final bool radio = true,
   final double borderRadius = 0.0,
   final int? activeIndex,
@@ -94,7 +101,7 @@ Future<T?> showPeamanSelectableOptionsBottomsheet<T>({
     context: context,
     borderRadius: borderRadius,
     widget: PeamanSelectableOptionsBottomsheet(
-      options: options,
+      optionsBuilder: optionsBuilder,
       activeIndex: activeIndex,
       onSelectOption: onSelectOption,
       radio: radio,

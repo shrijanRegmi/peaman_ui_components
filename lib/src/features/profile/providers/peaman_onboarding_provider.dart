@@ -118,7 +118,7 @@ class PeamanOnboardingProvider
 
     return PeamanDialogProvider(context).showBottomSheet(
       widget: PeamanSelectableOptionsBottomsheet(
-        options: options,
+        optionsBuilder: (context, ref) => options,
         activeIndex: state.selectedGender == PeamanGender.male
             ? 0
             : state.selectedGender == PeamanGender.female
@@ -126,7 +126,7 @@ class PeamanOnboardingProvider
                 : state.selectedGender == PeamanGender.other
                     ? 2
                     : null,
-        onSelectOption: (option) {
+        onSelectOption: (context, ref, option) {
           late PeamanGender gender;
           switch (option.title) {
             case 'Male':

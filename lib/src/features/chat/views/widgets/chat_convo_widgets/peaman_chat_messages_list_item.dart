@@ -335,11 +335,6 @@ class _PeamanChatMessagesListItemState
   }
 
   Widget _senderInfoBuilder() {
-    final chatAdminId = ref.watch(
-      providerOfSinglePeamanChatFromChatsStream(widget.message.chatId!).select(
-        (value) => value?.chatRequestSenderId,
-      ),
-    );
     final senderFuture = ref.watch(
       providerOfSingleUserByIdFuture(widget.message.senderId!),
     );
@@ -372,60 +367,11 @@ class _PeamanChatMessagesListItemState
             ),
       onPressed: () {
         if (widget.message.senderId == _uid) return;
+
         showPeamanChatUserInfoDialog(
           context: context,
-          canRemoveMembers: chatAdminId == _uid,
-          onSelectOption: (val) {
-            switch (val.id) {
-              case 0:
-                context
-                  ..pop()
-                  ..pushNamed(
-                    PeamanChatConversationScreen.route,
-                    arguments: PeamanChatConversationArgs.byUserIds(
-                      userIds: [_uid, widget.message.senderId!]..sort(),
-                      chatType: PeamanChatType.oneToOne,
-                    ),
-                  );
-                break;
-              case 2:
-                showPeamanConfirmationDialog(
-                  context: context,
-                  title:
-                      'Are you sure you want to remove ${sender?.name} from this chat?',
-                  description:
-                      "${sender?.name} will neither be able to view new messages nor be able to send new messages to this chat until ${sender?.genderStringSubject} is added back to the chat.",
-                  onConfirm: () {
-                    final successLogMessage =
-                        '${sender?.name} has been removed from the chat';
-                    ref.read(providerOfPeamanChat.notifier).removeChatMembers(
-                        chatId: widget.message.chatId!,
-                        friendIds: [sender!.uid!],
-                        successLogMessage: successLogMessage);
-                  },
-                );
-                break;
-              case 3:
-                showPeamanConfirmationDialog(
-                  context: context,
-                  title:
-                      'Are you sure you want to add back ${sender?.name} to this chat?',
-                  description:
-                      "${sender?.name} will be able to view all the old messages and send new messages to this chat.",
-                  onConfirm: () {
-                    final successLogMessage =
-                        '${sender?.name} has been added back to the chat';
-                    ref.read(providerOfPeamanChat.notifier).addChatMembers(
-                          chatId: widget.message.chatId!,
-                          friendIds: [sender!.uid!],
-                          successLogMessage: successLogMessage,
-                        );
-                  },
-                );
-                break;
-              default:
-            }
-          },
+          chatId: widget.message.chatId!,
+          user: sender!,
         );
       },
     );

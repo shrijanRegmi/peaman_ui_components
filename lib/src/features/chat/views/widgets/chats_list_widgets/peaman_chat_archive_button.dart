@@ -55,7 +55,7 @@ class PeamanChatArchiveButton extends ConsumerWidget {
           title: 'Are you sure you want to archive this chat?',
           description:
               'This chat will not be shown in your chats list until you or ${user?.name} sends a new message to this chat.',
-          onConfirm: () {
+          onConfirm: (context, ref) {
             const successLogMessage = 'Successfully archived chat';
             ref.read(providerOfPeamanChat.notifier).archiveChat(
                   chatId: chatId,
