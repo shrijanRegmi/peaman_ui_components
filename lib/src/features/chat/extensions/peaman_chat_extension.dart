@@ -18,6 +18,9 @@ extension PeamanChatExt on PeamanChat {
   PeamanListWrapper<String> get hiddenUserIdsWrapper =>
       PeamanListWrapper<String>(values: hiddenToUserIds);
 
+  PeamanListWrapper<PeamanChatAddedBy> get addedBysWrapper =>
+      PeamanListWrapper<PeamanChatAddedBy>(values: addedBys);
+
   PeamanListWrapper<PeamanChatRemovedBy> get removedBysWrapper =>
       PeamanListWrapper<PeamanChatRemovedBy>(values: removedBys);
 }

@@ -47,6 +47,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             .select((value) => value!.mutedUntilsWrapper),
       );
 
+  PeamanListWrapper<PeamanChatAddedBy> get _chatAddedBysWrapper => ref.watch(
+        providerOfSinglePeamanChatFromChatsStream(widget.chatId)
+            .select((value) => value!.addedBysWrapper),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -150,17 +155,6 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   Widget _chatActionsSet1Builder() {
-    final chatUsers = _chatUsersFuture.maybeWhen(
-      data: (data) {
-        return data.when(
-          (success) => success,
-          (failure) => <PeamanUser>[],
-        );
-      },
-      orElse: () => <PeamanUser>[],
-    );
-
-    final firstChatUser = chatUsers.isEmpty ? null : chatUsers.first;
     return Column(
       children: [
         ListTile(
@@ -218,6 +212,31 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 widget: PeamanUsersListPopup.expandedByUids(
                   userIds: _chatUserIdsWrapper.values,
                   title: 'Group Members',
+                  captionBuilder: (user) {
+                    final addedBy = _chatAddedBysWrapper.values.firstWhere(
+                      (element) => element.uid == user.uid,
+                      orElse: PeamanChatAddedBy.new,
+                    );
+                    if (addedBy.addedBy != null) {
+                      final addedByFuture = ref.watch(
+                        providerOfSingleUserByIdFuture(addedBy.addedBy!),
+                      );
+                      final addedByName = addedByFuture.maybeWhen(
+                        data: (data) => data.when(
+                          (success) =>
+                              success.uid == _uid ? 'You' : success.name,
+                          (failure) => 'Unknown',
+                        ),
+                        loading: () => 'Loading...',
+                        orElse: () => 'Unknown',
+                      );
+                      return PeamanText.caption(
+                        'Added by $addedByName',
+                        limit: 60,
+                      );
+                    }
+                    return PeamanText.caption('');
+                  },
                   onPressedUser: (user) {
                     if (user.uid == _uid) return;
 
