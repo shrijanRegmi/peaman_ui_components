@@ -353,15 +353,15 @@ class _PeamanChatMessagesListItemState
       overlayWidget: _chatUserIdsWrapper.values.contains(sender?.uid)
           ? null
           : Positioned(
-              bottom: 3.h,
-              right: 3.w,
+              bottom: 5.h,
+              right: 4.w,
               child: PeamanRoundIconButton(
                 icon: Icon(
                   Icons.close,
                   color: PeamanColors.white,
-                  size: 12.w,
+                  size: 9.w,
                 ),
-                padding: EdgeInsets.all(2.w),
+                padding: EdgeInsets.all(1.5.w),
                 bgColor: PeamanColors.red,
               ),
             ),
