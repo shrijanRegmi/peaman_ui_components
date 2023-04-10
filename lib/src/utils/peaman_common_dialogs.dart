@@ -31,6 +31,7 @@ Future<T?> showPeamanNormalDialog<T>({
   return showDialog<T>(
     context: context,
     builder: (context) => Dialog(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius.r),
       ),

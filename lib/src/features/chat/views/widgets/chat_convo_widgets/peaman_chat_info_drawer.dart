@@ -212,6 +212,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 widget: PeamanUsersListPopup.expandedByUids(
                   userIds: _chatUserIdsWrapper.values,
                   title: 'Group Members',
+                  nameBuilder: (context, ref, user) => PeamanText.subtitle2(
+                    user.uid == _uid ? 'You' : user.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   captionBuilder: (context, ref, user) {
                     final addedBy = _chatAddedBysWrapper.values.firstWhere(
                       (element) => element.uid == user.uid,

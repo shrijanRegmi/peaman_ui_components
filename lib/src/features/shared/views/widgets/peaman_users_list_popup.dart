@@ -18,6 +18,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.itemPadding,
     this.searchType = PeamanSearchType.none,
     this.physics = const BouncingScrollPhysics(),
+    this.expandOnKeyboard = true,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -37,6 +38,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.searchType = PeamanSearchType.none,
+    this.expandOnKeyboard = true,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -54,6 +56,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
   final List<String> userIds;
   final List<PeamanUser> users;
   final PeamanSearchType searchType;
+  final bool expandOnKeyboard;
   final Axis scrollDirection;
   final ScrollPhysics physics;
   final EdgeInsets? initialItemPadding;
@@ -79,17 +82,35 @@ class _PeamanUsersListBottomsheetState
     return KeyboardVisibilityBuilder(
       builder: (context, visible) {
         return SizedBox(
-          height: visible
-              ? ScreenUtil().screenHeight - ScreenUtil().statusBarHeight
-              : 500.0,
+          height: visible && widget.expandOnKeyboard
+              ? ScreenUtil().screenHeight
+              : 450.h,
           child: SafeArea(
             child: Column(
               children: [
+                SizedBox(
+                  height: visible && widget.expandOnKeyboard
+                      ? ScreenUtil().statusBarHeight
+                      : 0.0,
+                ),
                 _headerBuilder().pX(20).pT(20).pB(15),
-                if (widget.searchType != PeamanSearchType.none)
-                  _searchBuilder().pB(10),
                 Expanded(
-                  child: _listBuilder(),
+                  child: widget.searchType == PeamanSearchType.none
+                      ? _listBuilder()
+                      : PeamanSearchBuilder<List<PeamanUser>>.users(
+                          searchType: widget.searchType,
+                          initialBuilder: (context, ref) => _listBuilder(),
+                          emptyBuilder: (context, ref) =>
+                              const PeamanEmptyBuilder(
+                            subTitle: 'No results found!',
+                          ),
+                          builder: (context, ref, users) {
+                            return _expandedByUsersListBuilder(users: users);
+                          },
+                        ),
+                ),
+                SizedBox(
+                  height: 20.h,
                 ),
               ],
             ),
@@ -121,73 +142,76 @@ class _PeamanUsersListBottomsheetState
     );
   }
 
-  Widget _searchBuilder() {
-    return const PeamanInput(
-      hintText: 'Search...',
-      height: 40.0,
-    );
-  }
-
   Widget _listBuilder() {
     switch (widget.type) {
       case _Type.expandedByUids:
-        return PeamanUsersList.expandedByUids(
-          userIds: widget.userIds,
-          initialItemPadding: widget.initialItemPadding,
-          itemPadding: widget.itemPadding ??
-              EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 6.h,
-              ),
-          physics: widget.physics,
-          avatarBuilder: widget.avatarBuilder ??
-              (context, ref, user) => PeamanAvatarBuilder.network(
-                    user.photo,
-                    size: 45,
-                  ),
-          nameBuilder: widget.nameBuilder ??
-              (context, ref, user) => PeamanText.subtitle2(
-                    user.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-          captionBuilder: widget.captionBuilder ??
-              (context, ref, user) => PeamanText.caption(user.bio),
-          actionWidgetsBuilder: widget.actionWidgetsBuilder,
-          onPressedUser: widget.onPressedUser,
-        );
+        return _expandedByUserIdsListBuilder();
       case _Type.expandedByUsers:
-        return PeamanUsersList.expandedByUsers(
-          users: widget.users,
-          initialItemPadding: widget.initialItemPadding,
-          itemPadding: widget.itemPadding ??
-              EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 6.h,
-              ),
-          physics: widget.physics,
-          avatarBuilder: widget.avatarBuilder ??
-              (context, ref, user) => PeamanAvatarBuilder.network(
-                    user.photo,
-                    size: 45,
-                  ),
-          nameBuilder: widget.nameBuilder ??
-              (context, ref, user) => PeamanText.subtitle2(
-                    user.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-          captionBuilder: (context, ref, user) =>
-              widget.captionBuilder?.call(context, ref, user) ??
-              PeamanText.caption(user.bio),
-          actionWidgetsBuilder: widget.actionWidgetsBuilder,
-          onPressedUser: widget.onPressedUser,
-        );
+        return _expandedByUsersListBuilder(users: widget.users);
       default:
     }
 
     return const SizedBox();
+  }
+
+  Widget _expandedByUserIdsListBuilder() {
+    return PeamanUsersList.expandedByUids(
+      userIds: widget.userIds,
+      initialItemPadding: widget.initialItemPadding,
+      itemPadding: widget.itemPadding ??
+          EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 6.h,
+          ),
+      physics: widget.physics,
+      avatarBuilder: widget.avatarBuilder ??
+          (context, ref, user) => PeamanAvatarBuilder.network(
+                user.photo,
+                size: 45,
+              ),
+      nameBuilder: widget.nameBuilder ??
+          (context, ref, user) => PeamanText.subtitle2(
+                user.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+      captionBuilder: widget.captionBuilder ??
+          (context, ref, user) => PeamanText.caption(user.bio),
+      actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      onPressedUser: widget.onPressedUser,
+    );
+  }
+
+  Widget _expandedByUsersListBuilder({
+    required final List<PeamanUser> users,
+  }) {
+    return PeamanUsersList.expandedByUsers(
+      users: users,
+      initialItemPadding: widget.initialItemPadding,
+      itemPadding: widget.itemPadding ??
+          EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 6.h,
+          ),
+      physics: widget.physics,
+      avatarBuilder: widget.avatarBuilder ??
+          (context, ref, user) => PeamanAvatarBuilder.network(
+                user.photo,
+                size: 45,
+              ),
+      nameBuilder: widget.nameBuilder ??
+          (context, ref, user) => PeamanText.subtitle2(
+                user.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+      captionBuilder: (context, ref, user) =>
+          widget.captionBuilder?.call(context, ref, user) ??
+          PeamanText.caption(user.bio),
+      actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      onPressedUser: widget.onPressedUser,
+    );
   }
 }
