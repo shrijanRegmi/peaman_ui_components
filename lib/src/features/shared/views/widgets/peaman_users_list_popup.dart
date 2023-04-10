@@ -19,6 +19,8 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.searchType = PeamanSearchType.none,
     this.physics = const BouncingScrollPhysics(),
     this.expandOnKeyboard = true,
+    this.filterBuilder,
+    this.searchFilterBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -39,6 +41,8 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.physics = const BouncingScrollPhysics(),
     this.searchType = PeamanSearchType.none,
     this.expandOnKeyboard = true,
+    this.filterBuilder,
+    this.searchFilterBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -62,6 +66,10 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
   final EdgeInsets? initialItemPadding;
   final EdgeInsets? itemPadding;
   final double height;
+  final List<PeamanUser> Function(BuildContext, WidgetRef, List<PeamanUser>)?
+      filterBuilder;
+  final List<PeamanUser> Function(BuildContext, WidgetRef, List<PeamanUser>)?
+      searchFilterBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
@@ -99,6 +107,7 @@ class _PeamanUsersListBottomsheetState
                       ? _listBuilder()
                       : PeamanSearchBuilder<List<PeamanUser>>.users(
                           searchType: widget.searchType,
+                          filterBuilder: widget.searchFilterBuilder,
                           initialBuilder: (context, ref) => _listBuilder(),
                           emptyBuilder: (context, ref) =>
                               const PeamanEmptyBuilder(
@@ -147,7 +156,14 @@ class _PeamanUsersListBottomsheetState
       case _Type.expandedByUids:
         return _expandedByUserIdsListBuilder();
       case _Type.expandedByUsers:
-        return _expandedByUsersListBuilder(users: widget.users);
+        return _expandedByUsersListBuilder(
+          users: widget.filterBuilder?.call(
+                context,
+                ref,
+                widget.users,
+              ) ??
+              widget.users,
+        );
       default:
     }
 

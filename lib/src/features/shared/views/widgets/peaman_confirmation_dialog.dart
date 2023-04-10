@@ -17,6 +17,7 @@ class PeamanConfirmationDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Dialog(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.r),
       ),
@@ -51,6 +52,11 @@ class PeamanConfirmationDialog extends ConsumerWidget {
               Expanded(
                 child: PeamanButton.bordered(
                   value: 'Cancel',
+                  borderSide: BorderSide(
+                    color: context.isDarkMode
+                        ? PeamanColors.lightGrey
+                        : PeamanColors.primary,
+                  ),
                   onPressed: () => context.pop(),
                 ),
               ),

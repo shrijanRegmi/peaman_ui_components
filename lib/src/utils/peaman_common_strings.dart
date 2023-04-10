@@ -47,4 +47,24 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
+  static confirmationTitleAddToChat({
+    required final PeamanUser user,
+  }) {
+    return 'Are you sure you want to add ${user.name} to this chat?';
+  }
+
+  static confirmationDescAddToChat({
+    required final PeamanUser user,
+  }) {
+    return '${user.name} will be able to view all the old messages and send new messages to this chat.';
+  }
+
+  static successLogAddedToChat({
+    required final PeamanUser user,
+  }) {
+    return '${user.name} has been added to the chat';
+  }
+
+///////////////////////////////////////////////
+
 }

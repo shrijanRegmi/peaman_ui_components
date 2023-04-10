@@ -590,7 +590,49 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             padding: EdgeInsets.all(9.w),
             bgColor: PeamanColors.extraLightGrey.withOpacity(0.2),
-            onPressed: () {},
+            onPressed: () {
+              showPeamanNormalBottomsheet(
+                context: context,
+                borderRadius: 15,
+                widget: PeamanUsersListPopup.expandedByUids(
+                  title: 'Add Members',
+                  searchFilterBuilder: (context, ref, users) => users
+                      .where(
+                        (element) => !_chatUserIdsWrapper.values.contains(
+                          element.uid,
+                        ),
+                      )
+                      .toList(),
+                  searchType: PeamanSearchType.global,
+                  userIds: const [],
+                  onPressedUser: (context, ref, user) {
+                    context.pop();
+
+                    showPeamanConfirmationDialog(
+                      context: context,
+                      title: PeamanCommonStrings.confirmationTitleAddToChat(
+                        user: user,
+                      ),
+                      description:
+                          PeamanCommonStrings.confirmationDescAddToChat(
+                        user: user,
+                      ),
+                      onConfirm: (context, ref) {
+                        final successLogMessage =
+                            PeamanCommonStrings.successLogAddedToChat(
+                          user: user,
+                        );
+                        ref.read(providerOfPeamanChat.notifier).addChatMembers(
+                              chatId: widget.chatId,
+                              friendIds: [user.uid!],
+                              successLogMessage: successLogMessage,
+                            );
+                      },
+                    );
+                  },
+                ),
+              );
+            },
           ),
           SizedBox(
             width: 10.w,

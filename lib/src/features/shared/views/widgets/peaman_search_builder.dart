@@ -11,6 +11,7 @@ class PeamanSearchBuilder<T> extends StatefulHookConsumerWidget {
     super.key,
     required this.builder,
     this.searchType = PeamanSearchType.global,
+    this.filterBuilder,
     this.initialBuilder,
     this.loadingBuilder,
     this.emptyBuilder,
@@ -21,6 +22,7 @@ class PeamanSearchBuilder<T> extends StatefulHookConsumerWidget {
   final PeamanSearchType searchType;
 
   final Widget Function(BuildContext, WidgetRef, T) builder;
+  final T Function(BuildContext, WidgetRef, T)? filterBuilder;
   final Widget Function(BuildContext, WidgetRef)? initialBuilder;
   final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
   final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
@@ -80,13 +82,20 @@ class _PeamanSearchBuilderState<T>
             return usersFuture.when(
               data: (data) => data.when(
                 (success) {
-                  if (success.isEmpty) {
+                  final users = (widget.filterBuilder?.call(
+                        context,
+                        ref,
+                        success as T,
+                      ) as List<PeamanUser>?) ??
+                      success;
+
+                  if (users.isEmpty) {
                     if (_controller.text.trim().isEmpty) {
                       return widget.initialBuilder?.call(context, ref);
                     }
                     return widget.emptyBuilder?.call(context, ref);
                   }
-                  return widget.builder(context, ref, success as T);
+                  return widget.builder(context, ref, users as T);
                 },
                 (failure) =>
                     widget.errorBuilder?.call(context, ref, failure) ??
