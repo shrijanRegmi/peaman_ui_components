@@ -21,6 +21,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.expandOnKeyboard = true,
     this.filterBuilder,
     this.searchFilterBuilder,
+    this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -43,6 +44,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.expandOnKeyboard = true,
     this.filterBuilder,
     this.searchFilterBuilder,
+    this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -70,6 +72,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
       filterBuilder;
   final List<PeamanUser> Function(BuildContext, WidgetRef, List<PeamanUser>)?
       searchFilterBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? itemBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
@@ -173,13 +176,13 @@ class _PeamanUsersListBottomsheetState
   Widget _expandedByUserIdsListBuilder() {
     return PeamanUsersList.expandedByUids(
       userIds: widget.userIds,
+      physics: widget.physics,
       initialItemPadding: widget.initialItemPadding,
       itemPadding: widget.itemPadding ??
           EdgeInsets.symmetric(
             horizontal: 20.w,
             vertical: 6.h,
           ),
-      physics: widget.physics,
       avatarBuilder: widget.avatarBuilder ??
           (context, ref, user) => PeamanAvatarBuilder.network(
                 user.photo,

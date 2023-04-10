@@ -15,6 +15,7 @@ class PeamanUsersListItem extends ConsumerStatefulWidget {
   final String? userId;
   final PeamanUser? user;
   final EdgeInsets? padding;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? itemBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
@@ -26,6 +27,7 @@ class PeamanUsersListItem extends ConsumerStatefulWidget {
     Key? key,
     required this.userId,
     this.padding,
+    this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -39,6 +41,7 @@ class PeamanUsersListItem extends ConsumerStatefulWidget {
     Key? key,
     required this.user,
     this.padding,
+    this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.captionBuilder,
@@ -52,6 +55,7 @@ class PeamanUsersListItem extends ConsumerStatefulWidget {
     Key? key,
     required this.userId,
     this.padding,
+    this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.onPressed,
@@ -65,6 +69,7 @@ class PeamanUsersListItem extends ConsumerStatefulWidget {
     Key? key,
     required this.user,
     this.padding,
+    this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
     this.onPressed,
@@ -122,86 +127,89 @@ class _PeamanUsersListItemState extends ConsumerState<PeamanUsersListItem> {
     final userBody = user.bio.isNull || (user.bio?.isEmpty ?? true)
         ? user.country
         : user.bio;
-    return InkWell(
-      onTap: () => widget.onPressed?.call(context, ref, user),
-      child: Padding(
-        padding: widget.padding ??
-            const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 20.0,
-            ),
-        child: Row(
-          children: [
-            widget.avatarBuilder?.call(context, ref, user) ??
-                PeamanAvatarBuilder.network(
-                  user.photo,
+    return widget.itemBuilder?.call(context, ref, user) ??
+        InkWell(
+          onTap: () => widget.onPressed?.call(context, ref, user),
+          child: Padding(
+            padding: widget.padding ??
+                const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 20.0,
                 ),
-            const SizedBox(
-              width: 15.0,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      widget.nameBuilder?.call(context, ref, user) ??
-                          PeamanText.subtitle1(
-                            user.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                    ],
-                  ),
-                  widget.captionBuilder?.call(context, ref, user) ??
-                      PeamanText.body2(
-                        userBody,
-                        limit: 60,
-                      ),
-                ],
-              ),
-            ),
-            if (widget.actionWidgetsBuilder != null)
-              const SizedBox(
-                width: 10.0,
-              ),
-            if (widget.actionWidgetsBuilder != null)
-              ...(widget.actionWidgetsBuilder?.call(context, ref, user) ?? []),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _roundedBuilder(final PeamanUser user) {
-    return GestureDetector(
-      onTap: () => widget.onPressed?.call(context, ref, user),
-      child: Padding(
-        padding: widget.padding ?? const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            Column(
+            child: Row(
               children: [
                 widget.avatarBuilder?.call(context, ref, user) ??
                     PeamanAvatarBuilder.network(
                       user.photo,
                     ),
                 const SizedBox(
-                  height: 5.0,
+                  width: 15.0,
                 ),
-                widget.nameBuilder?.call(context, ref, user) ??
-                    PeamanText.body2(
-                      user.name,
-                    ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          widget.nameBuilder?.call(context, ref, user) ??
+                              PeamanText.subtitle1(
+                                user.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                          const SizedBox(
+                            width: 5.0,
+                          ),
+                        ],
+                      ),
+                      widget.captionBuilder?.call(context, ref, user) ??
+                          PeamanText.body2(
+                            userBody,
+                            limit: 60,
+                          ),
+                    ],
+                  ),
+                ),
+                if (widget.actionWidgetsBuilder != null)
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                if (widget.actionWidgetsBuilder != null)
+                  ...(widget.actionWidgetsBuilder?.call(context, ref, user) ??
+                      []),
               ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+  }
+
+  Widget _roundedBuilder(final PeamanUser user) {
+    return widget.itemBuilder?.call(context, ref, user) ??
+        GestureDetector(
+          onTap: () => widget.onPressed?.call(context, ref, user),
+          child: Padding(
+            padding: widget.padding ?? const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    widget.avatarBuilder?.call(context, ref, user) ??
+                        PeamanAvatarBuilder.network(
+                          user.photo,
+                        ),
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    widget.nameBuilder?.call(context, ref, user) ??
+                        PeamanText.body2(
+                          user.name,
+                        ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
   }
 }
