@@ -2,15 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatMessagesList extends ConsumerWidget {
+class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final String chatId;
   final List<String> receiverIds;
   final List<PeamanChatMessage>? messages;
   final ScrollController? controller;
   final Widget? loadingWidget;
   final Widget? emptyWidget;
-  final Widget Function(BuildContext, int)? itemBuilder;
-  final Widget Function(BuildContext, List<PeamanChatMessage>)? listBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      itemBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      sentMessageBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      receivedMessageBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      dividerBuilder;
+  final Widget Function(BuildContext, WidgetRef, List<PeamanChatMessage>)?
+      listBuilder;
   final Function(PeamanChatMessage, List<String>, Function())? onPressedMessage;
   final Function(PeamanChatMessage, List<String>, Function())?
       onLongPressedMessage;
@@ -25,6 +34,10 @@ class PeamanChatMessagesList extends ConsumerWidget {
     this.loadingWidget,
     this.emptyWidget,
     this.itemBuilder,
+    this.sentMessageBuilder,
+    this.receivedMessageBuilder,
+    this.senderInfoBuilder,
+    this.dividerBuilder,
     this.listBuilder,
     this.onPressedMessage,
     this.onLongPressedMessage,
@@ -32,14 +45,21 @@ class PeamanChatMessagesList extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (messages != null) {
-      if (messages!.isEmpty) return _emptyBuilder();
-      return _dataBuilder(context, messages!);
+  ConsumerState<PeamanChatMessagesList> createState() =>
+      _PeamanChatMessagesListState();
+}
+
+class _PeamanChatMessagesListState
+    extends ConsumerState<PeamanChatMessagesList> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.messages != null) {
+      if (widget.messages!.isEmpty) return _emptyBuilder();
+      return _dataBuilder(context, widget.messages!);
     }
 
     final messagesStream = ref.watch(
-      providerOfPeamanChatMessagesStream(chatId),
+      providerOfPeamanChatMessagesStream(widget.chatId),
     );
     return messagesStream.when(
       data: (data) {
@@ -47,7 +67,9 @@ class PeamanChatMessagesList extends ConsumerWidget {
           providerOfPeamanChat.select((value) => value.tempMessages),
         );
         final messages = [
-          ...tempMessages.where((element) => element.chatId == chatId).toList(),
+          ...tempMessages
+              .where((element) => element.chatId == widget.chatId)
+              .toList(),
           ...data
         ];
         if (messages.isEmpty) return _emptyBuilder();
@@ -62,55 +84,59 @@ class PeamanChatMessagesList extends ConsumerWidget {
     final BuildContext context,
     final List<PeamanChatMessage> messages,
   ) {
-    return listBuilder?.call(context, messages) ??
+    return widget.listBuilder?.call(context, ref, messages) ??
         ListView.separated(
           itemCount: messages.length,
           physics: const BouncingScrollPhysics(),
           reverse: true,
-          controller: controller,
-          itemBuilder: itemBuilder ??
-              (context, index) {
-                final message = messages[index];
-                final messageDate = DateTime.fromMillisecondsSinceEpoch(
-                  message.updatedAt!,
-                );
+          controller: widget.controller,
+          itemBuilder: (context, index) {
+            final message = messages[index];
+            final messageDate = DateTime.fromMillisecondsSinceEpoch(
+              message.updatedAt!,
+            );
 
-                final nextMessageIndex = index <= 0 ? index : index - 1;
-                final nextMessage = messages[nextMessageIndex];
-                final nextMessageDate = DateTime.fromMillisecondsSinceEpoch(
-                  nextMessage.updatedAt!,
-                );
+            final nextMessageIndex = index <= 0 ? index : index - 1;
+            final nextMessage = messages[nextMessageIndex];
+            final nextMessageDate = DateTime.fromMillisecondsSinceEpoch(
+              nextMessage.updatedAt!,
+            );
 
-                // get the time difference between two messages
-                final difference = nextMessageDate.difference(messageDate);
+            // get the time difference between two messages
+            final difference = nextMessageDate.difference(messageDate);
 
-                final widget = PeamanChatMessagesListItem(
-                  message: message,
-                  nextMessage: nextMessage,
-                  receiverIds: receiverIds,
-                  isMessagesSentOnSameHour: difference.inMinutes < 60,
-                  isFirstMessage: index == (messages.length - 1),
-                  isLastMessage: index == 0,
-                  onPressed: (message) =>
-                      onPressedMessage?.call(message, receiverIds, () {}),
-                  onLongPressed: (message) =>
-                      onLongPressedMessage?.call(
-                        message,
-                        receiverIds,
-                        () => _showMessageLongPressBottomsheet(message),
-                      ) ??
-                      _showMessageLongPressBottomsheet(message),
-                  onSwipped: (message) =>
-                      onSwippedMessage?.call(message, receiverIds, () {}),
-                );
-                if (index == 0) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: widget,
-                  );
-                }
-                return widget;
-              },
+            final thisWidget =
+                widget.itemBuilder?.call(context, ref, message) ??
+                    PeamanChatMessagesListItem(
+                      message: message,
+                      nextMessage: nextMessage,
+                      receiverIds: widget.receiverIds,
+                      isMessagesSentOnSameHour: difference.inMinutes < 60,
+                      isFirstMessage: index == (messages.length - 1),
+                      isLastMessage: index == 0,
+                      sentMessageBuilder: widget.sentMessageBuilder,
+                      receivedMessageBuilder: widget.sentMessageBuilder,
+                      senderInfoBuilder: widget.senderInfoBuilder,
+                      onPressed: (message) => widget.onPressedMessage
+                          ?.call(message, widget.receiverIds, () {}),
+                      onLongPressed: (message) =>
+                          widget.onLongPressedMessage?.call(
+                            message,
+                            widget.receiverIds,
+                            () => _showMessageLongPressBottomsheet(message),
+                          ) ??
+                          _showMessageLongPressBottomsheet(message),
+                      onSwipped: (message) => widget.onSwippedMessage
+                          ?.call(message, widget.receiverIds, () {}),
+                    );
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: thisWidget,
+              );
+            }
+            return thisWidget;
+          },
           separatorBuilder: (context, index) {
             var prevMessageIndex = index + 1;
 
@@ -132,19 +158,20 @@ class PeamanChatMessagesList extends ConsumerWidget {
               return const SizedBox();
             }
 
-            return PeamanChatMessagesDivider(
-              message: message,
-            );
+            return widget.dividerBuilder?.call(context, ref, message) ??
+                PeamanChatMessagesDivider(
+                  message: message,
+                );
           },
         );
   }
 
   Widget _emptyBuilder() {
-    return emptyWidget ?? const SizedBox();
+    return widget.emptyWidget ?? const SizedBox();
   }
 
   Widget _loadingBuilder() {
-    return loadingWidget ?? const PeamanSpinner();
+    return widget.loadingWidget ?? const PeamanSpinner();
   }
 
   Widget _errorBuilder(final String message) {

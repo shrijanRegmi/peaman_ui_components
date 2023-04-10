@@ -13,6 +13,11 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   final bool isMessagesSentOnSameHour;
   final bool isFirstMessage;
   final bool isLastMessage;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      sentMessageBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      receivedMessageBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
   final Function(PeamanChatMessage)? onPressed;
   final Function(PeamanChatMessage)? onLongPressed;
   final Function(PeamanChatMessage)? onSwipped;
@@ -22,6 +27,9 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
     required this.message,
     required this.nextMessage,
     required this.receiverIds,
+    this.sentMessageBuilder,
+    this.receivedMessageBuilder,
+    this.senderInfoBuilder,
     this.isMessagesSentOnSameHour = false,
     this.isFirstMessage = false,
     this.isLastMessage = false,
@@ -139,6 +147,24 @@ class _PeamanChatMessagesListItemState
   Widget _messageBuilder() {
     final isWhiteBgRequired = _isWhiteBgRequired();
     final isGapRequired = _isGapBetweenMessagesRequired();
+
+    Widget? thisWidget;
+
+    if (widget.message.senderId == _uid) {
+      thisWidget = widget.sentMessageBuilder?.call(
+        context,
+        ref,
+        widget.message,
+      );
+    } else {
+      thisWidget = widget.receivedMessageBuilder?.call(
+        context,
+        ref,
+        widget.message,
+      );
+    }
+
+    if (thisWidget != null) return thisWidget;
 
     return Container(
       padding: EdgeInsets.all(
@@ -347,34 +373,35 @@ class _PeamanChatMessagesListItemState
       },
       orElse: () => null,
     );
-    return PeamanAvatarBuilder.network(
-      sender?.photo,
-      opacity: _chatUserIdsWrapper.values.contains(sender?.uid) ? 1.0 : 0.5,
-      overlayWidget: _chatUserIdsWrapper.values.contains(sender?.uid)
-          ? null
-          : Positioned(
-              bottom: 5.h,
-              right: 4.w,
-              child: PeamanRoundIconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: PeamanColors.white,
-                  size: 9.w,
+    return widget.senderInfoBuilder?.call(context, ref, sender!) ??
+        PeamanAvatarBuilder.network(
+          sender?.photo,
+          opacity: _chatUserIdsWrapper.values.contains(sender?.uid) ? 1.0 : 0.5,
+          overlayWidget: _chatUserIdsWrapper.values.contains(sender?.uid)
+              ? null
+              : Positioned(
+                  bottom: 5.h,
+                  right: 4.w,
+                  child: PeamanRoundIconButton(
+                    icon: Icon(
+                      Icons.close,
+                      color: PeamanColors.white,
+                      size: 9.w,
+                    ),
+                    padding: EdgeInsets.all(1.5.w),
+                    bgColor: PeamanColors.red,
+                  ),
                 ),
-                padding: EdgeInsets.all(1.5.w),
-                bgColor: PeamanColors.red,
-              ),
-            ),
-      onPressed: () {
-        if (widget.message.senderId == _uid) return;
+          onPressed: () {
+            if (widget.message.senderId == _uid) return;
 
-        showPeamanChatUserInfoDialog(
-          context: context,
-          chatId: widget.message.chatId!,
-          user: sender!,
+            showPeamanChatUserInfoDialog(
+              context: context,
+              chatId: widget.message.chatId!,
+              user: sender!,
+            );
+          },
         );
-      },
-    );
   }
 
   double _getPictureSize() {

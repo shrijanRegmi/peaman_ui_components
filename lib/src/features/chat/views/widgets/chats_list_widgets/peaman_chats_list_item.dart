@@ -8,12 +8,23 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class PeamanChatsListItem extends ConsumerStatefulWidget {
   final PeamanChat chat;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? avatarBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? bodyBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? dateBuilder;
+  final List<Widget> Function(BuildContext, WidgetRef, PeamanChat)?
+      actionWidgetsBuilder;
   final Function(PeamanChat)? onPressed;
   final Function(PeamanChat)? onLongPressed;
 
   const PeamanChatsListItem({
     super.key,
     required this.chat,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.actionWidgetsBuilder,
     this.onPressed,
     this.onLongPressed,
   });
@@ -159,24 +170,26 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
       endActionPane: ActionPane(
         extentRatio: 0.5,
         motion: const ScrollMotion(),
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: PeamanChatArchiveButton(
-                    chatId: _chat.id!,
+        children:
+            widget.actionWidgetsBuilder?.call(context, ref, widget.chat) ??
+                [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: PeamanChatArchiveButton(
+                            chatId: _chat.id!,
+                          ),
+                        ),
+                        Expanded(
+                          child: PeamanChatDeleteButton(
+                            chatId: _chat.id!,
+                          ),
+                        ),
+                      ],
+                    ).pL(10),
                   ),
-                ),
-                Expanded(
-                  child: PeamanChatDeleteButton(
-                    chatId: _chat.id!,
-                  ),
-                ),
-              ],
-            ).pL(10),
-          ),
-        ],
+                ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,49 +242,52 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
       children: [
         Row(
           children: [
-            users.isEmpty || !_chat.activeUserIds.contains(_uid)
-                ? PeamanAvatarBuilder.asset(
-                    const PeamanUser().genderStringImage,
-                    package: 'peaman_ui_components',
-                    size: 45.0,
-                    onPressed: () {},
-                  )
-                : PeamanAvatarBuilder.multiNetwork(
-                    avatars,
-                    size: 45.0,
-                    onPressed: () {},
-                  ),
+            widget.avatarBuilder?.call(context, ref, widget.chat) ??
+                (users.isEmpty || !_chat.activeUserIds.contains(_uid)
+                    ? PeamanAvatarBuilder.asset(
+                        const PeamanUser().genderStringImage,
+                        package: 'peaman_ui_components',
+                        size: 45.0,
+                        onPressed: () {},
+                      )
+                    : PeamanAvatarBuilder.multiNetwork(
+                        avatars,
+                        size: 45.0,
+                        onPressed: () {},
+                      )),
             SizedBox(
               width: avatars.length >= 3 ? 10.0 : 5.0,
             ),
+            widget.titleBuilder?.call(context, ref, widget.chat) ??
+                PeamanText.body2(
+                  users.isEmpty || !_chat.activeUserIds.contains(_uid)
+                      ? 'Unknown Conversation'
+                      : remaining == 0
+                          ? _chat.type == PeamanChatType.group
+                              ? 'You and ${users.first.name}'
+                              : '${users.first.name}'
+                          : 'You, ${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: PeamanColors.grey,
+                  ),
+                ),
+          ],
+        ),
+        widget.dateBuilder?.call(context, ref, widget.chat) ??
             PeamanText.body2(
-              users.isEmpty || !_chat.activeUserIds.contains(_uid)
-                  ? 'Unknown Conversation'
-                  : remaining == 0
-                      ? _chat.type == PeamanChatType.group
-                          ? 'You and ${users.first.name}'
-                          : '${users.first.name}'
-                      : 'You, ${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+              timeago.format(
+                DateTime.fromMillisecondsSinceEpoch(
+                  _chat.updatedAt!,
+                ),
+              ),
               style: const TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,
                 color: PeamanColors.grey,
               ),
             ),
-          ],
-        ),
-        PeamanText.body2(
-          timeago.format(
-            DateTime.fromMillisecondsSinceEpoch(
-              _chat.updatedAt!,
-            ),
-          ),
-          style: const TextStyle(
-            fontSize: 12.0,
-            fontWeight: FontWeight.bold,
-            color: PeamanColors.grey,
-          ),
-        ),
       ],
     );
   }
@@ -318,23 +334,24 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
           orElse: PeamanChatUnreadMessage.new,
         )
         .unreadMessagesCount;
-    return Row(
-      children: [
-        Expanded(
-          child: PeamanText.heading6(
-            messageText,
-            limit: 65,
-            style: TextStyle(
-              fontFamily: GoogleFonts.raleway().fontFamily,
-              height: 1.5,
-              fontWeight:
-                  unreadCount == 0 ? FontWeight.normal : FontWeight.bold,
+    return widget.bodyBuilder?.call(context, ref, widget.chat) ??
+        Row(
+          children: [
+            Expanded(
+              child: PeamanText.heading6(
+                messageText,
+                limit: 65,
+                style: TextStyle(
+                  fontFamily: GoogleFonts.raleway().fontFamily,
+                  height: 1.5,
+                  fontWeight:
+                      unreadCount == 0 ? FontWeight.normal : FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
-        if (message.senderId != uid) _countBuilder(count: unreadCount),
-      ],
-    );
+            if (message.senderId != uid) _countBuilder(count: unreadCount),
+          ],
+        );
   }
 
   Widget _countBuilder({

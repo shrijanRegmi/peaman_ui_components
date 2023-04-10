@@ -7,8 +7,14 @@ class PeamanChatsList extends ConsumerStatefulWidget {
   final ScrollController? controller;
   final Widget? loadingWidget;
   final Widget? emptyWidget;
-  final Widget Function(BuildContext, int)? itemBuilder;
-  final Widget Function(BuildContext, List<PeamanChat>)? listBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? itemBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? avatarBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? bodyBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? dateBuilder;
+  final List<Widget> Function(BuildContext, WidgetRef, PeamanChat)?
+      actionWidgetsBuilder;
+  final Widget Function(BuildContext, WidgetRef, List<PeamanChat>)? listBuilder;
   final Function(PeamanChat, Function())? onPressedChat;
   final Function(PeamanChat, Function())? onLongPressedChat;
 
@@ -19,6 +25,11 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     this.loadingWidget,
     this.emptyWidget,
     this.itemBuilder,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.actionWidgetsBuilder,
     this.listBuilder,
     this.onPressedChat,
     this.onLongPressedChat,
@@ -58,34 +69,37 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
     final BuildContext context,
     final List<PeamanChat> chats,
   ) {
-    return widget.listBuilder?.call(context, chats) ??
+    return widget.listBuilder?.call(context, ref, chats) ??
         ListView.builder(
           itemCount: chats.length,
           physics: const BouncingScrollPhysics(),
-          itemBuilder: widget.itemBuilder ??
-              (context, index) {
-                final chat = chats[index];
-                final chatItemWidget = PeamanChatsListItem(
-                  chat: chat,
-                  onPressed: (chat) =>
-                      widget.onPressedChat?.call(
-                        chat,
-                        () => _gotoChatConvoScreen(context, chat),
-                      ) ??
-                      _gotoChatConvoScreen(context, chat),
-                  onLongPressed: (chat) =>
-                      widget.onLongPressedChat?.call(chat, () {}),
-                );
+          itemBuilder: (context, index) {
+            final chat = chats[index];
 
-                if (index == 0) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: chatItemWidget,
-                  );
-                }
+            final chatItemWidget =
+                widget.itemBuilder?.call(context, ref, chat) ??
+                    PeamanChatsListItem(
+                      chat: chat,
+                      actionWidgetsBuilder: widget.actionWidgetsBuilder,
+                      onPressed: (chat) =>
+                          widget.onPressedChat?.call(
+                            chat,
+                            () => _gotoChatConvoScreen(context, chat),
+                          ) ??
+                          _gotoChatConvoScreen(context, chat),
+                      onLongPressed: (chat) =>
+                          widget.onLongPressedChat?.call(chat, () {}),
+                    );
 
-                return chatItemWidget;
-              },
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: chatItemWidget,
+              );
+            }
+
+            return chatItemWidget;
+          },
         );
   }
 
