@@ -9,6 +9,9 @@ class PeamanTheme {
     return ThemeData(
       brightness: _brightness,
       fontFamily: GoogleFonts.nunito().fontFamily,
+      floatingActionButtonTheme: ThemeData().floatingActionButtonTheme.copyWith(
+            foregroundColor: PeamanColors.white,
+          ),
     );
   }
 
@@ -80,6 +83,10 @@ class PeamanTheme {
         fillColor: PeamanColors.containerBgDark,
         prefixIconColor: PeamanColors.grey,
         suffixIconColor: PeamanColors.black,
+      ),
+      floatingActionButtonTheme:
+          _defaultTheme.floatingActionButtonTheme.copyWith(
+        foregroundColor: PeamanColors.white70,
       ),
     );
   }
