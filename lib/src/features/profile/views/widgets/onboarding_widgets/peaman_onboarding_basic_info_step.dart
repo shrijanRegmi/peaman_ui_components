@@ -78,18 +78,21 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: profilePicture != null ? null : PeamanColors.extraLightGrey,
-        image: profilePicture.isNull
-            ? null
-            : DecorationImage(
-                image: profilePicture!.isLocal
-                    ? FileImage(
-                        File(profilePicture!.url),
-                      ) as ImageProvider
-                    : CachedNetworkImageProvider(
-                        profilePicture!.url,
-                      ),
-                fit: BoxFit.cover,
-              ),
+        image: DecorationImage(
+          image: profilePicture.isNull
+              ? const AssetImage(
+                  'assets/images/avatar_unknown.png',
+                  package: 'peaman_ui_components',
+                )
+              : profilePicture!.isLocal
+                  ? FileImage(
+                      File(profilePicture!.url),
+                    ) as ImageProvider
+                  : CachedNetworkImageProvider(
+                      profilePicture!.url,
+                    ),
+          fit: BoxFit.cover,
+        ),
       ),
     );
 
