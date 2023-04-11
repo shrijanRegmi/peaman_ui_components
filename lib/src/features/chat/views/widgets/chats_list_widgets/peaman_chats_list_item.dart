@@ -12,6 +12,7 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? bodyBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? dateBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? counterBuilder;
   final List<Widget> Function(BuildContext, WidgetRef, PeamanChat)?
       actionWidgetsBuilder;
   final Function(PeamanChat)? onPressed;
@@ -24,6 +25,7 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
     this.titleBuilder,
     this.bodyBuilder,
     this.dateBuilder,
+    this.counterBuilder,
     this.actionWidgetsBuilder,
     this.onPressed,
     this.onLongPressed,
@@ -349,33 +351,34 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                 ),
               ),
             ),
-            if (message.senderId != uid) _countBuilder(count: unreadCount),
+            if (message.senderId != uid) _counterBuilder(count: unreadCount),
           ],
         );
   }
 
-  Widget _countBuilder({
+  Widget _counterBuilder({
     final int count = 0,
   }) {
     if (count == 0) {
       return const SizedBox();
     }
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0),
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: PeamanColors.primary,
-        ),
-        child: Text(
-          count > 9 ? '9+' : '$count',
-          style: const TextStyle(
-            fontSize: 10.0,
-            color: PeamanColors.white,
+    return widget.counterBuilder?.call(context, ref, widget.chat) ??
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Container(
+            padding: const EdgeInsets.all(5.0),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: PeamanColors.primary,
+            ),
+            child: Text(
+              count > 9 ? '9+' : '$count',
+              style: const TextStyle(
+                fontSize: 10.0,
+                color: PeamanColors.white,
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        );
   }
 }

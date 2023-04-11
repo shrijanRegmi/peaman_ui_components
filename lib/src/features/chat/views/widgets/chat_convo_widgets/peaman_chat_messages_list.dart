@@ -7,8 +7,7 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final List<String> receiverIds;
   final List<PeamanChatMessage>? messages;
   final ScrollController? controller;
-  final Widget? loadingWidget;
-  final Widget? emptyWidget;
+
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
       itemBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
@@ -16,10 +15,17 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
       receivedMessageBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
+  final Widget Function(BuildContext, WidgetRef, List<String>)?
+      seenIndicatorBuilder;
+  final Widget Function(BuildContext, WidgetRef, List<String>)?
+      typingIndicatorBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
       dividerBuilder;
   final Widget Function(BuildContext, WidgetRef, List<PeamanChatMessage>)?
       listBuilder;
+  final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
+  final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanError)? errorBuilder;
   final Function(PeamanChatMessage, List<String>, Function())? onPressedMessage;
   final Function(PeamanChatMessage, List<String>, Function())?
       onLongPressedMessage;
@@ -31,14 +37,17 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
     required this.receiverIds,
     this.messages,
     this.controller,
-    this.loadingWidget,
-    this.emptyWidget,
     this.itemBuilder,
     this.sentMessageBuilder,
     this.receivedMessageBuilder,
     this.senderInfoBuilder,
     this.dividerBuilder,
+    this.seenIndicatorBuilder,
+    this.typingIndicatorBuilder,
     this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
     this.onPressedMessage,
     this.onLongPressedMessage,
     this.onSwippedMessage,
@@ -75,7 +84,7 @@ class _PeamanChatMessagesListState
         if (messages.isEmpty) return _emptyBuilder();
         return _dataBuilder(context, messages);
       },
-      error: (e, _) => _errorBuilder(e.toString()),
+      error: (e, _) => _errorBuilder(PeamanError(message: e.toString())),
       loading: () => _loadingBuilder(),
     );
   }
@@ -117,6 +126,8 @@ class _PeamanChatMessagesListState
                       sentMessageBuilder: widget.sentMessageBuilder,
                       receivedMessageBuilder: widget.sentMessageBuilder,
                       senderInfoBuilder: widget.senderInfoBuilder,
+                      seenIndicatorBuilder: widget.seenIndicatorBuilder,
+                      typingIndicatorBuilder: widget.typingIndicatorBuilder,
                       onPressed: (message) => widget.onPressedMessage
                           ?.call(message, widget.receiverIds, () {}),
                       onLongPressed: (message) =>
@@ -167,17 +178,18 @@ class _PeamanChatMessagesListState
   }
 
   Widget _emptyBuilder() {
-    return widget.emptyWidget ?? const SizedBox();
+    return widget.emptyBuilder?.call(context, ref) ?? const SizedBox();
   }
 
   Widget _loadingBuilder() {
-    return widget.loadingWidget ?? const PeamanSpinner();
+    return widget.loadingBuilder?.call(context, ref) ?? const PeamanSpinner();
   }
 
-  Widget _errorBuilder(final String message) {
-    return Center(
-      child: PeamanText.subtitle1(message),
-    );
+  Widget _errorBuilder(final PeamanError error) {
+    return widget.errorBuilder?.call(context, ref, error) ??
+        Center(
+          child: PeamanText.subtitle1(error.message),
+        );
   }
 
   void _showMessageLongPressBottomsheet(final PeamanChatMessage message) {

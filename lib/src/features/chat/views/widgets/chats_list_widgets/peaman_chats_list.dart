@@ -5,16 +5,18 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanChatsList extends ConsumerStatefulWidget {
   final List<PeamanChat>? chats;
   final ScrollController? controller;
-  final Widget? loadingWidget;
-  final Widget? emptyWidget;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? itemBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? avatarBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? bodyBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? dateBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChat)? counterBuilder;
   final List<Widget> Function(BuildContext, WidgetRef, PeamanChat)?
       actionWidgetsBuilder;
   final Widget Function(BuildContext, WidgetRef, List<PeamanChat>)? listBuilder;
+  final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
+  final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanError)? errorBuilder;
   final Function(PeamanChat, Function())? onPressedChat;
   final Function(PeamanChat, Function())? onLongPressedChat;
 
@@ -22,15 +24,17 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     super.key,
     this.chats,
     this.controller,
-    this.loadingWidget,
-    this.emptyWidget,
     this.itemBuilder,
     this.avatarBuilder,
     this.titleBuilder,
     this.bodyBuilder,
     this.dateBuilder,
+    this.counterBuilder,
     this.actionWidgetsBuilder,
     this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
     this.onPressedChat,
     this.onLongPressedChat,
   });
@@ -60,7 +64,7 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
         if (chats.isEmpty) return _emptyBuilder();
         return _dataBuilder(context, chats);
       },
-      error: (e, _) => _errorBuilder(e.toString()),
+      error: (e, _) => _errorBuilder(PeamanError(message: e.toString())),
       loading: () => _loadingBuilder(),
     );
   }
@@ -81,6 +85,11 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
                     PeamanChatsListItem(
                       chat: chat,
                       actionWidgetsBuilder: widget.actionWidgetsBuilder,
+                      avatarBuilder: widget.avatarBuilder,
+                      titleBuilder: widget.titleBuilder,
+                      bodyBuilder: widget.bodyBuilder,
+                      dateBuilder: widget.dateBuilder,
+                      counterBuilder: widget.counterBuilder,
                       onPressed: (chat) =>
                           widget.onPressedChat?.call(
                             chat,
@@ -104,7 +113,7 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
   }
 
   Widget _emptyBuilder() {
-    return widget.emptyWidget ??
+    return widget.emptyBuilder?.call(context, ref) ??
         const PeamanEmptyBuilder(
           title: "No chats found!",
           subTitle:
@@ -113,13 +122,14 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
   }
 
   Widget _loadingBuilder() {
-    return widget.loadingWidget ?? const PeamanSpinner();
+    return widget.loadingBuilder?.call(context, ref) ?? const PeamanSpinner();
   }
 
-  Widget _errorBuilder(final String message) {
-    return Center(
-      child: PeamanText.subtitle1(message),
-    );
+  Widget _errorBuilder(final PeamanError error) {
+    return widget.errorBuilder?.call(context, ref, error) ??
+        Center(
+          child: PeamanText.subtitle1(error.message),
+        );
   }
 
   void _gotoChatConvoScreen(

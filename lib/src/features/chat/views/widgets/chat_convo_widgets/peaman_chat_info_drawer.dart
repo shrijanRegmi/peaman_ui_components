@@ -555,7 +555,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               context: context,
               title: 'Are you sure you want to delete this chat?',
               description:
-                  'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${firstChatUser?.name} can still see the messages.',
+                  'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${_chatType == PeamanChatType.group ? 'others' : firstChatUser?.name} can still see the messages.',
               onConfirm: (context, ref) {
                 const successLogMessage = 'The chat has been deleted';
                 ref.read(providerOfPeamanChat.notifier).deleteChat(

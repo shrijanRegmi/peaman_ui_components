@@ -8,7 +8,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   final PeamanChatMessage message;
-  final PeamanChatMessage nextMessage;
+  final PeamanChatMessage? nextMessage;
   final List<String> receiverIds;
   final bool isMessagesSentOnSameHour;
   final bool isFirstMessage;
@@ -18,6 +18,10 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
       receivedMessageBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
+  final Widget Function(BuildContext, WidgetRef, List<String>)?
+      seenIndicatorBuilder;
+  final Widget Function(BuildContext, WidgetRef, List<String>)?
+      typingIndicatorBuilder;
   final Function(PeamanChatMessage)? onPressed;
   final Function(PeamanChatMessage)? onLongPressed;
   final Function(PeamanChatMessage)? onSwipped;
@@ -25,11 +29,13 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   const PeamanChatMessagesListItem({
     Key? key,
     required this.message,
-    required this.nextMessage,
     required this.receiverIds,
+    this.nextMessage,
     this.sentMessageBuilder,
     this.receivedMessageBuilder,
     this.senderInfoBuilder,
+    this.seenIndicatorBuilder,
+    this.typingIndicatorBuilder,
     this.isMessagesSentOnSameHour = false,
     this.isFirstMessage = false,
     this.isLastMessage = false,
@@ -427,8 +433,8 @@ class _PeamanChatMessagesListItemState
   }
 
   bool _isGapBetweenMessagesRequired() {
-    return (widget.nextMessage.senderId != widget.message.senderId ||
-        widget.nextMessage.id == widget.message.id ||
+    return (widget.nextMessage?.senderId != widget.message.senderId ||
+        widget.nextMessage?.id == widget.message.id ||
         !widget.isMessagesSentOnSameHour);
   }
 
