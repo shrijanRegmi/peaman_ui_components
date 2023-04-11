@@ -104,22 +104,22 @@ class _PeamanUsersSearchScreenState
           horizontal: 6.0,
         ),
         child: Row(
-          children: [
-            const SizedBox(
+          children: const [
+            SizedBox(
               width: 2.0,
             ),
             PeamanText.body2(
               'Cancel',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 10.0,
                 color: PeamanColors.grey,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               width: 2.0,
             ),
-            const Icon(
+            Icon(
               Icons.close,
               color: PeamanColors.grey,
               size: 12.0,

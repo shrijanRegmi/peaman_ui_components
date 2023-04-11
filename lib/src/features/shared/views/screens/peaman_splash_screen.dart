@@ -11,7 +11,7 @@ class PeamanSplashScreen extends ConsumerWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             PeamanText.heading2('Peaman'),
             PeamanText.body2(
               'A service for building social media\napps with ease!',

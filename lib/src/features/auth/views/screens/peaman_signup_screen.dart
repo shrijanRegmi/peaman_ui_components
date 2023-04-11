@@ -89,7 +89,7 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
         const SizedBox(
           height: 15.0,
         ),
-        PeamanText.subtitle1(
+        const PeamanText.subtitle1(
           "Thanks, we are glad to\nhave you onboard",
           textAlign: TextAlign.center,
           // ignore: prefer_const_constructors
@@ -152,25 +152,25 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
-        children: [
-          const Expanded(
+        children: const [
+          Expanded(
             child: Divider(
               thickness: 1.0,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 20.0,
           ),
           PeamanText.subtitle2(
             'or continue with',
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 20.0,
           ),
-          const Expanded(
+          Expanded(
             child: Divider(
               thickness: 1.0,
             ),
@@ -248,9 +248,9 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PeamanText.subtitle2(
+        const PeamanText.subtitle2(
           'Already a member?',
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -83,10 +83,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
         const SizedBox(
           height: 15.0,
         ),
-        PeamanText.subtitle1(
+        const PeamanText.subtitle1(
           "Welcome back, we had\nmissed you a lot!",
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -118,10 +118,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
   Widget _recoveryPasswordBuilder() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: [
+      children: const [
         PeamanText.subtitle2(
           'Password Recovery?',
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -150,25 +150,25 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
-        children: [
-          const Expanded(
+        children: const [
+          Expanded(
             child: Divider(
               thickness: 1.0,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 20.0,
           ),
           PeamanText.subtitle2(
             'or continue with',
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 20.0,
           ),
-          const Expanded(
+          Expanded(
             child: Divider(
               thickness: 1.0,
             ),
@@ -246,9 +246,9 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PeamanText.subtitle2(
+        const PeamanText.subtitle2(
           'Not a member?',
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),

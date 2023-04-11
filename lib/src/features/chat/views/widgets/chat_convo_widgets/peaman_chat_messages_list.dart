@@ -7,7 +7,8 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final List<String> receiverIds;
   final List<PeamanChatMessage>? messages;
   final ScrollController? controller;
-
+  final EdgeInsets firstItemPadding;
+  final EdgeInsets lastItemPadding;
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
       itemBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
@@ -36,6 +37,8 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
     required this.chatId,
     required this.receiverIds,
     this.messages,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.only(bottom: 10.0),
     this.controller,
     this.itemBuilder,
     this.sentMessageBuilder,
@@ -140,13 +143,14 @@ class _PeamanChatMessagesListState
                       onSwipped: (message) => widget.onSwippedMessage
                           ?.call(message, widget.receiverIds, () {}),
                     );
-            if (index == 0) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: thisWidget,
-              );
-            }
-            return thisWidget;
+            return Padding(
+              padding: index == 0
+                  ? widget.lastItemPadding
+                  : index == (messages.length - 1)
+                      ? widget.firstItemPadding
+                      : const EdgeInsets.only(bottom: 0.0),
+              child: thisWidget,
+            );
           },
           separatorBuilder: (context, index) {
             var prevMessageIndex = index + 1;

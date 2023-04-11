@@ -26,7 +26,9 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
         preferredSize: const Size.fromHeight(80.0),
         child: _searchBuilder(context),
       ),
-      body: const PeamanChatsList(),
+      body: const PeamanChatsList(
+        lastItemPadding: EdgeInsets.only(bottom: 100.0),
+      ),
       floatingActionButton: const PeamanChatInitiatorButton(),
     );
   }

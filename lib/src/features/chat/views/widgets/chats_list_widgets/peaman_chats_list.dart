@@ -5,6 +5,8 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanChatsList extends ConsumerStatefulWidget {
   final List<PeamanChat>? chats;
   final ScrollController? controller;
+  final EdgeInsets firstItemPadding;
+  final EdgeInsets lastItemPadding;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? itemBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? avatarBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
@@ -24,6 +26,8 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     super.key,
     this.chats,
     this.controller,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.all(0.0),
     this.itemBuilder,
     this.avatarBuilder,
     this.titleBuilder,
@@ -100,14 +104,14 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
                           widget.onLongPressedChat?.call(chat, () {}),
                     );
 
-            if (index == 0) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: chatItemWidget,
-              );
-            }
-
-            return chatItemWidget;
+            return Padding(
+              padding: index == 0
+                  ? widget.firstItemPadding
+                  : index == (chats.length - 1)
+                      ? widget.lastItemPadding
+                      : const EdgeInsets.only(top: 0.0),
+              child: chatItemWidget,
+            );
           },
         );
   }
