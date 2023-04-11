@@ -14,7 +14,8 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     super.key,
     required this.userIds,
     this.title,
-    this.initialItemPadding,
+    this.firstItemPadding,
+    this.lastItemPadding,
     this.itemPadding,
     this.searchType = PeamanSearchType.none,
     this.physics = const BouncingScrollPhysics(),
@@ -37,7 +38,8 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     super.key,
     required this.users,
     this.title,
-    this.initialItemPadding,
+    this.firstItemPadding,
+    this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.searchType = PeamanSearchType.none,
@@ -65,7 +67,8 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
   final bool expandOnKeyboard;
   final Axis scrollDirection;
   final ScrollPhysics physics;
-  final EdgeInsets? initialItemPadding;
+  final EdgeInsets? firstItemPadding;
+  final EdgeInsets? lastItemPadding;
   final EdgeInsets? itemPadding;
   final double height;
   final List<PeamanUser> Function(BuildContext, WidgetRef, List<PeamanUser>)?
@@ -88,47 +91,73 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
 
 class _PeamanUsersListBottomsheetState
     extends ConsumerState<PeamanUsersListPopup> {
+  bool _isVisible = false;
+  final List<PeamanUser> _selectedUsers = [];
+  late KeyboardVisibilityController _keyboardVisibilityController;
+
+  @override
+  void initState() {
+    super.initState();
+    _keyboardVisibilityController = KeyboardVisibilityController();
+    _keyboardVisibilityController.onChange.listen((event) {
+      if (!_isVisible) {
+        if (mounted) {
+          setState(() {
+            _isVisible = event;
+          });
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return KeyboardVisibilityBuilder(
-      builder: (context, visible) {
-        return SizedBox(
-          height: visible && widget.expandOnKeyboard
-              ? ScreenUtil().screenHeight
-              : 450.h,
-          child: SafeArea(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: visible && widget.expandOnKeyboard
-                      ? ScreenUtil().statusBarHeight
-                      : 0.0,
-                ),
-                _headerBuilder().pX(20).pT(20).pB(15),
-                Expanded(
-                  child: widget.searchType == PeamanSearchType.none
-                      ? _listBuilder()
-                      : PeamanSearchBuilder<List<PeamanUser>>.users(
-                          searchType: widget.searchType,
-                          filterBuilder: widget.searchFilterBuilder,
-                          initialBuilder: (context, ref) => _listBuilder(),
-                          emptyBuilder: (context, ref) =>
-                              const PeamanEmptyBuilder(
-                            subTitle: 'No results found!',
-                          ),
-                          builder: (context, ref, users) {
-                            return _expandedByUsersListBuilder(users: users);
-                          },
-                        ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-              ],
+    return SizedBox(
+      height: _isVisible && widget.expandOnKeyboard
+          ? ScreenUtil().screenHeight
+          : 450.h,
+      child: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: _isVisible && widget.expandOnKeyboard
+                  ? ScreenUtil().statusBarHeight
+                  : 0.0,
             ),
-          ),
-        );
-      },
+            _headerBuilder().pX(20).pT(20).pB(15),
+            Expanded(
+              child: widget.searchType == PeamanSearchType.none
+                  ? _listBuilder()
+                  : PeamanSearchBuilder<List<PeamanUser>>.users(
+                      searchType: widget.searchType,
+                      filterBuilder: widget.searchFilterBuilder,
+                      initialBuilder: (context, ref) => _listBuilder(),
+                      emptyBuilder: (context, ref) => const PeamanEmptyBuilder(
+                        subTitle: 'No results found!',
+                      ),
+                      searchBarBuilder: (context, ref, controller, debounce) {
+                        return Column(
+                          children: [
+                            _searchInputBuilder(
+                              controller: controller,
+                              debounce: debounce,
+                            ).pB(5),
+                            if (_selectedUsers.isNotEmpty)
+                              _selectedUsersListBuilder(),
+                          ],
+                        ).pB(10);
+                      },
+                      builder: (context, ref, users) {
+                        return _expandedByUsersListBuilder(users: users);
+                      },
+                    ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -177,7 +206,14 @@ class _PeamanUsersListBottomsheetState
     return PeamanUsersList.expandedByUids(
       userIds: widget.userIds,
       physics: widget.physics,
-      initialItemPadding: widget.initialItemPadding,
+      firstItemPadding: widget.firstItemPadding,
+      lastItemPadding: widget.lastItemPadding ??
+          EdgeInsets.only(
+            bottom: _isVisible ? 250.h : 6.w,
+            left: 20.w,
+            right: 20.w,
+            top: 6.w,
+          ),
       itemPadding: widget.itemPadding ??
           EdgeInsets.symmetric(
             horizontal: 20.w,
@@ -207,18 +243,48 @@ class _PeamanUsersListBottomsheetState
   }) {
     return PeamanUsersList.expandedByUsers(
       users: users,
-      initialItemPadding: widget.initialItemPadding,
+      firstItemPadding: widget.firstItemPadding,
+      lastItemPadding: widget.lastItemPadding ??
+          EdgeInsets.only(
+            bottom: _isVisible ? 250.h : 6.w,
+            left: 20.w,
+            right: 20.w,
+            top: 6.w,
+          ),
       itemPadding: widget.itemPadding ??
           EdgeInsets.symmetric(
             horizontal: 20.w,
             vertical: 6.h,
           ),
       physics: widget.physics,
-      avatarBuilder: widget.avatarBuilder ??
-          (context, ref, user) => PeamanAvatarBuilder.network(
+      avatarBuilder: (context, ref, user) {
+        if (!_selectedUsers.map((e) => e.uid).contains(user.uid)) {
+          return widget.avatarBuilder?.call(context, ref, user) ??
+              PeamanAvatarBuilder.network(
                 user.photo,
                 size: 45,
+              );
+        }
+        return PeamanAvatarBuilder.network(
+          user.photo,
+          size: 45,
+          overlayWidget: Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: PeamanColors.secondary.withOpacity(0.5),
               ),
+              child: const Center(
+                child: Icon(
+                  Icons.check_rounded,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
+              ),
+            ).pad(2.0),
+          ),
+        );
+      },
       nameBuilder: widget.nameBuilder ??
           (context, ref, user) => PeamanText.subtitle2(
                 user.name,
@@ -230,7 +296,75 @@ class _PeamanUsersListBottomsheetState
           widget.captionBuilder?.call(context, ref, user) ??
           PeamanText.caption(user.bio),
       actionWidgetsBuilder: widget.actionWidgetsBuilder,
-      onPressedUser: widget.onPressedUser,
+      // onPressedUser: widget.onPressedUser,
+      onPressedUser: (context, ref, user) {
+        if (_selectedUsers.map((e) => e.uid).contains(user.uid)) {
+          setState(() {
+            _selectedUsers.removeWhere((element) => element.uid == user.uid);
+          });
+        } else {
+          setState(() {
+            _selectedUsers.add(user);
+          });
+        }
+      },
+    );
+  }
+
+  Widget _selectedUsersListBuilder() {
+    return PeamanUsersList.roundedByUsers(
+      users: _selectedUsers,
+      physics: widget.physics,
+      scrollDirection: Axis.horizontal,
+      nameBuilder: (context, ref, user) => PeamanText.caption(
+        user.name?.split(' ').first,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      avatarBuilder: (context, ref, user) {
+        return PeamanAvatarBuilder.network(
+          user.photo,
+          overlayWidget: Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: PeamanColors.secondary.withOpacity(0.5),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.check_rounded,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
+              ),
+            ).pad(2.0),
+          ),
+        );
+      },
+      onPressedUser: (context, ref, user) {
+        if (_selectedUsers.map((e) => e.uid).contains(user.uid)) {
+          setState(() {
+            _selectedUsers.removeWhere((element) => element.uid == user.uid);
+          });
+        } else {
+          setState(() {
+            _selectedUsers.add(user);
+          });
+        }
+      },
+    );
+  }
+
+  Widget _searchInputBuilder({
+    required final TextEditingController controller,
+    required final Function() debounce,
+  }) {
+    return PeamanInput(
+      hintText: 'Search...',
+      height: 40.0,
+      controller: controller,
+      onChanged: (_) => debounce(),
     );
   }
 }

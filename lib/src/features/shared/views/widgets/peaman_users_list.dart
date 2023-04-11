@@ -18,7 +18,8 @@ class PeamanUsersList extends ConsumerWidget {
   final bool requiredSearch;
   final Axis scrollDirection;
   final ScrollPhysics physics;
-  final EdgeInsets? initialItemPadding;
+  final EdgeInsets? firstItemPadding;
+  final EdgeInsets? lastItemPadding;
   final EdgeInsets? itemPadding;
   final double height;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? itemBuilder;
@@ -33,7 +34,8 @@ class PeamanUsersList extends ConsumerWidget {
   const PeamanUsersList.expandedByUids({
     Key? key,
     required this.userIds,
-    this.initialItemPadding,
+    this.firstItemPadding,
+    this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
@@ -53,7 +55,8 @@ class PeamanUsersList extends ConsumerWidget {
   const PeamanUsersList.expandedByUsers({
     Key? key,
     required this.users,
-    this.initialItemPadding,
+    this.firstItemPadding,
+    this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
@@ -74,7 +77,8 @@ class PeamanUsersList extends ConsumerWidget {
     Key? key,
     required this.userIds,
     this.requiredSearch = false,
-    this.initialItemPadding,
+    this.firstItemPadding,
+    this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.scrollDirection = Axis.vertical,
@@ -83,7 +87,7 @@ class PeamanUsersList extends ConsumerWidget {
     this.nameBuilder,
     this.onPressedUser,
     this.onPressedSearch,
-    this.height = 82.0,
+    this.height = 90.0,
   })  : type = _Type.roundedByUids,
         users = const [],
         actionWidgetsBuilder = null,
@@ -94,7 +98,8 @@ class PeamanUsersList extends ConsumerWidget {
     Key? key,
     required this.users,
     this.requiredSearch = false,
-    this.initialItemPadding,
+    this.firstItemPadding,
+    this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.scrollDirection = Axis.vertical,
@@ -103,7 +108,7 @@ class PeamanUsersList extends ConsumerWidget {
     this.nameBuilder,
     this.onPressedUser,
     this.onPressedSearch,
-    this.height = 82.0,
+    this.height = 90.0,
   })  : type = _Type.roundedByUsers,
         userIds = const [],
         actionWidgetsBuilder = null,
@@ -152,8 +157,10 @@ class PeamanUsersList extends ConsumerWidget {
               ? PeamanUsersListItem.expandedByUid(
                   userId: userId,
                   padding: index == 0
-                      ? initialItemPadding ?? itemPadding
-                      : itemPadding,
+                      ? firstItemPadding ?? itemPadding
+                      : (index == list.length - 1)
+                          ? lastItemPadding ?? itemPadding
+                          : itemPadding,
                   itemBuilder: itemBuilder,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
@@ -163,7 +170,11 @@ class PeamanUsersList extends ConsumerWidget {
                 )
               : PeamanUsersListItem.roundedByUid(
                   userId: userId,
-                  padding: index == 0 ? initialItemPadding : itemPadding,
+                  padding: index == 0
+                      ? firstItemPadding ?? itemPadding
+                      : (index == list.length - 1)
+                          ? lastItemPadding ?? itemPadding
+                          : itemPadding,
                   itemBuilder: itemBuilder,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
@@ -189,6 +200,7 @@ class PeamanUsersList extends ConsumerWidget {
       child: ListView.builder(
         itemCount: list.length,
         scrollDirection: scrollDirection,
+        physics: physics,
         itemBuilder: (context, index) {
           final user = list[index];
 
@@ -197,7 +209,11 @@ class PeamanUsersList extends ConsumerWidget {
           return type == _Type.expandedByUsers
               ? PeamanUsersListItem.expandedByUser(
                   user: user,
-                  padding: index == 0 ? initialItemPadding : itemPadding,
+                  padding: index == 0
+                      ? firstItemPadding ?? itemPadding
+                      : (index == list.length - 1)
+                          ? lastItemPadding ?? itemPadding
+                          : itemPadding,
                   itemBuilder: itemBuilder,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,
@@ -207,7 +223,11 @@ class PeamanUsersList extends ConsumerWidget {
                 )
               : PeamanUsersListItem.roundedByUser(
                   user: user,
-                  padding: index == 0 ? initialItemPadding : itemPadding,
+                  padding: index == 0
+                      ? firstItemPadding ?? itemPadding
+                      : (index == list.length - 1)
+                          ? lastItemPadding ?? itemPadding
+                          : itemPadding,
                   itemBuilder: itemBuilder,
                   avatarBuilder: avatarBuilder,
                   nameBuilder: nameBuilder,

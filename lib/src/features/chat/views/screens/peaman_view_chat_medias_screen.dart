@@ -84,7 +84,7 @@ class _PeamanViewChatMediasScreenState
           userIds: chat!.userIds,
           scrollDirection: Axis.horizontal,
           itemPadding: EdgeInsets.all(5.w),
-          initialItemPadding: EdgeInsets.fromLTRB(20.w, 5.w, 5.w, 5.w),
+          firstItemPadding: EdgeInsets.fromLTRB(20.w, 5.w, 5.w, 5.w),
           physics: const BouncingScrollPhysics(),
           nameBuilder: (context, ref, user) => PeamanText.body2(
             appUser.uid == user.uid ? 'You' : user.name?.split(' ').first,

@@ -13,6 +13,7 @@ class PeamanSearchBuilder<T> extends StatefulHookConsumerWidget {
     this.searchType = PeamanSearchType.global,
     this.filterBuilder,
     this.initialBuilder,
+    this.searchBarBuilder,
     this.loadingBuilder,
     this.emptyBuilder,
     this.errorBuilder,
@@ -23,6 +24,12 @@ class PeamanSearchBuilder<T> extends StatefulHookConsumerWidget {
 
   final Widget Function(BuildContext, WidgetRef, T) builder;
   final T Function(BuildContext, WidgetRef, T)? filterBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    TextEditingController,
+    Function(),
+  )? searchBarBuilder;
   final Widget Function(BuildContext, WidgetRef)? initialBuilder;
   final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
   final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
@@ -44,7 +51,7 @@ class _PeamanSearchBuilderState<T>
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _searchInputBuilder().pB(10),
+        _searchInputBuilder(),
         Expanded(
           child: _searchResultsBuilder(),
         ),
@@ -53,12 +60,18 @@ class _PeamanSearchBuilderState<T>
   }
 
   Widget _searchInputBuilder() {
-    return PeamanInput(
-      hintText: 'Search...',
-      height: 40.0,
-      controller: _controller,
-      onChanged: (_) => _notifier.startDebounce(),
-    );
+    return widget.searchBarBuilder?.call(
+          context,
+          ref,
+          _controller,
+          _notifier.startDebounce,
+        ) ??
+        PeamanInput(
+          hintText: 'Search...',
+          height: 40.0,
+          controller: _controller,
+          onChanged: (_) => _notifier.startDebounce(),
+        ).pB(10);
   }
 
   Widget _searchResultsBuilder() {
@@ -72,7 +85,9 @@ class _PeamanSearchBuilderState<T>
 
   Widget _usersSearchResultBuilder() {
     return _state.maybeWhen(
-          loading: () => const PeamanSpinner(),
+          loading: () =>
+              widget.loadingBuilder?.call(context, ref) ??
+              const PeamanSpinner(),
           success: () {
             final usersFuture = ref.watch(
               providerOfPeamanUsersBySearchKeys(
