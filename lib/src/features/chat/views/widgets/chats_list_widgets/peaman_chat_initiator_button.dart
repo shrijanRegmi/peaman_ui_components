@@ -9,9 +9,8 @@ class PeamanChatInitiatorButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
-      onPressed: () => context.pushNamed(
-        PeamanUsersSearchScreen.route,
-        arguments: PeamanUsersSearchArgs(),
+      onPressed: () => showPeamanChatInitiatorDialog(
+        context: context,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.r),

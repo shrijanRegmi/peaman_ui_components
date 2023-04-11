@@ -7,7 +7,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 Future<T?> showPeamanNormalBottomsheet<T>({
   required final BuildContext context,
   required final Widget widget,
-  final double borderRadius = 0.0,
+  final double borderRadius = 15.0,
 }) {
   return showModalBottomSheet<T>(
     context: context,
@@ -26,7 +26,7 @@ Future<T?> showPeamanNormalBottomsheet<T>({
 Future<T?> showPeamanNormalDialog<T>({
   required final BuildContext context,
   required final Widget widget,
-  final double borderRadius = 0.0,
+  final double borderRadius = 15.0,
 }) {
   return showDialog<T>(
     context: context,
@@ -66,7 +66,7 @@ Future<T?> showPeamanSelectableOptionsDialog<T>({
       onSelectOption,
   final bool radio = true,
   final bool popNavigationOnSelect = true,
-  final double borderRadius = 0.0,
+  final double borderRadius = 15.0,
   final int? activeIndex,
   final EdgeInsets? padding,
   final EdgeInsets? itemPadding,
@@ -93,7 +93,7 @@ Future<T?> showPeamanSelectableOptionsBottomsheet<T>({
   final Function(BuildContext, WidgetRef, PeamanSelectableOption)?
       onSelectOption,
   final bool radio = true,
-  final double borderRadius = 0.0,
+  final double borderRadius = 15.0,
   final int? activeIndex,
   final EdgeInsets? padding,
   final EdgeInsets? itemPadding,

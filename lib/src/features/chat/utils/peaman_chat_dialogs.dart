@@ -193,3 +193,119 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
     },
   );
 }
+
+Future<T?> showPeamanChatInitiatorDialog<T>({
+  required final BuildContext context,
+  final Function(BuildContext, WidgetRef, PeamanSelectableOption, Function())?
+      onSelectOption,
+}) {
+  void defaultOnSelectOption(
+    BuildContext context,
+    WidgetRef ref,
+    PeamanSelectableOption option,
+  ) {
+    switch (option.id) {
+      case 0:
+        showPeamanNormalBottomsheet(
+          context: context,
+          widget: PeamanUsersListPopup.expandedByUids(
+            userIds: const [],
+            title: 'New Chat',
+            searchType: PeamanSearchType.global,
+            onPressedUser: (context, ref, user) {
+              final uid =
+                  ref.read(providerOfLoggedInUser.select((value) => value.uid));
+
+              context
+                ..pop()
+                ..pushNamed(
+                  PeamanChatConversationScreen.route,
+                  arguments: PeamanChatConversationArgs.byUserIds(
+                    userIds: [uid!, user.uid!]..sort(),
+                    chatType: PeamanChatType.oneToOne,
+                  ),
+                );
+            },
+          ),
+        );
+        break;
+      case 1:
+        showPeamanNormalBottomsheet(
+          context: context,
+          widget: PeamanUsersListPopup.expandedByUids(
+            userIds: const [],
+            title: 'New Group Chat',
+            searchType: PeamanSearchType.global,
+            onPressedUser: (context, ref, user) {
+              final uid =
+                  ref.read(providerOfLoggedInUser.select((value) => value.uid));
+
+              context
+                ..pop()
+                ..pushNamed(
+                  PeamanChatConversationScreen.route,
+                  arguments: PeamanChatConversationArgs.byUserIds(
+                    userIds: [uid!, user.uid!]..sort(),
+                    chatType: PeamanChatType.group,
+                  ),
+                );
+            },
+          ),
+        );
+        break;
+      default:
+    }
+  }
+
+  return showPeamanSelectableOptionsDialog<T>(
+    context: context,
+    borderRadius: 15.0,
+    radio: false,
+    itemPadding: EdgeInsets.symmetric(
+      horizontal: 25.w,
+      vertical: 0,
+    ),
+    optionsBuilder: (context, ref) {
+      return [
+        PeamanSelectableOption(
+          id: 0,
+          leading: PeamanRoundIconButton(
+            icon: Icon(
+              Icons.send,
+              color: PeamanColors.white,
+              size: 12.w,
+            ),
+            padding: EdgeInsets.all(7.w),
+            bgColor: context.theme.colorScheme.primary,
+          ),
+          title: 'New chat',
+        ),
+        PeamanSelectableOption(
+          id: 1,
+          leading: PeamanRoundIconButton(
+            icon: Icon(
+              Icons.send,
+              color: PeamanColors.white,
+              size: 12.w,
+            ),
+            padding: EdgeInsets.all(7.w),
+            bgColor: context.theme.colorScheme.primary,
+          ),
+          title: 'New group chat',
+        ),
+      ];
+    },
+    onSelectOption: (context, ref, option) {
+      if (onSelectOption != null) {
+        onSelectOption.call(
+          context,
+          ref,
+          option,
+          () => defaultOnSelectOption(context, ref, option),
+        );
+      } else {
+        defaultOnSelectOption(context, ref, option);
+      }
+    },
+  );
+}
