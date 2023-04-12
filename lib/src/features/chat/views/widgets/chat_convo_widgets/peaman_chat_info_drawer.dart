@@ -61,7 +61,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ? const PeamanErrorBuilder(
                 title: "Couldn't Load Chat",
                 subTitle:
-                    'The chat may have be deleted. Please visit this place later.',
+                    'The chat may not have been created yet or may have been deleted. Please visit this place later.',
               )
             : SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -243,7 +243,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                       limit: 60,
                     );
                   },
-                  onPressedUser: (context, ref, user) {
+                  onPressedUser: (context, ref, user, def) {
                     if (user.uid == _uid) return;
 
                     showPeamanChatUserInfoDialog(
@@ -595,7 +595,10 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 context: context,
                 borderRadius: 15,
                 widget: PeamanUsersListPopup.expandedByUids(
+                  userIds: const [],
                   title: 'Add Members',
+                  searchType: PeamanSearchType.global,
+                  selectionType: PeamanSelectionType.multi,
                   searchFilterBuilder: (context, ref, users) => users
                       .where(
                         (element) => !_chatUserIdsWrapper.values.contains(
@@ -603,28 +606,26 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                         ),
                       )
                       .toList(),
-                  searchType: PeamanSearchType.global,
-                  userIds: const [],
-                  onPressedUser: (context, ref, user) {
+                  onPressedProceed: (context, ref, users, def) {
                     context.pop();
 
                     showPeamanConfirmationDialog(
                       context: context,
                       title: PeamanCommonStrings.confirmationTitleAddToChat(
-                        user: user,
+                        users: users,
                       ),
                       description:
                           PeamanCommonStrings.confirmationDescAddToChat(
-                        user: user,
+                        users: users,
                       ),
                       onConfirm: (context, ref) {
                         final successLogMessage =
                             PeamanCommonStrings.successLogAddedToChat(
-                          user: user,
+                          users: users,
                         );
                         ref.read(providerOfPeamanChat.notifier).addChatMembers(
                               chatId: widget.chatId,
-                              friendIds: [user.uid!],
+                              friendIds: users.map((e) => e.uid!).toList(),
                               successLogMessage: successLogMessage,
                             );
                       },

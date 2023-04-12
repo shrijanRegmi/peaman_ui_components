@@ -212,7 +212,7 @@ Future<T?> showPeamanChatInitiatorDialog<T>({
             userIds: const [],
             title: 'New Chat',
             searchType: PeamanSearchType.global,
-            onPressedUser: (context, ref, user) {
+            onPressedUser: (context, ref, user, def) {
               final uid =
                   ref.read(providerOfLoggedInUser.select((value) => value.uid));
 
@@ -236,7 +236,8 @@ Future<T?> showPeamanChatInitiatorDialog<T>({
             userIds: const [],
             title: 'New Group Chat',
             searchType: PeamanSearchType.global,
-            onPressedUser: (context, ref, user) {
+            selectionType: PeamanSelectionType.multi,
+            onPressedProceed: (context, ref, users, def) {
               final uid =
                   ref.read(providerOfLoggedInUser.select((value) => value.uid));
 
@@ -245,7 +246,9 @@ Future<T?> showPeamanChatInitiatorDialog<T>({
                 ..pushNamed(
                   PeamanChatConversationScreen.route,
                   arguments: PeamanChatConversationArgs.byUserIds(
-                    userIds: [uid!, user.uid!]..sort(),
+                    userIds: users.map((e) => e.uid!).toList()
+                      ..add(uid!)
+                      ..sort(),
                     chatType: PeamanChatType.group,
                   ),
                 );

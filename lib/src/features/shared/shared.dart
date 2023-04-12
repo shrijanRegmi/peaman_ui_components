@@ -42,3 +42,4 @@ export 'extensions/peaman_widget_extension.dart';
 // export 'extensions/peaman_string_extension.dart';
 
 export 'enums/peaman_search_type.dart';
+export 'enums/peaman_selection_type.dart';

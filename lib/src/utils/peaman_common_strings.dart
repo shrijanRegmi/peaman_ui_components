@@ -48,21 +48,27 @@ class PeamanCommonStrings {
 ///////////////////////////////////////////////
 
   static confirmationTitleAddToChat({
-    required final PeamanUser user,
+    required final List<PeamanUser> users,
   }) {
-    return 'Are you sure you want to add ${user.name} to this chat?';
+    final firstUser = users.isEmpty ? null : users.first;
+    final remaining = users.length - 1;
+    return 'Are you sure you want to add ${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} to this chat?';
   }
 
   static confirmationDescAddToChat({
-    required final PeamanUser user,
+    required final List<PeamanUser> users,
   }) {
-    return '${user.name} will be able to view all the old messages and send new messages to this chat.';
+    final firstUser = users.isEmpty ? null : users.first;
+    final remaining = users.length - 1;
+    return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} will be able to view all the old messages and send new messages to this chat.';
   }
 
   static successLogAddedToChat({
-    required final PeamanUser user,
+    required final List<PeamanUser> users,
   }) {
-    return '${user.name} has been added to the chat';
+    final firstUser = users.isEmpty ? null : users.first;
+    final remaining = users.length - 1;
+    return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} has been added to the chat';
   }
 
 ///////////////////////////////////////////////

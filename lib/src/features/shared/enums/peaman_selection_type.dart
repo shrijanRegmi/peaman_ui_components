@@ -1,0 +1,4 @@
+enum PeamanSelectionType {
+  single,
+  multi,
+}
