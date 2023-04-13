@@ -116,53 +116,56 @@ class _PeamanErrorPopUpState extends ConsumerState<PeamanInfoOverlay>
         widget.onPressedClose?.call();
         return true;
       },
-      child: AnimatedSlide(
-        duration: Duration(milliseconds: _useAnimation ? 600 : 0),
-        offset: _offset,
-        curve: Curves.ease,
-        child: AnimatedOpacity(
-          opacity: _opacity,
-          duration: Duration(milliseconds: _useAnimation ? 2000 : 0),
-          child: SafeArea(
-            child: Material(
-              elevation: 2.0,
-              color: widget.type == _Type.success
-                  ? PeamanColors.green
-                  : widget.type == _Type.warning
-                      ? PeamanColors.yellow
-                      : PeamanColors.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: PeamanText.body2(
-                      widget.info,
-                      style: TextStyle(
-                        color: PeamanColors.white,
-                        fontSize: 12.sp,
-                      ),
-                    ).pX(15).pY(10),
-                  ),
-                  if (widget.onPressedClose != null)
-                    PeamanRoundIconButton(
-                      onPressed: () => widget.onPressedClose?.call(),
-                      padding: EdgeInsets.all(4.w),
-                      bgColor: PeamanColors.white,
-                      icon: Icon(
-                        Icons.close_rounded,
-                        size: 13.w,
-                        color: widget.type == _Type.success
-                            ? PeamanColors.green
-                            : widget.type == _Type.warning
-                                ? PeamanColors.yellow
-                                : PeamanColors.red,
-                      ),
-                    ).pR(15),
-                ],
-              ),
-            ).pad(20),
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: AnimatedSlide(
+          duration: Duration(milliseconds: _useAnimation ? 600 : 0),
+          offset: _offset,
+          curve: Curves.ease,
+          child: AnimatedOpacity(
+            opacity: _opacity,
+            duration: Duration(milliseconds: _useAnimation ? 2000 : 0),
+            child: SafeArea(
+              child: Material(
+                elevation: 2.0,
+                color: widget.type == _Type.success
+                    ? PeamanColors.green
+                    : widget.type == _Type.warning
+                        ? PeamanColors.yellow
+                        : PeamanColors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: PeamanText.body2(
+                        widget.info,
+                        style: TextStyle(
+                          color: PeamanColors.white,
+                          fontSize: 12.sp,
+                        ),
+                      ).pX(15).pY(10),
+                    ),
+                    if (widget.onPressedClose != null)
+                      PeamanRoundIconButton(
+                        onPressed: () => widget.onPressedClose?.call(),
+                        padding: EdgeInsets.all(4.w),
+                        bgColor: PeamanColors.white,
+                        icon: Icon(
+                          Icons.close_rounded,
+                          size: 13.w,
+                          color: widget.type == _Type.success
+                              ? PeamanColors.green
+                              : widget.type == _Type.warning
+                                  ? PeamanColors.yellow
+                                  : PeamanColors.red,
+                        ),
+                      ).pR(15),
+                  ],
+                ),
+              ).pad(20),
+            ),
           ),
         ),
       ),

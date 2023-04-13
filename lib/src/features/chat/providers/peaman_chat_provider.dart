@@ -191,6 +191,50 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     setTypingStatus(chatId: chatId, typedValue: '');
   }
 
+  Future<void> sendInfoMessage({
+    required final String chatId,
+    required final List<String> receiverIds,
+    required final PeamanChatType chatType,
+    required final String info,
+  }) async {
+    if (info.trim().isEmpty) {
+      return;
+    }
+
+    final millis = DateTime.now().millisecondsSinceEpoch;
+    var message = PeamanChatMessage(
+      chatId: chatId,
+      chatType: chatType,
+      senderId: _appUser.uid,
+      senderName: _appUser.name,
+      receiverIds: receiverIds,
+      text: info.trim(),
+      type: PeamanChatMessageType.info,
+      createdAt: millis,
+      updatedAt: millis,
+    );
+
+    state = state.copyWith(
+      sendInfoMessageState: const SendInfoMessageState.loading(),
+    );
+    final result = await _chatRepository.createChatMessage(
+      message: message,
+    );
+    state = result.when(
+      (success) => state.copyWith(
+        sendInfoMessageState: SendInfoMessageState.success(success),
+      ),
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          sendInfoMessageState: SendInfoMessageState.error(failure),
+        );
+      },
+    );
+    removeFromToTempMessages(message);
+    setTypingStatus(chatId: chatId, typedValue: '');
+  }
+
   Future<void> unsendMessage({
     required final String chatId,
     required final String messageId,

@@ -205,65 +205,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               'Group members',
               style: TextStyle(fontSize: 12.sp),
             ),
-            onTap: () {
-              showPeamanNormalBottomsheet(
-                context: context,
-                borderRadius: 15.0,
-                widget: PeamanUsersListPopup.expandedByUids(
-                  userIds: _chatUserIdsWrapper.values,
-                  title: 'Group Members',
-                  nameBuilder: (context, ref, user) => PeamanText.subtitle2(
-                    user.uid == _uid ? 'You' : user.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  captionBuilder: (context, ref, user) {
-                    final addedBy = _chatAddedBysWrapper.values.firstWhere(
-                      (element) => element.uid == user.uid,
-                      orElse: PeamanChatAddedBy.new,
-                    );
-                    var addedByName = 'Unknown';
-                    if (addedBy.addedBy != null) {
-                      final addedByFuture = ref.watch(
-                        providerOfSingleUserByIdFuture(addedBy.addedBy!),
-                      );
-                      addedByName = addedByFuture.maybeWhen(
-                        data: (data) => data.when(
-                          (success) =>
-                              success.uid == _uid ? 'You' : success.name!,
-                          (failure) => 'Unknown',
-                        ),
-                        loading: () => 'Loading...',
-                        orElse: () => 'Unknown',
-                      );
-                    }
-                    return PeamanText.caption(
-                      'Added by $addedByName',
-                      limit: 60,
-                    );
-                  },
-                  onPressedUser: (context, ref, user, def) {
-                    if (user.uid == _uid) return;
-
-                    showPeamanChatUserInfoDialog(
-                      context: context,
-                      chatId: _chatId!,
-                      user: user,
-                      onSelectOption: (context, ref, option, def) {
-                        switch (option.id) {
-                          case 2:
-                            context.pop();
-                            break;
-                          default:
-                        }
-                        def();
-                      },
-                    );
-                  },
-                ),
-              );
-            },
+            onTap: _showChatMembers,
           ),
         if (_chatType == PeamanChatType.oneToOne)
           ListTile(
@@ -349,22 +291,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
 
   Widget _chatActionsSet2Builder() {
     final blockedUsersStream = ref.watch(providerOfPeamanBlockedUsersStream);
-
-    final chatUsers = _chatUsersFuture.maybeWhen(
-      data: (data) {
-        return data.when(
-          (success) => success,
-          (failure) => <PeamanUser>[],
-        );
-      },
-      orElse: () => <PeamanUser>[],
-    );
-    final firstChatUser = chatUsers.isEmpty ? null : chatUsers.first;
+    final firstChatUser = _getFirstChatUser();
 
     final isUserBlocked = blockedUsersStream.maybeWhen(
-      data: (data) => data.map((e) => e.uid).toList().contains(
-            firstChatUser?.uid,
-          ),
+      data: (data) =>
+          data.map((e) => e.uid).toList().contains(firstChatUser?.uid),
       orElse: () => false,
     );
 
@@ -377,92 +308,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       children: [
         SwitchListTile(
           value: chatMutedUntil.mutedUntil != null,
-          onChanged: (val) {
-            if (chatMutedUntil.mutedUntil != null) {
-              const successLogMessage = 'The chat has been unmuted';
-              ref.read(providerOfPeamanChat.notifier).unmuteChat(
-                    chatId: widget.chatId,
-                    successLogMessage: successLogMessage,
-                  );
-              return;
-            }
-
-            final options = [
-              const PeamanSelectableOption(
-                id: 0,
-                title: 'For 1 hour',
-              ),
-              const PeamanSelectableOption(
-                id: 1,
-                title: 'For 2 hours',
-              ),
-              const PeamanSelectableOption(
-                id: 2,
-                title: 'For 8 hours',
-              ),
-              const PeamanSelectableOption(
-                id: 3,
-                title: 'For 24 hours',
-              ),
-              const PeamanSelectableOption(
-                id: 4,
-                title: 'Until I turn it on',
-              ),
-            ];
-            showPeamanSelectableOptionsBottomsheet(
-                context: context,
-                optionsBuilder: (context, ref) => options,
-                borderRadius: 15.0,
-                onSelectOption: (context, ref, option) {
-                  final currentDate = DateTime.now();
-                  int? mutedUntilHours;
-                  switch (option.id) {
-                    case 0:
-                      mutedUntilHours = 1;
-                      break;
-                    case 1:
-                      mutedUntilHours = 2;
-                      break;
-                    case 2:
-                      mutedUntilHours = 8;
-                      break;
-                    case 3:
-                      mutedUntilHours = 24;
-                      break;
-                    case 4:
-                      mutedUntilHours = -1;
-                      break;
-                    default:
-                  }
-
-                  if (mutedUntilHours != null) {
-                    final mutedAt = currentDate.millisecondsSinceEpoch;
-                    var mutedUntil = -1;
-
-                    if (mutedUntilHours == -1) {
-                      mutedUntil = -1;
-                    } else {
-                      final muteUntilDate = currentDate.add(
-                        Duration(hours: mutedUntilHours),
-                      );
-                      mutedUntil = muteUntilDate.millisecondsSinceEpoch;
-                    }
-
-                    final successLogMessage = mutedUntilHours == -1
-                        ? 'The chat has been muted until you turn it back on'
-                        : 'The chat has been muted for $mutedUntilHours ${mutedUntilHours > 1 ? 'hours' : 'hour'}';
-
-                    if (chatMutedUntil.mutedUntil.isNull) {
-                      ref.read(providerOfPeamanChat.notifier).muteChat(
-                            chatId: widget.chatId,
-                            mutedAt: mutedAt,
-                            mutedUntil: mutedUntil,
-                            successLogMessage: successLogMessage,
-                          );
-                    }
-                  }
-                });
-          },
+          onChanged: (val) => _muteUnmuteChat(),
           activeColor: context.isDarkMode
               ? PeamanColors.containerBgDark
               : PeamanColors.primary,
@@ -478,25 +324,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
         if (_chatType == PeamanChatType.oneToOne)
           SwitchListTile(
             value: isUserBlocked,
-            onChanged: (val) {
-              showPeamanConfirmationDialog(
-                context: context,
-                title:
-                    'Are you sure you want to ${isUserBlocked ? 'unblock' : 'block'} ${firstChatUser?.name}?',
-                description:
-                    'This action is not permanent and you can decide to undo this action at any time.',
-                onConfirm: (context, ref) {
-                  Future.delayed(const Duration(milliseconds: 200), () {
-                    final successLogMessage =
-                        '${firstChatUser?.name} has been ${isUserBlocked ? 'unblocked' : 'blocked'}';
-                    ref.read(providerOfPeamanUser.notifier).toggleBlockUnblock(
-                          friendId: firstChatUser!.uid!,
-                          successLogMessage: successLogMessage,
-                        );
-                  });
-                },
-              );
-            },
+            onChanged: (val) => _blockUnblockUser(
+              isUserBlocked: isUserBlocked,
+            ),
             activeColor: context.isDarkMode
                 ? PeamanColors.containerBgDark
                 : PeamanColors.primary,
@@ -518,25 +348,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             'Archive chat',
             style: TextStyle(fontSize: 12.sp),
           ),
-          onTap: () {
-            showPeamanConfirmationDialog(
-              context: context,
-              title: 'Are you sure you want to archive this chat?',
-              description:
-                  'This chat will not be shown in your chats list until you or ${firstChatUser?.name} sends a new message to this chat.',
-              onConfirm: (context, ref) {
-                const successLogMessage = 'The chat has been archived';
-                ref.read(providerOfPeamanChat.notifier).archiveChat(
-                      chatId: widget.chatId,
-                      successLogMessage: successLogMessage,
-                    );
-
-                context
-                  ..pop()
-                  ..pop();
-              },
-            );
-          },
+          onTap: _archiveChat,
         ),
         ListTile(
           contentPadding: EdgeInsets.symmetric(
@@ -550,25 +362,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               color: PeamanColors.red,
             ),
           ),
-          onTap: () {
-            showPeamanConfirmationDialog(
-              context: context,
-              title: 'Are you sure you want to delete this chat?',
-              description:
-                  'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${_chatType == PeamanChatType.group ? 'others' : firstChatUser?.name} can still see the messages.',
-              onConfirm: (context, ref) {
-                const successLogMessage = 'The chat has been deleted';
-                ref.read(providerOfPeamanChat.notifier).deleteChat(
-                      chatId: widget.chatId,
-                      successLogMessage: successLogMessage,
-                    );
-
-                context
-                  ..pop()
-                  ..pop();
-              },
-            );
-          },
+          onTap: _deleteChat,
         ),
       ],
     );
@@ -590,50 +384,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             padding: EdgeInsets.all(9.w),
             bgColor: PeamanColors.extraLightGrey.withOpacity(0.2),
-            onPressed: () {
-              showPeamanNormalBottomsheet(
-                context: context,
-                borderRadius: 15,
-                widget: PeamanUsersListPopup.expandedByUids(
-                  userIds: const [],
-                  title: 'Add Members',
-                  searchType: PeamanSearchType.global,
-                  selectionType: PeamanSelectionType.multi,
-                  searchFilterBuilder: (context, ref, users) => users
-                      .where(
-                        (element) => !_chatUserIdsWrapper.values.contains(
-                          element.uid,
-                        ),
-                      )
-                      .toList(),
-                  onPressedProceed: (context, ref, users, def) {
-                    context.pop();
-
-                    showPeamanConfirmationDialog(
-                      context: context,
-                      title: PeamanCommonStrings.confirmationTitleAddToChat(
-                        users: users,
-                      ),
-                      description:
-                          PeamanCommonStrings.confirmationDescAddToChat(
-                        users: users,
-                      ),
-                      onConfirm: (context, ref) {
-                        final successLogMessage =
-                            PeamanCommonStrings.successLogAddedToChat(
-                          users: users,
-                        );
-                        ref.read(providerOfPeamanChat.notifier).addChatMembers(
-                              chatId: widget.chatId,
-                              friendIds: users.map((e) => e.uid!).toList(),
-                              successLogMessage: successLogMessage,
-                            );
-                      },
-                    );
-                  },
-                ),
-              );
-            },
+            onPressed: _addChatMembers,
           ),
           SizedBox(
             width: 10.w,
@@ -648,23 +399,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
             padding: EdgeInsets.all(9.w),
             bgColor: PeamanColors.extraLightGrey.withOpacity(0.2),
-            onPressed: () {
-              showPeamanConfirmationDialog(
-                context: context,
-                title: 'Are you sure you want to leave this chat?',
-                description:
-                    "You will neither be able to view new messages nor be able to send new messages to this chat until you are added back to the chat.",
-                onConfirm: (context, ref) {
-                  const successLogMessage = 'You left the chat';
-                  ref.read(providerOfPeamanChat.notifier).leaveChat(
-                        chatId: widget.chatId,
-                        successLogMessage: successLogMessage,
-                      );
-
-                  context.pop();
-                },
-              );
-            },
+            onPressed: _leaveChat,
           ),
         ],
       ),
@@ -757,6 +492,19 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     return 'Muted for ${duration.inHours.toString()} hour';
   }
 
+  PeamanUser? _getFirstChatUser() {
+    final chatUsers = _chatUsersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) => success,
+          (failure) => <PeamanUser>[],
+        );
+      },
+      orElse: () => <PeamanUser>[],
+    );
+    return chatUsers.isEmpty ? null : chatUsers.first;
+  }
+
   void _lauchExternalContact() async {
     var url = '';
     final regexEmail = RegExp(PeamanCommonStrings.regexEmail);
@@ -767,5 +515,324 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     }
+  }
+
+  void _addChatMembers() {
+    showPeamanNormalBottomsheet(
+      context: context,
+      borderRadius: 15,
+      widget: PeamanUsersListPopup.expandedByUids(
+        userIds: const [],
+        title: 'Add Members',
+        searchType: PeamanSearchType.global,
+        selectionType: PeamanSelectionType.multi,
+        searchFilterBuilder: (context, ref, users) => users
+            .where(
+              (element) => !_chatUserIdsWrapper.values.contains(
+                element.uid,
+              ),
+            )
+            .toList(),
+        onPressedProceed: (context, ref, users, def) {
+          context.pop();
+
+          showPeamanConfirmationDialog(
+            context: context,
+            title: PeamanCommonStrings.confirmationTitleAddToChat(
+              users: users,
+            ),
+            description: PeamanCommonStrings.confirmationDescAddToChat(
+              users: users,
+            ),
+            onConfirm: (context, ref) {
+              final successLogMessage =
+                  PeamanCommonStrings.successLogAddedToChat(
+                users: users,
+              );
+              ref
+                  .read(providerOfPeamanChat.notifier)
+                  .addChatMembers(
+                    chatId: widget.chatId,
+                    friendIds: users.map((e) => e.uid!).toList(),
+                    successLogMessage: successLogMessage,
+                  )
+                  .then((_) {
+                ref.read(providerOfPeamanChat).addChatMembersState.maybeWhen(
+                      success: (_) {
+                        final receiverIds = _chatUserIdsWrapper.values
+                            .where((element) => element != _uid)
+                            .toList();
+                        final appUser = ref.read(providerOfLoggedInUser);
+                        final leaveChatInfo = PeamanCommonStrings.leaveChatInfo(
+                          user: appUser,
+                        );
+                        ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
+                              chatId: widget.chatId,
+                              receiverIds: receiverIds,
+                              chatType: _chatType,
+                              info: 'Added',
+                            );
+                      },
+                      orElse: () {},
+                    );
+              });
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  void _leaveChat() {
+    showPeamanConfirmationDialog(
+      context: context,
+      title: 'Are you sure you want to leave this chat?',
+      description:
+          "You will neither be able to view new messages nor be able to send new messages to this chat until you are added back to the chat.",
+      onConfirm: (context, ref) {
+        const successLogMessage = 'You left the chat';
+        ref
+            .read(providerOfPeamanChat.notifier)
+            .leaveChat(
+              chatId: widget.chatId,
+              successLogMessage: successLogMessage,
+            )
+            .then((_) {
+          ref.read(providerOfPeamanChat).leaveChatState.maybeWhen(
+                success: (_) {
+                  final receiverIds = _chatUserIdsWrapper.values
+                      .where((element) => element != _uid)
+                      .toList();
+                  final appUser = ref.read(providerOfLoggedInUser);
+                  final leaveChatInfo =
+                      PeamanCommonStrings.leaveChatInfo(user: appUser);
+                  ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
+                        chatId: widget.chatId,
+                        receiverIds: receiverIds,
+                        chatType: _chatType,
+                        info: leaveChatInfo,
+                      );
+                },
+                orElse: () {},
+              );
+        });
+
+        context.pop();
+      },
+    );
+  }
+
+  void _showChatMembers() {
+    showPeamanNormalBottomsheet(
+      context: context,
+      borderRadius: 15.0,
+      widget: PeamanUsersListPopup.expandedByUids(
+        userIds: _chatUserIdsWrapper.values,
+        title: 'Group Members',
+        nameBuilder: (context, ref, user) => PeamanText.subtitle2(
+          user.uid == _uid ? 'You' : user.name,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        captionBuilder: (context, ref, user) {
+          final addedBy = _chatAddedBysWrapper.values.firstWhere(
+            (element) => element.uid == user.uid,
+            orElse: PeamanChatAddedBy.new,
+          );
+          var addedByName = 'Unknown';
+          if (addedBy.addedBy != null) {
+            final addedByFuture = ref.watch(
+              providerOfSingleUserByIdFuture(addedBy.addedBy!),
+            );
+            addedByName = addedByFuture.maybeWhen(
+              data: (data) => data.when(
+                (success) => success.uid == _uid ? 'You' : success.name!,
+                (failure) => 'Unknown',
+              ),
+              loading: () => 'Loading...',
+              orElse: () => 'Unknown',
+            );
+          }
+          return PeamanText.caption(
+            'Added by $addedByName',
+            limit: 60,
+          );
+        },
+        onPressedUser: (context, ref, user, def) {
+          if (user.uid == _uid) return;
+
+          showPeamanChatUserInfoDialog(
+            context: context,
+            chatId: _chatId!,
+            user: user,
+            onSelectOption: (context, ref, option, def) {
+              switch (option.id) {
+                case 2:
+                  context.pop();
+                  break;
+                default:
+              }
+              def();
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  void _muteUnmuteChat() {
+    final chatMutedUntil = _chatUserMutedUntilsWrapper.values.firstWhere(
+      (element) => element.uid == _uid,
+      orElse: PeamanChatMutedUntil.new,
+    );
+    if (chatMutedUntil.mutedUntil != null) {
+      const successLogMessage = 'The chat has been unmuted';
+      ref.read(providerOfPeamanChat.notifier).unmuteChat(
+            chatId: widget.chatId,
+            successLogMessage: successLogMessage,
+          );
+      return;
+    }
+
+    final options = [
+      const PeamanSelectableOption(
+        id: 0,
+        title: 'For 1 hour',
+      ),
+      const PeamanSelectableOption(
+        id: 1,
+        title: 'For 2 hours',
+      ),
+      const PeamanSelectableOption(
+        id: 2,
+        title: 'For 8 hours',
+      ),
+      const PeamanSelectableOption(
+        id: 3,
+        title: 'For 24 hours',
+      ),
+      const PeamanSelectableOption(
+        id: 4,
+        title: 'Until I turn it on',
+      ),
+    ];
+    showPeamanSelectableOptionsBottomsheet(
+      context: context,
+      optionsBuilder: (context, ref) => options,
+      borderRadius: 15.0,
+      onSelectOption: (context, ref, option) {
+        final currentDate = DateTime.now();
+        int? mutedUntilHours;
+        switch (option.id) {
+          case 0:
+            mutedUntilHours = 1;
+            break;
+          case 1:
+            mutedUntilHours = 2;
+            break;
+          case 2:
+            mutedUntilHours = 8;
+            break;
+          case 3:
+            mutedUntilHours = 24;
+            break;
+          case 4:
+            mutedUntilHours = -1;
+            break;
+          default:
+        }
+
+        if (mutedUntilHours != null) {
+          final mutedAt = currentDate.millisecondsSinceEpoch;
+          var mutedUntil = -1;
+
+          if (mutedUntilHours == -1) {
+            mutedUntil = -1;
+          } else {
+            final muteUntilDate = currentDate.add(
+              Duration(hours: mutedUntilHours),
+            );
+            mutedUntil = muteUntilDate.millisecondsSinceEpoch;
+          }
+
+          final successLogMessage = mutedUntilHours == -1
+              ? 'The chat has been muted until you turn it back on'
+              : 'The chat has been muted for $mutedUntilHours ${mutedUntilHours > 1 ? 'hours' : 'hour'}';
+
+          if (chatMutedUntil.mutedUntil.isNull) {
+            ref.read(providerOfPeamanChat.notifier).muteChat(
+                  chatId: widget.chatId,
+                  mutedAt: mutedAt,
+                  mutedUntil: mutedUntil,
+                  successLogMessage: successLogMessage,
+                );
+          }
+        }
+      },
+    );
+  }
+
+  void _blockUnblockUser({required final bool isUserBlocked}) {
+    final firstChatUser = _getFirstChatUser();
+    showPeamanConfirmationDialog(
+      context: context,
+      title:
+          'Are you sure you want to ${isUserBlocked ? 'unblock' : 'block'} ${firstChatUser?.name}?',
+      description:
+          'This action is not permanent and you can decide to undo this action at any time.',
+      onConfirm: (context, ref) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          final successLogMessage =
+              '${firstChatUser?.name} has been ${isUserBlocked ? 'unblocked' : 'blocked'}';
+          ref.read(providerOfPeamanUser.notifier).toggleBlockUnblock(
+                friendId: firstChatUser!.uid!,
+                successLogMessage: successLogMessage,
+              );
+        });
+      },
+    );
+  }
+
+  void _archiveChat() {
+    final firstChatUser = _getFirstChatUser();
+    showPeamanConfirmationDialog(
+      context: context,
+      title: 'Are you sure you want to archive this chat?',
+      description:
+          'This chat will not be shown in your chats list until you or ${firstChatUser?.name} sends a new message to this chat.',
+      onConfirm: (context, ref) {
+        const successLogMessage = 'The chat has been archived';
+        ref.read(providerOfPeamanChat.notifier).archiveChat(
+              chatId: widget.chatId,
+              successLogMessage: successLogMessage,
+            );
+
+        context
+          ..pop()
+          ..pop();
+      },
+    );
+  }
+
+  void _deleteChat() {
+    final firstChatUser = _getFirstChatUser();
+    showPeamanConfirmationDialog(
+      context: context,
+      title: 'Are you sure you want to delete this chat?',
+      description:
+          'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${_chatType == PeamanChatType.group ? 'others' : firstChatUser?.name} can still see the messages.',
+      onConfirm: (context, ref) {
+        const successLogMessage = 'The chat has been deleted';
+        ref.read(providerOfPeamanChat.notifier).deleteChat(
+              chatId: widget.chatId,
+              successLogMessage: successLogMessage,
+            );
+
+        context
+          ..pop()
+          ..pop();
+      },
+    );
   }
 }

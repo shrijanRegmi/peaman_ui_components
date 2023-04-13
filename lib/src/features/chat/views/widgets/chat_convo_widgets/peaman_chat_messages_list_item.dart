@@ -17,6 +17,8 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
       sentMessageBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
       receivedMessageBuilder;
+  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
+      infoMessageBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
   final Widget Function(BuildContext, WidgetRef, List<String>)?
       seenIndicatorBuilder;
@@ -33,6 +35,7 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
     this.nextMessage,
     this.sentMessageBuilder,
     this.receivedMessageBuilder,
+    this.infoMessageBuilder,
     this.senderInfoBuilder,
     this.seenIndicatorBuilder,
     this.typingIndicatorBuilder,
@@ -151,9 +154,6 @@ class _PeamanChatMessagesListItemState
   }
 
   Widget _messageBuilder() {
-    final isWhiteBgRequired = _isWhiteBgRequired();
-    final isGapRequired = _isGapBetweenMessagesRequired();
-
     Widget? thisWidget;
 
     if (widget.message.senderId == _uid) {
@@ -172,35 +172,13 @@ class _PeamanChatMessagesListItemState
 
     if (thisWidget != null) return thisWidget;
 
-    return Container(
-      padding: EdgeInsets.all(
-        isWhiteBgRequired ? 15.0 : 3.0,
-      ),
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width /
-            (widget.message.files.isNotEmpty ? 1.3 : 1.5),
-      ),
-      decoration: BoxDecoration(
-        color: isWhiteBgRequired
-            ? context.theme.colorScheme.background
-            : PeamanColors.transparent,
-        borderRadius: isGapRequired
-            ? BorderRadius.only(
-                topLeft: const Radius.circular(10.0),
-                topRight: const Radius.circular(10.0),
-                bottomLeft: Radius.circular(
-                  widget.message.senderId == _uid ? 10.0 : 0.0,
-                ),
-                bottomRight: Radius.circular(
-                  widget.message.senderId == _uid ? 0.0 : 10.0,
-                ),
-              )
-            : const BorderRadius.all(Radius.circular(10.0)),
-      ),
-      child: widget.message.files.isEmpty
-          ? _textMessageBuilder()
-          : _imageMessageBuilder(),
-    );
+    if (widget.message.type == PeamanChatMessageType.info) {
+      return _infoMessageBuilder();
+    } else if (widget.message.files.isNotEmpty) {
+      return _imageMessageBuilder();
+    } else {
+      return _textMessageBuilder();
+    }
   }
 
   Widget _replyBuilder() {
@@ -307,9 +285,30 @@ class _PeamanChatMessagesListItemState
   Widget _textMessageBuilder({final bool isReply = false}) {
     final isTempMessage = _isTempMessage();
 
-    return Opacity(
-      opacity: isTempMessage || isReply ? 0.6 : 1.0,
-      child: PeamanText.body2(widget.message.text),
+    return Container(
+      padding: EdgeInsets.all(15.w),
+      constraints: BoxConstraints(
+        maxWidth: (ScreenUtil().screenWidth /
+                (widget.message.files.isNotEmpty ? 1.3 : 1.5))
+            .w,
+      ),
+      decoration: BoxDecoration(
+        color: context.theme.colorScheme.background,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(10.0),
+          topRight: const Radius.circular(10.0),
+          bottomLeft: Radius.circular(
+            widget.message.senderId == _uid ? 10.0 : 0.0,
+          ),
+          bottomRight: Radius.circular(
+            widget.message.senderId == _uid ? 0.0 : 10.0,
+          ),
+        ),
+      ),
+      child: Opacity(
+        opacity: isTempMessage || isReply ? 0.6 : 1.0,
+        child: PeamanText.body2(widget.message.text),
+      ),
     );
   }
 
@@ -364,6 +363,22 @@ class _PeamanChatMessagesListItemState
         ],
       ),
     );
+  }
+
+  Widget _infoMessageBuilder() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        PeamanText.body1(
+          widget.message.text,
+          style: TextStyle(
+            fontSize: 10.sp,
+            color: PeamanColors.grey,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ).pY(10.0);
   }
 
   Widget _senderInfoBuilder() {
@@ -422,10 +437,6 @@ class _PeamanChatMessagesListItemState
     } else {
       return 100.0;
     }
-  }
-
-  bool _isWhiteBgRequired() {
-    return widget.message.extraId.isNull && widget.message.files.isEmpty;
   }
 
   bool _isTempMessage() {

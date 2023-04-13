@@ -505,7 +505,7 @@ packages:
       name: google_sign_in_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.8"
+    version: "6.1.9"
   google_sign_in_ios:
     dependency: transitive
     description:
@@ -728,7 +728,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: "6160fb28848ae953612fb98c92c33399c7b3ce66"
+      resolved-ref: d9e69353e892a2d7fe463e13a9507e84e903f7cf
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"

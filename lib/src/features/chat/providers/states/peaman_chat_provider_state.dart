@@ -11,6 +11,8 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
     @Default(<PeamanFileUrlExtended>[]) final List<PeamanFileUrlExtended> files,
     @Default(SendMessageState.initial())
         final SendMessageState sendMessageState,
+    @Default(SendInfoMessageState.initial())
+        final SendInfoMessageState sendInfoMessageState,
     @Default(UpdateMessageState.initial())
         final UpdateMessageState updateMessageState,
     @Default(DeleteMessageState.initial())
@@ -46,6 +48,18 @@ class SendMessageState with _$SendMessageState {
   const factory SendMessageState.error(
     final PeamanError error,
   ) = _SendMessageStateFailure;
+}
+
+@freezed
+class SendInfoMessageState with _$SendInfoMessageState {
+  const factory SendInfoMessageState.initial() = _SendInfoMessageStateInitial;
+  const factory SendInfoMessageState.loading() = _SendInfoMessageStateLoading;
+  const factory SendInfoMessageState.success(
+    final PeamanChatMessage result,
+  ) = _SendInfoMessageStateSuccess;
+  const factory SendInfoMessageState.error(
+    final PeamanError error,
+  ) = _SendInfoMessageStateFailure;
 }
 
 @freezed

@@ -20,6 +20,8 @@ mixin _$PeamanChatProviderState {
       throw _privateConstructorUsedError;
   List<PeamanFileUrlExtended> get files => throw _privateConstructorUsedError;
   SendMessageState get sendMessageState => throw _privateConstructorUsedError;
+  SendInfoMessageState get sendInfoMessageState =>
+      throw _privateConstructorUsedError;
   UpdateMessageState get updateMessageState =>
       throw _privateConstructorUsedError;
   DeleteMessageState get deleteMessageState =>
@@ -58,6 +60,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       {TextEditingController messageController,
       List<PeamanFileUrlExtended> files,
       SendMessageState sendMessageState,
+      SendInfoMessageState sendInfoMessageState,
       UpdateMessageState updateMessageState,
       DeleteMessageState deleteMessageState,
       UnsendMessageState unsendMessageState,
@@ -75,6 +78,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       PeamanChatMessage? messageToReply});
 
   $SendMessageStateCopyWith<$Res> get sendMessageState;
+  $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState;
   $UpdateMessageStateCopyWith<$Res> get updateMessageState;
   $DeleteMessageStateCopyWith<$Res> get deleteMessageState;
   $UnsendMessageStateCopyWith<$Res> get unsendMessageState;
@@ -108,6 +112,7 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     Object? messageController = null,
     Object? files = null,
     Object? sendMessageState = null,
+    Object? sendInfoMessageState = null,
     Object? updateMessageState = null,
     Object? deleteMessageState = null,
     Object? unsendMessageState = null,
@@ -137,6 +142,10 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
           ? _value.sendMessageState
           : sendMessageState // ignore: cast_nullable_to_non_nullable
               as SendMessageState,
+      sendInfoMessageState: null == sendInfoMessageState
+          ? _value.sendInfoMessageState
+          : sendInfoMessageState // ignore: cast_nullable_to_non_nullable
+              as SendInfoMessageState,
       updateMessageState: null == updateMessageState
           ? _value.updateMessageState
           : updateMessageState // ignore: cast_nullable_to_non_nullable
@@ -205,6 +214,15 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
   $SendMessageStateCopyWith<$Res> get sendMessageState {
     return $SendMessageStateCopyWith<$Res>(_value.sendMessageState, (value) {
       return _then(_value.copyWith(sendMessageState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState {
+    return $SendInfoMessageStateCopyWith<$Res>(_value.sendInfoMessageState,
+        (value) {
+      return _then(_value.copyWith(sendInfoMessageState: value) as $Val);
     });
   }
 
@@ -343,6 +361,7 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
       {TextEditingController messageController,
       List<PeamanFileUrlExtended> files,
       SendMessageState sendMessageState,
+      SendInfoMessageState sendInfoMessageState,
       UpdateMessageState updateMessageState,
       DeleteMessageState deleteMessageState,
       UnsendMessageState unsendMessageState,
@@ -361,6 +380,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
 
   @override
   $SendMessageStateCopyWith<$Res> get sendMessageState;
+  @override
+  $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState;
   @override
   $UpdateMessageStateCopyWith<$Res> get updateMessageState;
   @override
@@ -406,6 +427,7 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? messageController = null,
     Object? files = null,
     Object? sendMessageState = null,
+    Object? sendInfoMessageState = null,
     Object? updateMessageState = null,
     Object? deleteMessageState = null,
     Object? unsendMessageState = null,
@@ -435,6 +457,10 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
           ? _value.sendMessageState
           : sendMessageState // ignore: cast_nullable_to_non_nullable
               as SendMessageState,
+      sendInfoMessageState: null == sendInfoMessageState
+          ? _value.sendInfoMessageState
+          : sendInfoMessageState // ignore: cast_nullable_to_non_nullable
+              as SendInfoMessageState,
       updateMessageState: null == updateMessageState
           ? _value.updateMessageState
           : updateMessageState // ignore: cast_nullable_to_non_nullable
@@ -506,6 +532,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       {required this.messageController,
       final List<PeamanFileUrlExtended> files = const <PeamanFileUrlExtended>[],
       this.sendMessageState = const SendMessageState.initial(),
+      this.sendInfoMessageState = const SendInfoMessageState.initial(),
       this.updateMessageState = const UpdateMessageState.initial(),
       this.deleteMessageState = const DeleteMessageState.initial(),
       this.unsendMessageState = const UnsendMessageState.initial(),
@@ -538,6 +565,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   @override
   @JsonKey()
   final SendMessageState sendMessageState;
+  @override
+  @JsonKey()
+  final SendInfoMessageState sendInfoMessageState;
   @override
   @JsonKey()
   final UpdateMessageState updateMessageState;
@@ -591,7 +621,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
 
   @override
   String toString() {
-    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
+    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, sendInfoMessageState: $sendInfoMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
   }
 
   @override
@@ -604,6 +634,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
             const DeepCollectionEquality().equals(other._files, _files) &&
             (identical(other.sendMessageState, sendMessageState) ||
                 other.sendMessageState == sendMessageState) &&
+            (identical(other.sendInfoMessageState, sendInfoMessageState) ||
+                other.sendInfoMessageState == sendInfoMessageState) &&
             (identical(other.updateMessageState, updateMessageState) ||
                 other.updateMessageState == updateMessageState) &&
             (identical(other.deleteMessageState, deleteMessageState) ||
@@ -637,26 +669,28 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      messageController,
-      const DeepCollectionEquality().hash(_files),
-      sendMessageState,
-      updateMessageState,
-      deleteMessageState,
-      unsendMessageState,
-      readChatState,
-      updateChatState,
-      deleteChatState,
-      archiveChatState,
-      muteChatState,
-      unmuteChatState,
-      leaveChatState,
-      addChatMembersState,
-      removeChatMembersState,
-      setTypingStatusState,
-      const DeepCollectionEquality().hash(_tempMessages),
-      messageToReply);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        messageController,
+        const DeepCollectionEquality().hash(_files),
+        sendMessageState,
+        sendInfoMessageState,
+        updateMessageState,
+        deleteMessageState,
+        unsendMessageState,
+        readChatState,
+        updateChatState,
+        deleteChatState,
+        archiveChatState,
+        muteChatState,
+        unmuteChatState,
+        leaveChatState,
+        addChatMembersState,
+        removeChatMembersState,
+        setTypingStatusState,
+        const DeepCollectionEquality().hash(_tempMessages),
+        messageToReply
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -672,6 +706,7 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       {required final TextEditingController messageController,
       final List<PeamanFileUrlExtended> files,
       final SendMessageState sendMessageState,
+      final SendInfoMessageState sendInfoMessageState,
       final UpdateMessageState updateMessageState,
       final DeleteMessageState deleteMessageState,
       final UnsendMessageState unsendMessageState,
@@ -694,6 +729,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   List<PeamanFileUrlExtended> get files;
   @override
   SendMessageState get sendMessageState;
+  @override
+  SendInfoMessageState get sendInfoMessageState;
   @override
   UpdateMessageState get updateMessageState;
   @override
@@ -1345,6 +1382,635 @@ abstract class _SendMessageStateFailure implements SendMessageState {
   PeamanError get error;
   @JsonKey(ignore: true)
   _$$_SendMessageStateFailureCopyWith<_$_SendMessageStateFailure>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SendInfoMessageState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendInfoMessageStateInitial value) initial,
+    required TResult Function(_SendInfoMessageStateLoading value) loading,
+    required TResult Function(_SendInfoMessageStateSuccess value) success,
+    required TResult Function(_SendInfoMessageStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendInfoMessageStateInitial value)? initial,
+    TResult? Function(_SendInfoMessageStateLoading value)? loading,
+    TResult? Function(_SendInfoMessageStateSuccess value)? success,
+    TResult? Function(_SendInfoMessageStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendInfoMessageStateInitial value)? initial,
+    TResult Function(_SendInfoMessageStateLoading value)? loading,
+    TResult Function(_SendInfoMessageStateSuccess value)? success,
+    TResult Function(_SendInfoMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SendInfoMessageStateCopyWith<$Res> {
+  factory $SendInfoMessageStateCopyWith(SendInfoMessageState value,
+          $Res Function(SendInfoMessageState) then) =
+      _$SendInfoMessageStateCopyWithImpl<$Res, SendInfoMessageState>;
+}
+
+/// @nodoc
+class _$SendInfoMessageStateCopyWithImpl<$Res,
+        $Val extends SendInfoMessageState>
+    implements $SendInfoMessageStateCopyWith<$Res> {
+  _$SendInfoMessageStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_SendInfoMessageStateInitialCopyWith<$Res> {
+  factory _$$_SendInfoMessageStateInitialCopyWith(
+          _$_SendInfoMessageStateInitial value,
+          $Res Function(_$_SendInfoMessageStateInitial) then) =
+      __$$_SendInfoMessageStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SendInfoMessageStateInitialCopyWithImpl<$Res>
+    extends _$SendInfoMessageStateCopyWithImpl<$Res,
+        _$_SendInfoMessageStateInitial>
+    implements _$$_SendInfoMessageStateInitialCopyWith<$Res> {
+  __$$_SendInfoMessageStateInitialCopyWithImpl(
+      _$_SendInfoMessageStateInitial _value,
+      $Res Function(_$_SendInfoMessageStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SendInfoMessageStateInitial implements _SendInfoMessageStateInitial {
+  const _$_SendInfoMessageStateInitial();
+
+  @override
+  String toString() {
+    return 'SendInfoMessageState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendInfoMessageStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendInfoMessageStateInitial value) initial,
+    required TResult Function(_SendInfoMessageStateLoading value) loading,
+    required TResult Function(_SendInfoMessageStateSuccess value) success,
+    required TResult Function(_SendInfoMessageStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendInfoMessageStateInitial value)? initial,
+    TResult? Function(_SendInfoMessageStateLoading value)? loading,
+    TResult? Function(_SendInfoMessageStateSuccess value)? success,
+    TResult? Function(_SendInfoMessageStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendInfoMessageStateInitial value)? initial,
+    TResult Function(_SendInfoMessageStateLoading value)? loading,
+    TResult Function(_SendInfoMessageStateSuccess value)? success,
+    TResult Function(_SendInfoMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendInfoMessageStateInitial implements SendInfoMessageState {
+  const factory _SendInfoMessageStateInitial() = _$_SendInfoMessageStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_SendInfoMessageStateLoadingCopyWith<$Res> {
+  factory _$$_SendInfoMessageStateLoadingCopyWith(
+          _$_SendInfoMessageStateLoading value,
+          $Res Function(_$_SendInfoMessageStateLoading) then) =
+      __$$_SendInfoMessageStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SendInfoMessageStateLoadingCopyWithImpl<$Res>
+    extends _$SendInfoMessageStateCopyWithImpl<$Res,
+        _$_SendInfoMessageStateLoading>
+    implements _$$_SendInfoMessageStateLoadingCopyWith<$Res> {
+  __$$_SendInfoMessageStateLoadingCopyWithImpl(
+      _$_SendInfoMessageStateLoading _value,
+      $Res Function(_$_SendInfoMessageStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SendInfoMessageStateLoading implements _SendInfoMessageStateLoading {
+  const _$_SendInfoMessageStateLoading();
+
+  @override
+  String toString() {
+    return 'SendInfoMessageState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendInfoMessageStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendInfoMessageStateInitial value) initial,
+    required TResult Function(_SendInfoMessageStateLoading value) loading,
+    required TResult Function(_SendInfoMessageStateSuccess value) success,
+    required TResult Function(_SendInfoMessageStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendInfoMessageStateInitial value)? initial,
+    TResult? Function(_SendInfoMessageStateLoading value)? loading,
+    TResult? Function(_SendInfoMessageStateSuccess value)? success,
+    TResult? Function(_SendInfoMessageStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendInfoMessageStateInitial value)? initial,
+    TResult Function(_SendInfoMessageStateLoading value)? loading,
+    TResult Function(_SendInfoMessageStateSuccess value)? success,
+    TResult Function(_SendInfoMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendInfoMessageStateLoading implements SendInfoMessageState {
+  const factory _SendInfoMessageStateLoading() = _$_SendInfoMessageStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_SendInfoMessageStateSuccessCopyWith<$Res> {
+  factory _$$_SendInfoMessageStateSuccessCopyWith(
+          _$_SendInfoMessageStateSuccess value,
+          $Res Function(_$_SendInfoMessageStateSuccess) then) =
+      __$$_SendInfoMessageStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanChatMessage result});
+
+  $PeamanChatMessageCopyWith<$Res> get result;
+}
+
+/// @nodoc
+class __$$_SendInfoMessageStateSuccessCopyWithImpl<$Res>
+    extends _$SendInfoMessageStateCopyWithImpl<$Res,
+        _$_SendInfoMessageStateSuccess>
+    implements _$$_SendInfoMessageStateSuccessCopyWith<$Res> {
+  __$$_SendInfoMessageStateSuccessCopyWithImpl(
+      _$_SendInfoMessageStateSuccess _value,
+      $Res Function(_$_SendInfoMessageStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_SendInfoMessageStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as PeamanChatMessage,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanChatMessageCopyWith<$Res> get result {
+    return $PeamanChatMessageCopyWith<$Res>(_value.result, (value) {
+      return _then(_value.copyWith(result: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SendInfoMessageStateSuccess implements _SendInfoMessageStateSuccess {
+  const _$_SendInfoMessageStateSuccess(this.result);
+
+  @override
+  final PeamanChatMessage result;
+
+  @override
+  String toString() {
+    return 'SendInfoMessageState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendInfoMessageStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SendInfoMessageStateSuccessCopyWith<_$_SendInfoMessageStateSuccess>
+      get copyWith => __$$_SendInfoMessageStateSuccessCopyWithImpl<
+          _$_SendInfoMessageStateSuccess>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendInfoMessageStateInitial value) initial,
+    required TResult Function(_SendInfoMessageStateLoading value) loading,
+    required TResult Function(_SendInfoMessageStateSuccess value) success,
+    required TResult Function(_SendInfoMessageStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendInfoMessageStateInitial value)? initial,
+    TResult? Function(_SendInfoMessageStateLoading value)? loading,
+    TResult? Function(_SendInfoMessageStateSuccess value)? success,
+    TResult? Function(_SendInfoMessageStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendInfoMessageStateInitial value)? initial,
+    TResult Function(_SendInfoMessageStateLoading value)? loading,
+    TResult Function(_SendInfoMessageStateSuccess value)? success,
+    TResult Function(_SendInfoMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendInfoMessageStateSuccess implements SendInfoMessageState {
+  const factory _SendInfoMessageStateSuccess(final PeamanChatMessage result) =
+      _$_SendInfoMessageStateSuccess;
+
+  PeamanChatMessage get result;
+  @JsonKey(ignore: true)
+  _$$_SendInfoMessageStateSuccessCopyWith<_$_SendInfoMessageStateSuccess>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SendInfoMessageStateFailureCopyWith<$Res> {
+  factory _$$_SendInfoMessageStateFailureCopyWith(
+          _$_SendInfoMessageStateFailure value,
+          $Res Function(_$_SendInfoMessageStateFailure) then) =
+      __$$_SendInfoMessageStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_SendInfoMessageStateFailureCopyWithImpl<$Res>
+    extends _$SendInfoMessageStateCopyWithImpl<$Res,
+        _$_SendInfoMessageStateFailure>
+    implements _$$_SendInfoMessageStateFailureCopyWith<$Res> {
+  __$$_SendInfoMessageStateFailureCopyWithImpl(
+      _$_SendInfoMessageStateFailure _value,
+      $Res Function(_$_SendInfoMessageStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_SendInfoMessageStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SendInfoMessageStateFailure implements _SendInfoMessageStateFailure {
+  const _$_SendInfoMessageStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'SendInfoMessageState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendInfoMessageStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SendInfoMessageStateFailureCopyWith<_$_SendInfoMessageStateFailure>
+      get copyWith => __$$_SendInfoMessageStateFailureCopyWithImpl<
+          _$_SendInfoMessageStateFailure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendInfoMessageStateInitial value) initial,
+    required TResult Function(_SendInfoMessageStateLoading value) loading,
+    required TResult Function(_SendInfoMessageStateSuccess value) success,
+    required TResult Function(_SendInfoMessageStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendInfoMessageStateInitial value)? initial,
+    TResult? Function(_SendInfoMessageStateLoading value)? loading,
+    TResult? Function(_SendInfoMessageStateSuccess value)? success,
+    TResult? Function(_SendInfoMessageStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendInfoMessageStateInitial value)? initial,
+    TResult Function(_SendInfoMessageStateLoading value)? loading,
+    TResult Function(_SendInfoMessageStateSuccess value)? success,
+    TResult Function(_SendInfoMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendInfoMessageStateFailure implements SendInfoMessageState {
+  const factory _SendInfoMessageStateFailure(final PeamanError error) =
+      _$_SendInfoMessageStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_SendInfoMessageStateFailureCopyWith<_$_SendInfoMessageStateFailure>
       get copyWith => throw _privateConstructorUsedError;
 }
 

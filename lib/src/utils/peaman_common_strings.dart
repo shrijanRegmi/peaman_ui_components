@@ -73,4 +73,12 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
+  static leaveChatInfo({
+    required final PeamanUser user,
+  }) {
+    return '';
+  }
+
+///////////////////////////////////////////////
+
 }
