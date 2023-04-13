@@ -373,7 +373,7 @@ class _PeamanChatMessagesListItemState
             child: PeamanText.body1(
               PeamanChatHelper.getInfoMessage(
                 message: widget.message.text!,
-                infoType: PeamanInfoMessageType.removedFromChat,
+                infoType: widget.message.infoType,
                 usersProvider: (userIds) => ref.watch(
                   providerOfPeamanUsersByIdFuture(userIds),
                 ),

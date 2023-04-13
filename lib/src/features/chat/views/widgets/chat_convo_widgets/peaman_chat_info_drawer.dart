@@ -571,6 +571,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                               chatId: widget.chatId,
                               receiverIds: receiverIds,
                               chatType: _chatType,
+                              infoType: PeamanInfoMessageType.addedToChat,
                               info: infoAddedToChat,
                             );
                       },
@@ -609,6 +610,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                   ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
                         chatId: widget.chatId,
                         receiverIds: receiverIds,
+                        infoType: PeamanInfoMessageType.leftChat,
                         chatType: _chatType,
                         info: infoLeaveChat,
                       );

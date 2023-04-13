@@ -69,6 +69,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
                             chatId: chatId,
                             receiverIds: receiverIds,
                             chatType: PeamanChatType.group,
+                            infoType: PeamanInfoMessageType.removedFromChat,
                             info: infoRemovedFromChat,
                           );
                     },

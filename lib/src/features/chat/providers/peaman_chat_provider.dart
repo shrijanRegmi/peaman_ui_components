@@ -195,6 +195,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     required final String chatId,
     required final List<String> receiverIds,
     required final PeamanChatType chatType,
+    required final PeamanInfoMessageType infoType,
     required final String info,
   }) async {
     if (info.trim().isEmpty) {
@@ -212,6 +213,9 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       type: PeamanChatMessageType.info,
       createdAt: millis,
       updatedAt: millis,
+      extraData: <String, dynamic>{
+        'info_type': ksPeamanInfoMessageType[infoType],
+      },
     );
 
     state = state.copyWith(
