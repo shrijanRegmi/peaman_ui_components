@@ -100,7 +100,8 @@ class _PeamanChatMessagesListItemState
               ),
             PeamanChatMessageSwiper(
               message: widget.message,
-              enabled: !widget.message.isTemp,
+              enabled: !widget.message.isTemp &&
+                  widget.message.type != PeamanChatMessageType.info,
               onSwipped: (message) =>
                   widget.onSwipped?.call(message) ??
                   ref
