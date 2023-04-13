@@ -391,7 +391,7 @@ class _PeamanChatMessagesListItemState
           ),
         ),
       ],
-    ).pB(15.0);
+    ).pB(20.0);
   }
 
   Widget _senderInfoBuilder() {
