@@ -366,18 +366,21 @@ class _PeamanChatMessagesListItemState
   }
 
   Widget _infoMessageBuilder() {
+    final info = PeamanChatHelper.getInfoMessage(
+      message: widget.message.text!,
+      infoType: widget.message.infoType,
+      usersProvider: (userIds) => ref.watch(
+        providerOfPeamanUsersByIdFuture(userIds),
+      ),
+    );
+    if (info.isEmpty) return const SizedBox();
+
     return Row(
       children: [
         Expanded(
           child: Center(
             child: PeamanText.body1(
-              PeamanChatHelper.getInfoMessage(
-                message: widget.message.text!,
-                infoType: widget.message.infoType,
-                usersProvider: (userIds) => ref.watch(
-                  providerOfPeamanUsersByIdFuture(userIds),
-                ),
-              ),
+              info,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 10.sp,

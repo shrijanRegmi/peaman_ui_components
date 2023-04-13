@@ -10,14 +10,14 @@ _$_PeamanChatMessageExtraData _$$_PeamanChatMessageExtraDataFromJson(
         Map<String, dynamic> json) =>
     _$_PeamanChatMessageExtraData(
       infoType: $enumDecodeNullable(
-              _$PeamanInfoMessageTypeEnumMap, json['infoType']) ??
+              _$PeamanInfoMessageTypeEnumMap, json['info_type']) ??
           PeamanInfoMessageType.unknown,
     );
 
 Map<String, dynamic> _$$_PeamanChatMessageExtraDataToJson(
         _$_PeamanChatMessageExtraData instance) =>
     <String, dynamic>{
-      'infoType': _$PeamanInfoMessageTypeEnumMap[instance.infoType]!,
+      'info_type': _$PeamanInfoMessageTypeEnumMap[instance.infoType]!,
     };
 
 const _$PeamanInfoMessageTypeEnumMap = {
