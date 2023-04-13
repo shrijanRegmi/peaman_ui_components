@@ -57,6 +57,39 @@ final providerOfSingleUserByIdFuture =
   },
 );
 
+final providerOfPeamanUsersByIdFuture = FutureProvider.family<
+    PeamanEither<List<PeamanUser>, PeamanError>, PeamanListWrapper<String>>(
+  (ref, uids) async {
+    final futures = <Future<PeamanEither<PeamanUser, PeamanError>>>[];
+
+    for (final uid in uids.values) {
+      final future =
+          ref.watch(providerOfPeamanUserRepository).getSingleUser(uid: uid);
+      futures.add(future);
+    }
+
+    final results = await Future.wait(futures);
+
+    var users = <PeamanUser>[];
+    PeamanError? error;
+    for (final result in results) {
+      error = result.when(
+        (success) {
+          users = [...users, success];
+          return null;
+        },
+        (failure) => failure,
+      );
+    }
+
+    if (error != null) {
+      return Failure(error);
+    }
+
+    return Success(users);
+  },
+);
+
 class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
   PeamanAuthProvider(final Ref ref)
       : _ref = ref,

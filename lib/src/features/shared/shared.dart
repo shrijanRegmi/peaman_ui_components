@@ -34,6 +34,7 @@ export 'models/peaman_file_url_extended.dart';
 export 'models/peaman_list_wrapper.dart';
 
 export 'helpers/peaman_dialog_provider.dart';
+export 'helpers/peaman_z_ref_helper.dart';
 export 'helpers/peaman_date_time_helper.dart';
 
 export 'extensions/peaman_object_extension.dart';

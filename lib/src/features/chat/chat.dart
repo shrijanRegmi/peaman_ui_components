@@ -25,3 +25,7 @@ export 'views/widgets/chat_convo_widgets/peaman_chat_info_drawer.dart';
 export 'utils/peaman_chat_dialogs.dart';
 
 export 'extensions/peaman_chat_extension.dart';
+
+export 'enums/peaman_info_message_type.dart';
+
+export 'helpers/peaman_chat_helper.dart';

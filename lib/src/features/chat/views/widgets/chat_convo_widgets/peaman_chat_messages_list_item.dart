@@ -367,14 +367,24 @@ class _PeamanChatMessagesListItemState
 
   Widget _infoMessageBuilder() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PeamanText.body1(
-          widget.message.text,
-          style: TextStyle(
-            fontSize: 10.sp,
-            color: PeamanColors.grey,
-            fontWeight: FontWeight.bold,
+        Expanded(
+          child: Center(
+            child: PeamanText.body1(
+              PeamanChatHelper.getInfoMessage(
+                message: widget.message.text!,
+                infoType: PeamanInfoMessageType.removedFromChat,
+                usersProvider: (userIds) => ref.watch(
+                  providerOfPeamanUsersByIdFuture(userIds),
+                ),
+              ),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: PeamanColors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ],

@@ -562,15 +562,16 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                         final receiverIds = _chatUserIdsWrapper.values
                             .where((element) => element != _uid)
                             .toList();
-                        final appUser = ref.read(providerOfLoggedInUser);
-                        final leaveChatInfo = PeamanCommonStrings.leaveChatInfo(
-                          user: appUser,
+                        final infoAddedToChat =
+                            PeamanCommonStrings.infoAddedToChat(
+                          uid: _uid,
+                          userIds: users.map((e) => e.uid!).toList(),
                         );
                         ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
                               chatId: widget.chatId,
                               receiverIds: receiverIds,
                               chatType: _chatType,
-                              info: 'Added',
+                              info: infoAddedToChat,
                             );
                       },
                       orElse: () {},
@@ -603,14 +604,13 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                   final receiverIds = _chatUserIdsWrapper.values
                       .where((element) => element != _uid)
                       .toList();
-                  final appUser = ref.read(providerOfLoggedInUser);
-                  final leaveChatInfo =
-                      PeamanCommonStrings.leaveChatInfo(user: appUser);
+                  final infoLeaveChat =
+                      PeamanCommonStrings.infoLeaveChat(uid: _uid);
                   ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
                         chatId: widget.chatId,
                         receiverIds: receiverIds,
                         chatType: _chatType,
-                        info: leaveChatInfo,
+                        info: infoLeaveChat,
                       );
                 },
                 orElse: () {},

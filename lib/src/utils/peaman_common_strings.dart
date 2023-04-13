@@ -25,6 +25,22 @@ class PeamanCommonStrings {
   }) {
     return '${user.name} has been removed from the chat';
   }
+
+  static infoRemovedFromChat({
+    required final String uid,
+    required final List<String> userIds,
+  }) {
+    final zRefRemover = PeamanZRefHelper.getZRefFromText(
+      uid,
+      refText: 'remover',
+    );
+    final zRefRemoved = PeamanZRefHelper.getZRefFromList(
+      userIds,
+      refText: 'removed',
+    );
+
+    return '$zRefRemover removed $zRefRemoved from the chat';
+  }
 ///////////////////////////////////////////////
 
   static confirmationTitleAddBackToChat({
@@ -71,12 +87,29 @@ class PeamanCommonStrings {
     return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} has been added to the chat';
   }
 
+  static infoAddedToChat({
+    required final String uid,
+    required final List<String> userIds,
+  }) {
+    final zRefAdder = PeamanZRefHelper.getZRefFromText(
+      uid,
+      refText: 'adder',
+    );
+    final zRefAdded = PeamanZRefHelper.getZRefFromList(
+      userIds,
+      refText: 'added',
+    );
+
+    return '$zRefAdder $zRefAdded';
+  }
+
 ///////////////////////////////////////////////
 
-  static leaveChatInfo({
-    required final PeamanUser user,
+  static infoLeaveChat({
+    required final String uid,
   }) {
-    return '';
+    final zRef = PeamanZRefHelper.getZRefFromText(uid);
+    return zRef;
   }
 
 ///////////////////////////////////////////////

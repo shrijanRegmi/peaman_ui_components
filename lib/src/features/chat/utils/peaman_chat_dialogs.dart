@@ -40,14 +40,41 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
             user: user,
           ),
           onConfirm: (context, ref) {
-            ref.read(providerOfPeamanChat.notifier).removeChatMembers(
+            ref
+                .read(providerOfPeamanChat.notifier)
+                .removeChatMembers(
                   chatId: chatId,
                   friendIds: [user.uid!],
                   successLogMessage:
                       PeamanCommonStrings.successLogRemoveFromChat(
                     user: user,
                   ),
-                );
+                )
+                .then((_) {
+              ref.read(providerOfPeamanChat).addChatMembersState.maybeWhen(
+                    success: (_) {
+                      final chatUserIds = ref.read(
+                        providerOfSinglePeamanChatFromChatsStream(chatId)
+                            .select((value) => value?.userIds ?? []),
+                      );
+                      final receiverIds = chatUserIds
+                          .where((element) => element != uid)
+                          .toList();
+                      final infoRemovedFromChat =
+                          PeamanCommonStrings.infoRemovedFromChat(
+                        uid: uid,
+                        userIds: [user.uid!],
+                      );
+                      ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
+                            chatId: chatId,
+                            receiverIds: receiverIds,
+                            chatType: PeamanChatType.group,
+                            info: infoRemovedFromChat,
+                          );
+                    },
+                    orElse: () {},
+                  );
+            });
           },
         );
         break;
