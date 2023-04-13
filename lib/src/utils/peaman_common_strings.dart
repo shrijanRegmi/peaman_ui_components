@@ -39,7 +39,7 @@ class PeamanCommonStrings {
       refText: 'removed',
     );
 
-    return '$zRefRemover removed $zRefRemoved from the chat';
+    return '$zRefRemover $zRefRemoved';
   }
 ///////////////////////////////////////////////
 

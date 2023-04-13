@@ -51,7 +51,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
                   ),
                 )
                 .then((_) {
-              ref.read(providerOfPeamanChat).addChatMembersState.maybeWhen(
+              ref.read(providerOfPeamanChat).removeChatMembersState.maybeWhen(
                     success: (_) {
                       final chatUserIds = ref.read(
                         providerOfSinglePeamanChatFromChatsStream(chatId)

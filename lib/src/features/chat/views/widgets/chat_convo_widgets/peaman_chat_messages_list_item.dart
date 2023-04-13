@@ -391,7 +391,7 @@ class _PeamanChatMessagesListItemState
           ),
         ),
       ],
-    ).pY(10.0);
+    ).pB(15.0);
   }
 
   Widget _senderInfoBuilder() {
@@ -457,13 +457,20 @@ class _PeamanChatMessagesListItemState
   }
 
   bool _isGapBetweenMessagesRequired() {
+    if (widget.message.type == PeamanChatMessageType.info) return false;
+
     return (widget.nextMessage?.senderId != widget.message.senderId ||
         widget.nextMessage?.id == widget.message.id ||
         !widget.isMessagesSentOnSameHour);
   }
 
   bool _showSenderInfo() {
-    return _isGapBetweenMessagesRequired() && widget.message.senderId != _uid;
+    if (widget.message.type == PeamanChatMessageType.info) {
+      return false;
+    } else if (widget.nextMessage?.type == PeamanChatMessageType.info) {
+      return true;
+    }
+    return (_isGapBetweenMessagesRequired() && widget.message.senderId != _uid);
   }
 
   bool _isReply() {
