@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_downloader/image_downloader.dart';
+// import 'package:image_downloader/image_downloader.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -139,13 +139,13 @@ class _ViewPictureScreenState extends State<PeamanViewPicturesScreen>
                                 Fluttertoast.showToast(
                                   msg: 'Downloading image...',
                                 );
-                                final imgId =
-                                    await ImageDownloader.downloadImage(
-                                  widget.pictures[_activeIndex],
-                                );
-                                if (imgId == null) {
-                                  throw Exception('imageId was null');
-                                }
+                                // final imgId =
+                                //     await ImageDownloader.downloadImage(
+                                //   widget.pictures[_activeIndex],
+                                // );
+                                // if (imgId == null) {
+                                //   throw Exception('imageId was null');
+                                // }
                                 Fluttertoast.showToast(
                                   msg: 'Image downloaded!',
                                 );
