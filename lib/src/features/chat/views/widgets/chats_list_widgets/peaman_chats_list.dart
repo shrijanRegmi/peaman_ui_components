@@ -7,20 +7,72 @@ class PeamanChatsList extends ConsumerStatefulWidget {
   final ScrollController? controller;
   final EdgeInsets firstItemPadding;
   final EdgeInsets lastItemPadding;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? itemBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? avatarBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? bodyBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? dateBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? counterBuilder;
-  final List<Widget> Function(BuildContext, WidgetRef, PeamanChat)?
-      actionWidgetsBuilder;
-  final Widget Function(BuildContext, WidgetRef, List<PeamanChat>)? listBuilder;
-  final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
-  final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanError)? errorBuilder;
-  final Function(PeamanChat, Function())? onPressedChat;
-  final Function(PeamanChat, Function())? onLongPressedChat;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? itemBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? avatarBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? titleBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? bodyBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? dateBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? counterBuilder;
+  final List<Widget> Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? actionWidgetsBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanChat>,
+  )? listBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? loadingBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? emptyBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanError,
+  )? errorBuilder;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    Function(),
+  )? onPressedChat;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    Function(),
+  )? onLongPressedChat;
 
   const PeamanChatsList({
     super.key,
@@ -80,29 +132,33 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
     return widget.listBuilder?.call(context, ref, chats) ??
         ListView.builder(
           itemCount: chats.length,
+          controller: widget.controller,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             final chat = chats[index];
 
-            final chatItemWidget =
-                widget.itemBuilder?.call(context, ref, chat) ??
-                    PeamanChatsListItem(
-                      chat: chat,
-                      actionWidgetsBuilder: widget.actionWidgetsBuilder,
-                      avatarBuilder: widget.avatarBuilder,
-                      titleBuilder: widget.titleBuilder,
-                      bodyBuilder: widget.bodyBuilder,
-                      dateBuilder: widget.dateBuilder,
-                      counterBuilder: widget.counterBuilder,
-                      onPressed: (chat) =>
-                          widget.onPressedChat?.call(
-                            chat,
-                            () => _gotoChatConvoScreen(context, chat),
-                          ) ??
-                          _gotoChatConvoScreen(context, chat),
-                      onLongPressed: (chat) =>
-                          widget.onLongPressedChat?.call(chat, () {}),
-                    );
+            final chatItemWidget = widget.itemBuilder
+                    ?.call(context, ref, chat) ??
+                PeamanChatsListItem(
+                  chat: chat,
+                  actionWidgetsBuilder: widget.actionWidgetsBuilder,
+                  avatarBuilder: widget.avatarBuilder,
+                  titleBuilder: widget.titleBuilder,
+                  bodyBuilder: widget.bodyBuilder,
+                  dateBuilder: widget.dateBuilder,
+                  counterBuilder: widget.counterBuilder,
+                  onPressed: (context, ref, chat, def) =>
+                      widget.onPressedChat.isNotNull
+                          ? widget.onPressedChat?.call(
+                              context,
+                              ref,
+                              chat,
+                              () => _gotoChatConvoScreen(context, chat),
+                            )
+                          : _gotoChatConvoScreen(context, chat),
+                  onLongPressed: (context, ref, chat, def) =>
+                      widget.onLongPressedChat?.call(context, ref, chat, def),
+                );
 
             return Padding(
               padding: index == 0

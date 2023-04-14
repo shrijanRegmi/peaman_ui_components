@@ -8,15 +8,48 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class PeamanChatsListItem extends ConsumerStatefulWidget {
   final PeamanChat chat;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? avatarBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? titleBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? bodyBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? dateBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChat)? counterBuilder;
-  final List<Widget> Function(BuildContext, WidgetRef, PeamanChat)?
-      actionWidgetsBuilder;
-  final Function(PeamanChat)? onPressed;
-  final Function(PeamanChat)? onLongPressed;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? avatarBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? titleBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? bodyBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? dateBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? counterBuilder;
+  final List<Widget> Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+  )? actionWidgetsBuilder;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    Function(),
+  )? onPressed;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    Function(),
+  )? onLongPressed;
 
   const PeamanChatsListItem({
     super.key,
@@ -213,10 +246,20 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
         .pX(20)
         .pY(10)
         .onPressed(
-          () => widget.onPressed?.call(widget.chat),
+          () => widget.onPressed?.call(
+            context,
+            ref,
+            widget.chat,
+            () {},
+          ),
         )
         .onLongPressed(
-          () => widget.onLongPressed?.call(widget.chat),
+          () => widget.onLongPressed?.call(
+            context,
+            ref,
+            widget.chat,
+            () {},
+          ),
         );
   }
 

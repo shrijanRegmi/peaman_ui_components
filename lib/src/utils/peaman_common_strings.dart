@@ -68,7 +68,7 @@ class PeamanCommonStrings {
   }) {
     final firstUser = users.isEmpty ? null : users.first;
     final remaining = users.length - 1;
-    return 'Are you sure you want to add ${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} to this chat?';
+    return 'Are you sure you want to add ${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} to the chat?';
   }
 
   static confirmationDescAddToChat({
@@ -76,7 +76,7 @@ class PeamanCommonStrings {
   }) {
     final firstUser = users.isEmpty ? null : users.first;
     final remaining = users.length - 1;
-    return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} will be able to view all the old messages and send new messages to this chat.';
+    return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} will be able to view all the old messages and send new messages to the chat.';
   }
 
   static successLogAddedToChat({

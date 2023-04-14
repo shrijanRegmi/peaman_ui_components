@@ -125,7 +125,8 @@ class _PeamanChatMessagesListItemState
                   PeamanChatMessageTypingIndicator(
                     chatId: widget.message.chatId!,
                   ),
-                  if (widget.message.senderId == _uid)
+                  if (widget.message.senderId == _uid &&
+                      widget.message.type != PeamanChatMessageType.info)
                     PeamanChatMessageSeenIndicator(
                       chatId: widget.message.chatId!,
                     ),

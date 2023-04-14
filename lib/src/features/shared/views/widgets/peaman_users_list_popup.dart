@@ -175,7 +175,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
 
 class _PeamanUsersListBottomsheetState
     extends ConsumerState<PeamanUsersListPopup> {
-  bool _isVisible = false;
+  bool _isKeyboardVisible = false;
   final List<PeamanUser> _selectedUsers = [];
   late KeyboardVisibilityController _keyboardVisibilityController;
 
@@ -184,10 +184,10 @@ class _PeamanUsersListBottomsheetState
     super.initState();
     _keyboardVisibilityController = KeyboardVisibilityController();
     _keyboardVisibilityController.onChange.listen((event) {
-      if (!_isVisible) {
+      if (!_isKeyboardVisible) {
         if (mounted) {
           setState(() {
-            _isVisible = event;
+            _isKeyboardVisible = event;
           });
         }
       }
@@ -209,14 +209,14 @@ class _PeamanUsersListBottomsheetState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: _isVisible && widget.expandOnKeyboard
+      height: _isKeyboardVisible && widget.expandOnKeyboard
           ? ScreenUtil().screenHeight
           : 450.h,
       child: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: _isVisible && widget.expandOnKeyboard
+              height: _isKeyboardVisible && widget.expandOnKeyboard
                   ? ScreenUtil().statusBarHeight
                   : 0.0,
             ),
@@ -305,7 +305,7 @@ class _PeamanUsersListBottomsheetState
       firstItemPadding: widget.firstItemPadding,
       lastItemPadding: widget.lastItemPadding ??
           EdgeInsets.only(
-            bottom: _isVisible ? 250.h : 6.w,
+            bottom: _isKeyboardVisible ? 250.h : 6.w,
             left: 20.w,
             right: 20.w,
             top: 6.w,
@@ -391,7 +391,7 @@ class _PeamanUsersListBottomsheetState
       firstItemPadding: widget.firstItemPadding,
       lastItemPadding: widget.lastItemPadding ??
           EdgeInsets.only(
-            bottom: _isVisible ? 250.h : 6.w,
+            bottom: _isKeyboardVisible ? 250.h : 6.w,
             left: 20.w,
             right: 20.w,
             top: 6.w,

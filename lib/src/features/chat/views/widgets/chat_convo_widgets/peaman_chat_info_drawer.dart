@@ -227,7 +227,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               'Add to group',
               style: TextStyle(fontSize: 12.sp),
             ),
-            onTap: () {},
+            onTap: _addToAnotherChat,
           ),
         if (_chatType == PeamanChatType.oneToOne)
           ListTile(
@@ -676,6 +676,74 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 default:
               }
               def();
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  void _addToAnotherChat() {
+    final firstChatUser = _getFirstChatUser();
+    if (firstChatUser == null) return;
+
+    showPeamanNormalBottomsheet(
+      context: context,
+      widget: PeamanChatsListPopup(
+        title: 'Add to group',
+        filterBuilder: (context, ref, chats) => chats
+            .where((element) =>
+                element.type == PeamanChatType.group &&
+                element.activeUserIds.contains(_uid) &&
+                !element.activeUserIds.contains(firstChatUser.uid!))
+            .toList(),
+        onPressedChat: (context, ref, chat, def) {
+          showPeamanConfirmationDialog(
+            context: context,
+            title: PeamanCommonStrings.confirmationTitleAddToChat(
+              users: [firstChatUser],
+            ),
+            description: PeamanCommonStrings.confirmationDescAddToChat(
+              users: [firstChatUser],
+            ),
+            onConfirm: (context, ref) {
+              final savedRef = ref;
+              final successLogMessage =
+                  PeamanCommonStrings.successLogAddedToChat(
+                users: [firstChatUser],
+              );
+              savedRef
+                  .read(providerOfPeamanChat.notifier)
+                  .addChatMembers(
+                    chatId: chat.id!,
+                    friendIds: [firstChatUser.uid!],
+                    successLogMessage: successLogMessage,
+                  )
+                  .then((_) {
+                savedRef
+                    .read(providerOfPeamanChat)
+                    .addChatMembersState
+                    .maybeWhen(
+                      success: (_) {
+                        final receiverIds = chat.activeUserIdsWrapper.values
+                            .where((element) => element != _uid)
+                            .toList();
+                        final infoAddedToChat =
+                            PeamanCommonStrings.infoAddedToChat(
+                          uid: _uid,
+                          userIds: [firstChatUser.uid!],
+                        );
+                        ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
+                              chatId: chat.id!,
+                              receiverIds: receiverIds,
+                              chatType: chat.type,
+                              infoType: PeamanInfoMessageType.addedToChat,
+                              info: infoAddedToChat,
+                            );
+                      },
+                      orElse: () {},
+                    );
+              });
             },
           );
         },

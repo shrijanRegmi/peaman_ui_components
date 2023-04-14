@@ -46,6 +46,8 @@ class _PeamanSearchBuilderState<T>
   PeamanDebounceProviderState get _state => ref.watch(providerOfPeamanDebounce);
   PeamanDebounceProvider get _notifier =>
       ref.watch(providerOfPeamanDebounce.notifier);
+  String get _uid =>
+      ref.watch(providerOfLoggedInUser.select((value) => value.uid!));
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +99,14 @@ class _PeamanSearchBuilderState<T>
             return usersFuture.when(
               data: (data) => data.when(
                 (success) {
-                  final users = (widget.filterBuilder?.call(
+                  var users = (widget.filterBuilder?.call(
                         context,
                         ref,
                         success as T,
                       ) as List<PeamanUser>?) ??
                       success;
+                  users =
+                      users.where((element) => element.uid != _uid).toList();
 
                   if (users.isEmpty) {
                     if (_controller.text.trim().isEmpty) {
