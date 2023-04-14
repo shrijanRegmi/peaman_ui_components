@@ -4,11 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
+enum _Type {
+  normal,
+  byChats,
+  byChatsProvider,
+}
+
 class PeamanChatsListPopup extends ConsumerStatefulWidget {
   const PeamanChatsListPopup({
     super.key,
     this.title = '',
-    this.chats,
     this.expandOnKeyboard = true,
     this.firstItemPadding = const EdgeInsets.all(0.0),
     this.lastItemPadding = const EdgeInsets.all(0.0),
@@ -26,10 +31,66 @@ class PeamanChatsListPopup extends ConsumerStatefulWidget {
     this.filterBuilder,
     this.onPressedChat,
     this.onLongPressedChat,
-  });
+  })  : type = _Type.normal,
+        chats = null,
+        chatsProvider = null;
+
+  const PeamanChatsListPopup.byChats({
+    super.key,
+    required this.chats,
+    this.title = '',
+    this.expandOnKeyboard = true,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.itemBuilder,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.counterBuilder,
+    this.actionWidgetsBuilder,
+    this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
+    this.filterBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
+  })  : type = _Type.byChats,
+        chatsProvider = null,
+        assert(chats != null);
+
+  const PeamanChatsListPopup.byChatsProvider({
+    super.key,
+    required this.chatsProvider,
+    this.title = '',
+    this.expandOnKeyboard = true,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.itemBuilder,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.counterBuilder,
+    this.actionWidgetsBuilder,
+    this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
+    this.filterBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
+  })  : type = _Type.byChatsProvider,
+        chats = null,
+        assert(chatsProvider != null);
+
+  final _Type type;
+
+  final List<PeamanChat>? chats;
+  final AVPCS Function(BuildContext, WidgetRef)? chatsProvider;
 
   final String title;
-  final List<PeamanChat>? chats;
   final bool expandOnKeyboard;
   final EdgeInsets firstItemPadding;
   final EdgeInsets lastItemPadding;
@@ -131,13 +192,6 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
 
   @override
   Widget build(BuildContext context) {
-    final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
-    final userChats = chatsStream.maybeWhen(
-      data: (data) => data,
-      orElse: () => <PeamanChat>[],
-    );
-    final chats = widget.chats ?? userChats;
-
     return SizedBox(
       height: _isKeyboardVisible && widget.expandOnKeyboard
           ? ScreenUtil().screenHeight
@@ -152,26 +206,7 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
             ),
             _headerBuilder().pX(20).pT(20).pB(15),
             Expanded(
-              child: PeamanChatsList(
-                chats: widget.filterBuilder.isNotNull
-                    ? widget.filterBuilder?.call(context, ref, chats)
-                    : chats,
-                firstItemPadding: widget.firstItemPadding,
-                lastItemPadding: widget.lastItemPadding,
-                itemBuilder: widget.itemBuilder,
-                avatarBuilder: widget.avatarBuilder,
-                titleBuilder: widget.titleBuilder,
-                bodyBuilder: widget.bodyBuilder,
-                dateBuilder: widget.dateBuilder,
-                counterBuilder: widget.counterBuilder,
-                actionWidgetsBuilder: widget.actionWidgetsBuilder,
-                listBuilder: widget.listBuilder,
-                loadingBuilder: widget.loadingBuilder,
-                emptyBuilder: widget.emptyBuilder,
-                errorBuilder: widget.errorBuilder,
-                onPressedChat: widget.onPressedChat,
-                onLongPressedChat: widget.onLongPressedChat,
-              ),
+              child: _listBuilder(),
             ),
           ],
         ),
@@ -198,6 +233,82 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
           onPressed: () => context.pop(),
         )
       ],
+    );
+  }
+
+  Widget _listBuilder() {
+    switch (widget.type) {
+      case _Type.normal:
+        return _normalChatBuilder();
+      case _Type.byChats:
+        return _byChatsBuilder();
+      case _Type.byChatsProvider:
+        return _byChatsProviderBuilder();
+    }
+  }
+
+  Widget _normalChatBuilder() {
+    return PeamanChatsList(
+      firstItemPadding: widget.firstItemPadding,
+      lastItemPadding: widget.lastItemPadding,
+      itemBuilder: widget.itemBuilder,
+      avatarBuilder: widget.avatarBuilder,
+      titleBuilder: widget.titleBuilder,
+      bodyBuilder: widget.bodyBuilder,
+      dateBuilder: widget.dateBuilder,
+      counterBuilder: widget.counterBuilder,
+      actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      listBuilder: widget.listBuilder,
+      loadingBuilder: widget.loadingBuilder,
+      emptyBuilder: widget.emptyBuilder,
+      errorBuilder: widget.errorBuilder,
+      filterBuilder: widget.filterBuilder,
+      onPressedChat: widget.onPressedChat,
+      onLongPressedChat: widget.onLongPressedChat,
+    );
+  }
+
+  Widget _byChatsBuilder() {
+    return PeamanChatsList.byChats(
+      chats: widget.chats,
+      firstItemPadding: widget.firstItemPadding,
+      lastItemPadding: widget.lastItemPadding,
+      itemBuilder: widget.itemBuilder,
+      avatarBuilder: widget.avatarBuilder,
+      titleBuilder: widget.titleBuilder,
+      bodyBuilder: widget.bodyBuilder,
+      dateBuilder: widget.dateBuilder,
+      counterBuilder: widget.counterBuilder,
+      actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      listBuilder: widget.listBuilder,
+      loadingBuilder: widget.loadingBuilder,
+      emptyBuilder: widget.emptyBuilder,
+      errorBuilder: widget.errorBuilder,
+      filterBuilder: widget.filterBuilder,
+      onPressedChat: widget.onPressedChat,
+      onLongPressedChat: widget.onLongPressedChat,
+    );
+  }
+
+  Widget _byChatsProviderBuilder() {
+    return PeamanChatsList.byChatsProvider(
+      chatsProvider: widget.chatsProvider,
+      firstItemPadding: widget.firstItemPadding,
+      lastItemPadding: widget.lastItemPadding,
+      itemBuilder: widget.itemBuilder,
+      avatarBuilder: widget.avatarBuilder,
+      titleBuilder: widget.titleBuilder,
+      bodyBuilder: widget.bodyBuilder,
+      dateBuilder: widget.dateBuilder,
+      counterBuilder: widget.counterBuilder,
+      actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      listBuilder: widget.listBuilder,
+      loadingBuilder: widget.loadingBuilder,
+      emptyBuilder: widget.emptyBuilder,
+      errorBuilder: widget.errorBuilder,
+      filterBuilder: widget.filterBuilder,
+      onPressedChat: widget.onPressedChat,
+      onLongPressedChat: widget.onLongPressedChat,
     );
   }
 }

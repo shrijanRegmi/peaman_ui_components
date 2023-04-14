@@ -1,13 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-typedef AVS = AsyncValue<PeamanEither<List<PeamanUser>, PeamanError>>;
-
 class PeamanChatHelper {
   static String getInfoMessage({
     required final String message,
     required final PeamanInfoMessageType infoType,
-    required final AVS Function(PeamanListWrapper<String>) usersProvider,
+    required final AVPUSE Function(PeamanListWrapper<String>) usersProvider,
   }) {
     switch (infoType) {
       case PeamanInfoMessageType.addedToChat:

@@ -2,8 +2,89 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
+enum _Type {
+  normal,
+  byChats,
+  byChatsProvider,
+}
+
 class PeamanChatsList extends ConsumerStatefulWidget {
+  const PeamanChatsList({
+    super.key,
+    this.controller,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.itemBuilder,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.counterBuilder,
+    this.actionWidgetsBuilder,
+    this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
+    this.filterBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
+  })  : type = _Type.normal,
+        chats = null,
+        chatsProvider = null;
+
+  const PeamanChatsList.byChats({
+    super.key,
+    required this.chats,
+    this.controller,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.itemBuilder,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.counterBuilder,
+    this.actionWidgetsBuilder,
+    this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
+    this.filterBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
+  })  : type = _Type.byChats,
+        chatsProvider = null,
+        assert(chats != null);
+
+  const PeamanChatsList.byChatsProvider({
+    super.key,
+    required this.chatsProvider,
+    this.controller,
+    this.firstItemPadding = const EdgeInsets.all(0.0),
+    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.itemBuilder,
+    this.avatarBuilder,
+    this.titleBuilder,
+    this.bodyBuilder,
+    this.dateBuilder,
+    this.counterBuilder,
+    this.actionWidgetsBuilder,
+    this.listBuilder,
+    this.loadingBuilder,
+    this.emptyBuilder,
+    this.errorBuilder,
+    this.filterBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
+  })  : type = _Type.byChatsProvider,
+        chats = null,
+        assert(chatsProvider != null);
+
+  final _Type type;
+
   final List<PeamanChat>? chats;
+  final AVPCS Function(BuildContext, WidgetRef)? chatsProvider;
+
   final ScrollController? controller;
   final EdgeInsets firstItemPadding;
   final EdgeInsets lastItemPadding;
@@ -61,6 +142,11 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     WidgetRef,
     PeamanError,
   )? errorBuilder;
+  final List<PeamanChat> Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanChat>,
+  )? filterBuilder;
   final Function(
     BuildContext,
     WidgetRef,
@@ -74,27 +160,6 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     Function(),
   )? onLongPressedChat;
 
-  const PeamanChatsList({
-    super.key,
-    this.chats,
-    this.controller,
-    this.firstItemPadding = const EdgeInsets.all(0.0),
-    this.lastItemPadding = const EdgeInsets.all(0.0),
-    this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
-    this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
-    this.listBuilder,
-    this.loadingBuilder,
-    this.emptyBuilder,
-    this.errorBuilder,
-    this.onPressedChat,
-    this.onLongPressedChat,
-  });
-
   @override
   ConsumerState<PeamanChatsList> createState() => _PeamanChatsListState();
 }
@@ -107,16 +172,18 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
       return _dataBuilder(context, widget.chats!);
     }
 
-    final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
-    return chatsStream.when(
+    final chatsStream = widget.chatsProvider?.call(context, ref) ??
+        ref.watch(providerOfPeamanUserChatsStream);
+    return chatsStream!.when(
       data: (data) {
         final uid = ref.watch(
           providerOfLoggedInUser.select((value) => value.uid),
         );
 
-        final chats = data
+        var chats = data
             .where((element) => !element.hiddenToUserIds.contains(uid))
             .toList();
+        chats = widget.filterBuilder?.call(context, ref, chats) ?? chats;
         if (chats.isEmpty) return _emptyBuilder();
         return _dataBuilder(context, chats);
       },
