@@ -249,7 +249,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               'Groups in common',
               style: TextStyle(fontSize: 12.sp),
             ),
-            onTap: () {},
+            onTap: _showCommonChats,
           ),
         if (_chatType == PeamanChatType.oneToOne)
           ListTile(
@@ -631,6 +631,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       widget: PeamanUsersListPopup.expandedByUids(
         userIds: _chatUserIdsWrapper.values,
         title: 'Group Members',
+        filterBuilder: (context, ref, users) => users
+            .where(
+              (element) => _chatUserIdsWrapper.values.contains(element.uid),
+            )
+            .toList(),
         nameBuilder: (context, ref, user) => PeamanText.subtitle2(
           user.uid == _uid ? 'You' : user.name,
           style: const TextStyle(
@@ -668,15 +673,6 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             context: context,
             chatId: _chatId!,
             user: user,
-            onSelectOption: (context, ref, option, def) {
-              switch (option.id) {
-                case 2:
-                  context.pop();
-                  break;
-                default:
-              }
-              def();
-            },
           );
         },
       ),
@@ -746,6 +742,31 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               });
             },
           );
+        },
+      ),
+    );
+  }
+
+  void _showCommonChats() {
+    final firstChatUser = _getFirstChatUser();
+    if (firstChatUser == null) return;
+
+    showPeamanNormalBottomsheet(
+      context: context,
+      widget: PeamanChatsListPopup(
+        title: 'Groups in common',
+        filterBuilder: (context, ref, chats) => chats
+            .where((element) =>
+                element.activeUserIds.contains(_uid) &&
+                element.activeUserIds.contains(firstChatUser.uid) &&
+                element.type == PeamanChatType.group)
+            .toList(),
+        onPressedChat: (context, ref, chat, def) {
+          context
+            ..pop()
+            ..pop()
+            ..pop();
+          def();
         },
       ),
     );
