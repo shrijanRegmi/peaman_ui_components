@@ -343,7 +343,14 @@ class _PeamanUsersListBottomsheetState
 
     return suggestedUserProvider?.maybeWhen(
           data: (data) => data.when(
-            (success) => _expandedByUsersListBuilder(users: success),
+            (success) => _expandedByUsersListBuilder(
+              users: widget.filterBuilder?.call(
+                    context,
+                    ref,
+                    success,
+                  ) ??
+                  success,
+            ),
             (failure) => const SizedBox(),
           ),
           orElse: () => const SizedBox(),

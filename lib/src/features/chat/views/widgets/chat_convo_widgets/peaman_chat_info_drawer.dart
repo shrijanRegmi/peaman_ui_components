@@ -521,8 +521,14 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     showPeamanNormalBottomsheet(
       context: context,
       borderRadius: 15,
-      widget: PeamanUsersListPopup.byUserIds(
-        userIds: const [],
+      widget: PeamanUsersListPopup.bySuggested(
+        filterBuilder: (context, ref, users) => users
+            .where(
+              (element) => !_chatUserIdsWrapper.values.contains(
+                element.uid,
+              ),
+            )
+            .toList(),
         title: 'Add Members',
         searchType: PeamanSearchType.global,
         selectionType: PeamanSelectionType.multi,
