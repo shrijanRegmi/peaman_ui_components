@@ -51,6 +51,52 @@ final providerOfPeamanFollowingsStream =
       .getFollowingsStream(uid: authUser!.uid);
 });
 
+final providerOfPeamanSuggestedUsersFuture =
+    FutureProvider<PeamanEither<List<PeamanUser>, PeamanError>>((ref) async {
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser.isNull) return const Success(<PeamanUser>[]);
+
+  final chatsStream = ref.watch(providerOfPeamanUserChatsStream);
+  final followersStream = ref.watch(providerOfPeamanFollowersStream);
+  final followingsStream = ref.watch(providerOfPeamanFollowingsStream);
+
+  final userIdsFromChats = chatsStream.maybeWhen(
+    data: (data) {
+      final values = data.reduce(
+        (value, element) => element.copyWith(
+          userIds: [...element.activeUserIds, ...value.activeUserIds],
+        ),
+      );
+      return values.activeUserIds;
+    },
+    orElse: () => <String>[],
+  );
+  final userIdsFromFollowers = followersStream.maybeWhen(
+    data: (data) => data.map((e) => e.uid!).toList(),
+    orElse: () => <String>[],
+  );
+  final userIdsFromFollowings = followingsStream.maybeWhen(
+    data: (data) => data.map((e) => e.uid!).toList(),
+    orElse: () => <String>[],
+  );
+
+  final allUserIds = [
+    ...userIdsFromChats,
+    ...userIdsFromFollowers,
+    ...userIdsFromFollowings,
+  ];
+  final listWrapper = PeamanListWrapper<String>(
+    values: allUserIds,
+  );
+
+  return await ref
+      .watch(providerOfPeamanUsersByIdFuture(listWrapper))
+      .maybeWhen(
+        data: (data) => data,
+        orElse: () => const Success(<PeamanUser>[]),
+      );
+});
+
 class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   PeamanUserProvider(final Ref ref)
       : _ref = ref,

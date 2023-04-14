@@ -62,7 +62,7 @@ final providerOfPeamanUsersByIdFuture = FutureProvider.family<
   (ref, uids) async {
     final futures = <Future<PeamanEither<PeamanUser, PeamanError>>>[];
 
-    for (final uid in uids.values) {
+    for (final uid in uids.values.toSet().toList()) {
       final future =
           ref.watch(providerOfPeamanUserRepository).getSingleUser(uid: uid);
       futures.add(future);

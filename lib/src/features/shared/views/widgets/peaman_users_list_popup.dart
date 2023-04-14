@@ -5,12 +5,44 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
-  expandedByUids,
-  expandedByUsers,
+  bySuggested,
+  byUids,
+  byUsers,
 }
 
 class PeamanUsersListPopup extends ConsumerStatefulWidget {
-  const PeamanUsersListPopup.expandedByUids({
+  const PeamanUsersListPopup.bySuggested({
+    super.key,
+    this.suggestedUsersProvider,
+    this.title,
+    this.firstItemPadding,
+    this.lastItemPadding,
+    this.itemPadding,
+    this.searchType = PeamanSearchType.none,
+    this.selectionType = PeamanSelectionType.single,
+    this.physics = const BouncingScrollPhysics(),
+    this.expandOnKeyboard = true,
+    this.filterBuilder,
+    this.searchFilterBuilder,
+    this.itemBuilder,
+    this.avatarBuilder,
+    this.nameBuilder,
+    this.captionBuilder,
+    this.actionWidgetsBuilder,
+    this.selectedItemBuilder,
+    this.selectedItemAvatarBuilder,
+    this.selectedItemNameBuilder,
+    this.selectedItemOverlayBuilder,
+    this.searchBarBuilder,
+    this.proceedButtonBuilder,
+    this.onPressedProceed,
+    this.onPressedUser,
+  })  : type = _Type.bySuggested,
+        users = const [],
+        userIds = const [],
+        scrollDirection = Axis.vertical;
+
+  const PeamanUsersListPopup.byUserIds({
     super.key,
     required this.userIds,
     this.title,
@@ -36,11 +68,12 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.proceedButtonBuilder,
     this.onPressedProceed,
     this.onPressedUser,
-  })  : type = _Type.expandedByUids,
+  })  : type = _Type.byUids,
         users = const [],
+        suggestedUsersProvider = null,
         scrollDirection = Axis.vertical;
 
-  const PeamanUsersListPopup.expandedByUsers({
+  const PeamanUsersListPopup.byUsers({
     super.key,
     required this.users,
     this.title,
@@ -66,13 +99,16 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.proceedButtonBuilder,
     this.onPressedProceed,
     this.onPressedUser,
-  })  : type = _Type.expandedByUsers,
+  })  : type = _Type.byUsers,
         userIds = const [],
+        suggestedUsersProvider = null,
         scrollDirection = Axis.vertical;
 
   final _Type type;
   final PeamanSearchType searchType;
   final PeamanSelectionType selectionType;
+
+  final AVPUSE Function(BuildContext, WidgetRef)? suggestedUsersProvider;
 
   final String? title;
   final List<String> userIds;
@@ -281,9 +317,11 @@ class _PeamanUsersListBottomsheetState
 
   Widget _listBuilder() {
     switch (widget.type) {
-      case _Type.expandedByUids:
-        return _expandedByUserIdsListBuilder();
-      case _Type.expandedByUsers:
+      case _Type.bySuggested:
+        return _bySuggestedTypeBuilder();
+      case _Type.byUids:
+        return _byUserIdsTypeBuilder();
+      case _Type.byUsers:
         return _expandedByUsersListBuilder(
           users: widget.filterBuilder?.call(
                 context,
@@ -298,7 +336,22 @@ class _PeamanUsersListBottomsheetState
     return const SizedBox();
   }
 
-  Widget _expandedByUserIdsListBuilder() {
+  Widget _bySuggestedTypeBuilder() {
+    final suggestedUserProvider =
+        widget.suggestedUsersProvider?.call(context, ref) ??
+            ref.watch(providerOfPeamanSuggestedUsersFuture);
+
+    return suggestedUserProvider?.maybeWhen(
+          data: (data) => data.when(
+            (success) => _expandedByUsersListBuilder(users: success),
+            (failure) => const SizedBox(),
+          ),
+          orElse: () => const SizedBox(),
+        ) ??
+        const SizedBox();
+  }
+
+  Widget _byUserIdsTypeBuilder() {
     return PeamanUsersList.expandedByUids(
       userIds: widget.userIds,
       physics: widget.physics,

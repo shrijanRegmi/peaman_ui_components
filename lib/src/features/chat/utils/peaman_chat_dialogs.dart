@@ -264,8 +264,7 @@ Future<T?> showPeamanChatInitiatorDialog<T>({
       case 0:
         showPeamanNormalBottomsheet(
           context: context,
-          widget: PeamanUsersListPopup.expandedByUids(
-            userIds: const [],
+          widget: PeamanUsersListPopup.bySuggested(
             title: 'New Chat',
             searchType: PeamanSearchType.global,
             onPressedUser: (context, ref, user, def) {
@@ -288,8 +287,7 @@ Future<T?> showPeamanChatInitiatorDialog<T>({
       case 1:
         showPeamanNormalBottomsheet(
           context: context,
-          widget: PeamanUsersListPopup.expandedByUids(
-            userIds: const [],
+          widget: PeamanUsersListPopup.bySuggested(
             title: 'New Group Chat',
             searchType: PeamanSearchType.global,
             selectionType: PeamanSelectionType.multi,

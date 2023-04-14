@@ -521,7 +521,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     showPeamanNormalBottomsheet(
       context: context,
       borderRadius: 15,
-      widget: PeamanUsersListPopup.expandedByUids(
+      widget: PeamanUsersListPopup.byUserIds(
         userIds: const [],
         title: 'Add Members',
         searchType: PeamanSearchType.global,
@@ -628,7 +628,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     showPeamanNormalBottomsheet(
       context: context,
       borderRadius: 15.0,
-      widget: PeamanUsersListPopup.expandedByUids(
+      widget: PeamanUsersListPopup.byUserIds(
         userIds: _chatUserIdsWrapper.values,
         title: 'Group Members',
         filterBuilder: (context, ref, users) => users
