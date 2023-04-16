@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatMessagesDivider extends StatelessWidget {
-  final PeamanChatMessage message;
-  const PeamanChatMessagesDivider({
+class PeamanDateDivider extends StatelessWidget {
+  final DateTime date;
+  final bool withTime;
+  const PeamanDateDivider({
     Key? key,
-    required this.message,
+    required this.date,
+    this.withTime = false,
   }) : super(key: key);
 
   @override
@@ -39,33 +41,35 @@ class PeamanChatMessagesDivider extends StatelessWidget {
 
   String _getDate() {
     final currentDate = DateTime.now();
-    final messageDate = DateTime.fromMillisecondsSinceEpoch(
-      message.updatedAt!,
-    );
 
     final currentDateWithoutHours = DateTime(
       currentDate.year,
       currentDate.month,
       currentDate.day,
     );
-    final messageDateWithoutHours = DateTime(
-      messageDate.year,
-      messageDate.month,
-      messageDate.day,
+    final dateWithoutHours = DateTime(
+      date.year,
+      date.month,
+      date.day,
     );
 
-    final isToday =
-        currentDateWithoutHours.isAtSameMomentAs(messageDateWithoutHours);
+    final isToday = currentDateWithoutHours.isAtSameMomentAs(dateWithoutHours);
     final isYesterday =
-        currentDateWithoutHours.difference(messageDateWithoutHours).inDays == 1;
+        currentDateWithoutHours.difference(dateWithoutHours).inDays == 1;
 
-    var date = PeamanDateTimeHelper.getFormattedDate(messageDate);
+    var dateText = PeamanDateTimeHelper.getFormattedDate(date);
+    var timeText = PeamanDateTimeHelper.getFormattedTime(
+      TimeOfDay(hour: date.hour, minute: date.minute),
+    );
     if (isToday) {
-      date = 'Today';
+      dateText = 'Today';
     } else if (isYesterday) {
-      date = "Yesterday";
+      dateText = "Yesterday";
     }
 
-    return date;
+    if (withTime) {
+      return '$dateText at $timeText';
+    }
+    return dateText;
   }
 }

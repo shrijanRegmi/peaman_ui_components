@@ -86,8 +86,10 @@ class _PeamanChatMessagesListItemState
               : CrossAxisAlignment.start,
           children: [
             if (widget.isFirstMessage)
-              PeamanChatMessagesDivider(
-                message: widget.message,
+              PeamanDateDivider(
+                date: DateTime.fromMillisecondsSinceEpoch(
+                  widget.message.updatedAt!,
+                ),
               ),
             if (isReply)
               const SizedBox(

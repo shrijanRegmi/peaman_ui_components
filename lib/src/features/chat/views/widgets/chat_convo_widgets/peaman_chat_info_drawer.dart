@@ -179,8 +179,8 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
           ),
           onTap: () => context.pushNamed(
-            PeamanViewChatMediasScreen.route,
-            arguments: PeamanViewChatMediasScreenArgs(
+            PeamanViewChatMediasFilesLinksScreen.route,
+            arguments: PeamanViewChatMediasFilesLinksScreenArgs(
               chatId: widget.chatId,
             ),
           ),

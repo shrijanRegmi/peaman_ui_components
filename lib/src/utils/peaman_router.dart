@@ -42,11 +42,12 @@ class PeamanRouter {
                 ),
         );
 
-      case PeamanViewChatMediasScreen.route:
-        final arguments = settings.arguments as PeamanViewChatMediasScreenArgs;
+      case PeamanViewChatMediasFilesLinksScreen.route:
+        final arguments =
+            settings.arguments as PeamanViewChatMediasFilesLinksScreenArgs;
         return buildRoute(
           settings,
-          PeamanViewChatMediasScreen(
+          PeamanViewChatMediasFilesLinksScreen(
             chatId: arguments.chatId,
           ),
         );

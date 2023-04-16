@@ -14,7 +14,6 @@ export 'views/widgets/chats_list_widgets/peaman_chat_initiator_button.dart';
 
 export 'views/widgets/chat_convo_widgets/peaman_chat_messages_list.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_messages_list_item.dart';
-export 'views/widgets/chat_convo_widgets/peaman_chat_messages_divider.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_message_swipper.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_message_typing_indicator.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_message_seen_indicator.dart';

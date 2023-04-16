@@ -174,8 +174,10 @@ class _PeamanChatMessagesListState
             }
 
             return widget.dividerBuilder?.call(context, ref, message) ??
-                PeamanChatMessagesDivider(
-                  message: message,
+                PeamanDateDivider(
+                  date: DateTime.fromMillisecondsSinceEpoch(
+                    message.updatedAt!,
+                  ),
                 );
           },
         );
