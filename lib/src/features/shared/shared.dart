@@ -4,6 +4,7 @@ export 'providers/peaman_chip_provider.dart';
 export 'providers/peaman_info_provider.dart';
 export 'providers/states/peaman_info_provider_state.dart';
 export 'providers/states/peaman_debounce_provider_state.dart';
+export 'providers/peaman_metadata_provider.dart';
 
 export 'views/screens/peaman_users_search_screen.dart';
 export 'views/screens/peaman_view_pictures_screen.dart';

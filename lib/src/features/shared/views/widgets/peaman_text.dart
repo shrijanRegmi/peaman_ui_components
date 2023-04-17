@@ -403,10 +403,7 @@ class _PTextState extends State<PeamanText> {
                         userName: text.replaceAll('@', ''),
                       );
                     } else if (link.type == LinkType.url) {
-                      _gotoBrowser(
-                        context: context,
-                        link: text,
-                      );
+                      _gotoBrowser(link: text);
                     }
                   }
                 },
@@ -499,10 +496,7 @@ class _PTextState extends State<PeamanText> {
     // );
   }
 
-  void _gotoBrowser({
-    required final BuildContext context,
-    required final String link,
-  }) async {
+  void _gotoBrowser({required final String link}) async {
     try {
       if (await canLaunchUrlString(link)) {
         await launchUrlString(link);

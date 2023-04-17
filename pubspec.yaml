@@ -38,6 +38,7 @@ dependencies:
   json_annotation: ^4.8.0
   flutter_slidable: ^2.0.0
   flutter_keyboard_visibility: ^5.4.0
+  metadata_fetch: ^0.4.1
 
 dev_dependencies:
   flutter_test:
