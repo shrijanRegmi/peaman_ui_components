@@ -150,7 +150,10 @@ class _PeamanChatConversationScreenState
                     : ref.watch(
                         providerOfSinglePeamanChatFromChatsStream(_chatId)
                             .select(
-                          (value) => value?.titleExt(success.first.name ?? ''),
+                          (value) => (value ?? const PeamanChat()).titleExt(
+                            success.first.name ?? '',
+                            activeUids: _chatUserIdsWrapper.values,
+                          ),
                         ),
                       ),
                 (failure) => 'Unknown',
