@@ -143,7 +143,6 @@ class _PeamanChatConversationScreenState
         appBar: PeamanAppbar(
           title: usersFuture.maybeWhen(
             data: (data) {
-              final remaining = receiverIds.length - 1;
               return data.when(
                 (success) => success.isEmpty ||
                         !_chatUserIdsWrapper.values.contains(_uid)

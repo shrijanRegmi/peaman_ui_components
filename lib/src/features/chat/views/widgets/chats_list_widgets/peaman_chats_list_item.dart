@@ -285,7 +285,6 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
     final appUserPhoto = ref.watch(
       providerOfLoggedInUser.select((value) => value.photo),
     );
-    final remaining = _chat.activeUserIdsWrapper.values.length - 2;
     final avatars = [
       ...users.map((e) => e.photo).toList(),
       if (_chat.type == PeamanChatType.group) appUserPhoto,
