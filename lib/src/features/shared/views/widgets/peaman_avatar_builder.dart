@@ -31,6 +31,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   final String? package;
   final double spreadFactor;
   final double opacity;
+  final bool isSelected;
   final Function()? onPressed;
 
   const PeamanAvatarBuilder.network(
@@ -42,6 +43,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.isSelected = false,
     this.onPressed,
   })  : imgUrls = const [],
         file = null,
@@ -61,6 +63,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.isSelected = false,
     this.spreadFactor = 1.0,
     this.onPressed,
   })  : file = null,
@@ -80,6 +83,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
         imgUrls = const [],
@@ -100,6 +104,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
         imgUrls = const [],
@@ -119,6 +124,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
         imgUrls = const [],
@@ -285,7 +291,7 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
             ),
             child: child,
           ).onPressed(widget.onPressed),
-          widget.overlayWidget ?? const SizedBox(),
+          if (widget.isSelected) widget.overlayWidget ?? _overlayBuilder(),
         ],
       ),
     );
@@ -317,6 +323,24 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
                 fit: BoxFit.cover,
               ),
       ),
+    );
+  }
+
+  Widget _overlayBuilder() {
+    return Positioned.fill(
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: PeamanColors.secondary.withOpacity(0.5),
+        ),
+        child: const Center(
+          child: Icon(
+            Icons.check_rounded,
+            color: Colors.white,
+            size: 20.0,
+          ),
+        ),
+      ).pad(2.0),
     );
   }
 }

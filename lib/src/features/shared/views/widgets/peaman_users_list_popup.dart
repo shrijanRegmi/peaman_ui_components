@@ -386,23 +386,9 @@ class _PeamanUsersListBottomsheetState
         return PeamanAvatarBuilder.network(
           user.photo,
           size: 45,
+          isSelected: true,
           overlayWidget:
-              widget.selectedItemOverlayBuilder?.call(context, ref, user) ??
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: PeamanColors.secondary.withOpacity(0.5),
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.check_rounded,
-                          color: Colors.white,
-                          size: 20.0,
-                        ),
-                      ),
-                    ).pad(2.0),
-                  ),
+              widget.selectedItemOverlayBuilder?.call(context, ref, user),
         );
       },
       nameBuilder: widget.nameBuilder ??
@@ -473,23 +459,9 @@ class _PeamanUsersListBottomsheetState
         return PeamanAvatarBuilder.network(
           user.photo,
           size: 45,
+          isSelected: true,
           overlayWidget:
-              widget.selectedItemOverlayBuilder?.call(context, ref, user) ??
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: PeamanColors.secondary.withOpacity(0.5),
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.check_rounded,
-                          color: Colors.white,
-                          size: 20.0,
-                        ),
-                      ),
-                    ).pad(2.0),
-                  ),
+              widget.selectedItemOverlayBuilder?.call(context, ref, user),
         );
       },
       nameBuilder: widget.nameBuilder ??
@@ -549,6 +521,7 @@ class _PeamanUsersListBottomsheetState
           widget.selectedItemNameBuilder?.call(context, ref, user) ??
           PeamanAvatarBuilder.network(
             user.photo,
+            isSelected: true,
             overlayWidget:
                 widget.selectedItemOverlayBuilder?.call(context, ref, user) ??
                     Positioned.fill(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -6,6 +7,8 @@ class PeamanChatFilesList extends ConsumerStatefulWidget {
   const PeamanChatFilesList({
     super.key,
     required this.chatId,
+    this.filterBuilder,
+    this.urlsFilterBuilder,
     this.listBuilder,
     this.itemBuilder,
     this.imageTypeItemBuilder,
@@ -20,6 +23,16 @@ class PeamanChatFilesList extends ConsumerStatefulWidget {
   });
 
   final String chatId;
+  final List<PeamanChatFile> Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanChatFile>,
+  )? filterBuilder;
+  final List<PeamanFileUrl> Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanFileUrl>,
+  )? urlsFilterBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
@@ -102,7 +115,21 @@ class _PeamanChatFilesListState extends ConsumerState<PeamanChatFilesList> {
 
   Widget _dataBuilder(List<PeamanChatFile> chatFiles) {
     final oldChatFiles = chatFiles;
+    chatFiles =
+        widget.filterBuilder?.call(context, ref, chatFiles) ?? chatFiles;
     chatFiles = _groupChatFilesBasedOnCreatedDate(chatFiles);
+    chatFiles = chatFiles
+        .map(
+          (element) => element.copyWith(
+            urls: widget.urlsFilterBuilder?.call(context, ref, element.urls) ??
+                element.urls,
+          ),
+        )
+        .where((element) => element.urls.isNotEmpty)
+        .toList();
+
+    if (chatFiles.isEmpty) return _emptyBuilder();
+
     return widget.listBuilder?.call(context, ref, oldChatFiles) ??
         SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
@@ -135,15 +162,22 @@ class _PeamanChatFilesListState extends ConsumerState<PeamanChatFilesList> {
 
   Widget _loadingBuilder() {
     return SliverToBoxAdapter(
-      child: widget.loadingBuilder?.call(context, ref) ?? const PeamanSpinner(),
+      child: widget.loadingBuilder?.call(context, ref) ??
+          SizedBox(
+            height: 300.h,
+            child: const PeamanSpinner(),
+          ),
     );
   }
 
   Widget _emptyBuilder() {
     return SliverToBoxAdapter(
       child: widget.emptyBuilder?.call(context, ref) ??
-          const PeamanEmptyBuilder(
-            title: 'No results found',
+          SizedBox(
+            height: 300.h,
+            child: const PeamanEmptyBuilder(
+              title: 'No results found',
+            ),
           ),
     );
   }
@@ -151,7 +185,10 @@ class _PeamanChatFilesListState extends ConsumerState<PeamanChatFilesList> {
   Widget _errorBuilder(final PeamanError error) {
     return SliverToBoxAdapter(
       child: widget.errorBuilder?.call(context, ref, error) ??
-          PeamanText.body1(error.message),
+          SizedBox(
+            height: 300.h,
+            child: PeamanText.body1(error.message),
+          ),
     );
   }
 

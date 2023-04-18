@@ -23,8 +23,14 @@ class PeamanChipProvider extends StateNotifier<Map<String, dynamic>> {
     required final String groupId,
   }) {
     if (isChipActive(value: value, groupId: groupId)) {
-      state = Map<String, dynamic>.from(state)..remove(groupId);
+      clearGroup(groupId: groupId);
     }
+  }
+
+  void clearGroup({
+    required final String groupId,
+  }) {
+    state = Map<String, dynamic>.from(state)..remove(groupId);
   }
 
   String? getActiveChip({

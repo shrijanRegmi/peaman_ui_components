@@ -32,20 +32,32 @@ class _PeamanViewChatMediasFilesLinksScreenState
       ref.watch(providerOfSinglePeamanChatFromChatsStream(widget.chatId));
   PeamanUser get appUser => ref.watch(providerOfLoggedInUser);
 
+  final _selectedUsers = <PeamanUser>[];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PeamanAppbar(
-        title: 'Media, Links and Files',
-      ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: _filtersBuilder(),
-          ),
-          _mediaGridBuilder(),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        _clearSelectedFileType();
+        return true;
+      },
+      child: Scaffold(
+        appBar: PeamanAppbar(
+          title: 'Media, Links and Files',
+          onPressedLeading: (def) {
+            _clearSelectedFileType();
+            def();
+          },
+        ),
+        body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: _filtersBuilder(),
+            ),
+            _mediaGridBuilder(),
+          ],
+        ),
       ),
     );
   }
@@ -81,7 +93,15 @@ class _PeamanViewChatMediasFilesLinksScreenState
           ),
         ).pL(20),
         PeamanUsersList.roundedByUids(
-          userIds: chat!.userIds,
+          userIds: List<String>.from(chat!.activeUserIds)
+            ..sort((a, b) {
+              if (appUser.uid == a) return 1;
+              return -1;
+            })
+            ..sort((a, b) {
+              if (_selectedUsers.map((e) => e.uid).contains(a)) return -1;
+              return 1;
+            }),
           scrollDirection: Axis.horizontal,
           itemPadding: EdgeInsets.all(5.w),
           firstItemPadding: EdgeInsets.fromLTRB(20.w, 5.w, 5.w, 5.w),
@@ -92,6 +112,22 @@ class _PeamanViewChatMediasFilesLinksScreenState
               fontSize: 12.sp,
             ),
           ),
+          avatarBuilder: (context, ref, user) => PeamanAvatarBuilder.network(
+            user.photo,
+            isSelected: _selectedUsers.map((e) => e.uid).contains(user.uid),
+          ),
+          onPressedUser: (context, ref, user) {
+            if (_selectedUsers.map((e) => e.uid).contains(user.uid)) {
+              setState(() {
+                _selectedUsers
+                    .removeWhere((element) => element.uid == user.uid);
+              });
+            } else {
+              setState(() {
+                _selectedUsers.add(user);
+              });
+            }
+          },
         ),
       ],
     );
@@ -164,7 +200,46 @@ class _PeamanViewChatMediasFilesLinksScreenState
       ),
       sliver: PeamanChatFilesList(
         chatId: widget.chatId,
+        urlsFilterBuilder: (context, ref, chatFileUrls) {
+          final chipsState = ref.watch(providerOfPeamanChip);
+          final selectedTypeString = chipsState[widget.chatId] ?? '';
+
+          var selectedFileType = PeamanFileType.unknown;
+          switch (selectedTypeString) {
+            case 'Photos':
+              selectedFileType = PeamanFileType.image;
+              break;
+            case 'Videos':
+              selectedFileType = PeamanFileType.video;
+              break;
+            case 'Links':
+              selectedFileType = PeamanFileType.link;
+              break;
+            case 'Files':
+              selectedFileType = PeamanFileType.other;
+              break;
+            default:
+          }
+
+          if (selectedFileType == PeamanFileType.unknown) return chatFileUrls;
+          return chatFileUrls
+              .where((element) => element.type == selectedFileType)
+              .toList();
+        },
+        filterBuilder: (context, ref, chatFiles) {
+          if (_selectedUsers.isEmpty) return chatFiles;
+          return chatFiles
+              .where(
+                (element) =>
+                    _selectedUsers.map((e) => e.uid).contains(element.ownerId),
+              )
+              .toList();
+        },
       ),
     );
+  }
+
+  void _clearSelectedFileType() {
+    ref.read(providerOfPeamanChip.notifier).clearGroup(groupId: widget.chatId);
   }
 }

@@ -109,6 +109,9 @@ class _PeamanChatFilesListItemState
     final linkFiles = widget.chatFile.urls
         .where((element) => element.type == PeamanFileType.link)
         .toList();
+    final imageFiles = widget.chatFile.urls
+        .where((element) => element.type == PeamanFileType.image)
+        .toList();
     if (linkFiles.isEmpty) return const SizedBox();
 
     return ListView.separated(
@@ -134,7 +137,7 @@ class _PeamanChatFilesListItemState
       separatorBuilder: (context, index) {
         return SizedBox(height: 10.h);
       },
-    ).pT(10);
+    ).pT(imageFiles.isEmpty ? 0.0 : 10);
   }
 
   Widget _metadataBuilder({

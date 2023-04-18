@@ -10,27 +10,7 @@ enum _Type {
   roundedByUsers,
 }
 
-class PeamanUsersList extends ConsumerWidget {
-  final _Type type;
-
-  final List<String> userIds;
-  final List<PeamanUser> users;
-  final bool requiredSearch;
-  final Axis scrollDirection;
-  final ScrollPhysics physics;
-  final EdgeInsets? firstItemPadding;
-  final EdgeInsets? lastItemPadding;
-  final EdgeInsets? itemPadding;
-  final double height;
-  final Widget Function(BuildContext, WidgetRef, PeamanUser)? itemBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanUser)? avatarBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanUser)? nameBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanUser)? captionBuilder;
-  final List<Widget> Function(BuildContext, WidgetRef, PeamanUser)?
-      actionWidgetsBuilder;
-  final Function(BuildContext, WidgetRef, PeamanUser)? onPressedUser;
-  final Function()? onPressedSearch;
-
+class PeamanUsersList extends ConsumerStatefulWidget {
   const PeamanUsersList.expandedByUids({
     Key? key,
     required this.userIds,
@@ -38,6 +18,7 @@ class PeamanUsersList extends ConsumerWidget {
     this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
+    this.filterBuilder,
     this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
@@ -59,6 +40,7 @@ class PeamanUsersList extends ConsumerWidget {
     this.lastItemPadding,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
+    this.filterBuilder,
     this.itemBuilder,
     this.avatarBuilder,
     this.nameBuilder,
@@ -79,6 +61,7 @@ class PeamanUsersList extends ConsumerWidget {
     this.requiredSearch = false,
     this.firstItemPadding,
     this.lastItemPadding,
+    this.filterBuilder,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.scrollDirection = Axis.vertical,
@@ -100,6 +83,7 @@ class PeamanUsersList extends ConsumerWidget {
     this.requiredSearch = false,
     this.firstItemPadding,
     this.lastItemPadding,
+    this.filterBuilder,
     this.itemPadding,
     this.physics = const BouncingScrollPhysics(),
     this.scrollDirection = Axis.vertical,
@@ -115,9 +99,58 @@ class PeamanUsersList extends ConsumerWidget {
         captionBuilder = null,
         super(key: key);
 
+  final _Type type;
+
+  final List<String> userIds;
+  final List<PeamanUser> users;
+  final bool requiredSearch;
+  final Axis scrollDirection;
+  final ScrollPhysics physics;
+  final EdgeInsets? firstItemPadding;
+  final EdgeInsets? lastItemPadding;
+  final EdgeInsets? itemPadding;
+  final double height;
+  final List<PeamanUser> Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanUser>,
+  )? filterBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? itemBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? avatarBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? nameBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? captionBuilder;
+  final List<Widget> Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? actionWidgetsBuilder;
+  final Function(BuildContext, WidgetRef, PeamanUser)? onPressedUser;
+  final Function()? onPressedSearch;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    switch (type) {
+  ConsumerState<PeamanUsersList> createState() => _PeamanUsersListState();
+}
+
+class _PeamanUsersListState extends ConsumerState<PeamanUsersList> {
+  @override
+  Widget build(BuildContext context) {
+    switch (widget.type) {
       case _Type.expandedByUids:
         return _byUidsBuilder();
       case _Type.expandedByUsers:
@@ -133,52 +166,53 @@ class PeamanUsersList extends ConsumerWidget {
   }
 
   Widget _byUidsBuilder() {
-    List<String?> list = userIds;
+    List<String?> list = widget.userIds;
 
-    if (requiredSearch) {
-      list = [null, ...userIds];
+    if (widget.requiredSearch) {
+      list = [null, ...widget.userIds];
     }
 
     return SizedBox(
-      height: (type == _Type.roundedByUids || type == _Type.roundedByUsers) &&
-              scrollDirection == Axis.horizontal
-          ? height.h
+      height: (widget.type == _Type.roundedByUids ||
+                  widget.type == _Type.roundedByUsers) &&
+              widget.scrollDirection == Axis.horizontal
+          ? widget.height.h
           : null,
       child: ListView.builder(
         itemCount: list.length,
-        scrollDirection: scrollDirection,
-        physics: physics,
+        scrollDirection: widget.scrollDirection,
+        physics: widget.physics,
         itemBuilder: (context, index) {
           final userId = list[index];
 
           if (userId.isNull) return _searchUserBuilder(context);
 
-          return type == _Type.expandedByUids
+          return widget.type == _Type.expandedByUids
               ? PeamanUsersListItem.expandedByUid(
                   userId: userId,
                   padding: index == 0
-                      ? firstItemPadding ?? itemPadding
+                      ? widget.firstItemPadding ?? widget.itemPadding
                       : (index == list.length - 1)
-                          ? lastItemPadding ?? itemPadding
-                          : itemPadding,
-                  itemBuilder: itemBuilder,
-                  avatarBuilder: avatarBuilder,
-                  nameBuilder: nameBuilder,
-                  captionBuilder: captionBuilder,
-                  actionWidgetsBuilder: actionWidgetsBuilder,
-                  onPressed: onPressedUser,
+                          ? widget.lastItemPadding ?? widget.itemPadding
+                          : widget.itemPadding,
+                  itemBuilder: widget.itemBuilder,
+                  avatarBuilder: widget.avatarBuilder,
+                  nameBuilder: widget.nameBuilder,
+                  captionBuilder: widget.captionBuilder,
+                  actionWidgetsBuilder: widget.actionWidgetsBuilder,
+                  onPressed: widget.onPressedUser,
                 )
               : PeamanUsersListItem.roundedByUid(
                   userId: userId,
                   padding: index == 0
-                      ? firstItemPadding ?? itemPadding
+                      ? widget.firstItemPadding ?? widget.itemPadding
                       : (index == list.length - 1)
-                          ? lastItemPadding ?? itemPadding
-                          : itemPadding,
-                  itemBuilder: itemBuilder,
-                  avatarBuilder: avatarBuilder,
-                  nameBuilder: nameBuilder,
-                  onPressed: onPressedUser,
+                          ? widget.lastItemPadding ?? widget.itemPadding
+                          : widget.itemPadding,
+                  itemBuilder: widget.itemBuilder,
+                  avatarBuilder: widget.avatarBuilder,
+                  nameBuilder: widget.nameBuilder,
+                  onPressed: widget.onPressedUser,
                 );
         },
       ),
@@ -186,52 +220,55 @@ class PeamanUsersList extends ConsumerWidget {
   }
 
   Widget _byUsersBuilder() {
-    List<PeamanUser?> list = users;
+    final thisUsers =
+        widget.filterBuilder?.call(context, ref, widget.users) ?? widget.users;
+    List<PeamanUser?> list = thisUsers;
 
-    if (requiredSearch) {
-      list = [null, ...users];
+    if (widget.requiredSearch) {
+      list = [null, ...thisUsers];
     }
 
     return SizedBox(
-      height: (type == _Type.roundedByUids || type == _Type.roundedByUsers) &&
-              scrollDirection == Axis.horizontal
-          ? height.h
+      height: (widget.type == _Type.roundedByUids ||
+                  widget.type == _Type.roundedByUsers) &&
+              widget.scrollDirection == Axis.horizontal
+          ? widget.height.h
           : null,
       child: ListView.builder(
         itemCount: list.length,
-        scrollDirection: scrollDirection,
-        physics: physics,
+        scrollDirection: widget.scrollDirection,
+        physics: widget.physics,
         itemBuilder: (context, index) {
           final user = list[index];
 
           if (user.isNull) return _searchUserBuilder(context);
 
-          return type == _Type.expandedByUsers
+          return widget.type == _Type.expandedByUsers
               ? PeamanUsersListItem.expandedByUser(
                   user: user,
                   padding: index == 0
-                      ? firstItemPadding ?? itemPadding
+                      ? widget.firstItemPadding ?? widget.itemPadding
                       : (index == list.length - 1)
-                          ? lastItemPadding ?? itemPadding
-                          : itemPadding,
-                  itemBuilder: itemBuilder,
-                  avatarBuilder: avatarBuilder,
-                  nameBuilder: nameBuilder,
-                  captionBuilder: captionBuilder,
-                  actionWidgetsBuilder: actionWidgetsBuilder,
-                  onPressed: onPressedUser,
+                          ? widget.lastItemPadding ?? widget.itemPadding
+                          : widget.itemPadding,
+                  itemBuilder: widget.itemBuilder,
+                  avatarBuilder: widget.avatarBuilder,
+                  nameBuilder: widget.nameBuilder,
+                  captionBuilder: widget.captionBuilder,
+                  actionWidgetsBuilder: widget.actionWidgetsBuilder,
+                  onPressed: widget.onPressedUser,
                 )
               : PeamanUsersListItem.roundedByUser(
                   user: user,
                   padding: index == 0
-                      ? firstItemPadding ?? itemPadding
+                      ? widget.firstItemPadding ?? widget.itemPadding
                       : (index == list.length - 1)
-                          ? lastItemPadding ?? itemPadding
-                          : itemPadding,
-                  itemBuilder: itemBuilder,
-                  avatarBuilder: avatarBuilder,
-                  nameBuilder: nameBuilder,
-                  onPressed: onPressedUser,
+                          ? widget.lastItemPadding ?? widget.itemPadding
+                          : widget.itemPadding,
+                  itemBuilder: widget.itemBuilder,
+                  avatarBuilder: widget.avatarBuilder,
+                  nameBuilder: widget.nameBuilder,
+                  onPressed: widget.onPressedUser,
                 );
         },
       ),
@@ -239,12 +276,13 @@ class PeamanUsersList extends ConsumerWidget {
   }
 
   Widget _searchUserBuilder(final BuildContext context) {
-    if (type == _Type.expandedByUids || type == _Type.expandedByUsers) {
+    if (widget.type == _Type.expandedByUids ||
+        widget.type == _Type.expandedByUsers) {
       return Container();
     }
 
     return GestureDetector(
-      onTap: onPressedSearch,
+      onTap: widget.onPressedSearch,
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
