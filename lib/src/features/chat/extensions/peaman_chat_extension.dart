@@ -6,6 +6,19 @@ extension PeamanChatExt on PeamanChat {
     return userIds.where((element) => !removedUids.contains(element)).toList();
   }
 
+  String titleExt(final String firstChatUserName) {
+    var chatTitle = (title ?? '').trim();
+    if (chatTitle.isEmpty) {
+      final remaining = activeUserIds.length - 2;
+      return remaining == 0
+          ? type == PeamanChatType.group
+              ? 'You and $firstChatUserName'
+              : firstChatUserName
+          : 'You, $firstChatUserName and $remaining ${remaining > 1 ? 'others' : 'other'}';
+    }
+    return chatTitle;
+  }
+
   PeamanListWrapper<String> get activeUserIdsWrapper =>
       PeamanListWrapper<String>(values: activeUserIds);
 

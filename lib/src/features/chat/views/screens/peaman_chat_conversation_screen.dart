@@ -148,11 +148,12 @@ class _PeamanChatConversationScreenState
                 (success) => success.isEmpty ||
                         !_chatUserIdsWrapper.values.contains(_uid)
                     ? 'Unknown Conversation'
-                    : remaining == 0
-                        ? _chatType == PeamanChatType.group
-                            ? 'You and ${success.first.name}'
-                            : '${success.first.name}'
-                        : 'You, ${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+                    : ref.watch(
+                        providerOfSinglePeamanChatFromChatsStream(_chatId)
+                            .select(
+                          (value) => value?.titleExt(success.first.name ?? ''),
+                        ),
+                      ),
                 (failure) => 'Unknown',
               );
             },

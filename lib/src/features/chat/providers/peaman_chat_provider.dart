@@ -540,6 +540,36 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
     );
   }
 
+  Future<void> setChatTitle({
+    required final String chatId,
+    required final String title,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      setChatTitleState: const SetChatTitleState.loading(),
+    );
+    final result = await _chatRepository.setChatTitle(
+      chatId: chatId,
+      title: title,
+    );
+    state = result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        return state.copyWith(
+          setChatTitleState: SetChatTitleState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          setChatTitleState: SetChatTitleState.error(failure),
+        );
+      },
+    );
+  }
+
   Future<void> addChatMembers({
     required final String chatId,
     required final List<String> friendIds,

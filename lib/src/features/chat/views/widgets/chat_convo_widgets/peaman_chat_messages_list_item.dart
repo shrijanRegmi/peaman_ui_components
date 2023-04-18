@@ -379,6 +379,7 @@ class _PeamanChatMessagesListItemState
       usersProvider: (userIds) => ref.watch(
         providerOfPeamanUsersByIdFuture(userIds),
       ),
+      uid: _uid,
     );
     if (info.isEmpty) return const SizedBox();
 

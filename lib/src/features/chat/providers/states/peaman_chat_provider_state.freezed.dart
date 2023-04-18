@@ -35,6 +35,7 @@ mixin _$PeamanChatProviderState {
   MuteChatState get muteChatState => throw _privateConstructorUsedError;
   UnmuteChatState get unmuteChatState => throw _privateConstructorUsedError;
   LeaveChatState get leaveChatState => throw _privateConstructorUsedError;
+  SetChatTitleState get setChatTitleState => throw _privateConstructorUsedError;
   AddChatMembersState get addChatMembersState =>
       throw _privateConstructorUsedError;
   RemoveChatMembersState get removeChatMembersState =>
@@ -71,6 +72,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       MuteChatState muteChatState,
       UnmuteChatState unmuteChatState,
       LeaveChatState leaveChatState,
+      SetChatTitleState setChatTitleState,
       AddChatMembersState addChatMembersState,
       RemoveChatMembersState removeChatMembersState,
       SetTypingStatusState setTypingStatusState,
@@ -89,6 +91,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
   $MuteChatStateCopyWith<$Res> get muteChatState;
   $UnmuteChatStateCopyWith<$Res> get unmuteChatState;
   $LeaveChatStateCopyWith<$Res> get leaveChatState;
+  $SetChatTitleStateCopyWith<$Res> get setChatTitleState;
   $AddChatMembersStateCopyWith<$Res> get addChatMembersState;
   $RemoveChatMembersStateCopyWith<$Res> get removeChatMembersState;
   $SetTypingStatusStateCopyWith<$Res> get setTypingStatusState;
@@ -123,6 +126,7 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     Object? muteChatState = null,
     Object? unmuteChatState = null,
     Object? leaveChatState = null,
+    Object? setChatTitleState = null,
     Object? addChatMembersState = null,
     Object? removeChatMembersState = null,
     Object? setTypingStatusState = null,
@@ -186,6 +190,10 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
           ? _value.leaveChatState
           : leaveChatState // ignore: cast_nullable_to_non_nullable
               as LeaveChatState,
+      setChatTitleState: null == setChatTitleState
+          ? _value.setChatTitleState
+          : setChatTitleState // ignore: cast_nullable_to_non_nullable
+              as SetChatTitleState,
       addChatMembersState: null == addChatMembersState
           ? _value.addChatMembersState
           : addChatMembersState // ignore: cast_nullable_to_non_nullable
@@ -311,6 +319,14 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $SetChatTitleStateCopyWith<$Res> get setChatTitleState {
+    return $SetChatTitleStateCopyWith<$Res>(_value.setChatTitleState, (value) {
+      return _then(_value.copyWith(setChatTitleState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $AddChatMembersStateCopyWith<$Res> get addChatMembersState {
     return $AddChatMembersStateCopyWith<$Res>(_value.addChatMembersState,
         (value) {
@@ -372,6 +388,7 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
       MuteChatState muteChatState,
       UnmuteChatState unmuteChatState,
       LeaveChatState leaveChatState,
+      SetChatTitleState setChatTitleState,
       AddChatMembersState addChatMembersState,
       RemoveChatMembersState removeChatMembersState,
       SetTypingStatusState setTypingStatusState,
@@ -402,6 +419,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
   $UnmuteChatStateCopyWith<$Res> get unmuteChatState;
   @override
   $LeaveChatStateCopyWith<$Res> get leaveChatState;
+  @override
+  $SetChatTitleStateCopyWith<$Res> get setChatTitleState;
   @override
   $AddChatMembersStateCopyWith<$Res> get addChatMembersState;
   @override
@@ -438,6 +457,7 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? muteChatState = null,
     Object? unmuteChatState = null,
     Object? leaveChatState = null,
+    Object? setChatTitleState = null,
     Object? addChatMembersState = null,
     Object? removeChatMembersState = null,
     Object? setTypingStatusState = null,
@@ -501,6 +521,10 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
           ? _value.leaveChatState
           : leaveChatState // ignore: cast_nullable_to_non_nullable
               as LeaveChatState,
+      setChatTitleState: null == setChatTitleState
+          ? _value.setChatTitleState
+          : setChatTitleState // ignore: cast_nullable_to_non_nullable
+              as SetChatTitleState,
       addChatMembersState: null == addChatMembersState
           ? _value.addChatMembersState
           : addChatMembersState // ignore: cast_nullable_to_non_nullable
@@ -543,6 +567,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       this.muteChatState = const MuteChatState.initial(),
       this.unmuteChatState = const UnmuteChatState.initial(),
       this.leaveChatState = const LeaveChatState.initial(),
+      this.setChatTitleState = const SetChatTitleState.initial(),
       this.addChatMembersState = const AddChatMembersState.initial(),
       this.removeChatMembersState = const RemoveChatMembersState.initial(),
       this.setTypingStatusState = const SetTypingStatusState.initial(),
@@ -600,6 +625,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   final LeaveChatState leaveChatState;
   @override
   @JsonKey()
+  final SetChatTitleState setChatTitleState;
+  @override
+  @JsonKey()
   final AddChatMembersState addChatMembersState;
   @override
   @JsonKey()
@@ -621,7 +649,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
 
   @override
   String toString() {
-    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, sendInfoMessageState: $sendInfoMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
+    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, sendInfoMessageState: $sendInfoMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, setChatTitleState: $setChatTitleState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
   }
 
   @override
@@ -656,6 +684,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
                 other.unmuteChatState == unmuteChatState) &&
             (identical(other.leaveChatState, leaveChatState) ||
                 other.leaveChatState == leaveChatState) &&
+            (identical(other.setChatTitleState, setChatTitleState) ||
+                other.setChatTitleState == setChatTitleState) &&
             (identical(other.addChatMembersState, addChatMembersState) ||
                 other.addChatMembersState == addChatMembersState) &&
             (identical(other.removeChatMembersState, removeChatMembersState) ||
@@ -685,6 +715,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
         muteChatState,
         unmuteChatState,
         leaveChatState,
+        setChatTitleState,
         addChatMembersState,
         removeChatMembersState,
         setTypingStatusState,
@@ -717,6 +748,7 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       final MuteChatState muteChatState,
       final UnmuteChatState unmuteChatState,
       final LeaveChatState leaveChatState,
+      final SetChatTitleState setChatTitleState,
       final AddChatMembersState addChatMembersState,
       final RemoveChatMembersState removeChatMembersState,
       final SetTypingStatusState setTypingStatusState,
@@ -751,6 +783,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   UnmuteChatState get unmuteChatState;
   @override
   LeaveChatState get leaveChatState;
+  @override
+  SetChatTitleState get setChatTitleState;
   @override
   AddChatMembersState get addChatMembersState;
   @override
@@ -8711,6 +8745,616 @@ abstract class _LeaveChatStateFailure implements LeaveChatState {
   @JsonKey(ignore: true)
   _$$_LeaveChatStateFailureCopyWith<_$_LeaveChatStateFailure> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SetChatTitleState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetChatTitleStateInitial value) initial,
+    required TResult Function(_SetChatTitleStateLoading value) loading,
+    required TResult Function(_SetChatTitleStateSuccess value) success,
+    required TResult Function(_SetChatTitleStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetChatTitleStateInitial value)? initial,
+    TResult? Function(_SetChatTitleStateLoading value)? loading,
+    TResult? Function(_SetChatTitleStateSuccess value)? success,
+    TResult? Function(_SetChatTitleStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetChatTitleStateInitial value)? initial,
+    TResult Function(_SetChatTitleStateLoading value)? loading,
+    TResult Function(_SetChatTitleStateSuccess value)? success,
+    TResult Function(_SetChatTitleStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SetChatTitleStateCopyWith<$Res> {
+  factory $SetChatTitleStateCopyWith(
+          SetChatTitleState value, $Res Function(SetChatTitleState) then) =
+      _$SetChatTitleStateCopyWithImpl<$Res, SetChatTitleState>;
+}
+
+/// @nodoc
+class _$SetChatTitleStateCopyWithImpl<$Res, $Val extends SetChatTitleState>
+    implements $SetChatTitleStateCopyWith<$Res> {
+  _$SetChatTitleStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_SetChatTitleStateInitialCopyWith<$Res> {
+  factory _$$_SetChatTitleStateInitialCopyWith(
+          _$_SetChatTitleStateInitial value,
+          $Res Function(_$_SetChatTitleStateInitial) then) =
+      __$$_SetChatTitleStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetChatTitleStateInitialCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateInitial>
+    implements _$$_SetChatTitleStateInitialCopyWith<$Res> {
+  __$$_SetChatTitleStateInitialCopyWithImpl(_$_SetChatTitleStateInitial _value,
+      $Res Function(_$_SetChatTitleStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetChatTitleStateInitial implements _SetChatTitleStateInitial {
+  const _$_SetChatTitleStateInitial();
+
+  @override
+  String toString() {
+    return 'SetChatTitleState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetChatTitleStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetChatTitleStateInitial value) initial,
+    required TResult Function(_SetChatTitleStateLoading value) loading,
+    required TResult Function(_SetChatTitleStateSuccess value) success,
+    required TResult Function(_SetChatTitleStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetChatTitleStateInitial value)? initial,
+    TResult? Function(_SetChatTitleStateLoading value)? loading,
+    TResult? Function(_SetChatTitleStateSuccess value)? success,
+    TResult? Function(_SetChatTitleStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetChatTitleStateInitial value)? initial,
+    TResult Function(_SetChatTitleStateLoading value)? loading,
+    TResult Function(_SetChatTitleStateSuccess value)? success,
+    TResult Function(_SetChatTitleStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetChatTitleStateInitial implements SetChatTitleState {
+  const factory _SetChatTitleStateInitial() = _$_SetChatTitleStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_SetChatTitleStateLoadingCopyWith<$Res> {
+  factory _$$_SetChatTitleStateLoadingCopyWith(
+          _$_SetChatTitleStateLoading value,
+          $Res Function(_$_SetChatTitleStateLoading) then) =
+      __$$_SetChatTitleStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetChatTitleStateLoadingCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateLoading>
+    implements _$$_SetChatTitleStateLoadingCopyWith<$Res> {
+  __$$_SetChatTitleStateLoadingCopyWithImpl(_$_SetChatTitleStateLoading _value,
+      $Res Function(_$_SetChatTitleStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetChatTitleStateLoading implements _SetChatTitleStateLoading {
+  const _$_SetChatTitleStateLoading();
+
+  @override
+  String toString() {
+    return 'SetChatTitleState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetChatTitleStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetChatTitleStateInitial value) initial,
+    required TResult Function(_SetChatTitleStateLoading value) loading,
+    required TResult Function(_SetChatTitleStateSuccess value) success,
+    required TResult Function(_SetChatTitleStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetChatTitleStateInitial value)? initial,
+    TResult? Function(_SetChatTitleStateLoading value)? loading,
+    TResult? Function(_SetChatTitleStateSuccess value)? success,
+    TResult? Function(_SetChatTitleStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetChatTitleStateInitial value)? initial,
+    TResult Function(_SetChatTitleStateLoading value)? loading,
+    TResult Function(_SetChatTitleStateSuccess value)? success,
+    TResult Function(_SetChatTitleStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetChatTitleStateLoading implements SetChatTitleState {
+  const factory _SetChatTitleStateLoading() = _$_SetChatTitleStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_SetChatTitleStateSuccessCopyWith<$Res> {
+  factory _$$_SetChatTitleStateSuccessCopyWith(
+          _$_SetChatTitleStateSuccess value,
+          $Res Function(_$_SetChatTitleStateSuccess) then) =
+      __$$_SetChatTitleStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool result});
+}
+
+/// @nodoc
+class __$$_SetChatTitleStateSuccessCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateSuccess>
+    implements _$$_SetChatTitleStateSuccessCopyWith<$Res> {
+  __$$_SetChatTitleStateSuccessCopyWithImpl(_$_SetChatTitleStateSuccess _value,
+      $Res Function(_$_SetChatTitleStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_SetChatTitleStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetChatTitleStateSuccess implements _SetChatTitleStateSuccess {
+  const _$_SetChatTitleStateSuccess(this.result);
+
+  @override
+  final bool result;
+
+  @override
+  String toString() {
+    return 'SetChatTitleState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetChatTitleStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetChatTitleStateSuccessCopyWith<_$_SetChatTitleStateSuccess>
+      get copyWith => __$$_SetChatTitleStateSuccessCopyWithImpl<
+          _$_SetChatTitleStateSuccess>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetChatTitleStateInitial value) initial,
+    required TResult Function(_SetChatTitleStateLoading value) loading,
+    required TResult Function(_SetChatTitleStateSuccess value) success,
+    required TResult Function(_SetChatTitleStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetChatTitleStateInitial value)? initial,
+    TResult? Function(_SetChatTitleStateLoading value)? loading,
+    TResult? Function(_SetChatTitleStateSuccess value)? success,
+    TResult? Function(_SetChatTitleStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetChatTitleStateInitial value)? initial,
+    TResult Function(_SetChatTitleStateLoading value)? loading,
+    TResult Function(_SetChatTitleStateSuccess value)? success,
+    TResult Function(_SetChatTitleStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetChatTitleStateSuccess implements SetChatTitleState {
+  const factory _SetChatTitleStateSuccess(final bool result) =
+      _$_SetChatTitleStateSuccess;
+
+  bool get result;
+  @JsonKey(ignore: true)
+  _$$_SetChatTitleStateSuccessCopyWith<_$_SetChatTitleStateSuccess>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SetChatTitleStateFailureCopyWith<$Res> {
+  factory _$$_SetChatTitleStateFailureCopyWith(
+          _$_SetChatTitleStateFailure value,
+          $Res Function(_$_SetChatTitleStateFailure) then) =
+      __$$_SetChatTitleStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_SetChatTitleStateFailureCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateFailure>
+    implements _$$_SetChatTitleStateFailureCopyWith<$Res> {
+  __$$_SetChatTitleStateFailureCopyWithImpl(_$_SetChatTitleStateFailure _value,
+      $Res Function(_$_SetChatTitleStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_SetChatTitleStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SetChatTitleStateFailure implements _SetChatTitleStateFailure {
+  const _$_SetChatTitleStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'SetChatTitleState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetChatTitleStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetChatTitleStateFailureCopyWith<_$_SetChatTitleStateFailure>
+      get copyWith => __$$_SetChatTitleStateFailureCopyWithImpl<
+          _$_SetChatTitleStateFailure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetChatTitleStateInitial value) initial,
+    required TResult Function(_SetChatTitleStateLoading value) loading,
+    required TResult Function(_SetChatTitleStateSuccess value) success,
+    required TResult Function(_SetChatTitleStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetChatTitleStateInitial value)? initial,
+    TResult? Function(_SetChatTitleStateLoading value)? loading,
+    TResult? Function(_SetChatTitleStateSuccess value)? success,
+    TResult? Function(_SetChatTitleStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetChatTitleStateInitial value)? initial,
+    TResult Function(_SetChatTitleStateLoading value)? loading,
+    TResult Function(_SetChatTitleStateSuccess value)? success,
+    TResult Function(_SetChatTitleStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetChatTitleStateFailure implements SetChatTitleState {
+  const factory _SetChatTitleStateFailure(final PeamanError error) =
+      _$_SetChatTitleStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_SetChatTitleStateFailureCopyWith<_$_SetChatTitleStateFailure>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

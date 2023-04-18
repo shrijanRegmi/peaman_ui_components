@@ -27,6 +27,8 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
     @Default(MuteChatState.initial()) final MuteChatState muteChatState,
     @Default(UnmuteChatState.initial()) final UnmuteChatState unmuteChatState,
     @Default(LeaveChatState.initial()) final LeaveChatState leaveChatState,
+    @Default(SetChatTitleState.initial())
+        final SetChatTitleState setChatTitleState,
     @Default(AddChatMembersState.initial())
         final AddChatMembersState addChatMembersState,
     @Default(RemoveChatMembersState.initial())
@@ -192,6 +194,18 @@ class LeaveChatState with _$LeaveChatState {
   const factory LeaveChatState.error(
     final PeamanError error,
   ) = _LeaveChatStateFailure;
+}
+
+@freezed
+class SetChatTitleState with _$SetChatTitleState {
+  const factory SetChatTitleState.initial() = _SetChatTitleStateInitial;
+  const factory SetChatTitleState.loading() = _SetChatTitleStateLoading;
+  const factory SetChatTitleState.success(
+    final bool result,
+  ) = _SetChatTitleStateSuccess;
+  const factory SetChatTitleState.error(
+    final PeamanError error,
+  ) = _SetChatTitleStateFailure;
 }
 
 @freezed

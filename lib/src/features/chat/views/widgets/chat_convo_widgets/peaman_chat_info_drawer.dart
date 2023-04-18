@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_input_popup.dart';
 
 class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
   final String chatId;
@@ -35,17 +36,17 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   AsyncValue<PeamanEither<List<PeamanUser>, PeamanError>>
       get _chatUsersFuture =>
           ref.watch(providerOfPeamanChatUsersFuture(_chatUserIdsWrapper));
-
   PeamanChatType get _chatType => ref.watch(
         _chatProvider.select((value) => value!.type),
       );
-
+  String _chatTitleExt(final String firstChatUserName) => ref.watch(
+        _chatProvider.select((value) => value!.titleExt(firstChatUserName)),
+      );
   PeamanListWrapper<PeamanChatMutedUntil> get _chatUserMutedUntilsWrapper =>
       ref.watch(
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
             .select((value) => value!.mutedUntilsWrapper),
       );
-
   PeamanListWrapper<PeamanChatAddedBy> get _chatAddedBysWrapper => ref.watch(
         providerOfSinglePeamanChatFromChatsStream(widget.chatId)
             .select((value) => value!.addedBysWrapper),
@@ -137,6 +138,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
           if (_getHeaderBody() != null)
             PeamanText.body2(
@@ -156,6 +158,52 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   Widget _chatActionsSet1Builder() {
     return Column(
       children: [
+        if (_chatType == PeamanChatType.group)
+          ListTile(
+            leading: PeamanRoundIconButton(
+              icon: Icon(
+                Icons.edit_rounded,
+                color: PeamanColors.white,
+                size: 12.w,
+              ),
+              padding: EdgeInsets.all(7.w),
+              bgColor: context.theme.colorScheme.primary,
+            ),
+            minLeadingWidth: 10.w,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 15.w,
+              vertical: 0.0,
+            ),
+            title: PeamanText.subtitle1(
+              'Group title',
+              style: TextStyle(
+                fontSize: 12.sp,
+              ),
+            ),
+            onTap: _setChatTitle,
+          ),
+        if (_chatType == PeamanChatType.group)
+          ListTile(
+            leading: PeamanRoundIconButton(
+              icon: Icon(
+                Icons.groups_rounded,
+                color: PeamanColors.white,
+                size: 12.w,
+              ),
+              padding: EdgeInsets.all(7.w),
+              bgColor: context.theme.colorScheme.primary,
+            ),
+            minLeadingWidth: 10.w,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 15.w,
+              vertical: 0.0,
+            ),
+            title: PeamanText.subtitle1(
+              'Group members',
+              style: TextStyle(fontSize: 12.sp),
+            ),
+            onTap: _showChatMembers,
+          ),
         ListTile(
           leading: PeamanRoundIconButton(
             icon: Icon(
@@ -184,28 +232,6 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             ),
           ),
         ),
-        if (_chatType == PeamanChatType.group)
-          ListTile(
-            leading: PeamanRoundIconButton(
-              icon: Icon(
-                Icons.groups_rounded,
-                color: PeamanColors.white,
-                size: 12.w,
-              ),
-              padding: EdgeInsets.all(7.w),
-              bgColor: context.theme.colorScheme.primary,
-            ),
-            minLeadingWidth: 10.w,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 15.w,
-              vertical: 0.0,
-            ),
-            title: PeamanText.subtitle1(
-              'Group members',
-              style: TextStyle(fontSize: 12.sp),
-            ),
-            onTap: _showChatMembers,
-          ),
         if (_chatType == PeamanChatType.oneToOne)
           ListTile(
             leading: PeamanRoundIconButton(
@@ -422,21 +448,13 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   String _getHeaderTitle() {
-    final receiverIds =
-        _chatUserIdsWrapper.values.where((element) => element != _uid).toList();
-
     return _chatUsersFuture.maybeWhen(
       data: (data) {
-        final remaining = receiverIds.length - 1;
         return data.when(
-          (success) => success.isEmpty ||
-                  !_chatUserIdsWrapper.values.contains(_uid)
-              ? 'Unknown Conversation'
-              : remaining == 0
-                  ? _chatType == PeamanChatType.group
-                      ? 'You and ${success.first.name}'
-                      : '${success.first.name}'
-                  : 'You, ${success.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+          (success) =>
+              success.isEmpty || !_chatUserIdsWrapper.values.contains(_uid)
+                  ? 'Unknown Conversation'
+                  : _chatTitleExt(success.first.name ?? ''),
           (failure) => PeamanCommonStrings.unknown,
         );
       },
@@ -512,6 +530,54 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
     }
 
     await PeamanCommonHelper.openLink(link: link);
+  }
+
+  void _setChatTitle() {
+    final chatTitle = ref.watch(
+      _chatProvider.select((value) => value!.title ?? ''),
+    );
+    showPeamanNormalBottomsheet(
+      context: context,
+      widget: PeamanInputPopup(
+        title: 'Group title',
+        hintText: 'Type something...',
+        expandOnKeyboard: true,
+        initialValue: chatTitle,
+        autoFocus: true,
+        limit: 30,
+        onPressedSubmit: (context, _, value) {
+          if (value.trim().isNotEmpty) {
+            ref
+                .read(providerOfPeamanChat.notifier)
+                .setChatTitle(
+                  chatId: widget.chatId,
+                  title: value,
+                )
+                .then((_) {
+              ref.read(providerOfPeamanChat).setChatTitleState.maybeWhen(
+                    success: (_) {
+                      final receiverIds = _chatUserIdsWrapper.values
+                          .where((element) => element != _uid)
+                          .toList();
+                      final infoUpdatedChatTitle =
+                          PeamanCommonStrings.infoUpdatedChatTitle(
+                        uid: _uid,
+                      );
+                      ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
+                            chatId: widget.chatId,
+                            receiverIds: receiverIds,
+                            chatType: _chatType,
+                            infoType: PeamanInfoMessageType.updatedChatTitle,
+                            info: infoUpdatedChatTitle,
+                          );
+                    },
+                    orElse: () {},
+                  );
+            });
+          }
+        },
+      ),
+    );
   }
 
   void _addChatMembers() {

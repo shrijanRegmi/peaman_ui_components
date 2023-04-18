@@ -114,4 +114,13 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
+  static infoUpdatedChatTitle({
+    required final String uid,
+  }) {
+    final zRef = PeamanZRefHelper.getZRefFromText(uid);
+    return zRef;
+  }
+
+///////////////////////////////////////////////
+
 }

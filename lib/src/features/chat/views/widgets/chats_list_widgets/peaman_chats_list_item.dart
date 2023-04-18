@@ -100,6 +100,14 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
         });
       }
 
+      if (oldChat.title != newChat.title) {
+        setState(() {
+          _chat = _chat.copyWith(
+            title: newChat.title,
+          );
+        });
+      }
+
       if (oldChat.updatedAt != newChat.updatedAt) {
         setState(() {
           _chat = _chat.copyWith(
@@ -307,11 +315,7 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                 PeamanText.body2(
                   users.isEmpty || !_chat.activeUserIds.contains(_uid)
                       ? 'Unknown Conversation'
-                      : remaining == 0
-                          ? _chat.type == PeamanChatType.group
-                              ? 'You and ${users.first.name}'
-                              : '${users.first.name}'
-                          : 'You, ${users.first.name} and $remaining ${remaining > 1 ? 'others' : 'other'}',
+                      : _chat.titleExt(users.first.name ?? ''),
                   style: const TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,

@@ -6,6 +6,7 @@ class PeamanChatHelper {
     required final String message,
     required final PeamanInfoMessageType infoType,
     required final AVPUSE Function(PeamanListWrapper<String>) usersProvider,
+    final String? uid,
   }) {
     switch (infoType) {
       case PeamanInfoMessageType.addedToChat:
@@ -38,7 +39,7 @@ class PeamanChatHelper {
                   .first;
               final remaining = success.length - 2;
 
-              return '${adder.name} added ${firstAddedUser.name}${remaining > 0 ? ' and $remaining ${remaining > 1 ? 'others' : 'other'}' : ''} to the chat';
+              return '${adder.uid == uid ? 'You' : adder.name} added ${firstAddedUser.uid == uid ? 'you' : firstAddedUser.name}${remaining > 0 ? ' and $remaining ${remaining > 1 ? 'others' : 'other'}' : ''} to the chat';
             },
             (failure) => '',
           ),
@@ -74,7 +75,7 @@ class PeamanChatHelper {
                   .first;
               final remaining = success.length - 2;
 
-              return '${remover.name} removed ${firstRemovedUser.name}${remaining > 0 ? ' and $remaining ${remaining > 1 ? 'others' : 'other'}' : ''} from the chat';
+              return '${remover.uid == uid ? 'You' : remover.name} removed ${firstRemovedUser.uid == uid ? 'you' : firstRemovedUser.name}${remaining > 0 ? ' and $remaining ${remaining > 1 ? 'others' : 'other'}' : ''} from the chat';
             },
             (failure) => '',
           ),
@@ -94,7 +95,27 @@ class PeamanChatHelper {
             (success) {
               if (success.isEmpty) return '';
 
-              return '${success.first.name} left the chat';
+              return '${success.first.uid == uid ? 'You' : success.first.name} left the chat';
+            },
+            (failure) => '',
+          ),
+          orElse: () => '',
+        );
+      case PeamanInfoMessageType.updatedChatTitle:
+        final updaterId = PeamanZRefHelper.getTextFromZRef(
+          message,
+        );
+
+        final listWrapper = PeamanListWrapper(
+          values: [updaterId],
+        );
+
+        return usersProvider(listWrapper).maybeWhen(
+          data: (data) => data.when(
+            (success) {
+              if (success.isEmpty) return '';
+
+              return '${success.first.uid == uid ? 'You' : success.first.name} updated group title';
             },
             (failure) => '',
           ),
