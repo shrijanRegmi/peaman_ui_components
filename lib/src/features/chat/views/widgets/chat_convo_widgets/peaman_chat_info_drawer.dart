@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class PeamanChatInfoDrawer extends ConsumerStatefulWidget {
   final String chatId;
@@ -506,15 +505,13 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   void _lauchExternalContact() async {
-    var url = '';
+    var link = '';
     final regexEmail = RegExp(PeamanCommonStrings.regexEmail);
     if (regexEmail.hasMatch(_getExternalContact())) {
-      url = 'mailto:${_getExternalContact()}';
+      link = 'mailto:${_getExternalContact()}';
     }
 
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    }
+    await PeamanCommonHelper.openLink(link: link);
   }
 
   void _addChatMembers() {

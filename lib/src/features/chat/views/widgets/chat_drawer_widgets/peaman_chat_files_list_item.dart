@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class PeamanChatFilesListItem extends ConsumerStatefulWidget {
   const PeamanChatFilesListItem({
@@ -133,9 +132,7 @@ class _PeamanChatFilesListItemState
         );
       },
       separatorBuilder: (context, index) {
-        return SizedBox(
-          height: 10.h,
-        );
+        return SizedBox(height: 10.h);
       },
     ).pT(10);
   }
@@ -192,25 +189,13 @@ class _PeamanChatFilesListItemState
                     fontWeight: FontWeight.bold,
                   ),
                 ).pB(2.0),
-              PeamanText.body1(url),
+              PeamanText.body1(url, linkify: true),
             ],
           ),
         ),
       ],
-    ).onPressed(() => _openLink(url));
-  }
-
-  void _openLink(String link) async {
-    try {
-      if (!link.contains('https')) {
-        link = 'https://$link';
-      }
-      if (await canLaunchUrlString(link)) {
-        await launchUrlString(link);
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-      debugPrint('Error!!!: Opening link');
-    }
+    ).onPressed(
+      () => PeamanCommonHelper.openLink(link: url),
+    );
   }
 }

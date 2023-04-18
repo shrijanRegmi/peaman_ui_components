@@ -4,18 +4,25 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanDateDivider extends StatelessWidget {
   final DateTime date;
   final bool withTime;
+  final double indent;
+  final double endIndent;
+
   const PeamanDateDivider({
     Key? key,
     required this.date,
     this.withTime = false,
+    this.indent = 20.0,
+    this.endIndent = 20.0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 15.0,
+      padding: EdgeInsets.only(
+        left: endIndent,
+        right: endIndent,
+        top: 15.0,
+        bottom: 15.0,
       ),
       child: Row(
         children: [

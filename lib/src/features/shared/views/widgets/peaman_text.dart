@@ -3,7 +3,6 @@ import 'package:linkfy_text/src/model/link.dart';
 import 'package:flutter/material.dart';
 import 'package:linkfy_text/linkfy_text.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 enum _Type {
   heading1,
@@ -25,6 +24,7 @@ class PeamanText extends StatefulWidget {
   // for actual text
   final String? value;
   final TextStyle? style;
+  final TextStyle? linkStyle;
   final TextAlign textAlign;
   final _Type type;
   final Function()? onPressed;
@@ -46,6 +46,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -64,6 +65,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -82,6 +84,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -100,6 +103,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -118,6 +122,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -136,6 +141,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -154,6 +160,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -172,6 +179,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -190,6 +198,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -208,6 +217,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -226,6 +236,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -244,6 +255,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -262,6 +274,7 @@ class PeamanText extends StatefulWidget {
     this.value, {
     Key? key,
     this.style,
+    this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
     this.onPressed,
@@ -387,7 +400,9 @@ class _PTextState extends State<PeamanText> {
                 ? _defaultStyle?.merge(widget.style)
                 : TextStyle(
                     color: context.theme.colorScheme.secondary,
-                  ),
+                    decoration: TextDecoration.underline,
+                    decorationColor: context.theme.colorScheme.secondary,
+                  ).merge(widget.linkStyle),
             onTap: widget.onLinkPressed ??
                 (link) {
                   if (link.value != null && widget.linkify) {
@@ -403,7 +418,7 @@ class _PTextState extends State<PeamanText> {
                         userName: text.replaceAll('@', ''),
                       );
                     } else if (link.type == LinkType.url) {
-                      _gotoBrowser(link: text);
+                      PeamanCommonHelper.openLink(link: text);
                     }
                   }
                 },
@@ -494,16 +509,5 @@ class _PTextState extends State<PeamanText> {
     //     userName: userName,
     //   ),
     // );
-  }
-
-  void _gotoBrowser({required final String link}) async {
-    try {
-      if (await canLaunchUrlString(link)) {
-        await launchUrlString(link);
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-      debugPrint('Error!!!: Opening link');
-    }
   }
 }

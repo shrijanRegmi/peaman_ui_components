@@ -311,7 +311,10 @@ class _PeamanChatMessagesListItemState
       ),
       child: Opacity(
         opacity: isTempMessage || isReply ? 0.6 : 1.0,
-        child: PeamanText.body2(widget.message.text),
+        child: PeamanText.body2(
+          widget.message.text,
+          linkify: true,
+        ),
       ),
     );
   }

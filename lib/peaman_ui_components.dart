@@ -1,6 +1,6 @@
 library peaman_ui_components;
 
-export 'package:peaman/peaman.dart';
+export 'package:peaman/peaman.dart' hide PeamanCommonHelper;
 export 'src/peaman_app.dart';
 export 'src/peaman_wrapper.dart';
 
