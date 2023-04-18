@@ -392,6 +392,18 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                   fontWeight:
                       unreadCount == 0 ? FontWeight.normal : FontWeight.bold,
                 ),
+                onPressed: () => widget.onPressed?.call(
+                  context,
+                  ref,
+                  widget.chat,
+                  () {},
+                ),
+                onLinkPressed: (_) => widget.onPressed?.call(
+                  context,
+                  ref,
+                  widget.chat,
+                  () {},
+                ),
               ),
             ),
             if (message.senderId != uid) _counterBuilder(count: unreadCount),
