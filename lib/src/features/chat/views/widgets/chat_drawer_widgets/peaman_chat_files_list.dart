@@ -101,8 +101,9 @@ class _PeamanChatFilesListState extends ConsumerState<PeamanChatFilesList> {
   }
 
   Widget _dataBuilder(List<PeamanChatFile> chatFiles) {
+    final oldChatFiles = chatFiles;
     chatFiles = _groupChatFilesBasedOnCreatedDate(chatFiles);
-    return widget.listBuilder?.call(context, ref, chatFiles) ??
+    return widget.listBuilder?.call(context, ref, oldChatFiles) ??
         SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
             final chatFile = chatFiles[index];
