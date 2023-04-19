@@ -94,22 +94,27 @@ class _PeamanChatMessagesListItemState
           child: _messageBuilder(),
         ),
         if (showSenderInfo)
-          _senderInfoBuilder().pB(
-            widget.nextMessage?.type == PeamanChatMessageType.info ? 0.0 : 10,
-          ),
-        if (!isTempMessage && widget.isLastMessage)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PeamanChatMessageTypingIndicator(
-                chatId: widget.message.chatId!,
+          _senderInfoBuilder().pT(5).pB(
+                widget.nextMessage?.type == PeamanChatMessageType.info
+                    ? 0.0
+                    : 10,
               ),
-              if (widget.message.senderId == _uid &&
-                  widget.message.type != PeamanChatMessageType.info)
-                PeamanChatMessageSeenIndicator(
+        if (!isTempMessage && widget.isLastMessage)
+          SizedBox(
+            height: 25.h,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PeamanChatMessageTypingIndicator(
                   chatId: widget.message.chatId!,
                 ),
-            ],
+                if (widget.message.senderId == _uid &&
+                    widget.message.type != PeamanChatMessageType.info)
+                  PeamanChatMessageSeenIndicator(
+                    chatId: widget.message.chatId!,
+                  ),
+              ],
+            ),
           ),
         if (isTempMessage)
           Row(
@@ -393,6 +398,7 @@ class _PeamanChatMessagesListItemState
     return widget.senderInfoBuilder?.call(context, ref, sender!) ??
         PeamanAvatarBuilder.network(
           sender?.photo,
+          size: 35.0,
           opacity: _chatUserIdsWrapper.values.contains(sender?.uid) ? 1.0 : 0.5,
           overlayWidget: _chatUserIdsWrapper.values.contains(sender?.uid)
               ? null

@@ -37,7 +37,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.network(
     this.imgUrl, {
     super.key,
-    this.size = 50.0,
+    this.size = 45.0,
     this.opacity = 1.0,
     this.color,
     this.heroTag,
@@ -57,7 +57,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.multiNetwork(
     this.imgUrls, {
     super.key,
-    this.size = 50.0,
+    this.size = 45.0,
     this.opacity = 1.0,
     this.color,
     this.heroTag,
@@ -77,7 +77,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.file(
     this.file, {
     super.key,
-    this.size = 50.0,
+    this.size = 45.0,
     this.opacity = 1.0,
     this.color,
     this.heroTag,
@@ -97,7 +97,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.asset(
     this.assetPath, {
     super.key,
-    this.size = 50.0,
+    this.size = 45.0,
     this.opacity = 1.0,
     this.package,
     this.color,
@@ -118,7 +118,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
     this.letter, {
     super.key,
     this.letterStyle,
-    this.size = 50.0,
+    this.size = 45.0,
     this.opacity = 1.0,
     this.color,
     this.heroTag,
