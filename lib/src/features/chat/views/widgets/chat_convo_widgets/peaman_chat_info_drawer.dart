@@ -660,7 +660,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       title: 'Are you sure you want to leave this chat?',
       description:
           "You will neither be able to view new messages nor be able to send new messages to this chat until you are added back to the chat.",
-      onConfirm: (context, ref) {
+      onConfirm: (context, _) {
         const successLogMessage = 'You left the chat';
         ref
             .read(providerOfPeamanChat.notifier)
@@ -676,19 +676,41 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                       .toList();
                   final infoLeaveChat =
                       PeamanCommonStrings.infoLeaveChat(uid: _uid);
-                  ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
+                  ref
+                      .read(providerOfPeamanChat.notifier)
+                      .sendInfoMessage(
                         chatId: widget.chatId,
                         receiverIds: receiverIds,
                         infoType: PeamanInfoMessageType.leftChat,
                         chatType: _chatType,
                         info: infoLeaveChat,
-                      );
+                      )
+                      .then((_) {
+                    ref
+                        .read(providerOfPeamanChat)
+                        .sendInfoMessageState
+                        .maybeWhen(
+                          success: (success) {
+                            ref.read(providerOfPeamanChat.notifier).updateChat(
+                              chatId: widget.chatId,
+                              fields: [
+                                PeamanField(
+                                  key: 'z_${_uid}_messages_cursor.end_at',
+                                  useKeyAsItIs: true,
+                                  value: success.createdAt,
+                                ),
+                              ],
+                            );
+
+                            context.pop();
+                          },
+                          orElse: () {},
+                        );
+                  });
                 },
                 orElse: () {},
               );
         });
-
-        context.pop();
       },
     );
   }

@@ -128,6 +128,72 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           },
         );
         break;
+      case 4:
+        showPeamanNormalBottomsheet(
+          context: context,
+          widget: PeamanChatsListPopup(
+            title: 'Add to group',
+            filterBuilder: (context, ref, chats) => chats
+                .where((element) =>
+                    element.type == PeamanChatType.group &&
+                    element.activeUserIds.contains(uid) &&
+                    !element.activeUserIds.contains(user.uid!))
+                .toList(),
+            onPressedChat: (context, ref, chat, def) {
+              showPeamanConfirmationDialog(
+                context: context,
+                title: PeamanCommonStrings.confirmationTitleAddToChat(
+                  users: [user],
+                ),
+                description: PeamanCommonStrings.confirmationDescAddToChat(
+                  users: [user],
+                ),
+                onConfirm: (context, ref) {
+                  final savedRef = ref;
+                  final successLogMessage =
+                      PeamanCommonStrings.successLogAddedToChat(
+                    users: [user],
+                  );
+                  savedRef
+                      .read(providerOfPeamanChat.notifier)
+                      .addChatMembers(
+                        chatId: chat.id!,
+                        friendIds: [user.uid!],
+                        successLogMessage: successLogMessage,
+                      )
+                      .then((_) {
+                    savedRef
+                        .read(providerOfPeamanChat)
+                        .addChatMembersState
+                        .maybeWhen(
+                          success: (_) {
+                            final receiverIds = chat.activeUserIdsWrapper.values
+                                .where((element) => element != uid)
+                                .toList();
+                            final infoAddedToChat =
+                                PeamanCommonStrings.infoAddedToChat(
+                              uid: uid,
+                              userIds: [user.uid!],
+                            );
+                            ref
+                                .read(providerOfPeamanChat.notifier)
+                                .sendInfoMessage(
+                                  chatId: chat.id!,
+                                  receiverIds: receiverIds,
+                                  chatType: chat.type,
+                                  infoType: PeamanInfoMessageType.addedToChat,
+                                  info: infoAddedToChat,
+                                );
+                          },
+                          orElse: () {},
+                        );
+                  });
+                },
+              );
+            },
+          ),
+        );
+        break;
       default:
     }
   }
@@ -166,32 +232,33 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           !(chatActiveUserIdsWrapper?.values.contains(user.uid) ?? false);
 
       return [
-        PeamanSelectableOption(
-          id: 0,
-          leading: PeamanRoundIconButton(
-            icon: Icon(
-              Icons.send,
-              color: PeamanColors.white,
-              size: 12.w,
+        if (isGroupChat)
+          PeamanSelectableOption(
+            id: 0,
+            leading: PeamanRoundIconButton(
+              icon: Icon(
+                Icons.send,
+                color: PeamanColors.white,
+                size: 12.w,
+              ),
+              padding: EdgeInsets.all(7.w),
+              bgColor: context.theme.colorScheme.primary,
             ),
-            padding: EdgeInsets.all(7.w),
-            bgColor: context.theme.colorScheme.primary,
+            title: 'Send message',
           ),
-          title: 'Send message',
-        ),
-        PeamanSelectableOption(
-          id: 1,
-          leading: PeamanRoundIconButton(
-            icon: Icon(
-              Icons.person_rounded,
-              color: PeamanColors.white,
-              size: 12.w,
-            ),
-            padding: EdgeInsets.all(7.w),
-            bgColor: context.theme.colorScheme.primary,
-          ),
-          title: 'View profile',
-        ),
+        // PeamanSelectableOption(
+        //   id: 1,
+        //   leading: PeamanRoundIconButton(
+        //     icon: Icon(
+        //       Icons.person_rounded,
+        //       color: PeamanColors.white,
+        //       size: 12.w,
+        //     ),
+        //     padding: EdgeInsets.all(7.w),
+        //     bgColor: context.theme.colorScheme.primary,
+        //   ),
+        //   title: 'View profile',
+        // ),
         if (isGroupChat && isChatAdmin && !isRemoved)
           PeamanSelectableOption(
             id: 2,
@@ -231,7 +298,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
             padding: EdgeInsets.all(7.w),
             bgColor: context.theme.colorScheme.primary,
           ),
-          title: 'Add to another group',
+          title: isGroupChat ? 'Add to another group' : 'Add to group',
         ),
       ];
     },

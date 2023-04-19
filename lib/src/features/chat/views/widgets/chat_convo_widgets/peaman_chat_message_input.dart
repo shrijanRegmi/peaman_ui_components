@@ -80,7 +80,8 @@ class _PeamanChatMessageInputState
             .uid !=
         null;
 
-    if (isUserBlocked || isRemovedFromChat) {
+    if (isRemovedFromChat) return const SizedBox();
+    if (isUserBlocked) {
       return const PeamanChatCantReplyBuilder();
     }
 
