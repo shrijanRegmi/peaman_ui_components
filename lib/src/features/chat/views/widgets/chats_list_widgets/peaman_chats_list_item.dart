@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -315,8 +316,8 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                   users.isEmpty || !_chat.activeUserIds.contains(_uid)
                       ? 'Unknown Conversation'
                       : _chat.titleExt(users.first.name ?? ''),
-                  style: const TextStyle(
-                    fontSize: 12.0,
+                  style: TextStyle(
+                    fontSize: 11.sp,
                     fontWeight: FontWeight.bold,
                     color: PeamanColors.grey,
                   ),
@@ -330,9 +331,8 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                   _chat.updatedAt!,
                 ),
               ),
-              style: const TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
+              style: TextStyle(
+                fontSize: 10.sp,
                 color: PeamanColors.grey,
               ),
             ),

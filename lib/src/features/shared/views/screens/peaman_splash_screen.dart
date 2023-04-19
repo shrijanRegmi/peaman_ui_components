@@ -14,7 +14,7 @@ class PeamanSplashScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PeamanText.heading2(
+            PeamanText.heading4(
               'Peaman',
               style: GoogleFonts.caveat(
                 fontSize: 78.sp,
