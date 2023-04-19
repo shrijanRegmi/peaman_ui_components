@@ -22,6 +22,7 @@ Map<String, dynamic> _$$_PeamanChatMessageExtraDataToJson(
 
 const _$PeamanInfoMessageTypeEnumMap = {
   PeamanInfoMessageType.unknown: 'unknown',
+  PeamanInfoMessageType.createdChat: 'createdChat',
   PeamanInfoMessageType.updatedChatTitle: 'updatedChatTitle',
   PeamanInfoMessageType.addedToChat: 'addedToChat',
   PeamanInfoMessageType.removedFromChat: 'removedFromChat',

@@ -11,6 +11,7 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
     @Default(<PeamanFileUrlExtended>[]) final List<PeamanFileUrlExtended> files,
     @Default(SendMessageState.initial())
         final SendMessageState sendMessageState,
+    @Default(CreateChatState.initial()) final CreateChatState createChatState,
     @Default(SendInfoMessageState.initial())
         final SendInfoMessageState sendInfoMessageState,
     @Default(UpdateMessageState.initial())
@@ -38,6 +39,18 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
     @Default(<PeamanChatMessage>[]) final List<PeamanChatMessage> tempMessages,
     final PeamanChatMessage? messageToReply,
   }) = _PeamanChatProviderState;
+}
+
+@freezed
+class CreateChatState with _$CreateChatState {
+  const factory CreateChatState.initial() = _CreateChatStateInitial;
+  const factory CreateChatState.loading() = _CreateChatStateLoading;
+  const factory CreateChatState.success(
+    final PeamanChat result,
+  ) = _CreateChatStateSuccess;
+  const factory CreateChatState.error(
+    final PeamanError error,
+  ) = _CreateChatStateFailure;
 }
 
 @freezed

@@ -20,6 +20,7 @@ mixin _$PeamanChatProviderState {
       throw _privateConstructorUsedError;
   List<PeamanFileUrlExtended> get files => throw _privateConstructorUsedError;
   SendMessageState get sendMessageState => throw _privateConstructorUsedError;
+  CreateChatState get createChatState => throw _privateConstructorUsedError;
   SendInfoMessageState get sendInfoMessageState =>
       throw _privateConstructorUsedError;
   UpdateMessageState get updateMessageState =>
@@ -61,6 +62,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       {TextEditingController messageController,
       List<PeamanFileUrlExtended> files,
       SendMessageState sendMessageState,
+      CreateChatState createChatState,
       SendInfoMessageState sendInfoMessageState,
       UpdateMessageState updateMessageState,
       DeleteMessageState deleteMessageState,
@@ -80,6 +82,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       PeamanChatMessage? messageToReply});
 
   $SendMessageStateCopyWith<$Res> get sendMessageState;
+  $CreateChatStateCopyWith<$Res> get createChatState;
   $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState;
   $UpdateMessageStateCopyWith<$Res> get updateMessageState;
   $DeleteMessageStateCopyWith<$Res> get deleteMessageState;
@@ -115,6 +118,7 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     Object? messageController = null,
     Object? files = null,
     Object? sendMessageState = null,
+    Object? createChatState = null,
     Object? sendInfoMessageState = null,
     Object? updateMessageState = null,
     Object? deleteMessageState = null,
@@ -146,6 +150,10 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
           ? _value.sendMessageState
           : sendMessageState // ignore: cast_nullable_to_non_nullable
               as SendMessageState,
+      createChatState: null == createChatState
+          ? _value.createChatState
+          : createChatState // ignore: cast_nullable_to_non_nullable
+              as CreateChatState,
       sendInfoMessageState: null == sendInfoMessageState
           ? _value.sendInfoMessageState
           : sendInfoMessageState // ignore: cast_nullable_to_non_nullable
@@ -222,6 +230,14 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
   $SendMessageStateCopyWith<$Res> get sendMessageState {
     return $SendMessageStateCopyWith<$Res>(_value.sendMessageState, (value) {
       return _then(_value.copyWith(sendMessageState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CreateChatStateCopyWith<$Res> get createChatState {
+    return $CreateChatStateCopyWith<$Res>(_value.createChatState, (value) {
+      return _then(_value.copyWith(createChatState: value) as $Val);
     });
   }
 
@@ -377,6 +393,7 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
       {TextEditingController messageController,
       List<PeamanFileUrlExtended> files,
       SendMessageState sendMessageState,
+      CreateChatState createChatState,
       SendInfoMessageState sendInfoMessageState,
       UpdateMessageState updateMessageState,
       DeleteMessageState deleteMessageState,
@@ -397,6 +414,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
 
   @override
   $SendMessageStateCopyWith<$Res> get sendMessageState;
+  @override
+  $CreateChatStateCopyWith<$Res> get createChatState;
   @override
   $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState;
   @override
@@ -446,6 +465,7 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? messageController = null,
     Object? files = null,
     Object? sendMessageState = null,
+    Object? createChatState = null,
     Object? sendInfoMessageState = null,
     Object? updateMessageState = null,
     Object? deleteMessageState = null,
@@ -477,6 +497,10 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
           ? _value.sendMessageState
           : sendMessageState // ignore: cast_nullable_to_non_nullable
               as SendMessageState,
+      createChatState: null == createChatState
+          ? _value.createChatState
+          : createChatState // ignore: cast_nullable_to_non_nullable
+              as CreateChatState,
       sendInfoMessageState: null == sendInfoMessageState
           ? _value.sendInfoMessageState
           : sendInfoMessageState // ignore: cast_nullable_to_non_nullable
@@ -556,6 +580,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       {required this.messageController,
       final List<PeamanFileUrlExtended> files = const <PeamanFileUrlExtended>[],
       this.sendMessageState = const SendMessageState.initial(),
+      this.createChatState = const CreateChatState.initial(),
       this.sendInfoMessageState = const SendInfoMessageState.initial(),
       this.updateMessageState = const UpdateMessageState.initial(),
       this.deleteMessageState = const DeleteMessageState.initial(),
@@ -590,6 +615,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   @override
   @JsonKey()
   final SendMessageState sendMessageState;
+  @override
+  @JsonKey()
+  final CreateChatState createChatState;
   @override
   @JsonKey()
   final SendInfoMessageState sendInfoMessageState;
@@ -649,7 +677,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
 
   @override
   String toString() {
-    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, sendInfoMessageState: $sendInfoMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, setChatTitleState: $setChatTitleState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
+    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, createChatState: $createChatState, sendInfoMessageState: $sendInfoMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, setChatTitleState: $setChatTitleState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
   }
 
   @override
@@ -662,6 +690,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
             const DeepCollectionEquality().equals(other._files, _files) &&
             (identical(other.sendMessageState, sendMessageState) ||
                 other.sendMessageState == sendMessageState) &&
+            (identical(other.createChatState, createChatState) ||
+                other.createChatState == createChatState) &&
             (identical(other.sendInfoMessageState, sendInfoMessageState) ||
                 other.sendInfoMessageState == sendInfoMessageState) &&
             (identical(other.updateMessageState, updateMessageState) ||
@@ -704,6 +734,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
         messageController,
         const DeepCollectionEquality().hash(_files),
         sendMessageState,
+        createChatState,
         sendInfoMessageState,
         updateMessageState,
         deleteMessageState,
@@ -737,6 +768,7 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       {required final TextEditingController messageController,
       final List<PeamanFileUrlExtended> files,
       final SendMessageState sendMessageState,
+      final CreateChatState createChatState,
       final SendInfoMessageState sendInfoMessageState,
       final UpdateMessageState updateMessageState,
       final DeleteMessageState deleteMessageState,
@@ -761,6 +793,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   List<PeamanFileUrlExtended> get files;
   @override
   SendMessageState get sendMessageState;
+  @override
+  CreateChatState get createChatState;
   @override
   SendInfoMessageState get sendInfoMessageState;
   @override
@@ -799,6 +833,622 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   @JsonKey(ignore: true)
   _$$_PeamanChatProviderStateCopyWith<_$_PeamanChatProviderState>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$CreateChatState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChat result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChat result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChat result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateChatStateInitial value) initial,
+    required TResult Function(_CreateChatStateLoading value) loading,
+    required TResult Function(_CreateChatStateSuccess value) success,
+    required TResult Function(_CreateChatStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateChatStateInitial value)? initial,
+    TResult? Function(_CreateChatStateLoading value)? loading,
+    TResult? Function(_CreateChatStateSuccess value)? success,
+    TResult? Function(_CreateChatStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateChatStateInitial value)? initial,
+    TResult Function(_CreateChatStateLoading value)? loading,
+    TResult Function(_CreateChatStateSuccess value)? success,
+    TResult Function(_CreateChatStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateChatStateCopyWith<$Res> {
+  factory $CreateChatStateCopyWith(
+          CreateChatState value, $Res Function(CreateChatState) then) =
+      _$CreateChatStateCopyWithImpl<$Res, CreateChatState>;
+}
+
+/// @nodoc
+class _$CreateChatStateCopyWithImpl<$Res, $Val extends CreateChatState>
+    implements $CreateChatStateCopyWith<$Res> {
+  _$CreateChatStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_CreateChatStateInitialCopyWith<$Res> {
+  factory _$$_CreateChatStateInitialCopyWith(_$_CreateChatStateInitial value,
+          $Res Function(_$_CreateChatStateInitial) then) =
+      __$$_CreateChatStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_CreateChatStateInitialCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateInitial>
+    implements _$$_CreateChatStateInitialCopyWith<$Res> {
+  __$$_CreateChatStateInitialCopyWithImpl(_$_CreateChatStateInitial _value,
+      $Res Function(_$_CreateChatStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_CreateChatStateInitial implements _CreateChatStateInitial {
+  const _$_CreateChatStateInitial();
+
+  @override
+  String toString() {
+    return 'CreateChatState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CreateChatStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChat result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChat result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChat result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateChatStateInitial value) initial,
+    required TResult Function(_CreateChatStateLoading value) loading,
+    required TResult Function(_CreateChatStateSuccess value) success,
+    required TResult Function(_CreateChatStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateChatStateInitial value)? initial,
+    TResult? Function(_CreateChatStateLoading value)? loading,
+    TResult? Function(_CreateChatStateSuccess value)? success,
+    TResult? Function(_CreateChatStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateChatStateInitial value)? initial,
+    TResult Function(_CreateChatStateLoading value)? loading,
+    TResult Function(_CreateChatStateSuccess value)? success,
+    TResult Function(_CreateChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateChatStateInitial implements CreateChatState {
+  const factory _CreateChatStateInitial() = _$_CreateChatStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_CreateChatStateLoadingCopyWith<$Res> {
+  factory _$$_CreateChatStateLoadingCopyWith(_$_CreateChatStateLoading value,
+          $Res Function(_$_CreateChatStateLoading) then) =
+      __$$_CreateChatStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_CreateChatStateLoadingCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateLoading>
+    implements _$$_CreateChatStateLoadingCopyWith<$Res> {
+  __$$_CreateChatStateLoadingCopyWithImpl(_$_CreateChatStateLoading _value,
+      $Res Function(_$_CreateChatStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_CreateChatStateLoading implements _CreateChatStateLoading {
+  const _$_CreateChatStateLoading();
+
+  @override
+  String toString() {
+    return 'CreateChatState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CreateChatStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChat result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChat result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChat result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateChatStateInitial value) initial,
+    required TResult Function(_CreateChatStateLoading value) loading,
+    required TResult Function(_CreateChatStateSuccess value) success,
+    required TResult Function(_CreateChatStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateChatStateInitial value)? initial,
+    TResult? Function(_CreateChatStateLoading value)? loading,
+    TResult? Function(_CreateChatStateSuccess value)? success,
+    TResult? Function(_CreateChatStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateChatStateInitial value)? initial,
+    TResult Function(_CreateChatStateLoading value)? loading,
+    TResult Function(_CreateChatStateSuccess value)? success,
+    TResult Function(_CreateChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateChatStateLoading implements CreateChatState {
+  const factory _CreateChatStateLoading() = _$_CreateChatStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_CreateChatStateSuccessCopyWith<$Res> {
+  factory _$$_CreateChatStateSuccessCopyWith(_$_CreateChatStateSuccess value,
+          $Res Function(_$_CreateChatStateSuccess) then) =
+      __$$_CreateChatStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanChat result});
+
+  $PeamanChatCopyWith<$Res> get result;
+}
+
+/// @nodoc
+class __$$_CreateChatStateSuccessCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateSuccess>
+    implements _$$_CreateChatStateSuccessCopyWith<$Res> {
+  __$$_CreateChatStateSuccessCopyWithImpl(_$_CreateChatStateSuccess _value,
+      $Res Function(_$_CreateChatStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_CreateChatStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as PeamanChat,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanChatCopyWith<$Res> get result {
+    return $PeamanChatCopyWith<$Res>(_value.result, (value) {
+      return _then(_value.copyWith(result: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_CreateChatStateSuccess implements _CreateChatStateSuccess {
+  const _$_CreateChatStateSuccess(this.result);
+
+  @override
+  final PeamanChat result;
+
+  @override
+  String toString() {
+    return 'CreateChatState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CreateChatStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CreateChatStateSuccessCopyWith<_$_CreateChatStateSuccess> get copyWith =>
+      __$$_CreateChatStateSuccessCopyWithImpl<_$_CreateChatStateSuccess>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChat result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChat result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChat result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateChatStateInitial value) initial,
+    required TResult Function(_CreateChatStateLoading value) loading,
+    required TResult Function(_CreateChatStateSuccess value) success,
+    required TResult Function(_CreateChatStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateChatStateInitial value)? initial,
+    TResult? Function(_CreateChatStateLoading value)? loading,
+    TResult? Function(_CreateChatStateSuccess value)? success,
+    TResult? Function(_CreateChatStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateChatStateInitial value)? initial,
+    TResult Function(_CreateChatStateLoading value)? loading,
+    TResult Function(_CreateChatStateSuccess value)? success,
+    TResult Function(_CreateChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateChatStateSuccess implements CreateChatState {
+  const factory _CreateChatStateSuccess(final PeamanChat result) =
+      _$_CreateChatStateSuccess;
+
+  PeamanChat get result;
+  @JsonKey(ignore: true)
+  _$$_CreateChatStateSuccessCopyWith<_$_CreateChatStateSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CreateChatStateFailureCopyWith<$Res> {
+  factory _$$_CreateChatStateFailureCopyWith(_$_CreateChatStateFailure value,
+          $Res Function(_$_CreateChatStateFailure) then) =
+      __$$_CreateChatStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_CreateChatStateFailureCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateFailure>
+    implements _$$_CreateChatStateFailureCopyWith<$Res> {
+  __$$_CreateChatStateFailureCopyWithImpl(_$_CreateChatStateFailure _value,
+      $Res Function(_$_CreateChatStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_CreateChatStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_CreateChatStateFailure implements _CreateChatStateFailure {
+  const _$_CreateChatStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'CreateChatState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CreateChatStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CreateChatStateFailureCopyWith<_$_CreateChatStateFailure> get copyWith =>
+      __$$_CreateChatStateFailureCopyWithImpl<_$_CreateChatStateFailure>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChat result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChat result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChat result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateChatStateInitial value) initial,
+    required TResult Function(_CreateChatStateLoading value) loading,
+    required TResult Function(_CreateChatStateSuccess value) success,
+    required TResult Function(_CreateChatStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateChatStateInitial value)? initial,
+    TResult? Function(_CreateChatStateLoading value)? loading,
+    TResult? Function(_CreateChatStateSuccess value)? success,
+    TResult? Function(_CreateChatStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateChatStateInitial value)? initial,
+    TResult Function(_CreateChatStateLoading value)? loading,
+    TResult Function(_CreateChatStateSuccess value)? success,
+    TResult Function(_CreateChatStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateChatStateFailure implements CreateChatState {
+  const factory _CreateChatStateFailure(final PeamanError error) =
+      _$_CreateChatStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_CreateChatStateFailureCopyWith<_$_CreateChatStateFailure> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

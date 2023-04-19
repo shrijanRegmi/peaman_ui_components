@@ -547,33 +547,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
         limit: 30,
         onPressedSubmit: (context, _, value) {
           if (value.trim().isNotEmpty) {
-            ref
-                .read(providerOfPeamanChat.notifier)
-                .setChatTitle(
+            ref.read(providerOfPeamanChat.notifier).setChatTitle(
                   chatId: widget.chatId,
                   title: value,
-                )
-                .then((_) {
-              ref.read(providerOfPeamanChat).setChatTitleState.maybeWhen(
-                    success: (_) {
-                      final receiverIds = _chatUserIdsWrapper.values
-                          .where((element) => element != _uid)
-                          .toList();
-                      final infoUpdatedChatTitle =
-                          PeamanCommonStrings.infoUpdatedChatTitle(
-                        uid: _uid,
-                      );
-                      ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
-                            chatId: widget.chatId,
-                            receiverIds: receiverIds,
-                            chatType: _chatType,
-                            infoType: PeamanInfoMessageType.updatedChatTitle,
-                            info: infoUpdatedChatTitle,
-                          );
-                    },
-                    orElse: () {},
-                  );
-            });
+                  successLogMessage:
+                      PeamanCommonStrings.successLogUpdatedChatTitle(),
+                );
           }
         },
       ),
@@ -618,35 +597,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                   PeamanCommonStrings.successLogAddedToChat(
                 users: users,
               );
-              ref
-                  .read(providerOfPeamanChat.notifier)
-                  .addChatMembers(
+              ref.read(providerOfPeamanChat.notifier).addChatMembers(
                     chatId: widget.chatId,
                     friendIds: users.map((e) => e.uid!).toList(),
                     successLogMessage: successLogMessage,
-                  )
-                  .then((_) {
-                ref.read(providerOfPeamanChat).addChatMembersState.maybeWhen(
-                      success: (_) {
-                        final receiverIds = _chatUserIdsWrapper.values
-                            .where((element) => element != _uid)
-                            .toList();
-                        final infoAddedToChat =
-                            PeamanCommonStrings.infoAddedToChat(
-                          uid: _uid,
-                          userIds: users.map((e) => e.uid!).toList(),
-                        );
-                        ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
-                              chatId: widget.chatId,
-                              receiverIds: receiverIds,
-                              chatType: _chatType,
-                              infoType: PeamanInfoMessageType.addedToChat,
-                              info: infoAddedToChat,
-                            );
-                      },
-                      orElse: () {},
-                    );
-              });
+                  );
             },
           );
         },
@@ -660,57 +615,12 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       title: 'Are you sure you want to leave this chat?',
       description:
           "You will neither be able to view new messages nor be able to send new messages to this chat until you are added back to the chat.",
-      onConfirm: (context, _) {
+      onConfirm: (context, ref) {
         const successLogMessage = 'You left the chat';
-        ref
-            .read(providerOfPeamanChat.notifier)
-            .leaveChat(
+        ref.read(providerOfPeamanChat.notifier).leaveChat(
               chatId: widget.chatId,
               successLogMessage: successLogMessage,
-            )
-            .then((_) {
-          ref.read(providerOfPeamanChat).leaveChatState.maybeWhen(
-                success: (_) {
-                  final receiverIds = _chatUserIdsWrapper.values
-                      .where((element) => element != _uid)
-                      .toList();
-                  final infoLeaveChat =
-                      PeamanCommonStrings.infoLeaveChat(uid: _uid);
-                  ref
-                      .read(providerOfPeamanChat.notifier)
-                      .sendInfoMessage(
-                        chatId: widget.chatId,
-                        receiverIds: receiverIds,
-                        infoType: PeamanInfoMessageType.leftChat,
-                        chatType: _chatType,
-                        info: infoLeaveChat,
-                      )
-                      .then((_) {
-                    ref
-                        .read(providerOfPeamanChat)
-                        .sendInfoMessageState
-                        .maybeWhen(
-                          success: (success) {
-                            ref.read(providerOfPeamanChat.notifier).updateChat(
-                              chatId: widget.chatId,
-                              fields: [
-                                PeamanField(
-                                  key: 'z_${_uid}_messages_cursor.end_at',
-                                  useKeyAsItIs: true,
-                                  value: success.createdAt,
-                                ),
-                              ],
-                            );
-
-                            context.pop();
-                          },
-                          orElse: () {},
-                        );
-                  });
-                },
-                orElse: () {},
-              );
-        });
+            );
       },
     );
   }
@@ -799,38 +709,11 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                   PeamanCommonStrings.successLogAddedToChat(
                 users: [firstChatUser],
               );
-              savedRef
-                  .read(providerOfPeamanChat.notifier)
-                  .addChatMembers(
+              savedRef.read(providerOfPeamanChat.notifier).addChatMembers(
                     chatId: chat.id!,
                     friendIds: [firstChatUser.uid!],
                     successLogMessage: successLogMessage,
-                  )
-                  .then((_) {
-                savedRef
-                    .read(providerOfPeamanChat)
-                    .addChatMembersState
-                    .maybeWhen(
-                      success: (_) {
-                        final receiverIds = chat.activeUserIdsWrapper.values
-                            .where((element) => element != _uid)
-                            .toList();
-                        final infoAddedToChat =
-                            PeamanCommonStrings.infoAddedToChat(
-                          uid: _uid,
-                          userIds: [firstChatUser.uid!],
-                        );
-                        ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
-                              chatId: chat.id!,
-                              receiverIds: receiverIds,
-                              chatType: chat.type,
-                              infoType: PeamanInfoMessageType.addedToChat,
-                              info: infoAddedToChat,
-                            );
-                      },
-                      orElse: () {},
-                    );
-              });
+                  );
             },
           );
         },

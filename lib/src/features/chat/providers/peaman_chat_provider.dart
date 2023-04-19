@@ -128,6 +128,57 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   PeamanInfoProvider get _logProvider =>
       _ref.read(providerOfPeamanInfo.notifier);
 
+  Future<void> createChat({
+    required final PeamanChatType chatType,
+    required final List<String> receiverIds,
+    final String? title,
+    final String? chatId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      createChatState: const CreateChatState.loading(),
+    );
+    final millis = DateTime.now().millisecondsSinceEpoch;
+    final chat = PeamanChat(
+      id: chatId,
+      type: chatType,
+      title: title,
+      userIds: [_appUser.uid!, ...receiverIds],
+      createdAt: millis,
+      updatedAt: millis,
+    );
+    final result = await _chatRepository.createChat(chat: chat);
+    result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+
+        state = state.copyWith(
+          createChatState: CreateChatState.success(success),
+        );
+
+        if (success.type == PeamanChatType.group) {
+          sendInfoMessage(
+            chatId: success.id!,
+            infoType: PeamanInfoMessageType.createdChat,
+            info: PeamanCommonStrings.infoCreatedChat(
+              uid: _appUser.uid!,
+              userIds: receiverIds,
+            ),
+          );
+        }
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+
+        state = state.copyWith(
+          createChatState: CreateChatState.error(failure),
+        );
+      },
+    );
+  }
+
   Future<void> sendMessage({
     required final String chatId,
     required final PeamanChatType chatType,
@@ -201,22 +252,22 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
 
   Future<void> sendInfoMessage({
     required final String chatId,
-    required final List<String> receiverIds,
-    required final PeamanChatType chatType,
     required final PeamanInfoMessageType infoType,
     required final String info,
   }) async {
-    if (info.trim().isEmpty) {
-      return;
-    }
+    if (info.trim().isEmpty) return;
+
+    final chat = getSingleChat(chatId);
+    if (chat == null) return;
 
     final millis = DateTime.now().millisecondsSinceEpoch;
     var message = PeamanChatMessage(
       chatId: chatId,
-      chatType: chatType,
+      chatType: chat.type,
       senderId: _appUser.uid,
       senderName: _appUser.name,
-      receiverIds: receiverIds,
+      receiverIds: List<String>.from(chat.activeUserIds)
+        ..removeWhere((element) => element == _appUser.uid),
       text: info.trim(),
       type: PeamanChatMessageType.info,
       createdAt: millis,
@@ -522,18 +573,24 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       uid: uid ?? _appUser.uid!,
       lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
     );
-    state = result.when(
+    result.when(
       (success) {
         if (successLogMessage != null) {
           _logProvider.logSuccess(successLogMessage);
         }
-        return state.copyWith(
+        state = state.copyWith(
           leaveChatState: LeaveChatState.success(success),
+        );
+
+        sendInfoMessage(
+          chatId: chatId,
+          infoType: PeamanInfoMessageType.leftChat,
+          info: PeamanCommonStrings.infoLeftChat(uid: _appUser.uid!),
         );
       },
       (failure) {
         _logProvider.logError(failure.message);
-        return state.copyWith(
+        state = state.copyWith(
           leaveChatState: LeaveChatState.error(failure),
         );
       },
@@ -552,18 +609,24 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       chatId: chatId,
       title: title,
     );
-    state = result.when(
+    result.when(
       (success) {
         if (successLogMessage != null) {
           _logProvider.logSuccess(successLogMessage);
         }
-        return state.copyWith(
+        state = state.copyWith(
           setChatTitleState: SetChatTitleState.success(success),
+        );
+
+        sendInfoMessage(
+          chatId: chatId,
+          infoType: PeamanInfoMessageType.updatedChatTitle,
+          info: PeamanCommonStrings.infoUpdatedChatTitle(uid: _appUser.uid!),
         );
       },
       (failure) {
         _logProvider.logError(failure.message);
-        return state.copyWith(
+        state = state.copyWith(
           setChatTitleState: SetChatTitleState.error(failure),
         );
       },
@@ -584,18 +647,27 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       uid: uid ?? _appUser.uid!,
       friendIds: friendIds,
     );
-    state = result.when(
+    result.when(
       (success) {
         if (successLogMessage != null) {
           _logProvider.logSuccess(successLogMessage);
         }
-        return state.copyWith(
+        state = state.copyWith(
           addChatMembersState: AddChatMembersState.success(success),
+        );
+
+        sendInfoMessage(
+          chatId: chatId,
+          infoType: PeamanInfoMessageType.addedToChat,
+          info: PeamanCommonStrings.infoAddedToChat(
+            uid: _appUser.uid!,
+            userIds: friendIds,
+          ),
         );
       },
       (failure) {
         _logProvider.logError(failure.message);
-        return state.copyWith(
+        state = state.copyWith(
           addChatMembersState: AddChatMembersState.error(failure),
         );
       },
@@ -620,18 +692,27 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       friendIds: friendIds,
       lastMessageCreatedAt: chat!.lastMessageCreatedAt!,
     );
-    state = result.when(
+    result.when(
       (success) {
         if (successLogMessage != null) {
           _logProvider.logSuccess(successLogMessage);
         }
-        return state.copyWith(
+        state = state.copyWith(
           removeChatMembersState: RemoveChatMembersState.success(success),
+        );
+
+        sendInfoMessage(
+          chatId: chatId,
+          infoType: PeamanInfoMessageType.removedFromChat,
+          info: PeamanCommonStrings.infoRemovedFromChat(
+            uid: _appUser.uid!,
+            userIds: friendIds,
+          ),
         );
       },
       (failure) {
         _logProvider.logError(failure.message);
-        return state.copyWith(
+        state = state.copyWith(
           removeChatMembersState: RemoveChatMembersState.error(failure),
         );
       },

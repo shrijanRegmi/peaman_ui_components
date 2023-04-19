@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/shared/views/widgets/peaman_input_popup.dart';
 
 Future<T?> showPeamanChatUserInfoDialog<T>({
   required final BuildContext context,
@@ -40,42 +41,14 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
             user: user,
           ),
           onConfirm: (context, ref) {
-            ref
-                .read(providerOfPeamanChat.notifier)
-                .removeChatMembers(
+            ref.read(providerOfPeamanChat.notifier).removeChatMembers(
                   chatId: chatId,
                   friendIds: [user.uid!],
                   successLogMessage:
                       PeamanCommonStrings.successLogRemoveFromChat(
                     user: user,
                   ),
-                )
-                .then((_) {
-              ref.read(providerOfPeamanChat).removeChatMembersState.maybeWhen(
-                    success: (_) {
-                      final chatUserIds = ref.read(
-                        providerOfSinglePeamanChatFromChatsStream(chatId)
-                            .select((value) => value?.userIds ?? []),
-                      );
-                      final receiverIds = chatUserIds
-                          .where((element) => element != uid)
-                          .toList();
-                      final infoRemovedFromChat =
-                          PeamanCommonStrings.infoRemovedFromChat(
-                        uid: uid,
-                        userIds: [user.uid!],
-                      );
-                      ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
-                            chatId: chatId,
-                            receiverIds: receiverIds,
-                            chatType: PeamanChatType.group,
-                            infoType: PeamanInfoMessageType.removedFromChat,
-                            info: infoRemovedFromChat,
-                          );
-                    },
-                    orElse: () {},
-                  );
-            });
+                );
           },
         );
         break;
@@ -89,42 +62,14 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
             user: user,
           ),
           onConfirm: (context, ref) {
-            ref
-                .read(providerOfPeamanChat.notifier)
-                .addChatMembers(
+            ref.read(providerOfPeamanChat.notifier).addChatMembers(
                   chatId: chatId,
                   friendIds: [user.uid!],
                   successLogMessage:
                       PeamanCommonStrings.successLogAddedBackToChat(
                     user: user,
                   ),
-                )
-                .then((_) {
-              ref.read(providerOfPeamanChat).addChatMembersState.maybeWhen(
-                    success: (_) {
-                      final chatUserIds = ref.read(
-                        providerOfSinglePeamanChatFromChatsStream(chatId)
-                            .select((value) => value?.userIds ?? []),
-                      );
-                      final receiverIds = chatUserIds
-                          .where((element) => element != uid)
-                          .toList();
-                      final infoAddedToChat =
-                          PeamanCommonStrings.infoAddedToChat(
-                        uid: uid,
-                        userIds: [user.uid!],
-                      );
-                      ref.read(providerOfPeamanChat.notifier).sendInfoMessage(
-                            chatId: chatId,
-                            receiverIds: receiverIds,
-                            chatType: PeamanChatType.group,
-                            infoType: PeamanInfoMessageType.addedToChat,
-                            info: infoAddedToChat,
-                          );
-                    },
-                    orElse: () {},
-                  );
-            });
+                );
           },
         );
         break;
@@ -149,45 +94,15 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
                   users: [user],
                 ),
                 onConfirm: (context, ref) {
-                  final savedRef = ref;
                   final successLogMessage =
                       PeamanCommonStrings.successLogAddedToChat(
                     users: [user],
                   );
-                  savedRef
-                      .read(providerOfPeamanChat.notifier)
-                      .addChatMembers(
+                  ref.read(providerOfPeamanChat.notifier).addChatMembers(
                         chatId: chat.id!,
                         friendIds: [user.uid!],
                         successLogMessage: successLogMessage,
-                      )
-                      .then((_) {
-                    savedRef
-                        .read(providerOfPeamanChat)
-                        .addChatMembersState
-                        .maybeWhen(
-                          success: (_) {
-                            final receiverIds = chat.activeUserIdsWrapper.values
-                                .where((element) => element != uid)
-                                .toList();
-                            final infoAddedToChat =
-                                PeamanCommonStrings.infoAddedToChat(
-                              uid: uid,
-                              userIds: [user.uid!],
-                            );
-                            ref
-                                .read(providerOfPeamanChat.notifier)
-                                .sendInfoMessage(
-                                  chatId: chat.id!,
-                                  receiverIds: receiverIds,
-                                  chatType: chat.type,
-                                  infoType: PeamanInfoMessageType.addedToChat,
-                                  info: infoAddedToChat,
-                                );
-                          },
-                          orElse: () {},
-                        );
-                  });
+                      );
                 },
               );
             },
@@ -359,20 +274,50 @@ Future<T?> showPeamanChatInitiatorDialog<T>({
             searchType: PeamanSearchType.global,
             selectionType: PeamanSelectionType.multi,
             onPressedProceed: (context, ref, users, def) {
-              final uid =
-                  ref.read(providerOfLoggedInUser.select((value) => value.uid));
+              showPeamanNormalDialog(
+                context: context,
+                widget: PeamanInputPopup(
+                  title: 'Group title',
+                  hintText: 'Type something...',
+                  autoFocus: true,
+                  limit: 30,
+                  onPressedSubmit: (_0, _1, val) {
+                    if (val.trim().isEmpty) return;
+                    ref
+                        .read(providerOfPeamanChat.notifier)
+                        .createChat(
+                          title: val,
+                          chatType: PeamanChatType.group,
+                          receiverIds: users
+                              .where((element) => element.uid != null)
+                              .map((e) => e.uid!)
+                              .toList(),
+                        )
+                        .then((_) {
+                      ref.read(providerOfPeamanChat).createChatState.maybeWhen(
+                            success: (success) {
+                              final uid = ref.read(providerOfLoggedInUser
+                                  .select((value) => value.uid));
 
-              context
-                ..pop()
-                ..pushNamed(
-                  PeamanChatConversationScreen.route,
-                  arguments: PeamanChatConversationArgs.byUserIds(
-                    userIds: users.map((e) => e.uid!).toList()
-                      ..add(uid!)
-                      ..sort(),
-                    chatType: PeamanChatType.group,
-                  ),
-                );
+                              context
+                                ..pop()
+                                ..pushNamed(
+                                  PeamanChatConversationScreen.route,
+                                  arguments:
+                                      PeamanChatConversationArgs.byUserIds(
+                                    userIds: users.map((e) => e.uid!).toList()
+                                      ..add(uid!)
+                                      ..sort(),
+                                    chatType: PeamanChatType.group,
+                                  ),
+                                );
+                            },
+                            orElse: () {},
+                          );
+                    });
+                  },
+                ),
+              );
             },
           ),
         );

@@ -8,25 +8,25 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
-  static confirmationTitleRemoveFromChat({
+  static String confirmationTitleRemoveFromChat({
     required final PeamanUser user,
   }) {
     return 'Are you sure you want to remove ${user.name} from this chat?';
   }
 
-  static confirmationDescRemoveFromChat({
+  static String confirmationDescRemoveFromChat({
     required final PeamanUser user,
   }) {
     return "${user.name} will neither be able to view new messages nor be able to send new messages to this chat until ${user.genderStringSubject} is added back to the chat.";
   }
 
-  static successLogRemoveFromChat({
+  static String successLogRemoveFromChat({
     required final PeamanUser user,
   }) {
     return '${user.name} has been removed from the chat';
   }
 
-  static infoRemovedFromChat({
+  static String infoRemovedFromChat({
     required final String uid,
     required final List<String> userIds,
   }) {
@@ -43,19 +43,19 @@ class PeamanCommonStrings {
   }
 ///////////////////////////////////////////////
 
-  static confirmationTitleAddBackToChat({
+  static String confirmationTitleAddBackToChat({
     required final PeamanUser user,
   }) {
     return 'Are you sure you want to add back ${user.name} to this chat?';
   }
 
-  static confirmationDescAddBackToChat({
+  static String confirmationDescAddBackToChat({
     required final PeamanUser user,
   }) {
     return '${user.name} will be able to view all the old messages and send new messages to this chat.';
   }
 
-  static successLogAddedBackToChat({
+  static String successLogAddedBackToChat({
     required final PeamanUser user,
   }) {
     return '${user.name} has been added back to the chat';
@@ -63,7 +63,7 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
-  static confirmationTitleAddToChat({
+  static String confirmationTitleAddToChat({
     required final List<PeamanUser> users,
   }) {
     final firstUser = users.isEmpty ? null : users.first;
@@ -71,7 +71,7 @@ class PeamanCommonStrings {
     return 'Are you sure you want to add ${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} to the chat?';
   }
 
-  static confirmationDescAddToChat({
+  static String confirmationDescAddToChat({
     required final List<PeamanUser> users,
   }) {
     final firstUser = users.isEmpty ? null : users.first;
@@ -79,7 +79,7 @@ class PeamanCommonStrings {
     return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} will be able to view all the old messages and send new messages to the chat.';
   }
 
-  static successLogAddedToChat({
+  static String successLogAddedToChat({
     required final List<PeamanUser> users,
   }) {
     final firstUser = users.isEmpty ? null : users.first;
@@ -87,7 +87,7 @@ class PeamanCommonStrings {
     return '${users.length > 1 ? '${firstUser?.name} and $remaining ${remaining > 1 ? 'others' : 'other'}' : firstUser?.name} has been added to the chat';
   }
 
-  static infoAddedToChat({
+  static String infoAddedToChat({
     required final String uid,
     required final List<String> userIds,
   }) {
@@ -105,7 +105,24 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
-  static infoLeaveChat({
+  static String infoCreatedChat({
+    required final String uid,
+    required final List<String> userIds,
+  }) {
+    final zRefCreator = PeamanZRefHelper.getZRefFromText(
+      uid,
+      refText: 'creator',
+    );
+    final zRefCreated = PeamanZRefHelper.getZRefFromList(
+      userIds,
+      refText: 'created',
+    );
+    return '$zRefCreator $zRefCreated';
+  }
+
+///////////////////////////////////////////////
+
+  static String infoLeftChat({
     required final String uid,
   }) {
     final zRef = PeamanZRefHelper.getZRefFromText(uid);
@@ -114,7 +131,11 @@ class PeamanCommonStrings {
 
 ///////////////////////////////////////////////
 
-  static infoUpdatedChatTitle({
+  static String successLogUpdatedChatTitle() {
+    return 'The chat title has been updated';
+  }
+
+  static String infoUpdatedChatTitle({
     required final String uid,
   }) {
     final zRef = PeamanZRefHelper.getZRefFromText(uid);

@@ -341,6 +341,8 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   }
 
   Widget _bodyBuilder() {
+    if (_chat.lastMessageId == null) return const SizedBox();
+
     final lastMessageStream = ref.watch(providerOfSinglePeamanChatMessageStream(
       PeamanSingleChatMessageArgs(
         chatId: _chat.id!,
