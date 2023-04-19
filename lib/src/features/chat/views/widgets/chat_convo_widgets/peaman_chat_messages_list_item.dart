@@ -105,6 +105,7 @@ class _PeamanChatMessagesListItemState
     final isTempMessage = _isTempMessage();
     final showSenderInfo = _showSenderInfo();
     final isReply = _isReply();
+    final isGapBetweenMessagesRequired = _isGapBetweenMessagesRequired();
 
     return Column(
       crossAxisAlignment: widget.message.senderId == _uid
@@ -162,6 +163,10 @@ class _PeamanChatMessagesListItemState
                     ? 0.0
                     : 10,
               ),
+        if (isGapBetweenMessagesRequired)
+          SizedBox(
+            height: 15.h,
+          ),
         if (!isTempMessage && widget.isLastMessage)
           SizedBox(
             height: 25.h,
@@ -540,6 +545,7 @@ class _PeamanChatMessagesListItemState
 
   bool _isGapBetweenMessagesRequired() {
     if (widget.message.type == PeamanChatMessageType.info) return false;
+    if (widget.nextMessage?.type == PeamanChatMessageType.info) return false;
 
     return (widget.nextMessage?.senderId != widget.message.senderId ||
         widget.nextMessage?.id == widget.message.id ||

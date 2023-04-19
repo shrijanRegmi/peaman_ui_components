@@ -65,6 +65,10 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
 
 class _PeamanChatMessagesListState
     extends ConsumerState<PeamanChatMessagesList> {
+  String get _uid => ref.watch(
+        providerOfLoggedInUser.select((value) => value.uid!),
+      );
+
   @override
   Widget build(BuildContext context) {
     if (widget.messages != null) {
@@ -198,7 +202,10 @@ class _PeamanChatMessagesListState
                       prevMessage.type == PeamanChatMessageType.info &&
                               message.type == PeamanChatMessageType.info
                           ? 20.0
-                          : 0.0,
+                          : prevMessage.type != PeamanChatMessageType.info &&
+                                  prevMessage.senderId == _uid
+                              ? 20.0
+                              : 0.0,
                     )
                     .pB(
                       message.type == PeamanChatMessageType.info ? 0.0 : 20.0,
