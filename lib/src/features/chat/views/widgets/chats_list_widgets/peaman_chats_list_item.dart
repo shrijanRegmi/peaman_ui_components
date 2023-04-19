@@ -380,6 +380,9 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                 style: TextStyle(
                   fontFamily: GoogleFonts.raleway().fontFamily,
                   height: 1.5,
+                  fontStyle: message.type == PeamanChatMessageType.info
+                      ? FontStyle.italic
+                      : FontStyle.normal,
                   fontWeight:
                       unreadCount == 0 ? FontWeight.normal : FontWeight.bold,
                 ),
