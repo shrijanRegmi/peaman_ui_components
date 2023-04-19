@@ -359,23 +359,9 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
     final uid = ref.watch(
       providerOfLoggedInUser.select((value) => value.uid),
     );
-    final pictures =
-        message.files.where((e) => e.type == PeamanFileType.image).toList();
-    final videos =
-        message.files.where((e) => e.type == PeamanFileType.video).toList();
-    final text = message.type == PeamanChatMessageType.text
-        ? message.text
-        : message.type == PeamanChatMessageType.file
-            ? pictures.isNotEmpty
-                ? 'Sent an image  📸'
-                : videos.isNotEmpty
-                    ? 'Sent an video  📸'
-                    : 'Sent a message'
-            : message.type == PeamanChatMessageType.feedShare
-                ? 'Shared a post'
-                : 'Sent a message';
 
-    final messageText = message.senderId == uid ? 'You: $text' : text;
+    final messageText = _getMessageText(message);
+
     final unreadCount = _chat.unreadMessages
         .firstWhere(
           (element) => element.uid == uid,
@@ -438,5 +424,56 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
             ),
           ),
         );
+  }
+
+  String _getMessageText(final PeamanChatMessage message) {
+    final pictures =
+        message.files.where((e) => e.type == PeamanFileType.image).toList();
+    final videos =
+        message.files.where((e) => e.type == PeamanFileType.video).toList();
+
+    var messageText = 'Sent a message';
+    final isMyMessage = message.senderId == _uid;
+
+    switch (message.type) {
+      case PeamanChatMessageType.info:
+        final info = PeamanChatHelper.getInfoMessage(
+          message: message.text!,
+          infoType: message.infoType,
+          usersProvider: (userIds) => ref.watch(
+            providerOfPeamanUsersByIdFuture(userIds),
+          ),
+          uid: _uid,
+        );
+        messageText = info;
+        break;
+      case PeamanChatMessageType.text:
+        if (message.text != null) {
+          messageText = message.text!;
+        }
+        if (isMyMessage) {
+          messageText = 'You: $messageText';
+        }
+        break;
+      case PeamanChatMessageType.file:
+        if (pictures.isNotEmpty) {
+          messageText = 'Sent an image  📸';
+        } else if (videos.isNotEmpty) {
+          messageText = 'Sent an video  📸';
+        }
+        if (isMyMessage) {
+          messageText = 'You: $messageText';
+        }
+        break;
+      case PeamanChatMessageType.feedShare:
+        messageText = 'Shared a post';
+        if (isMyMessage) {
+          messageText = 'You: $messageText';
+        }
+        break;
+      default:
+    }
+
+    return messageText;
   }
 }
