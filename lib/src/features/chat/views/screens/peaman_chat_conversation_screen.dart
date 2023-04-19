@@ -184,7 +184,6 @@ class _PeamanChatConversationScreenState
         body: PeamanChatMessagesList(
           chatId: _chatId,
           receiverIds: receiverIds,
-          onSwippedMessage: (message, user, func) {},
         ).onPressed(() => context.unfocus()),
         bottomNavigationBar: Padding(
           padding: MediaQuery.of(context).viewInsets,

@@ -27,10 +27,12 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
   final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
   final Widget Function(BuildContext, WidgetRef, PeamanError)? errorBuilder;
-  final Function(PeamanChatMessage, List<String>, Function())? onPressedMessage;
-  final Function(PeamanChatMessage, List<String>, Function())?
+  final Function(BuildContext, WidgetRef, PeamanChatMessage, Function())?
+      onPressedMessage;
+  final Function(BuildContext, WidgetRef, PeamanChatMessage, Function())?
       onLongPressedMessage;
-  final Function(PeamanChatMessage, List<String>, Function())? onSwippedMessage;
+  final Function(BuildContext, WidgetRef, PeamanChatMessage, Function())?
+      onSwippedMessage;
 
   const PeamanChatMessagesList({
     Key? key,
@@ -131,17 +133,30 @@ class _PeamanChatMessagesListState
                       senderInfoBuilder: widget.senderInfoBuilder,
                       seenIndicatorBuilder: widget.seenIndicatorBuilder,
                       typingIndicatorBuilder: widget.typingIndicatorBuilder,
-                      onPressed: (message) => widget.onPressedMessage
-                          ?.call(message, widget.receiverIds, () {}),
-                      onLongPressed: (message) =>
-                          widget.onLongPressedMessage?.call(
+                      onPressed: (context, ref, message, def) =>
+                          widget.onPressedMessage?.call(
+                            context,
+                            ref,
                             message,
-                            widget.receiverIds,
+                            def,
+                          ) ??
+                          def(),
+                      onLongPressed: (context, ref, message, def) =>
+                          widget.onLongPressedMessage?.call(
+                            context,
+                            ref,
+                            message,
                             () => _showMessageLongPressBottomsheet(message),
                           ) ??
                           _showMessageLongPressBottomsheet(message),
-                      onSwipped: (message) => widget.onSwippedMessage
-                          ?.call(message, widget.receiverIds, () {}),
+                      onSwipped: (context, ref, message, def) =>
+                          widget.onSwippedMessage?.call(
+                            context,
+                            ref,
+                            message,
+                            def,
+                          ) ??
+                          def(),
                     );
             return Padding(
               padding: index == 0

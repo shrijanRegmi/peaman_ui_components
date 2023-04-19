@@ -13,20 +13,54 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
   final bool isMessagesSentOnSameHour;
   final bool isFirstMessage;
   final bool isLastMessage;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      sentMessageBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      receivedMessageBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      infoMessageBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
-  final Widget Function(BuildContext, WidgetRef, List<String>)?
-      seenIndicatorBuilder;
-  final Widget Function(BuildContext, WidgetRef, List<String>)?
-      typingIndicatorBuilder;
-  final Function(PeamanChatMessage)? onPressed;
-  final Function(PeamanChatMessage)? onLongPressed;
-  final Function(PeamanChatMessage)? onSwipped;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? sentMessageBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? receivedMessageBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? infoMessageBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? senderInfoBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<String>,
+  )? seenIndicatorBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<String>,
+  )? typingIndicatorBuilder;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
+  )? onPressed;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
+  )? onLongPressed;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
+  )? onSwipped;
 
   const PeamanChatMessagesListItem({
     Key? key,
@@ -64,6 +98,8 @@ class _PeamanChatMessagesListItemState
                 const PeamanListWrapper(values: [])),
       );
 
+  var _isFocused = false;
+
   @override
   Widget build(BuildContext context) {
     final isTempMessage = _isTempMessage();
@@ -87,11 +123,36 @@ class _PeamanChatMessagesListItemState
           enabled: !isTempMessage &&
               widget.message.type != PeamanChatMessageType.info,
           onSwipped: (message) =>
-              widget.onSwipped?.call(message) ??
+              widget.onSwipped?.call(
+                context,
+                ref,
+                message,
+                () => ref
+                    .read(providerOfPeamanChat.notifier)
+                    .setMessageToReply(message),
+              ) ??
               ref
                   .read(providerOfPeamanChat.notifier)
                   .setMessageToReply(message),
-          child: _messageBuilder(),
+          child: Row(
+            textDirection: widget.message.senderId == _uid
+                ? TextDirection.ltr
+                : TextDirection.rtl,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (widget.message.type != PeamanChatMessageType.info)
+                AnimatedOpacity(
+                  opacity: _isFocused ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 200),
+                  child: _messageTimingBuilder(),
+                ),
+              if (widget.message.type != PeamanChatMessageType.info)
+                SizedBox(
+                  width: 10.w,
+                ),
+              _messageBuilder(),
+            ],
+          ),
         ),
         if (showSenderInfo)
           _senderInfoBuilder().pT(5).pB(
@@ -127,11 +188,21 @@ class _PeamanChatMessagesListItemState
             ],
           ).pR(5.0).pB(10.0).pT(8.0),
       ],
-    )
-        .pX(10.0)
-        .pY(2.5)
-        .onPressed(() => widget.onPressed?.call(widget.message))
-        .onLongPressed(() => widget.onLongPressed?.call(widget.message));
+    ).pX(10.0).pY(2.5).onPressed(() {
+      if (widget.onPressed == null) {
+        setState(() {
+          _isFocused = !_isFocused;
+        });
+      } else {
+        widget.onPressed?.call(context, ref, widget.message, () {
+          setState(() {
+            _isFocused = !_isFocused;
+          });
+        });
+      }
+    }).onLongPressed(
+      () => widget.onLongPressed?.call(context, ref, widget.message, () {}),
+    );
   }
 
   Widget _messageBuilder() {
@@ -304,48 +375,50 @@ class _PeamanChatMessagesListItemState
         .where((element) => element.type == PeamanFileType.image)
         .toList();
 
-    return Opacity(
-      opacity: isTempMessage ? 0.6 : 1.0,
-      child: Wrap(
-        runSpacing: 5.0,
-        spacing: 5.0,
-        alignment: _uid == widget.message.senderId
-            ? WrapAlignment.end
-            : WrapAlignment.start,
-        children: [
-          for (final picture in pictures)
-            GestureDetector(
-              onTap: () {
-                if (isTempMessage) return;
+    return Expanded(
+      child: Opacity(
+        opacity: isTempMessage ? 0.6 : 1.0,
+        child: Wrap(
+          runSpacing: 5.0,
+          spacing: 5.0,
+          alignment: _uid == widget.message.senderId
+              ? WrapAlignment.end
+              : WrapAlignment.start,
+          children: [
+            for (final picture in pictures)
+              GestureDetector(
+                onTap: () {
+                  if (isTempMessage) return;
 
-                context.pushNamed(
-                  PeamanViewPicturesScreen.route,
-                  arguments: PeamanViewPicturesArgs(
-                    pictures: pictures.map((e) => e.url!).toList(),
-                    activeIndex: widget.message.files.indexOf(picture),
-                  ),
-                );
-              },
-              child: Hero(
-                tag: picture.url!,
-                child: Container(
-                  height: pictureSize,
-                  width: pictureSize - 20.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: PeamanColors.extraLightGrey.withOpacity(0.5),
-                    image: DecorationImage(
-                      image: isTempMessage
-                          ? FileImage(File(picture.url!)) as ImageProvider
-                          : CachedNetworkImageProvider(picture.url!),
-                      fit: BoxFit.cover,
+                  context.pushNamed(
+                    PeamanViewPicturesScreen.route,
+                    arguments: PeamanViewPicturesArgs(
+                      pictures: pictures.map((e) => e.url!).toList(),
+                      activeIndex: widget.message.files.indexOf(picture),
                     ),
+                  );
+                },
+                child: Hero(
+                  tag: picture.url!,
+                  child: Container(
+                    height: pictureSize,
+                    width: pictureSize - 20.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: PeamanColors.extraLightGrey.withOpacity(0.5),
+                      image: DecorationImage(
+                        image: isTempMessage
+                            ? FileImage(File(picture.url!)) as ImageProvider
+                            : CachedNetworkImageProvider(picture.url!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(10.0),
                   ),
-                  padding: const EdgeInsets.all(10.0),
                 ),
-              ),
-            )
-        ],
+              )
+          ],
+        ),
       ),
     );
   }
@@ -361,25 +434,27 @@ class _PeamanChatMessagesListItemState
     );
     if (info.isEmpty) return const SizedBox();
 
-    return Row(
-      children: [
-        Expanded(
-          child: Center(
-            child: PeamanText.body1(
-              info,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10.sp,
-                color: PeamanColors.grey,
-                fontWeight: FontWeight.bold,
+    return Expanded(
+      child: Row(
+        children: [
+          Expanded(
+            child: Center(
+              child: PeamanText.body1(
+                info,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 10.sp,
+                  color: PeamanColors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    ).pT(25.0).pB(
-          widget.nextMessage?.type != PeamanChatMessageType.info ? 25.0 : 0.0,
-        );
+        ],
+      ).pT(25.0).pB(
+            widget.nextMessage?.type != PeamanChatMessageType.info ? 25.0 : 0.0,
+          ),
+    );
   }
 
   Widget _senderInfoBuilder() {
@@ -425,6 +500,22 @@ class _PeamanChatMessagesListItemState
             );
           },
         );
+  }
+
+  Widget _messageTimingBuilder() {
+    final msgDate = DateTime.fromMillisecondsSinceEpoch(
+      widget.message.createdAt!,
+    );
+    final formattedMsgDate = PeamanDateTimeHelper.getFormattedTime(
+      TimeOfDay(hour: msgDate.hour, minute: msgDate.minute),
+    );
+    return PeamanText.body2(
+      formattedMsgDate,
+      style: TextStyle(
+        fontSize: 10.sp,
+        color: PeamanColors.grey,
+      ),
+    );
   }
 
   double _getPictureSize() {
