@@ -193,7 +193,16 @@ class _PeamanChatMessagesListState
                   date: DateTime.fromMillisecondsSinceEpoch(
                     message.updatedAt!,
                   ),
-                );
+                )
+                    .pT(
+                      prevMessage.type == PeamanChatMessageType.info &&
+                              message.type == PeamanChatMessageType.info
+                          ? 20.0
+                          : 0.0,
+                    )
+                    .pB(
+                      message.type == PeamanChatMessageType.info ? 0.0 : 20.0,
+                    );
           },
         );
   }

@@ -116,6 +116,8 @@ class _PeamanChatMessagesListItemState
             date: DateTime.fromMillisecondsSinceEpoch(
               widget.message.updatedAt!,
             ),
+          ).pB(
+            widget.message.type == PeamanChatMessageType.info ? 0.0 : 20.0,
           ),
         if (isReply) _replyBuilder().pT(10).pB(5),
         PeamanChatMessageSwiper(

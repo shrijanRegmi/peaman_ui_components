@@ -418,7 +418,7 @@ class _PTextState extends State<PeamanText> {
                         userName: text.replaceAll('@', ''),
                       );
                     } else if (link.type == LinkType.url) {
-                      PeamanCommonHelper.openLink(link: text);
+                      PeamanCommonHelper.openLink(text);
                     }
                   }
                 },

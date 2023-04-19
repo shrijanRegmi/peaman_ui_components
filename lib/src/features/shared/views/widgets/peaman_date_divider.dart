@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanDateDivider extends StatelessWidget {
@@ -6,11 +7,13 @@ class PeamanDateDivider extends StatelessWidget {
   final bool withTime;
   final double indent;
   final double endIndent;
+  final bool withHorizontalBars;
 
   const PeamanDateDivider({
     Key? key,
     required this.date,
     this.withTime = false,
+    this.withHorizontalBars = true,
     this.indent = 20.0,
     this.endIndent = 20.0,
   }) : super(key: key);
@@ -19,28 +22,31 @@ class PeamanDateDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: endIndent,
-        right: endIndent,
-        top: 15.0,
-        bottom: 15.0,
+        left: endIndent.w,
+        right: endIndent.w,
+        top: 15.h,
+        bottom: 15.h,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Expanded(child: Divider()),
-          const SizedBox(
-            width: 10.0,
-          ),
+          if (withHorizontalBars) const Expanded(child: Divider()),
+          if (withHorizontalBars)
+            SizedBox(
+              width: 10.w,
+            ),
           PeamanText.body1(
             _getDate(),
-            style: const TextStyle(
-              fontSize: 12.0,
+            style: TextStyle(
+              fontSize: 10.sp,
               color: PeamanColors.grey,
             ),
           ),
-          const SizedBox(
-            width: 10.0,
-          ),
-          const Expanded(child: Divider()),
+          if (withHorizontalBars)
+            SizedBox(
+              width: 10.w,
+            ),
+          if (withHorizontalBars) const Expanded(child: Divider()),
         ],
       ),
     );

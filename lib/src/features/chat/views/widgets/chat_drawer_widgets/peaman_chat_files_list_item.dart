@@ -178,32 +178,81 @@ class _PeamanChatFilesListItemState
             ),
           ),
         ),
-        SizedBox(
-          width: 10.w,
-        ),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (metadata?.title != null)
-                PeamanText.body1(
-                  metadata?.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  limit: 70,
-                ).pB(2.0),
-              PeamanText.body1(
-                url,
-                linkify: true,
-                limit: 70,
-              ),
-            ],
+          child: SizedBox(
+            height: 77.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Divider(height: 0.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (metadata?.title != null)
+                      PeamanText.body1(
+                        metadata?.title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        limit: 70,
+                      ).pB(2.0),
+                    PeamanText.body1(
+                      url,
+                      linkify: true,
+                      limit: 60,
+                    ),
+                  ],
+                ).pL(10),
+                const Divider(height: 0.0),
+              ],
+            ),
           ),
         ),
       ],
-    ).onPressed(
-      () => PeamanCommonHelper.openLink(link: url),
+    )
+        .onPressed(
+      () => PeamanCommonHelper.openLink(url),
+    )
+        .onLongPressed(
+      () {
+        showPeamanSelectableOptionsDialog(
+          context: context,
+          onSelectOption: (context, ref, val) {
+            switch (val.id) {
+              case 0:
+                PeamanCommonHelper.copyToClipboard(url);
+                ref
+                    .read(providerOfPeamanInfo.notifier)
+                    .logSuccess('Copied link to clipboard');
+                break;
+              default:
+            }
+          },
+          radio: false,
+          itemPadding: EdgeInsets.symmetric(
+            horizontal: 25.w,
+            vertical: 0,
+          ),
+          optionsBuilder: (context, ref) {
+            return [
+              PeamanSelectableOption(
+                id: 0,
+                title: 'Copy link',
+                leading: PeamanRoundIconButton(
+                  icon: Icon(
+                    Icons.copy_rounded,
+                    color: PeamanColors.white,
+                    size: 12.w,
+                  ),
+                  padding: EdgeInsets.all(7.w),
+                  bgColor: context.theme.colorScheme.primary,
+                ),
+              ),
+            ];
+          },
+        );
+      },
     );
   }
 }

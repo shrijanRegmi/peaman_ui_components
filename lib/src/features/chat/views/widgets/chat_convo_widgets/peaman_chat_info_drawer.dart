@@ -529,7 +529,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       link = 'mailto:${_getExternalContact()}';
     }
 
-    await PeamanCommonHelper.openLink(link: link);
+    await PeamanCommonHelper.openLink(link);
   }
 
   void _setChatTitle() {

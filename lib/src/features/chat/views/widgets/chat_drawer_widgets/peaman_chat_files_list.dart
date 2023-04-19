@@ -200,7 +200,7 @@ class _PeamanChatFilesListState extends ConsumerState<PeamanChatFilesList> {
           ),
           indent: 0.0,
           endIndent: 0.0,
-        ).pY(10.0);
+        ).pY(25.0);
   }
 
   List<PeamanChatFile> _groupChatFilesBasedOnCreatedDate(
