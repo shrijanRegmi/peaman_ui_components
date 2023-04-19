@@ -43,7 +43,7 @@ class _PeamanViewChatMediasFilesLinksScreenState
       },
       child: Scaffold(
         appBar: PeamanAppbar(
-          title: 'Media, Links and Files',
+          titleText: 'Media, Links and Files',
           onPressedLeading: (def) {
             _clearSelectedFileType();
             def();

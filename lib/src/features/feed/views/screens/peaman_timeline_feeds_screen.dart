@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -19,20 +21,28 @@ class _PeamanTimelineFeedsScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PeamanAppbar(
-        title: 'Timeline',
+        titleText: 'Peaman',
+        title: PeamanText.heading4(
+          'Peaman',
+          style: GoogleFonts.caveat(),
+        ),
+        elevation: 0.5,
+        centerTitle: false,
+        leadingWidth: 0.0,
         leading: const SizedBox(),
         actions: [
           Center(
             child: PeamanRoundIconButton(
               padding: EdgeInsets.all(7.w),
               onPressed: () => context.pushNamed(
-                PeamanTimelineFeedsScreen.route,
+                PeamanChatsListScreen.route,
               ),
-              icon: Icon(
-                Icons.chat_rounded,
-                size: 16.w,
+              icon: SvgPicture.asset(
+                'assets/svgs/outlined_send_message.svg',
+                package: 'peaman_ui_components',
+                width: 16.w,
               ),
-            ).pT(4.0).pR(5.0),
+            ).pR(10.0),
           ),
         ],
       ),

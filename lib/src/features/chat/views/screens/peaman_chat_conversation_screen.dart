@@ -141,7 +141,7 @@ class _PeamanChatConversationScreenState
       child: Scaffold(
         key: _scaffoldKey,
         appBar: PeamanAppbar(
-          title: usersFuture.maybeWhen(
+          titleText: usersFuture.maybeWhen(
             data: (data) {
               return data.when(
                 (success) => success.isEmpty ||
