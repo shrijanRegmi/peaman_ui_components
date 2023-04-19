@@ -311,18 +311,15 @@ class _PeamanChatMessagesListItemState
                     crossAxisAlignment: WrapCrossAlignment.end,
                     children: [
                       for (final picture in widget.message.parentFiles)
-                        Hero(
-                          tag: picture.url!,
-                          child: Container(
-                            height: pictureSize.h,
-                            width: (pictureSize - 20.0).w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.grey.shade200,
-                              image: DecorationImage(
-                                image: CachedNetworkImageProvider(picture.url!),
-                                fit: BoxFit.cover,
-                              ),
+                        Container(
+                          height: pictureSize.h,
+                          width: (pictureSize - 20.0).w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.grey.shade200,
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider(picture.url!),
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),

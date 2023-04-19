@@ -78,17 +78,20 @@ class _PeamanChatFilesListItemState
       itemCount: imageFiles.length,
       itemBuilder: (context, index) {
         final url = imageFiles[index];
-        return Container(
-          width: 200.w,
-          height: 200.h,
-          decoration: BoxDecoration(
-            color: PeamanColors.extraLightGrey,
-            borderRadius: BorderRadius.circular(5.r),
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(
-                url.url ?? '',
+        return Hero(
+          tag: url.url ?? '',
+          child: Container(
+            width: 200.w,
+            height: 200.h,
+            decoration: BoxDecoration(
+              color: PeamanColors.extraLightGrey,
+              borderRadius: BorderRadius.circular(5.r),
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(
+                  url.url ?? '',
+                ),
+                fit: BoxFit.cover,
               ),
-              fit: BoxFit.cover,
             ),
           ),
         ).onPressed(

@@ -73,7 +73,9 @@ class _ViewPictureScreenState extends State<PeamanViewPicturesScreen>
     );
 
     Future.delayed(const Duration(milliseconds: 3000), () {
-      _animationController.forward();
+      if (mounted) {
+        _animationController.forward();
+      }
     });
   }
 
