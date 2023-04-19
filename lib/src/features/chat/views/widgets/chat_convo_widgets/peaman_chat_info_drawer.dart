@@ -626,6 +626,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
   }
 
   void _showChatMembers() {
+    final adminId = ref.read(
+      _chatProvider.select((value) => value!.adminId),
+    );
     showPeamanNormalBottomsheet(
       context: context,
       borderRadius: 15.0,
@@ -663,7 +666,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             );
           }
           return PeamanText.caption(
-            'Added by $addedByName',
+            user.uid == adminId ? 'Admin' : 'Added by $addedByName',
             limit: 60,
           );
         },

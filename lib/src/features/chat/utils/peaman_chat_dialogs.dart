@@ -130,7 +130,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
       );
       final chatAdminId = ref.watch(
         providerOfSinglePeamanChatFromChatsStream(chatId).select(
-          (value) => value?.chatRequestSenderId,
+          (value) => value?.adminId,
         ),
       );
       final chatType = ref.watch(

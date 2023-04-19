@@ -143,6 +143,7 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
       id: chatId,
       type: chatType,
       title: title,
+      adminId: _appUser.uid!,
       userIds: [_appUser.uid!, ...receiverIds],
       createdAt: millis,
       updatedAt: millis,
