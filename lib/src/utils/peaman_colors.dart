@@ -13,11 +13,13 @@ class PeamanColors {
   static const Color containerBgDark = Color(0xFF212121);
   static const Color cream = Color(0xfff5f1f2);
   static const Color extraLightGrey = Color(0x82B6B6B6);
+  static const Color midLightGrey = Color(0xFFB7B7B7);
   static const Color extraLightGrey2 = Color(0xFFE0E0E0);
   static const Color lightGrey = Color(0xFFB6B6B6);
   static const Color grey = Colors.grey;
   static const Color greyDark = Color(0xFF676767);
   static const Color red = Color(0xFFD23D32);
+  static const Color red80 = Color(0xDCD23D32);
   static const Color green = Colors.green;
   static const Color yellow = Color(0xffffc107);
   static const Color white70 = Colors.white70;

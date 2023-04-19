@@ -10,6 +10,8 @@ class PeamanRouter {
           const PeamanWrapper(),
         );
 
+      // <---------------- AUTH START ---------------->
+
       case PeamanLoginScreen.route:
         return buildRoute(
           settings,
@@ -21,6 +23,10 @@ class PeamanRouter {
           settings,
           const PeamanSignUpScreen(),
         );
+
+      // <---------------- AUTH END ---------------->
+
+      // <---------------- CHAT START ---------------->
 
       case PeamanChatsListScreen.route:
         return buildRoute(
@@ -72,6 +78,18 @@ class PeamanRouter {
             downloadable: arguments.downloadable,
           ),
         );
+
+      // <---------------- CHAT END ---------------->
+
+      // <---------------- FEED START ---------------->
+
+      case PeamanTimelineFeedsScreen.route:
+        return buildRoute(
+          settings,
+          const PeamanTimelineFeedsScreen(),
+        );
+
+      // <---------------- FEED END ---------------->
 
       default:
         return buildRoute(

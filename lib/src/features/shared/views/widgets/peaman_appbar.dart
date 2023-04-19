@@ -5,6 +5,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final double height;
+  final Widget? leading;
   final List<Widget> actions;
   final Function(Function())? onPressedTitle;
   final Function(Function())? onPressedLeading;
@@ -12,6 +13,7 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   const PeamanAppbar({
     super.key,
     this.title,
+    this.leading,
     this.height = kToolbarHeight - 10,
     this.onPressedTitle,
     this.onPressedLeading,
@@ -30,15 +32,19 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
               ),
               onPressed: () => onPressedTitle?.call(() {}),
             ),
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-        ),
-        iconSize: 20.0,
-        onPressed: () => onPressedLeading.isNull
-            ? context.pop()
-            : onPressedLeading?.call(() => context.pop()),
-      ),
+      leading: leading != null
+          ? leading!.onPressed(
+              () => onPressedLeading?.call(() {}),
+            )
+          : IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+              ),
+              iconSize: 20.0,
+              onPressed: () => onPressedLeading.isNull
+                  ? context.pop()
+                  : onPressedLeading?.call(() => context.pop()),
+            ),
       centerTitle: true,
       actions: actions,
     );

@@ -58,9 +58,7 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
 
         if (user != null) {
           if (user.isOnboardingCompleted) {
-            return const PeamanChatsListScreen(
-              searchUsersGlobally: true,
-            );
+            return const PeamanTimelineFeedsScreen();
           } else {
             return const PeamanOnboardingScreen();
           }
