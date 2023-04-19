@@ -191,8 +191,13 @@ class _PeamanChatFilesListItemState
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
+                  limit: 70,
                 ).pB(2.0),
-              PeamanText.body1(url, linkify: true),
+              PeamanText.body1(
+                url,
+                linkify: true,
+                limit: 70,
+              ),
             ],
           ),
         ),
