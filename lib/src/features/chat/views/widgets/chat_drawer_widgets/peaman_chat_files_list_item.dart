@@ -130,7 +130,7 @@ class _PeamanChatFilesListItemState
             metadata: data,
           ),
           loading: () => _metadataBuilder(url: linkFile.url ?? ''),
-          error: (e, _) => _metadataBuilder(url: e.toString()),
+          error: (e, _) => _metadataBuilder(url: linkFile.url ?? ''),
           orElse: () => const SizedBox(),
         );
       },
