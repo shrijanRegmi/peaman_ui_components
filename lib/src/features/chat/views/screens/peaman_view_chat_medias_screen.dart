@@ -73,9 +73,6 @@ class _PeamanViewChatMediasFilesLinksScreenState
           height: 20.h,
         ),
         _mediaTypeFilter(),
-        SizedBox(
-          height: 10.h,
-        ),
       ],
     );
   }
