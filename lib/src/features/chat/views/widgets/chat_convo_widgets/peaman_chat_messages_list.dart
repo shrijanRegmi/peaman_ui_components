@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final String chatId;
@@ -9,28 +10,77 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
   final ScrollController? controller;
   final EdgeInsets firstItemPadding;
   final EdgeInsets lastItemPadding;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      itemBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      sentMessageBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      receivedMessageBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanUser)? senderInfoBuilder;
-  final Widget Function(BuildContext, WidgetRef, List<String>)?
-      seenIndicatorBuilder;
-  final Widget Function(BuildContext, WidgetRef, List<String>)?
-      typingIndicatorBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanChatMessage)?
-      dividerBuilder;
-  final Widget Function(BuildContext, WidgetRef, List<PeamanChatMessage>)?
-      listBuilder;
-  final Widget Function(BuildContext, WidgetRef)? loadingBuilder;
-  final Widget Function(BuildContext, WidgetRef)? emptyBuilder;
-  final Widget Function(BuildContext, WidgetRef, PeamanError)? errorBuilder;
-  final Function(BuildContext, WidgetRef, PeamanChatMessage, Function())?
-      onPressedMessage;
-  final Function(BuildContext, WidgetRef, PeamanChatMessage, Function())?
-      onLongPressedMessage;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? itemBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? sentMessageBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? receivedMessageBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? senderInfoBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<String>,
+  )? seenIndicatorBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<String>,
+  )? typingIndicatorBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+  )? dividerBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanChatMessage>,
+  )? listBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? loadingBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? emptyBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanError,
+  )? errorBuilder;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
+  )? onPressedMessage;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
+  )? onPressedReply;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
+  )? onLongPressedMessage;
   final Function(BuildContext, WidgetRef, PeamanChatMessage, Function())?
       onSwippedMessage;
 
@@ -54,6 +104,7 @@ class PeamanChatMessagesList extends ConsumerStatefulWidget {
     this.emptyBuilder,
     this.errorBuilder,
     this.onPressedMessage,
+    this.onPressedReply,
     this.onLongPressedMessage,
     this.onSwippedMessage,
   }) : super(key: key);
@@ -68,6 +119,8 @@ class _PeamanChatMessagesListState
   String get _uid => ref.watch(
         providerOfLoggedInUser.select((value) => value.uid!),
       );
+
+  final _controller = AutoScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +160,7 @@ class _PeamanChatMessagesListState
           itemCount: messages.length,
           physics: const BouncingScrollPhysics(),
           reverse: true,
-          controller: widget.controller,
+          controller: widget.controller ?? _controller,
           itemBuilder: (context, index) {
             final message = messages[index];
             final messageDate = DateTime.fromMillisecondsSinceEpoch(
@@ -123,45 +176,63 @@ class _PeamanChatMessagesListState
             // get the time difference between two messages
             final difference = nextMessageDate.difference(messageDate);
 
-            final thisWidget =
-                widget.itemBuilder?.call(context, ref, message) ??
-                    PeamanChatMessagesListItem(
-                      message: message,
-                      nextMessage: nextMessage,
-                      receiverIds: widget.receiverIds,
-                      isMessagesSentOnSameHour: difference.inMinutes < 60,
-                      isFirstMessage: index == (messages.length - 1),
-                      isLastMessage: index == 0,
-                      sentMessageBuilder: widget.sentMessageBuilder,
-                      receivedMessageBuilder: widget.sentMessageBuilder,
-                      senderInfoBuilder: widget.senderInfoBuilder,
-                      seenIndicatorBuilder: widget.seenIndicatorBuilder,
-                      typingIndicatorBuilder: widget.typingIndicatorBuilder,
-                      onPressed: (context, ref, message, def) =>
-                          widget.onPressedMessage?.call(
-                            context,
-                            ref,
-                            message,
-                            def,
-                          ) ??
-                          def(),
-                      onLongPressed: (context, ref, message, def) =>
-                          widget.onLongPressedMessage?.call(
-                            context,
-                            ref,
-                            message,
-                            () => _showMessageLongPressBottomsheet(message),
-                          ) ??
-                          _showMessageLongPressBottomsheet(message),
-                      onSwipped: (context, ref, message, def) =>
-                          widget.onSwippedMessage?.call(
-                            context,
-                            ref,
-                            message,
-                            def,
-                          ) ??
-                          def(),
-                    );
+            final thisWidget = AutoScrollTag(
+              key: ValueKey(index),
+              controller: _controller,
+              index: index,
+              child: widget.itemBuilder?.call(context, ref, message) ??
+                  PeamanChatMessagesListItem(
+                    message: message,
+                    nextMessage: nextMessage,
+                    receiverIds: widget.receiverIds,
+                    isMessagesSentOnSameHour: difference.inMinutes < 60,
+                    isFirstMessage: index == (messages.length - 1),
+                    isLastMessage: index == 0,
+                    sentMessageBuilder: widget.sentMessageBuilder,
+                    receivedMessageBuilder: widget.sentMessageBuilder,
+                    senderInfoBuilder: widget.senderInfoBuilder,
+                    seenIndicatorBuilder: widget.seenIndicatorBuilder,
+                    typingIndicatorBuilder: widget.typingIndicatorBuilder,
+                    onPressed: (context, ref, message, def) =>
+                        widget.onPressedMessage?.call(
+                          context,
+                          ref,
+                          message,
+                          def,
+                        ) ??
+                        def(),
+                    onPressedReply: (context, ref, message, def) =>
+                        widget.onPressedReply?.call(
+                          context,
+                          ref,
+                          message,
+                          () => _scrollToMessage(
+                            message: message,
+                            messages: messages,
+                          ),
+                        ) ??
+                        _scrollToMessage(
+                          message: message,
+                          messages: messages,
+                        ),
+                    onLongPressed: (context, ref, message, def) =>
+                        widget.onLongPressedMessage?.call(
+                          context,
+                          ref,
+                          message,
+                          () => _showMessageLongPressBottomsheet(message),
+                        ) ??
+                        _showMessageLongPressBottomsheet(message),
+                    onSwipped: (context, ref, message, def) =>
+                        widget.onSwippedMessage?.call(
+                          context,
+                          ref,
+                          message,
+                          def,
+                        ) ??
+                        def(),
+                  ),
+            );
             return Padding(
               padding: index == 0
                   ? widget.lastItemPadding
@@ -231,5 +302,19 @@ class _PeamanChatMessagesListState
 
   void _showMessageLongPressBottomsheet(final PeamanChatMessage message) {
     // TODO(shrijanRegmi)
+  }
+
+  void _scrollToMessage({
+    required final List<PeamanChatMessage> messages,
+    required final PeamanChatMessage message,
+  }) {
+    final index =
+        messages.indexWhere((element) => element.id == message.parentId);
+    if (index == -1) return;
+
+    _controller.scrollToIndex(
+      index,
+      preferPosition: AutoScrollPosition.middle,
+    );
   }
 }

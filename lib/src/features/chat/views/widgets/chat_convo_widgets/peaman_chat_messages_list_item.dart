@@ -54,6 +54,12 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
     WidgetRef,
     PeamanChatMessage,
     Function(),
+  )? onPressedReply;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChatMessage,
+    Function(),
   )? onLongPressed;
   final Function(
     BuildContext,
@@ -77,6 +83,7 @@ class PeamanChatMessagesListItem extends ConsumerStatefulWidget {
     this.isFirstMessage = false,
     this.isLastMessage = false,
     this.onPressed,
+    this.onPressedReply,
     this.onLongPressed,
     this.onSwipped,
   }) : super(key: key);
@@ -337,6 +344,8 @@ class _PeamanChatMessagesListItemState
             ),
           ),
       ],
+    ).onPressed(
+      () => widget.onPressedReply?.call(context, ref, widget.message, () {}),
     );
   }
 
