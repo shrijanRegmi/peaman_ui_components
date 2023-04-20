@@ -77,6 +77,9 @@ class _PeamanTimelineHeaderState extends ConsumerState<PeamanTimelineHeader> {
                   icon: SvgPicture.asset(
                     'assets/svgs/outlined_send_message.svg',
                     package: 'peaman_ui_components',
+                    color: context.isDarkMode
+                        ? PeamanColors.white70
+                        : PeamanColors.black,
                     width: 16.w,
                   ),
                 ).pR(10.0),

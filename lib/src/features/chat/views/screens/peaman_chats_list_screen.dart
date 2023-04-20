@@ -50,6 +50,9 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
             icon: SvgPicture.asset(
               'assets/svgs/outlined_search.svg',
               package: 'peaman_ui_components',
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : PeamanColors.black,
               width: 16.w,
             ),
           ).pR(10.0),
