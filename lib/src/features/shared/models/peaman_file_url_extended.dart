@@ -8,11 +8,13 @@ class PeamanFileUrlExtended implements PeamanFileUrl {
   final PeamanFileType type;
 
   bool isLocal;
+  String? thumbnailUrl;
 
   PeamanFileUrlExtended({
     required this.url,
     required this.type,
     required this.isLocal,
+    this.thumbnailUrl,
   });
 
   @override

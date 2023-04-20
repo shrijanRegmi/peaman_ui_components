@@ -32,10 +32,9 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
       _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> createFeed({
+    required final PeamanFeed feed,
     final String? successLogMessage,
   }) async {
-    const feed = PeamanFeed();
-
     state = state.copyWith(
       createFeedState: const CreateFeedState.loading(),
     );

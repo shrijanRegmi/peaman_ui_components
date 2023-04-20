@@ -749,7 +749,7 @@ packages:
     description:
       path: "."
       ref: new_version
-      resolved-ref: "162163fcd6beedd4e73081b6f2d43f9595a1a614"
+      resolved-ref: "120c918da59013b587d2454bbc8f9c115c826537"
       url: "https://github.com/shrijanRegmi/peaman.git"
     source: git
     version: "1.0.0"
@@ -1003,6 +1003,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  video_thumbnail:
+    dependency: transitive
+    description:
+      name: video_thumbnail
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.3"
   win32:
     dependency: transitive
     description:

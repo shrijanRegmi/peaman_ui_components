@@ -35,6 +35,7 @@ export 'models/peaman_app_state_model.dart';
 export 'models/peaman_selectable_option_model.dart';
 export 'models/peaman_file_url_extended.dart';
 export 'models/peaman_list_wrapper.dart';
+export 'models/peaman_styleable_text_editing_controller_model.dart';
 
 export 'helpers/peaman_dialog_provider.dart';
 export 'helpers/peaman_z_ref_helper.dart';
