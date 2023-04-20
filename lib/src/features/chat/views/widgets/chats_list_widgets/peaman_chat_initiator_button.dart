@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -16,11 +15,7 @@ class PeamanChatInitiatorButton extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.r),
       ),
-      child: SvgPicture.asset(
-        'assets/svgs/outlined_send_message.svg',
-        color: PeamanColors.white,
-        package: 'peaman_ui_components',
-      ),
+      child: const Icon(Icons.add_rounded),
     );
   }
 }
