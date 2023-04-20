@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -196,18 +196,11 @@ class _PeamanChatMessageInputState
           shape: BoxShape.circle,
           color: context.theme.inputDecorationTheme.suffixIconColor,
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 2.0),
-          child: Transform.rotate(
-            angle: -pi / 2,
-            child: Icon(
-              Icons.send,
-              color: context.isDarkMode
-                  ? PeamanColors.white70
-                  : PeamanColors.white,
-              size: 15.0,
-            ),
-          ),
+        child: SvgPicture.asset(
+          'assets/svgs/outlined_send_message.svg',
+          color: context.isDarkMode ? PeamanColors.white70 : PeamanColors.white,
+          width: 14.w,
+          package: 'peaman_ui_components',
         ),
       ),
     );

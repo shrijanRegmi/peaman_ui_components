@@ -6,6 +6,19 @@ final providerOfPeamanFeed =
   return PeamanFeedProvider(ref);
 });
 
+final providerOfPeamanFeedsFuture =
+    FutureProvider<PeamanEither<List<PeamanFeed>, PeamanError>>((ref) async {
+  return ref.watch(providerOfPeamanFeedRepository).getFeeds();
+});
+
+final providerOfPeamanSingleFeedByIdFuture =
+    FutureProvider.family<PeamanEither<PeamanFeed, PeamanError>, String>(
+        (ref, feedId) async {
+  return ref.watch(providerOfPeamanFeedRepository).getSingleFeed(
+        feedId: feedId,
+      );
+});
+
 class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
   PeamanFeedProvider(final Ref ref)
       : _ref = ref,

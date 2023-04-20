@@ -3,8 +3,86 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
+enum _Type {
+  byFeed,
+  byFeedId,
+  byFeedProvider,
+}
+
+typedef _FeedProvider = AsyncValue<PeamanEither<PeamanFeed, PeamanError>>;
+
 class PeamanFeedsListItem extends ConsumerStatefulWidget {
-  const PeamanFeedsListItem({super.key});
+  const PeamanFeedsListItem.byFeed({
+    super.key,
+    required this.feed,
+    this.padding,
+    this.builder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
+  })  : type = _Type.byFeed,
+        feedId = '',
+        feedProvider = null;
+
+  const PeamanFeedsListItem.byFeedId({
+    super.key,
+    required this.feedId,
+    this.padding,
+    this.builder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
+  })  : type = _Type.byFeedId,
+        feed = const PeamanFeed(),
+        feedProvider = null;
+
+  const PeamanFeedsListItem.byFeedProvider({
+    super.key,
+    required this.feedProvider,
+    this.padding,
+    this.builder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
+  })  : type = _Type.byFeedId,
+        feed = const PeamanFeed(),
+        feedId = '',
+        assert(
+          feedProvider != null,
+          'feedProvider cannot be null',
+        );
+
+  final _Type type;
+
+  final PeamanFeed feed;
+  final String feedId;
+  final _FeedProvider Function(
+    BuildContext,
+    WidgetRef,
+  )? feedProvider;
+
+  final EdgeInsets? padding;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? builder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? headerBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? bodyBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? actionsBuilder;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -14,21 +92,84 @@ class PeamanFeedsListItem extends ConsumerStatefulWidget {
 class _PeamanFeedsListItemState extends ConsumerState<PeamanFeedsListItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const PeamanFeedItemHeader(feedId: ''),
-        SizedBox(
-          height: 15.h,
-        ),
-        const PeamanFeedItemBody(feedId: ''),
-        SizedBox(
-          height: 20.h,
-        ),
-        const PeamanFeedItemActions(feedId: ''),
-        SizedBox(
-          height: 10.h,
-        ),
-      ],
-    ).pX(20.0).pY(15.0);
+    switch (widget.type) {
+      case _Type.byFeed:
+        return _byFeedTypeBuilder();
+      case _Type.byFeedId:
+        return _byFeedIdTypeBuilder();
+      case _Type.byFeedProvider:
+        return _byFeedProviderTypeBuilder();
+      default:
+        return const SizedBox();
+    }
+  }
+
+  Widget _byFeedTypeBuilder() {
+    return _feedBuilder(widget.feed);
+  }
+
+  Widget _byFeedIdTypeBuilder() {
+    final feedFuture = ref.watch(
+      providerOfPeamanSingleFeedByIdFuture(widget.feedId),
+    );
+    return feedFuture.when(
+      data: (data) {
+        return data.when(
+          (success) => _feedBuilder(success),
+          (failure) => const SizedBox(),
+        );
+      },
+      error: (e, _) => const SizedBox(),
+      loading: () => const SizedBox(),
+    );
+  }
+
+  Widget _byFeedProviderTypeBuilder() {
+    final feedFuture = widget.feedProvider?.call(context, ref);
+    return feedFuture!.when(
+      data: (data) {
+        return data.when(
+          (success) => _feedBuilder(success),
+          (failure) => const SizedBox(),
+        );
+      },
+      error: (e, _) => const SizedBox(),
+      loading: () => const SizedBox(),
+    );
+  }
+
+  Widget _feedBuilder(final PeamanFeed feed) {
+    if (feed.id.isNull) return const SizedBox();
+
+    return Padding(
+      padding: widget.padding ??
+          EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 15.h,
+          ),
+      child: widget.builder?.call(context, ref, feed) ??
+          Column(
+            children: [
+              PeamanFeedItemHeader(
+                feedId: feed.id!,
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              PeamanFeedItemBody(
+                feedId: feed.id!,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              PeamanFeedItemActions(
+                feedId: feed.id!,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
+          ),
+    );
   }
 }
