@@ -11,6 +11,7 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final Widget? leading;
   final List<Widget> actions;
+  final Color? backgroundColor;
   final Function(Function())? onPressedTitle;
   final Function(Function())? onPressedLeading;
 
@@ -23,9 +24,10 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle = true,
     this.elevation = 4.0,
     this.height = kToolbarHeight - 10,
+    this.actions = const [],
+    this.backgroundColor,
     this.onPressedTitle,
     this.onPressedLeading,
-    this.actions = const [],
   });
 
   @override
@@ -41,6 +43,7 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   onPressed: () => onPressedTitle?.call(() {}),
                 )),
+      backgroundColor: backgroundColor,
       elevation: elevation,
       leadingWidth: leadingWidth,
       leading: leading != null

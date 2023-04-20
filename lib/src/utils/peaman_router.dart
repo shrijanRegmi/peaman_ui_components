@@ -89,6 +89,12 @@ class PeamanRouter {
           const PeamanTimelineFeedsScreen(),
         );
 
+      case PeamanCreateFeedScreen.route:
+        return buildRoute(
+          settings,
+          const PeamanCreateFeedScreen(),
+        );
+
       // <---------------- FEED END ---------------->
 
       default:
