@@ -37,7 +37,14 @@ class PeamanCreateFeedProvider
             ),
             pollQuestionController: TextEditingController(),
             youtubeLinkController: TextEditingController(),
-            pollOptions: ['', ''],
+            pollOptions: [
+              PeamanPollOption(
+                id: DateTime.now().millisecondsSinceEpoch.toString(),
+              ),
+              PeamanPollOption(
+                id: (DateTime.now().millisecondsSinceEpoch + 1).toString(),
+              ),
+            ],
           ),
         );
 
@@ -73,7 +80,7 @@ class PeamanCreateFeedProvider
       captionController: TextEditingController()..text = caption,
       feedType: feedType,
       pollQuestionController: TextEditingController()..text = pollQuestion,
-      pollOptions: pollOptions.map((e) => e.option ?? '').toList(),
+      pollOptions: pollOptions,
     );
   }
 
@@ -218,7 +225,9 @@ class PeamanCreateFeedProvider
 
   void _createPollFeed() async {
     final pollOptions = state.pollOptions
-        .where((element) => element.trim().isNotEmpty)
+        .where(
+          (element) => element.option?.isNotEmpty ?? false,
+        )
         .toList();
     if (state.pollQuestionController.text.trim().isEmpty ||
         pollOptions.length < 2) return;
@@ -230,13 +239,7 @@ class PeamanCreateFeedProvider
       ownerId: state.feedOwner?.uid,
       caption: state.captionController.text.trim(),
       pollQuestion: state.pollQuestionController.text.trim(),
-      pollOptions: pollOptions.map((e) {
-        return PeamanPollOption(
-          id: pollOptions.indexOf(e).toString(),
-          option: e,
-          popularity: 0,
-        );
-      }).toList(),
+      pollOptions: pollOptions,
       searchKeys: _getSearchKeys(),
       type: PeamanFeedType.poll,
     );
@@ -433,19 +436,55 @@ class PeamanCreateFeedProvider
         .toList();
   }
 
-  void addToFiles(final PeamanFileUrlExtended fileUrl) {
+  void addToFiles(final PeamanFileUrlExtended newVal) {
     state = state.copyWith(
-      files: [...state.files, fileUrl],
+      files: [...state.files, newVal],
     );
   }
 
-  void removeFromFiles(final PeamanFileUrlExtended file) {
+  void removeFromFiles(final PeamanFileUrlExtended newVal) {
     state = state.copyWith(
-      files: state.files.where((element) => element.url != file.url).toList(),
+      files: state.files.where((element) => element.url != newVal.url).toList(),
     );
   }
 
-  void setFeedType(final PeamanFeedType feedType) {
-    state = state.copyWith(feedType: feedType);
+  void setFeedOwner(final PeamanUser newVal) {
+    state = state.copyWith(feedOwner: newVal);
+  }
+
+  void setFeedType(final PeamanFeedType newVal) {
+    state = state.copyWith(feedType: newVal);
+  }
+
+  void addToPollOptions(final PeamanPollOption newVal) {
+    state = state.copyWith(
+      pollOptions: [...state.pollOptions, newVal],
+    );
+  }
+
+  void removeFromPollOptions(final PeamanPollOption newVal) {
+    state = state.copyWith(
+      pollOptions: state.pollOptions
+          .where((element) => element.id != newVal.id)
+          .toList(),
+    );
+  }
+
+  void addValueToPollOption(final int index, final String newVal) {
+    state = state.copyWith(
+      pollOptions: List<PeamanPollOption>.from(state.pollOptions)
+        ..[index] = state.pollOptions[index].copyWith(
+          option: newVal,
+        ),
+    );
+  }
+
+  void removeValueFromPollOption(final int index) {
+    state = state.copyWith(
+      pollOptions: List<PeamanPollOption>.from(state.pollOptions)
+        ..[index] = state.pollOptions[index].copyWith(
+          option: '',
+        ),
+    );
   }
 }

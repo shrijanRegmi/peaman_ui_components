@@ -1,29 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanCreateFeedBody extends ConsumerWidget {
+class PeamanCreateFeedBody extends ConsumerStatefulWidget {
   const PeamanCreateFeedBody({
     super.key,
-    this.controller,
+    this.feedType,
+    this.mediaTypeBuilder,
+    this.youTubeTypeBuilder,
+    this.pollTypeBuilder,
   });
 
-  final TextEditingController? controller;
+  final PeamanFeedType? feedType;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? mediaTypeBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? youTubeTypeBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? pollTypeBuilder;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return TextFormField(
-      minLines: 1,
-      maxLines: 100,
-      controller: controller,
-      style: TextStyle(
-        fontSize: 16.sp,
-      ),
-      onChanged: (val) {},
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: 'What do you want to talk about?',
-      ),
-    );
+  ConsumerState<PeamanCreateFeedBody> createState() =>
+      _PeamanCreateFeedBodyState();
+}
+
+class _PeamanCreateFeedBodyState extends ConsumerState<PeamanCreateFeedBody> {
+  @override
+  Widget build(BuildContext context) {
+    final selectedFeedType = widget.feedType ??
+        ref.watch(
+          providerOfPeamanCreateFeed.select((value) => value.feedType),
+        );
+    switch (selectedFeedType) {
+      case PeamanFeedType.text:
+        return widget.mediaTypeBuilder?.call(context, ref) ??
+            const PeamanCreateFeedMediaType();
+      case PeamanFeedType.file:
+        return widget.mediaTypeBuilder?.call(context, ref) ??
+            const PeamanCreateFeedMediaType();
+      case PeamanFeedType.youTube:
+        return widget.youTubeTypeBuilder?.call(context, ref) ??
+            const PeamanCreateFeedYouTubeType();
+      case PeamanFeedType.poll:
+        return widget.pollTypeBuilder?.call(context, ref) ??
+            const PeamanCreateFeedPollType().pT(10.0);
+      default:
+        return const SizedBox();
+    }
   }
 }

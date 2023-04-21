@@ -12,7 +12,7 @@ class PeamanCreateFeedProviderState with _$PeamanCreateFeedProviderState {
     required final TextEditingController captionController,
     required final TextEditingController pollQuestionController,
     required final TextEditingController youtubeLinkController,
-    @Default(<String>[]) final List<String> pollOptions,
+    @Default(<PeamanPollOption>[]) final List<PeamanPollOption> pollOptions,
     @Default(<PeamanFileUrlExtended>[]) final List<PeamanFileUrlExtended> files,
     @Default(PeamanFeedType.text) final PeamanFeedType feedType,
     @Default(true) final bool isYoutubeLinkValid,

@@ -7,6 +7,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanCreateFeedActions extends ConsumerStatefulWidget {
   const PeamanCreateFeedActions({
     super.key,
+    this.feedType,
     this.imageSelectorButtonBuilder,
     this.videoSelectorButtonBuilder,
     this.youtubeSelectorButtonBuilder,
@@ -19,6 +20,8 @@ class PeamanCreateFeedActions extends ConsumerStatefulWidget {
     this.onPressedSubmitButton,
     this.backgroundColor,
   });
+
+  final PeamanFeedType? feedType;
 
   final Widget Function(
     BuildContext,
@@ -81,9 +84,10 @@ class _PeamanCreateFeedActionsState
 
   @override
   Widget build(BuildContext context) {
-    final selectedFeedType = ref.watch(
-      providerOfPeamanCreateFeed.select((value) => value.feedType),
-    );
+    final selectedFeedType = widget.feedType ??
+        ref.watch(
+          providerOfPeamanCreateFeed.select((value) => value.feedType),
+        );
     return Container(
       color: widget.backgroundColor ??
           (context.isDarkMode

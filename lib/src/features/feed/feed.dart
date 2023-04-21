@@ -14,6 +14,9 @@ export 'views/widgets/timeline_feeds_widgets/peaman_timeline_header.dart';
 export 'views/widgets/create_feed_widgets/peaman_create_feed_header.dart';
 export 'views/widgets/create_feed_widgets/peaman_create_feed_body.dart';
 export 'views/widgets/create_feed_widgets/peaman_create_feed_actions.dart';
+export 'views/widgets/create_feed_widgets/peaman_create_feed_media_type.dart';
+export 'views/widgets/create_feed_widgets/peaman_create_feed_youtube_type.dart';
+export 'views/widgets/create_feed_widgets/peaman_create_feed_poll_type.dart';
 
 export 'models/peaman_feed_extra_data_model.dart';
 

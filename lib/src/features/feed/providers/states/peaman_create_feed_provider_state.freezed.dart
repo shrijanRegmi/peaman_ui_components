@@ -24,7 +24,7 @@ mixin _$PeamanCreateFeedProviderState {
       throw _privateConstructorUsedError;
   TextEditingController get youtubeLinkController =>
       throw _privateConstructorUsedError;
-  List<String> get pollOptions => throw _privateConstructorUsedError;
+  List<PeamanPollOption> get pollOptions => throw _privateConstructorUsedError;
   List<PeamanFileUrlExtended> get files => throw _privateConstructorUsedError;
   PeamanFeedType get feedType => throw _privateConstructorUsedError;
   bool get isYoutubeLinkValid => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $PeamanCreateFeedProviderStateCopyWith<$Res> {
       TextEditingController captionController,
       TextEditingController pollQuestionController,
       TextEditingController youtubeLinkController,
-      List<String> pollOptions,
+      List<PeamanPollOption> pollOptions,
       List<PeamanFileUrlExtended> files,
       PeamanFeedType feedType,
       bool isYoutubeLinkValid});
@@ -105,7 +105,7 @@ class _$PeamanCreateFeedProviderStateCopyWithImpl<$Res,
       pollOptions: null == pollOptions
           ? _value.pollOptions
           : pollOptions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<PeamanPollOption>,
       files: null == files
           ? _value.files
           : files // ignore: cast_nullable_to_non_nullable
@@ -161,7 +161,7 @@ abstract class _$$_PeamanCreateFeedProviderStateCopyWith<$Res>
       TextEditingController captionController,
       TextEditingController pollQuestionController,
       TextEditingController youtubeLinkController,
-      List<String> pollOptions,
+      List<PeamanPollOption> pollOptions,
       List<PeamanFileUrlExtended> files,
       PeamanFeedType feedType,
       bool isYoutubeLinkValid});
@@ -219,7 +219,7 @@ class __$$_PeamanCreateFeedProviderStateCopyWithImpl<$Res>
       pollOptions: null == pollOptions
           ? _value._pollOptions
           : pollOptions // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<PeamanPollOption>,
       files: null == files
           ? _value._files
           : files // ignore: cast_nullable_to_non_nullable
@@ -246,7 +246,7 @@ class _$_PeamanCreateFeedProviderState
       required this.captionController,
       required this.pollQuestionController,
       required this.youtubeLinkController,
-      final List<String> pollOptions = const <String>[],
+      final List<PeamanPollOption> pollOptions = const <PeamanPollOption>[],
       final List<PeamanFileUrlExtended> files = const <PeamanFileUrlExtended>[],
       this.feedType = PeamanFeedType.text,
       this.isYoutubeLinkValid = true})
@@ -263,10 +263,10 @@ class _$_PeamanCreateFeedProviderState
   final TextEditingController pollQuestionController;
   @override
   final TextEditingController youtubeLinkController;
-  final List<String> _pollOptions;
+  final List<PeamanPollOption> _pollOptions;
   @override
   @JsonKey()
-  List<String> get pollOptions {
+  List<PeamanPollOption> get pollOptions {
     if (_pollOptions is EqualUnmodifiableListView) return _pollOptions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_pollOptions);
@@ -346,7 +346,7 @@ abstract class _PeamanCreateFeedProviderState
       required final TextEditingController captionController,
       required final TextEditingController pollQuestionController,
       required final TextEditingController youtubeLinkController,
-      final List<String> pollOptions,
+      final List<PeamanPollOption> pollOptions,
       final List<PeamanFileUrlExtended> files,
       final PeamanFeedType feedType,
       final bool isYoutubeLinkValid}) = _$_PeamanCreateFeedProviderState;
@@ -362,7 +362,7 @@ abstract class _PeamanCreateFeedProviderState
   @override
   TextEditingController get youtubeLinkController;
   @override
-  List<String> get pollOptions;
+  List<PeamanPollOption> get pollOptions;
   @override
   List<PeamanFileUrlExtended> get files;
   @override

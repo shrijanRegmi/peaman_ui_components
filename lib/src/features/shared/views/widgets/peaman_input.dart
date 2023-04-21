@@ -74,6 +74,11 @@ class _PInputState extends State<PeamanInput> {
     if (widget.initialValue != null &&
         oldWidget.initialValue != widget.initialValue) {
       _controller.text = widget.initialValue!;
+      _controller.selection = TextSelection.fromPosition(
+        TextPosition(
+          offset: _controller.text.length,
+        ),
+      );
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -122,6 +127,7 @@ class _PInputState extends State<PeamanInput> {
                         child: TextFormField(
                           controller: _controller,
                           autofocus: widget.autoFocus,
+                          onTap: widget.onPressed,
                           inputFormatters: widget.inputFormatters,
                           enabled: widget.enabled,
                           obscureText: !_passwordVisible,
