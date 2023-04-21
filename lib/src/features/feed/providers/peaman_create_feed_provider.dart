@@ -135,18 +135,24 @@ class PeamanCreateFeedProvider
     }
   }
 
-  void createFeed() {
+  Future<void> createFeed() async {
+    state = state.copyWith(
+      createFeedState: const CreateFeedState.loading(),
+    );
     if (state.feedType == PeamanFeedType.text ||
         state.feedType == PeamanFeedType.file) {
-      _createMediaFeed();
+      await _createMediaFeed();
     } else if (state.feedType == PeamanFeedType.poll) {
-      _createPollFeed();
+      await _createPollFeed();
     } else if (state.feedType == PeamanFeedType.youTube) {
-      _createYoutubeFeed();
+      await _createYoutubeFeed();
     }
+    state = state.copyWith(
+      createFeedState: _ref.read(providerOfPeamanFeed).createFeedState,
+    );
   }
 
-  void _createMediaFeed() async {
+  Future<void> _createMediaFeed() async {
     if (state.captionController.text.trim().isEmpty && state.files.isEmpty) {
       return;
     }
@@ -223,7 +229,7 @@ class PeamanCreateFeedProvider
     }
   }
 
-  void _createPollFeed() async {
+  Future<void> _createPollFeed() async {
     final pollOptions = state.pollOptions
         .where(
           (element) => element.option?.isNotEmpty ?? false,
@@ -281,7 +287,7 @@ class PeamanCreateFeedProvider
     }
   }
 
-  void _createYoutubeFeed() async {
+  Future<void> _createYoutubeFeed() async {
     if (!state.isYoutubeLinkValid) return;
 
     final feedId = PeamanReferenceHelper().uniqueId;

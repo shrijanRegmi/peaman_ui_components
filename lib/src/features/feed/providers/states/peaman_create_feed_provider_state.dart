@@ -16,5 +16,6 @@ class PeamanCreateFeedProviderState with _$PeamanCreateFeedProviderState {
     @Default(<PeamanFileUrlExtended>[]) final List<PeamanFileUrlExtended> files,
     @Default(PeamanFeedType.text) final PeamanFeedType feedType,
     @Default(true) final bool isYoutubeLinkValid,
+    @Default(CreateFeedState.initial()) final CreateFeedState createFeedState,
   }) = _PeamanCreateFeedProviderState;
 }

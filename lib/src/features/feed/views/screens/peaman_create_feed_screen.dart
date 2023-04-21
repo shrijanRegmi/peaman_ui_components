@@ -15,17 +15,52 @@ class PeamanCreateFeedScreen extends ConsumerStatefulWidget {
 
 class _PeamanCreateFeedScreenState
     extends ConsumerState<PeamanCreateFeedScreen> {
+  var _isClearDraftRequired = false;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final appUser = ref.read(providerOfLoggedInUser);
       ref.read(providerOfPeamanCreateFeed.notifier).setFeedOwner(appUser);
+
+      _checkIfClearDraftOptionIsRequired();
+    });
+  }
+
+  void _checkIfClearDraftOptionIsRequired() {
+    final captionController = ref.read(
+      providerOfPeamanCreateFeed.select((value) => value.captionController),
+    );
+    final youTubeLinkController = ref.read(
+      providerOfPeamanCreateFeed.select((value) => value.youtubeLinkController),
+    );
+    final selectedFiles = ref.read(
+      providerOfPeamanCreateFeed.select((value) => value.files),
+    );
+    final feedType = ref.read(
+      providerOfPeamanCreateFeed.select((value) => value.feedType),
+    );
+    setState(() {
+      _isClearDraftRequired = captionController.text.trim().isNotEmpty ||
+          youTubeLinkController.text.trim().isNotEmpty ||
+          selectedFiles.isNotEmpty ||
+          feedType != PeamanFeedType.text;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(providerOfPeamanCreateFeed, (previous, next) {
+      if (previous?.createFeedState != next.createFeedState) {
+        next.createFeedState.maybeWhen(
+          loading: context.pop,
+          success: (s) => ref.invalidate(providerOfPeamanCreateFeed),
+          orElse: () {},
+        );
+      }
+    });
+
     return Scaffold(
       appBar: PeamanAppbar(
         height: kToolbarHeight,
@@ -46,13 +81,14 @@ class _PeamanCreateFeedScreenState
                   ),
                   onPressed: context.pop,
                 ),
-                PeamanRoundIconButton(
-                  icon: Icon(
-                    Icons.refresh_rounded,
-                    size: 16.w,
+                if (_isClearDraftRequired)
+                  PeamanRoundIconButton(
+                    icon: Icon(
+                      Icons.refresh_rounded,
+                      size: 16.w,
+                    ),
+                    onPressed: _clearDraft,
                   ),
-                  onPressed: _resetFields,
-                ),
               ],
             ),
           ],
@@ -81,12 +117,17 @@ class _PeamanCreateFeedScreenState
     );
   }
 
-  void _resetFields() {
+  void _clearDraft() {
     showPeamanConfirmationDialog(
       context: context,
       title: 'Are you sure you want to clear your draft?',
       description: 'You may have to re-enter all the values again.',
-      onConfirm: (context, ref) => ref.invalidate(providerOfPeamanCreateFeed),
+      onConfirm: (context, ref) {
+        ref.invalidate(providerOfPeamanCreateFeed);
+        setState(() {
+          _isClearDraftRequired = false;
+        });
+      },
     );
   }
 }

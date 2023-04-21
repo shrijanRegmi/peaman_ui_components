@@ -28,6 +28,7 @@ mixin _$PeamanCreateFeedProviderState {
   List<PeamanFileUrlExtended> get files => throw _privateConstructorUsedError;
   PeamanFeedType get feedType => throw _privateConstructorUsedError;
   bool get isYoutubeLinkValid => throw _privateConstructorUsedError;
+  CreateFeedState get createFeedState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PeamanCreateFeedProviderStateCopyWith<PeamanCreateFeedProviderState>
@@ -51,10 +52,12 @@ abstract class $PeamanCreateFeedProviderStateCopyWith<$Res> {
       List<PeamanPollOption> pollOptions,
       List<PeamanFileUrlExtended> files,
       PeamanFeedType feedType,
-      bool isYoutubeLinkValid});
+      bool isYoutubeLinkValid,
+      CreateFeedState createFeedState});
 
   $PeamanUserCopyWith<$Res>? get feedOwner;
   $PeamanFeedCopyWith<$Res>? get feedToEdit;
+  $CreateFeedStateCopyWith<$Res> get createFeedState;
 }
 
 /// @nodoc
@@ -80,6 +83,7 @@ class _$PeamanCreateFeedProviderStateCopyWithImpl<$Res,
     Object? files = null,
     Object? feedType = null,
     Object? isYoutubeLinkValid = null,
+    Object? createFeedState = null,
   }) {
     return _then(_value.copyWith(
       feedOwner: freezed == feedOwner
@@ -118,6 +122,10 @@ class _$PeamanCreateFeedProviderStateCopyWithImpl<$Res,
           ? _value.isYoutubeLinkValid
           : isYoutubeLinkValid // ignore: cast_nullable_to_non_nullable
               as bool,
+      createFeedState: null == createFeedState
+          ? _value.createFeedState
+          : createFeedState // ignore: cast_nullable_to_non_nullable
+              as CreateFeedState,
     ) as $Val);
   }
 
@@ -144,6 +152,14 @@ class _$PeamanCreateFeedProviderStateCopyWithImpl<$Res,
       return _then(_value.copyWith(feedToEdit: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CreateFeedStateCopyWith<$Res> get createFeedState {
+    return $CreateFeedStateCopyWith<$Res>(_value.createFeedState, (value) {
+      return _then(_value.copyWith(createFeedState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -164,12 +180,15 @@ abstract class _$$_PeamanCreateFeedProviderStateCopyWith<$Res>
       List<PeamanPollOption> pollOptions,
       List<PeamanFileUrlExtended> files,
       PeamanFeedType feedType,
-      bool isYoutubeLinkValid});
+      bool isYoutubeLinkValid,
+      CreateFeedState createFeedState});
 
   @override
   $PeamanUserCopyWith<$Res>? get feedOwner;
   @override
   $PeamanFeedCopyWith<$Res>? get feedToEdit;
+  @override
+  $CreateFeedStateCopyWith<$Res> get createFeedState;
 }
 
 /// @nodoc
@@ -194,6 +213,7 @@ class __$$_PeamanCreateFeedProviderStateCopyWithImpl<$Res>
     Object? files = null,
     Object? feedType = null,
     Object? isYoutubeLinkValid = null,
+    Object? createFeedState = null,
   }) {
     return _then(_$_PeamanCreateFeedProviderState(
       feedOwner: freezed == feedOwner
@@ -232,6 +252,10 @@ class __$$_PeamanCreateFeedProviderStateCopyWithImpl<$Res>
           ? _value.isYoutubeLinkValid
           : isYoutubeLinkValid // ignore: cast_nullable_to_non_nullable
               as bool,
+      createFeedState: null == createFeedState
+          ? _value.createFeedState
+          : createFeedState // ignore: cast_nullable_to_non_nullable
+              as CreateFeedState,
     ));
   }
 }
@@ -249,7 +273,8 @@ class _$_PeamanCreateFeedProviderState
       final List<PeamanPollOption> pollOptions = const <PeamanPollOption>[],
       final List<PeamanFileUrlExtended> files = const <PeamanFileUrlExtended>[],
       this.feedType = PeamanFeedType.text,
-      this.isYoutubeLinkValid = true})
+      this.isYoutubeLinkValid = true,
+      this.createFeedState = const CreateFeedState.initial()})
       : _pollOptions = pollOptions,
         _files = files;
 
@@ -287,10 +312,13 @@ class _$_PeamanCreateFeedProviderState
   @override
   @JsonKey()
   final bool isYoutubeLinkValid;
+  @override
+  @JsonKey()
+  final CreateFeedState createFeedState;
 
   @override
   String toString() {
-    return 'PeamanCreateFeedProviderState(feedOwner: $feedOwner, feedToEdit: $feedToEdit, captionController: $captionController, pollQuestionController: $pollQuestionController, youtubeLinkController: $youtubeLinkController, pollOptions: $pollOptions, files: $files, feedType: $feedType, isYoutubeLinkValid: $isYoutubeLinkValid)';
+    return 'PeamanCreateFeedProviderState(feedOwner: $feedOwner, feedToEdit: $feedToEdit, captionController: $captionController, pollQuestionController: $pollQuestionController, youtubeLinkController: $youtubeLinkController, pollOptions: $pollOptions, files: $files, feedType: $feedType, isYoutubeLinkValid: $isYoutubeLinkValid, createFeedState: $createFeedState)';
   }
 
   @override
@@ -314,7 +342,9 @@ class _$_PeamanCreateFeedProviderState
             (identical(other.feedType, feedType) ||
                 other.feedType == feedType) &&
             (identical(other.isYoutubeLinkValid, isYoutubeLinkValid) ||
-                other.isYoutubeLinkValid == isYoutubeLinkValid));
+                other.isYoutubeLinkValid == isYoutubeLinkValid) &&
+            (identical(other.createFeedState, createFeedState) ||
+                other.createFeedState == createFeedState));
   }
 
   @override
@@ -328,7 +358,8 @@ class _$_PeamanCreateFeedProviderState
       const DeepCollectionEquality().hash(_pollOptions),
       const DeepCollectionEquality().hash(_files),
       feedType,
-      isYoutubeLinkValid);
+      isYoutubeLinkValid,
+      createFeedState);
 
   @JsonKey(ignore: true)
   @override
@@ -341,15 +372,17 @@ class _$_PeamanCreateFeedProviderState
 abstract class _PeamanCreateFeedProviderState
     implements PeamanCreateFeedProviderState {
   const factory _PeamanCreateFeedProviderState(
-      {final PeamanUser? feedOwner,
-      final PeamanFeed? feedToEdit,
-      required final TextEditingController captionController,
-      required final TextEditingController pollQuestionController,
-      required final TextEditingController youtubeLinkController,
-      final List<PeamanPollOption> pollOptions,
-      final List<PeamanFileUrlExtended> files,
-      final PeamanFeedType feedType,
-      final bool isYoutubeLinkValid}) = _$_PeamanCreateFeedProviderState;
+          {final PeamanUser? feedOwner,
+          final PeamanFeed? feedToEdit,
+          required final TextEditingController captionController,
+          required final TextEditingController pollQuestionController,
+          required final TextEditingController youtubeLinkController,
+          final List<PeamanPollOption> pollOptions,
+          final List<PeamanFileUrlExtended> files,
+          final PeamanFeedType feedType,
+          final bool isYoutubeLinkValid,
+          final CreateFeedState createFeedState}) =
+      _$_PeamanCreateFeedProviderState;
 
   @override
   PeamanUser? get feedOwner;
@@ -369,6 +402,8 @@ abstract class _PeamanCreateFeedProviderState
   PeamanFeedType get feedType;
   @override
   bool get isYoutubeLinkValid;
+  @override
+  CreateFeedState get createFeedState;
   @override
   @JsonKey(ignore: true)
   _$$_PeamanCreateFeedProviderStateCopyWith<_$_PeamanCreateFeedProviderState>

@@ -16,10 +16,13 @@ class _PeamanTimelineFeedsScreenState
     extends ConsumerState<PeamanTimelineFeedsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PeamanTimelineHeader(),
-      body: PeamanFeedsList(),
-      floatingActionButton: PeamanFeedInitiatorButton(),
+    return Scaffold(
+      appBar: const PeamanTimelineHeader(),
+      body: RefreshIndicator(
+        onRefresh: () async => ref.invalidate(providerOfPeamanFeedsFuture),
+        child: const PeamanFeedsList(),
+      ),
+      floatingActionButton: const PeamanFeedInitiatorButton(),
     );
   }
 }
