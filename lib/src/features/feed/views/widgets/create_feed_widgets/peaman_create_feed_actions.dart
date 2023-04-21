@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanCreateFeedActions extends ConsumerWidget {
+class PeamanCreateFeedActions extends ConsumerStatefulWidget {
   const PeamanCreateFeedActions({
     super.key,
     this.imageSelectorButtonBuilder,
@@ -70,9 +70,22 @@ class PeamanCreateFeedActions extends ConsumerWidget {
   final Color? backgroundColor;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PeamanCreateFeedActions> createState() =>
+      _PeamanCreateFeedActionsState();
+}
+
+class _PeamanCreateFeedActionsState
+    extends ConsumerState<PeamanCreateFeedActions> {
+  PeamanCreateFeedProvider get _createFeedProvider =>
+      ref.read(providerOfPeamanCreateFeed.notifier);
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedFeedType = ref.watch(
+      providerOfPeamanCreateFeed.select((value) => value.feedType),
+    );
     return Container(
-      color: backgroundColor ??
+      color: widget.backgroundColor ??
           (context.isDarkMode
               ? PeamanColors.extraLightGrey.withOpacity(0.1)
               : PeamanColors.extraLightGrey),
@@ -82,7 +95,7 @@ class PeamanCreateFeedActions extends ConsumerWidget {
         children: [
           Row(
             children: [
-              (imageSelectorButtonBuilder?.call(context, ref) ??
+              (widget.imageSelectorButtonBuilder?.call(context, ref) ??
                       PeamanRoundIconButton(
                         padding: EdgeInsets.all(9.w),
                         bgColor: context.theme.colorScheme.background,
@@ -92,8 +105,8 @@ class PeamanCreateFeedActions extends ConsumerWidget {
                         ),
                       ).pR(8.0))
                   .onPressed(() {
-                if (onPressedImageSelectorButton != null) {
-                  onPressedImageSelectorButton?.call(
+                if (widget.onPressedImageSelectorButton != null) {
+                  widget.onPressedImageSelectorButton?.call(
                     context,
                     ref,
                     _onPressedImageSelectorButton,
@@ -102,7 +115,7 @@ class PeamanCreateFeedActions extends ConsumerWidget {
                   _onPressedImageSelectorButton();
                 }
               }),
-              (videoSelectorButtonBuilder?.call(context, ref) ??
+              (widget.videoSelectorButtonBuilder?.call(context, ref) ??
                       PeamanRoundIconButton(
                         padding: EdgeInsets.all(8.w),
                         bgColor: context.theme.colorScheme.background,
@@ -110,11 +123,10 @@ class PeamanCreateFeedActions extends ConsumerWidget {
                           Icons.videocam_rounded,
                           size: 18.w,
                         ),
-                        onPressed: () {},
                       ).pR(8.0))
                   .onPressed(() {
-                if (onPressedVideoSelectorButton != null) {
-                  onPressedVideoSelectorButton?.call(
+                if (widget.onPressedVideoSelectorButton != null) {
+                  widget.onPressedVideoSelectorButton?.call(
                     context,
                     ref,
                     _onPressedVideoSelectorButton,
@@ -123,21 +135,24 @@ class PeamanCreateFeedActions extends ConsumerWidget {
                   _onPressedVideoSelectorButton();
                 }
               }),
-              (youtubeSelectorButtonBuilder?.call(context, ref) ??
+              (widget.youtubeSelectorButtonBuilder?.call(context, ref) ??
                       PeamanRoundIconButton(
                         padding: EdgeInsets.all(8.w),
-                        bgColor: context.theme.colorScheme.background,
+                        bgColor: _getActiveIconContainerColor(
+                          selectedFeedType == PeamanFeedType.youTube,
+                        ),
                         icon: SvgPicture.asset(
                           'assets/svgs/filled_youtube.svg',
                           width: 18.w,
-                          color: context.theme.iconTheme.color,
+                          color: _getActiveIconColor(
+                            selectedFeedType == PeamanFeedType.youTube,
+                          ),
                           package: 'peaman_ui_components',
                         ),
-                        onPressed: () {},
                       ).pR(8.0))
                   .onPressed(() {
-                if (onPressedYoutubeSelectorButton != null) {
-                  onPressedYoutubeSelectorButton?.call(
+                if (widget.onPressedYoutubeSelectorButton != null) {
+                  widget.onPressedYoutubeSelectorButton?.call(
                     context,
                     ref,
                     _onPressedYoutubeSelectorButton,
@@ -146,19 +161,23 @@ class PeamanCreateFeedActions extends ConsumerWidget {
                   _onPressedYoutubeSelectorButton();
                 }
               }),
-              (pollSelectorButtonBuilder?.call(context, ref) ??
+              (widget.pollSelectorButtonBuilder?.call(context, ref) ??
                       PeamanRoundIconButton(
                         padding: EdgeInsets.all(8.w),
-                        bgColor: context.theme.colorScheme.background,
+                        bgColor: _getActiveIconContainerColor(
+                          selectedFeedType == PeamanFeedType.poll,
+                        ),
                         icon: Icon(
                           Icons.poll_rounded,
                           size: 18.w,
+                          color: _getActiveIconColor(
+                            selectedFeedType == PeamanFeedType.poll,
+                          ),
                         ),
-                        onPressed: () {},
                       ))
                   .onPressed(() {
-                if (onPressedPollSelectorButton != null) {
-                  onPressedPollSelectorButton?.call(
+                if (widget.onPressedPollSelectorButton != null) {
+                  widget.onPressedPollSelectorButton?.call(
                     context,
                     ref,
                     _onPressedPollSelectorButton,
@@ -169,7 +188,7 @@ class PeamanCreateFeedActions extends ConsumerWidget {
               }),
             ],
           ),
-          (submitButtonBuilder?.call(context, ref) ??
+          (widget.submitButtonBuilder?.call(context, ref) ??
                   PeamanRoundIconButton(
                     bgColor: context.theme.colorScheme.primary,
                     padding: EdgeInsets.all(9.w),
@@ -180,8 +199,8 @@ class PeamanCreateFeedActions extends ConsumerWidget {
                     ),
                   ))
               .onPressed(() {
-            if (onPressedSubmitButton != null) {
-              onPressedSubmitButton?.call(
+            if (widget.onPressedSubmitButton != null) {
+              widget.onPressedSubmitButton?.call(
                 context,
                 ref,
                 _onPressedSubmitButton,
@@ -195,13 +214,51 @@ class PeamanCreateFeedActions extends ConsumerWidget {
     );
   }
 
-  void _onPressedImageSelectorButton() {}
+  void _onPressedImageSelectorButton() {
+    _createFeedProvider.onPressedImageSelector();
+  }
 
-  void _onPressedVideoSelectorButton() {}
+  void _onPressedVideoSelectorButton() {
+    _createFeedProvider.onPressedVideoSelector();
+  }
 
-  void _onPressedYoutubeSelectorButton() {}
+  void _onPressedYoutubeSelectorButton() {
+    _createFeedProvider.onPressedYouTubeSelector();
+  }
 
-  void _onPressedPollSelectorButton() {}
+  void _onPressedPollSelectorButton() {
+    _createFeedProvider.onPressedPollsSelector();
+  }
 
-  void _onPressedSubmitButton() {}
+  void _onPressedSubmitButton() {
+    _createFeedProvider.createFeed();
+  }
+
+  Color _getActiveIconColor(final bool isActive) {
+    if (context.isDarkMode) {
+      if (isActive) {
+        return PeamanColors.containerBgDark;
+      }
+      return PeamanColors.containerBg;
+    } else {
+      if (isActive) {
+        return PeamanColors.containerBg;
+      }
+      return PeamanColors.containerBgDark;
+    }
+  }
+
+  Color _getActiveIconContainerColor(final bool isActive) {
+    if (context.isDarkMode) {
+      if (isActive) {
+        return PeamanColors.containerBg;
+      }
+      return PeamanColors.containerBgDark;
+    } else {
+      if (isActive) {
+        return PeamanColors.containerBgDark;
+      }
+      return PeamanColors.containerBg;
+    }
+  }
 }
