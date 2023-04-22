@@ -124,6 +124,9 @@ class _PeamanFeedItemBodyNormalTypeState
           child: PeamanText.body1(
             widget.feed.caption,
             limit: 100,
+            readMoreTextStyle: const TextStyle(
+              color: PeamanColors.primary,
+            ),
             withReadMore: true,
           ),
         ),

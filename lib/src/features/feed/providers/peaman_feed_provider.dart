@@ -6,9 +6,25 @@ final providerOfPeamanFeed =
   return PeamanFeedProvider(ref);
 });
 
-final providerOfPeamanFeedsFuture =
+final providerOfPeamanTimelineFeedsFuture =
     FutureProvider<PeamanEither<List<PeamanFeed>, PeamanError>>((ref) async {
-  return ref.watch(providerOfPeamanFeedRepository).getFeeds();
+  // final timelineFeeds = ref.watch(
+  //   providerOfPeamanFeed.select((value) => value.timelineFeeds),
+  // );
+  // if (timelineFeeds.isNotEmpty) {
+  //   return Future.value(Success(timelineFeeds));
+  // }
+
+  return ref.watch(providerOfPeamanFeedRepository).getFeeds().then(
+    (value) {
+      value.when(
+        (success) =>
+            ref.read(providerOfPeamanFeed.notifier).setTimelineFeeds(success),
+        (failure) => null,
+      );
+      return value;
+    },
+  );
 });
 
 final providerOfSinglePeamanFeedByIdFuture =
@@ -22,7 +38,7 @@ final providerOfSinglePeamanFeedByIdFuture =
 final providerOfSinglePeamanFeedFromFeedsFuture =
     Provider.family<AsyncValue<PeamanEither<PeamanFeed, PeamanError>>, String>(
         (ref, feedId) {
-  final feedsFuture = ref.watch(providerOfPeamanFeedsFuture);
+  final feedsFuture = ref.watch(providerOfPeamanTimelineFeedsFuture);
 
   final AsyncValue<PeamanEither<PeamanFeed?, PeamanError>> feedFromFeedsList =
       feedsFuture.when(
@@ -105,6 +121,7 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         state = state.copyWith(
           createFeedState: CreateFeedState.success(success),
         );
+        addToFeeds(success);
       },
       (failure) {
         _logProvider.logError(failure.message);
@@ -165,6 +182,7 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         state = state.copyWith(
           deleteFeedState: DeleteFeedState.success(success),
         );
+        removeFromFeeds(feedId);
       },
       (failure) {
         _logProvider.logError(failure.message);
@@ -172,6 +190,39 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
           deleteFeedState: DeleteFeedState.error(failure),
         );
       },
+    );
+  }
+
+  void setTimelineFeeds(final List<PeamanFeed> newVal) {
+    state = state.copyWith(
+      timelineFeeds: newVal,
+    );
+  }
+
+  void addToFeeds(
+    final PeamanFeed feed, {
+    final bool addToLast = false,
+  }) {
+    state = state.copyWith(
+      timelineFeeds: addToLast
+          ? [...state.timelineFeeds, feed]
+          : [feed, ...state.timelineFeeds],
+    );
+  }
+
+  void updateToFeeds(final PeamanFeed feed) {
+    final indexTimeline = state.timelineFeeds.indexWhere(
+      (element) => element.id == feed.id,
+    );
+    state = state.copyWith(
+      timelineFeeds: state.timelineFeeds..[indexTimeline] = feed,
+    );
+  }
+
+  void removeFromFeeds(final String feedId) {
+    state = state.copyWith(
+      timelineFeeds:
+          state.timelineFeeds.where((element) => element.id != feedId).toList(),
     );
   }
 }

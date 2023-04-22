@@ -398,10 +398,10 @@ class _PTextState extends State<PeamanText> {
             textAlign: widget.textAlign,
             linkStyle: !widget.linkify
                 ? _defaultStyle?.merge(widget.style)
-                : TextStyle(
-                    color: context.theme.colorScheme.secondary,
+                : const TextStyle(
+                    color: PeamanColors.primary,
                     decoration: TextDecoration.underline,
-                    decorationColor: context.theme.colorScheme.secondary,
+                    decorationColor: PeamanColors.primary,
                   ).merge(widget.linkStyle),
             onTap: widget.onLinkPressed ??
                 (link) {

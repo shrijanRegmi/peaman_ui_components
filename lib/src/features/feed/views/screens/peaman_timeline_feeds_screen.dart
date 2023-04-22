@@ -28,7 +28,8 @@ class _PeamanTimelineFeedsScreenState
     return Scaffold(
       appBar: const PeamanTimelineHeader(),
       body: RefreshIndicator(
-        onRefresh: () async => ref.invalidate(providerOfPeamanFeedsFuture),
+        onRefresh: () async =>
+            ref.invalidate(providerOfPeamanTimelineFeedsFuture),
         child: const PeamanFeedsList(),
       ),
       floatingActionButton: const PeamanFeedInitiatorButton(),

@@ -72,6 +72,7 @@ class _PeamanCreateFeedNormalTypeState
               style: TextStyle(
                 fontSize: 16.sp,
               ),
+              textCapitalization: TextCapitalization.sentences,
               onChanged: (val) {},
               decoration: const InputDecoration(
                 border: InputBorder.none,

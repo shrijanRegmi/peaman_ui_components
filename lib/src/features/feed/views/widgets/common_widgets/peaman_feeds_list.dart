@@ -174,13 +174,16 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
   }
 
   Widget _normalTypeListBuilder() {
-    final feedsFuture = ref.watch(providerOfPeamanFeedsFuture);
+    final feedsFuture = ref.watch(providerOfPeamanTimelineFeedsFuture);
     return feedsFuture.when(
       data: (data) {
         return data.when(
           (success) {
-            if (success.isEmpty) return _emptyBuilder();
-            return _feedsListBuilder(success);
+            final timelineFeeds = ref.watch(
+              providerOfPeamanFeed.select((value) => value.timelineFeeds),
+            );
+            if (timelineFeeds.isEmpty) return _emptyBuilder();
+            return _feedsListBuilder(timelineFeeds);
           },
           _errorBuilder,
         );
