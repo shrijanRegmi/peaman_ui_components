@@ -84,20 +84,22 @@ class _PeamanCreateFeedNormalTypeState
   }
 
   Widget _coverImgBuilder() {
+    final file = selectedFiles.first;
+    final url =
+        file.type == PeamanFileType.video ? file.thumbnailUrl : file.url;
+
     return Container(
       width: double.infinity,
       height: ScreenUtil().screenWidth - 40.0,
       decoration: BoxDecoration(
         color: PeamanColors.extraLightGrey,
         borderRadius: BorderRadius.circular(10.r),
-        image: selectedFiles.first.thumbnailUrl == null
+        image: url == null
             ? null
             : DecorationImage(
-                image: (selectedFiles.first.isLocal
-                    ? FileImage(File(selectedFiles.first.thumbnailUrl!))
-                    : CachedNetworkImageProvider(
-                        selectedFiles.first.thumbnailUrl!,
-                      )) as ImageProvider,
+                image: (file.isLocal
+                    ? FileImage(File(url))
+                    : CachedNetworkImageProvider(url)) as ImageProvider,
                 fit: BoxFit.cover,
               ),
       ),
@@ -126,6 +128,7 @@ class _PeamanCreateFeedNormalTypeState
 
   Widget _otherImagesListBuilder() {
     final otherSelectedFiles = selectedFiles.sublist(1, selectedFiles.length);
+
     return SizedBox(
       height: 100.w,
       child: ListView.builder(
@@ -133,20 +136,20 @@ class _PeamanCreateFeedNormalTypeState
         physics: const BouncingScrollPhysics(),
         itemCount: otherSelectedFiles.length,
         itemBuilder: (context, index) {
-          final otherSelectedFile = otherSelectedFiles[index];
+          final file = otherSelectedFiles[index];
+          final url =
+              file.type == PeamanFileType.video ? file.thumbnailUrl : file.url;
           return Container(
             width: 100.w,
             decoration: BoxDecoration(
               color: PeamanColors.extraLightGrey,
               borderRadius: BorderRadius.circular(10.r),
-              image: otherSelectedFile.thumbnailUrl == null
+              image: url == null
                   ? null
                   : DecorationImage(
-                      image: (otherSelectedFile.isLocal
-                          ? FileImage(File(otherSelectedFile.thumbnailUrl!))
-                          : CachedNetworkImageProvider(
-                              otherSelectedFile.thumbnailUrl!,
-                            )) as ImageProvider,
+                      image: (file.isLocal
+                          ? FileImage(File(url))
+                          : CachedNetworkImageProvider(url)) as ImageProvider,
                       fit: BoxFit.cover,
                     ),
             ),
@@ -161,15 +164,11 @@ class _PeamanCreateFeedNormalTypeState
                   size: 16.w,
                   color: PeamanColors.red,
                 ),
-                onPressed: () => _createFeedProvider.removeFromFiles(
-                  otherSelectedFile,
-                ),
+                onPressed: () => _createFeedProvider.removeFromFiles(file),
               ),
             ),
           ).pR(5).onPressed(
-                () => _createFeedProvider.onPressedEditMedia(
-                  otherSelectedFile,
-                ),
+                () => _createFeedProvider.onPressedEditMedia(file),
               );
         },
       ),

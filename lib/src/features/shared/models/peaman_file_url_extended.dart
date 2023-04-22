@@ -5,10 +5,12 @@ class PeamanFileUrlExtended implements PeamanFileUrl {
   final String url;
 
   @override
+  final String? thumbnailUrl;
+
+  @override
   final PeamanFileType type;
 
   bool isLocal;
-  String? thumbnailUrl;
 
   PeamanFileUrlExtended({
     required this.url,
@@ -18,11 +20,18 @@ class PeamanFileUrlExtended implements PeamanFileUrl {
   });
 
   @override
-  $PeamanFileUrlCopyWith<PeamanFileUrl> get copyWith =>
-      PeamanFileUrl(url: url, type: type).copyWith;
+  $PeamanFileUrlCopyWith<PeamanFileUrl> get copyWith => PeamanFileUrl(
+        url: url,
+        type: type,
+        thumbnailUrl: thumbnailUrl,
+      ).copyWith;
 
   @override
   Map<String, dynamic> toJson() {
-    return PeamanFileUrl(url: url, type: type).toJson();
+    return PeamanFileUrl(
+      url: url,
+      type: type,
+      thumbnailUrl: thumbnailUrl,
+    ).toJson();
   }
 }

@@ -63,7 +63,7 @@ class PeamanCreateFeedProvider
         .map(
           (e) => PeamanFileUrlExtended(
             url: e.url!,
-            thumbnailUrl: e.url!,
+            thumbnailUrl: e.thumbnailUrl!,
             type: e.type,
             isLocal: false,
           ),
@@ -160,10 +160,8 @@ class PeamanCreateFeedProvider
     }
 
     final feedId = PeamanReferenceHelper().uniqueId;
-    final millis = DateTime.now().millisecondsSinceEpoch;
 
-    final uploadPath =
-        'users/${state.feedOwner?.uid}/feeds/$feedId/medias/$millis';
+    final uploadPath = 'users/${state.feedOwner?.uid}/feeds/$feedId';
 
     final localFiles = state.files.where((element) => element.isLocal).toList();
     final networkFiles =
@@ -174,20 +172,37 @@ class PeamanCreateFeedProvider
       final file = File(localFiles[i].url);
 
       final url = await _storageRepository.uploadFile(
-        path: '${uploadPath}_$i.jpg',
+        path: uploadPath,
         file: file,
         onProgress: (p) {},
       );
 
+      PeamanEither<String, PeamanError>? thumbnailUrlFuture;
+      if (localFiles[i].type == PeamanFileType.video &&
+          localFiles[i].thumbnailUrl != null) {
+        final thumbnailFile = File(localFiles[i].thumbnailUrl!);
+        thumbnailUrlFuture = await _storageRepository.uploadFile(
+          path: uploadPath,
+          file: thumbnailFile,
+          onProgress: (p) {},
+        );
+      }
+
       url.when(
-        (success) {
-          final fileUrl = PeamanFileUrl(
-            url: success,
-            type: localFiles[i].type == PeamanFileType.image
-                ? PeamanFileType.image
-                : PeamanFileType.video,
+        (url) {
+          thumbnailUrlFuture?.when(
+            (thumbnailUrl) {
+              final fileUrl = PeamanFileUrl(
+                url: url,
+                thumbnailUrl: thumbnailUrl,
+                type: localFiles[i].type == PeamanFileType.image
+                    ? PeamanFileType.image
+                    : PeamanFileType.video,
+              );
+              fileUrls.add(fileUrl);
+            },
+            (failure) => null,
           );
-          fileUrls.add(fileUrl);
         },
         (failure) => null,
       );
@@ -347,7 +362,6 @@ class PeamanCreateFeedProvider
     for (final pickedImage in pickedImages) {
       final file = PeamanFileUrlExtended(
         url: pickedImage.path,
-        thumbnailUrl: pickedImage.path,
         type: PeamanFileType.image,
         isLocal: true,
       );
@@ -363,7 +377,6 @@ class PeamanCreateFeedProvider
     if (pickedImage != null) {
       final file = PeamanFileUrlExtended(
         url: pickedImage.path,
-        thumbnailUrl: pickedImage.path,
         type: PeamanFileType.image,
         isLocal: true,
       );

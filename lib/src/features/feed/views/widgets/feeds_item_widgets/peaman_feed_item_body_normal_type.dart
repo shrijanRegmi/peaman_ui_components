@@ -19,8 +19,10 @@ class PeamanFeedItemBodyNormalType extends ConsumerStatefulWidget {
 
 class _PeamanFeedItemBodyNormalTypeState
     extends ConsumerState<PeamanFeedItemBodyNormalType> {
-  List<PeamanFileUrl> get _imageFiles => widget.feed.files
-      .where((element) => element.type == PeamanFileType.image)
+  List<PeamanFileUrl> get _mediaFiles => widget.feed.files
+      .where((element) =>
+          element.type == PeamanFileType.image ||
+          element.type == PeamanFileType.video)
       .toList();
 
   var _showAllImages = false;
@@ -30,36 +32,47 @@ class _PeamanFeedItemBodyNormalTypeState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (_imageFiles.isNotEmpty) _coverImgBuilder().pB(5),
-        if (_imageFiles.length > 1) _otherImagesGridBuilder().pB(10),
+        if (_mediaFiles.isNotEmpty) _coverImgBuilder().pB(5),
+        if (_mediaFiles.length > 1) _otherImagesGridBuilder().pB(10),
         if (widget.feed.caption?.isNotEmpty ?? false) _captionBuilder(),
       ],
     );
   }
 
   Widget _coverImgBuilder() {
+    final file = widget.feed.files.first;
+    final url =
+        file.type == PeamanFileType.video ? file.thumbnailUrl : file.url;
+
     return Container(
       width: double.infinity,
       height: (ScreenUtil().screenWidth - 40.0),
       decoration: BoxDecoration(
         color: PeamanColors.extraLightGrey,
         borderRadius: BorderRadius.circular(10.r),
-        image: widget.feed.files.first.url == null
+        image: url == null
             ? null
             : DecorationImage(
-                image: CachedNetworkImageProvider(
-                  widget.feed.files.first.url!,
-                ),
+                image: CachedNetworkImageProvider(url),
                 fit: BoxFit.cover,
               ),
       ),
+      padding: EdgeInsets.all(10.w),
+      child: file.type == PeamanFileType.video
+          ? const Align(
+              alignment: Alignment.topLeft,
+              child: Icon(
+                Icons.play_arrow_rounded,
+              ),
+            )
+          : null,
     );
   }
 
   Widget _otherImagesGridBuilder() {
-    final trimmedImageFiles = _imageFiles.sublist(
+    final trimmedMediaFiles = _mediaFiles.sublist(
       1,
-      _imageFiles.length > 7 && !_showAllImages ? 7 : _imageFiles.length,
+      _mediaFiles.length > 7 && !_showAllImages ? 7 : _mediaFiles.length,
     );
     return GridView.builder(
       shrinkWrap: true,
@@ -70,23 +83,23 @@ class _PeamanFeedItemBodyNormalTypeState
         crossAxisSpacing: 5.w,
         childAspectRatio: 3 / 2,
       ),
-      itemCount: trimmedImageFiles.length,
+      itemCount: trimmedMediaFiles.length,
       itemBuilder: (context, index) {
         final isMoreImagesAvailable =
-            ((_imageFiles.length - 1) > trimmedImageFiles.length &&
-                index == (trimmedImageFiles.length - 1));
+            ((_mediaFiles.length - 1) > trimmedMediaFiles.length &&
+                index == (trimmedMediaFiles.length - 1));
 
-        final imageFile = trimmedImageFiles[index];
+        final file = trimmedMediaFiles[index];
+        final url =
+            file.type == PeamanFileType.video ? file.thumbnailUrl : file.url;
         return Container(
           decoration: BoxDecoration(
             color: PeamanColors.extraLightGrey,
             borderRadius: BorderRadius.circular(10.r),
-            image: imageFile.url == null
+            image: url == null
                 ? null
                 : DecorationImage(
-                    image: CachedNetworkImageProvider(
-                      imageFile.url!,
-                    ),
+                    image: CachedNetworkImageProvider(url),
                     fit: BoxFit.cover,
                     colorFilter: !isMoreImagesAvailable
                         ? null
@@ -98,13 +111,27 @@ class _PeamanFeedItemBodyNormalTypeState
           ),
           child: !isMoreImagesAvailable
               ? null
-              : Center(
-                  child: PeamanText.body2(
-                    '+${(_imageFiles.length - trimmedImageFiles.length)}',
-                    style: const TextStyle(
-                      color: PeamanColors.white,
+              : Stack(
+                  children: [
+                    if (file.type == PeamanFileType.video)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Icon(
+                          Icons.play_arrow_rounded,
+                          size: 16.w,
+                        ),
+                      ).pad(7),
+                    Positioned.fill(
+                      child: Center(
+                        child: PeamanText.body2(
+                          '+${(_mediaFiles.length - trimmedMediaFiles.length)}',
+                          style: const TextStyle(
+                            color: PeamanColors.white,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
         ).onPressed(
           () {
