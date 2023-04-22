@@ -111,3 +111,77 @@ Future<T?> showPeamanSelectableOptionsBottomsheet<T>({
     ),
   );
 }
+
+Future<T?> showPeamanLoadingDialog<T>({
+  required final BuildContext context,
+  final double borderRadius = 15.0,
+  final bool barrierDismissible = false,
+  final String loadingText = 'Loading...',
+  final Widget? loadingWidget,
+  final Widget? backIconWidget,
+  final Function(Function())? onPressedBack,
+}) {
+  return showDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    builder: (_) => WillPopScope(
+      onWillPop: () async {
+        context
+          ..pop()
+          ..pop();
+        return false;
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Material(
+            color: context.theme.scaffoldBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius.r),
+            ),
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: 250.w,
+              ),
+              padding: EdgeInsets.all(10.h),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      backIconWidget ??
+                          PeamanRoundIconButton(
+                            icon: Icon(
+                              Icons.arrow_back_rounded,
+                              size: 16.w,
+                            ),
+                            padding: EdgeInsets.all(9.w),
+                            onPressed: () {
+                              if (onPressedBack != null) {
+                                onPressedBack.call(() {
+                                  context
+                                    ..pop()
+                                    ..pop();
+                                });
+                              } else {
+                                context
+                                  ..pop()
+                                  ..pop();
+                              }
+                            },
+                          ),
+                    ],
+                  ),
+                  loadingWidget ??
+                      const PeamanSpinner(
+                        strokeWidth: 1.5,
+                      ).pB(15),
+                  PeamanText.subtitle1(loadingText).pB(20.0),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}

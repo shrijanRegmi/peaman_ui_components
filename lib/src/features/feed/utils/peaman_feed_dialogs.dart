@@ -79,12 +79,13 @@ Future<T?> showPeamanFeedMenuBottomsheet<T>({
           case 0:
             showPeamanConfirmationDialog(
               context: context,
-              title: 'Are you sure you want to delete this feed?',
+              title: 'Are you sure you want to delete this post?',
               description: 'This action is permanent and cannot be undone.',
               onConfirm: (context, ref) {
                 ref.read(providerOfPeamanFeed.notifier).deleteFeed(
                       feedId: feed.id!,
                       ownerId: feed.ownerId!,
+                      successLogMessage: 'The post has been deleted',
                     );
               },
             );

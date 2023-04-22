@@ -8,6 +8,7 @@ class PeamanCreateFeedActions extends ConsumerStatefulWidget {
   const PeamanCreateFeedActions({
     super.key,
     this.feedType,
+    this.maxMediasLimit = 10,
     this.imageSelectorButtonBuilder,
     this.videoSelectorButtonBuilder,
     this.youtubeSelectorButtonBuilder,
@@ -22,6 +23,7 @@ class PeamanCreateFeedActions extends ConsumerStatefulWidget {
   });
 
   final PeamanFeedType? feedType;
+  final int maxMediasLimit;
 
   final Widget Function(
     BuildContext,
@@ -219,10 +221,32 @@ class _PeamanCreateFeedActionsState
   }
 
   void _onPressedImageSelectorButton() {
+    final selectedFiles = ref.read(
+      providerOfPeamanCreateFeed.select((value) => value.files),
+    );
+
+    if (selectedFiles.length >= widget.maxMediasLimit) {
+      ref.read(providerOfPeamanInfo.notifier).logError(
+            'Maximum of ${widget.maxMediasLimit} medias are only allowed',
+          );
+      return;
+    }
+
     _createFeedProvider.onPressedImageSelector();
   }
 
   void _onPressedVideoSelectorButton() {
+    final selectedFiles = ref.read(
+      providerOfPeamanCreateFeed.select((value) => value.files),
+    );
+
+    if (selectedFiles.length >= widget.maxMediasLimit) {
+      ref.read(providerOfPeamanInfo.notifier).logError(
+            'Maximum of ${widget.maxMediasLimit} medias are only allowed',
+          );
+      return;
+    }
+
     _createFeedProvider.onPressedVideoSelector();
   }
 

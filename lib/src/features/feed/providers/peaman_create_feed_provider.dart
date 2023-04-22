@@ -137,7 +137,7 @@ class PeamanCreateFeedProvider
 
   Future<void> createFeed() async {
     state = state.copyWith(
-      createFeedState: const CreateFeedState.loading(),
+      hasStartedCreatingFeed: true,
     );
     if (state.feedType == PeamanFeedType.text ||
         state.feedType == PeamanFeedType.file) {
@@ -147,9 +147,11 @@ class PeamanCreateFeedProvider
     } else if (state.feedType == PeamanFeedType.youTube) {
       await _createYoutubeFeed();
     }
-    state = state.copyWith(
-      createFeedState: _ref.read(providerOfPeamanFeed).createFeedState,
-    );
+    if (mounted) {
+      state = state.copyWith(
+        hasStartedCreatingFeed: false,
+      );
+    }
   }
 
   Future<void> _createMediaFeed() async {
@@ -164,6 +166,8 @@ class PeamanCreateFeedProvider
         'users/${state.feedOwner?.uid}/feeds/$feedId/medias/$millis';
 
     final localFiles = state.files.where((element) => element.isLocal).toList();
+    final networkFiles =
+        state.files.where((element) => !element.isLocal).toList();
 
     final fileUrls = <PeamanFileUrl>[];
     for (var i = 0; i < localFiles.length; i++) {
@@ -189,13 +193,15 @@ class PeamanCreateFeedProvider
       );
     }
 
+    final newFiles = [...networkFiles, ...fileUrls];
+
     final feed = PeamanFeed(
       id: state.feedToEdit?.id ?? feedId,
       ownerId: state.feedOwner?.uid,
       caption: state.captionController.text.trim(),
-      files: fileUrls,
+      files: newFiles,
       searchKeys: _getSearchKeys(),
-      type: fileUrls.isEmpty ? PeamanFeedType.text : PeamanFeedType.file,
+      type: newFiles.isEmpty ? PeamanFeedType.text : PeamanFeedType.file,
     );
 
     if (state.feedToEdit != null) {
@@ -210,7 +216,7 @@ class PeamanCreateFeedProvider
             key: 'caption',
             value: feed.caption,
           ),
-          PeamanField.positivePartial(
+          PeamanField(
             key: 'files',
             value: feed.files.map((e) => e.toJson()).toList(),
           ),

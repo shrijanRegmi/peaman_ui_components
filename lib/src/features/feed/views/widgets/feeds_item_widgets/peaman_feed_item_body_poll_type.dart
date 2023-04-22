@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/feed/views/widgets/feeds_item_widgets/peaman_poll_options_item.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class PeamanFeedItemBodyPollType extends ConsumerStatefulWidget {
   const PeamanFeedItemBodyPollType({
@@ -57,19 +56,6 @@ class _PeamanFeedItemBodyPollTypeState
   Widget _pollQuestionBuilder() {
     return PeamanText.subtitle1(
       widget.feed.pollQuestion ?? 'Not Available',
-    );
-  }
-
-  Widget _dateBuilder() {
-    return Text(
-      timeago.format(
-        DateTime.fromMillisecondsSinceEpoch(
-          widget.feed.createdAt!,
-        ),
-      ),
-      style: TextStyle(
-        fontSize: 10.sp,
-      ),
     );
   }
 }

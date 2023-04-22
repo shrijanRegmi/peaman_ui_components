@@ -16,7 +16,7 @@ class _PeamanTimelineFeedsScreenState
     extends ConsumerState<PeamanTimelineFeedsScreen> {
   @override
   Widget build(BuildContext context) {
-    ref.listen(providerOfPeamanCreateFeed, (previous, next) {
+    ref.listen(providerOfPeamanFeed, (previous, next) {
       if (previous?.createFeedState != next.createFeedState) {
         next.createFeedState.maybeWhen(
           success: (_) => ref.invalidate(providerOfPeamanCreateFeed),

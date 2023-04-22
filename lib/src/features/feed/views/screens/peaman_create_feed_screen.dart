@@ -39,6 +39,18 @@ class _PeamanCreateFeedScreenState
         ..setFeedOwner(appUser)
         ..initializeValues(feed: widget.feedToEdit);
 
+      final hasStartedCreatingFeed = ref.read(
+        providerOfPeamanCreateFeed.select(
+          (value) => value.hasStartedCreatingFeed,
+        ),
+      );
+      if (hasStartedCreatingFeed) {
+        showPeamanLoadingDialog(
+          context: context,
+          loadingText: 'Creating post...',
+        );
+      }
+
       _checkIfClearDraftOptionIsRequired();
     });
   }
@@ -67,11 +79,8 @@ class _PeamanCreateFeedScreenState
   @override
   Widget build(BuildContext context) {
     ref.listen(providerOfPeamanCreateFeed, (previous, next) {
-      if (previous?.createFeedState != next.createFeedState) {
-        next.createFeedState.maybeWhen(
-          loading: context.pop,
-          orElse: () {},
-        );
+      if (previous?.hasStartedCreatingFeed != next.hasStartedCreatingFeed) {
+        context.pop();
       }
     });
 
