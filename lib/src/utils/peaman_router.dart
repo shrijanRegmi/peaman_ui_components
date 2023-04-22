@@ -90,9 +90,12 @@ class PeamanRouter {
         );
 
       case PeamanCreateFeedScreen.route:
+        final arguments = settings.arguments as PeamanCreateFeedScreenArgs?;
         return buildRoute(
           settings,
-          const PeamanCreateFeedScreen(),
+          PeamanCreateFeedScreen(
+            feedToEdit: arguments?.feedToEdit,
+          ),
         );
 
       // <---------------- FEED END ---------------->

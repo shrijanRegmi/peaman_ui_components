@@ -25,6 +25,8 @@ export 'views/widgets/create_feed_widgets/peaman_create_feed_poll_type.dart';
 
 export 'models/peaman_feed_extra_data_model.dart';
 
+export 'utils/peaman_feed_dialogs.dart';
+
 export 'providers/peaman_feed_provider.dart';
 export 'providers/states/peaman_feed_provider_state.dart';
 export 'providers/peaman_create_feed_provider.dart';

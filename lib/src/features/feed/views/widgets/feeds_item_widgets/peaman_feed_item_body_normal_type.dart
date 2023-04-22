@@ -23,6 +23,8 @@ class _PeamanFeedItemBodyNormalTypeState
       .where((element) => element.type == PeamanFileType.image)
       .toList();
 
+  var _showAllImages = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,8 +57,10 @@ class _PeamanFeedItemBodyNormalTypeState
   }
 
   Widget _otherImagesGridBuilder() {
-    final trimmedImageFiles =
-        _imageFiles.sublist(0, _imageFiles.length > 6 ? 6 : _imageFiles.length);
+    final trimmedImageFiles = _imageFiles.sublist(
+      1,
+      _imageFiles.length > 7 && !_showAllImages ? 7 : _imageFiles.length,
+    );
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -68,8 +72,8 @@ class _PeamanFeedItemBodyNormalTypeState
       ),
       itemCount: trimmedImageFiles.length,
       itemBuilder: (context, index) {
-        final isMoreMediaAvailable =
-            (_imageFiles.length > trimmedImageFiles.length &&
+        final isMoreImagesAvailable =
+            ((_imageFiles.length - 1) > trimmedImageFiles.length &&
                 index == (trimmedImageFiles.length - 1));
 
         final imageFile = trimmedImageFiles[index];
@@ -84,7 +88,7 @@ class _PeamanFeedItemBodyNormalTypeState
                       imageFile.url!,
                     ),
                     fit: BoxFit.cover,
-                    colorFilter: !isMoreMediaAvailable
+                    colorFilter: !isMoreImagesAvailable
                         ? null
                         : ColorFilter.mode(
                             PeamanColors.black87.withOpacity(0.3),
@@ -92,16 +96,22 @@ class _PeamanFeedItemBodyNormalTypeState
                           ),
                   ),
           ),
-          child: !isMoreMediaAvailable
+          child: !isMoreImagesAvailable
               ? null
               : Center(
                   child: PeamanText.body2(
-                    '+${(_imageFiles.length - trimmedImageFiles.length) + 1}',
+                    '+${(_imageFiles.length - trimmedImageFiles.length)}',
                     style: const TextStyle(
                       color: PeamanColors.white,
                     ),
                   ),
                 ),
+        ).onPressed(
+          () {
+            if (isMoreImagesAvailable) {
+              setState(() => _showAllImages = true);
+            }
+          },
         );
       },
     );

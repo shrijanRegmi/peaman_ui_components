@@ -8,9 +8,48 @@ class PeamanFeedItemHeader extends ConsumerStatefulWidget {
   const PeamanFeedItemHeader({
     super.key,
     required this.feed,
+    this.avatarBuilder,
+    this.nameBuilder,
+    this.userNameBuilder,
+    this.dateBuilder,
+    this.menuBuilder,
+    this.onPressedMenu,
   });
 
   final PeamanFeed feed;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? avatarBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? nameBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? userNameBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? dateBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? menuBuilder;
+
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    Function(),
+  )? onPressedMenu;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -25,82 +64,97 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
     );
     return feedOwnerFuture.maybeWhen(
       data: (data) => data.when(
-        (success) => _dataBuilder(
-          photo: success.photo ?? '',
-          name: success.name ?? 'Unknown',
-          userName: success.userName ?? '',
-        ),
+        (success) => _dataBuilder(success),
         (failure) => _dataBuilder(
+          const PeamanUser(
+            photo: '',
+            name: '',
+            userName: '',
+          ),
+        ),
+      ),
+      orElse: () => _dataBuilder(
+        const PeamanUser(
           photo: '',
           name: '',
           userName: '',
         ),
       ),
-      orElse: () => _dataBuilder(
-        photo: '',
-        name: '',
-        userName: '',
-      ),
     );
   }
 
-  Widget _dataBuilder({
-    required final String photo,
-    required final String name,
-    required final String userName,
-  }) {
+  Widget _dataBuilder(final PeamanUser user) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Row(
             children: [
-              PeamanAvatarBuilder.network(photo),
-              SizedBox(
-                width: 10.w,
-              ),
+              widget.avatarBuilder?.call(context, ref, user) ??
+                  PeamanAvatarBuilder.network(user.photo).pR(10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      PeamanText.body1(
-                        '$name ',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      PeamanText.body1(
-                        '@$userName',
-                        style: const TextStyle(
-                          color: PeamanColors.grey,
-                        ),
-                      ),
+                      widget.nameBuilder?.call(context, ref, user) ??
+                          PeamanText.body1(
+                            '${user.name} ',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                      widget.userNameBuilder?.call(context, ref, user) ??
+                          PeamanText.body1(
+                            '@${user.userName}',
+                            style: const TextStyle(
+                              color: PeamanColors.grey,
+                            ),
+                          ),
                     ],
                   ),
-                  PeamanText.body2(
-                    timeago.format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                        widget.feed.createdAt!,
+                  widget.dateBuilder?.call(context, ref, widget.feed) ??
+                      PeamanText.body2(
+                        timeago.format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                            widget.feed.createdAt!,
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: PeamanColors.midLightGrey,
+                          fontSize: 12.0,
+                        ),
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: PeamanColors.midLightGrey,
-                      fontSize: 12.0,
-                    ),
-                  ),
                 ],
               ),
             ],
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          splashRadius: 22.r,
-          icon: const Icon(
-            Icons.more_horiz_rounded,
-          ),
-        ),
+        widget.menuBuilder?.call(context, ref, widget.feed) ??
+            IconButton(
+              onPressed: () {
+                if (widget.onPressedMenu != null) {
+                  widget.onPressedMenu?.call(
+                    context,
+                    ref,
+                    widget.feed,
+                    () => showPeamanFeedMenuBottomsheet(
+                      context: context,
+                      feed: widget.feed,
+                    ),
+                  );
+                } else {
+                  showPeamanFeedMenuBottomsheet(
+                    context: context,
+                    feed: widget.feed,
+                  );
+                }
+              },
+              splashRadius: 22.r,
+              icon: const Icon(
+                Icons.more_horiz_rounded,
+              ),
+            ),
       ],
     );
   }

@@ -3,8 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
+class PeamanCreateFeedScreenArgs {
+  final PeamanFeed? feedToEdit;
+
+  const PeamanCreateFeedScreenArgs({
+    this.feedToEdit,
+  });
+}
+
 class PeamanCreateFeedScreen extends ConsumerStatefulWidget {
-  const PeamanCreateFeedScreen({super.key});
+  const PeamanCreateFeedScreen({
+    super.key,
+    this.feedToEdit,
+  });
+
+  final PeamanFeed? feedToEdit;
 
   static const route = '/peaman_create_feed_screen';
 
@@ -22,7 +35,9 @@ class _PeamanCreateFeedScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final appUser = ref.read(providerOfLoggedInUser);
-      ref.read(providerOfPeamanCreateFeed.notifier).setFeedOwner(appUser);
+      ref.read(providerOfPeamanCreateFeed.notifier)
+        ..setFeedOwner(appUser)
+        ..initializeValues(feed: widget.feedToEdit);
 
       _checkIfClearDraftOptionIsRequired();
     });
@@ -55,7 +70,6 @@ class _PeamanCreateFeedScreenState
       if (previous?.createFeedState != next.createFeedState) {
         next.createFeedState.maybeWhen(
           loading: context.pop,
-          success: (s) => ref.invalidate(providerOfPeamanCreateFeed),
           orElse: () {},
         );
       }

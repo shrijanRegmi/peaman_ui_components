@@ -163,9 +163,11 @@ class PeamanCreateFeedProvider
     final uploadPath =
         'users/${state.feedOwner?.uid}/feeds/$feedId/medias/$millis';
 
+    final localFiles = state.files.where((element) => element.isLocal).toList();
+
     final fileUrls = <PeamanFileUrl>[];
-    for (var i = 0; i < state.files.length; i++) {
-      final file = File(state.files[i].url);
+    for (var i = 0; i < localFiles.length; i++) {
+      final file = File(localFiles[i].url);
 
       final url = await _storageRepository.uploadFile(
         path: '${uploadPath}_$i.jpg',
@@ -177,7 +179,7 @@ class PeamanCreateFeedProvider
         (success) {
           final fileUrl = PeamanFileUrl(
             url: success,
-            type: state.files[i].type == PeamanFileType.image
+            type: localFiles[i].type == PeamanFileType.image
                 ? PeamanFileType.image
                 : PeamanFileType.video,
           );
@@ -208,7 +210,7 @@ class PeamanCreateFeedProvider
             key: 'caption',
             value: feed.caption,
           ),
-          PeamanField(
+          PeamanField.positivePartial(
             key: 'files',
             value: feed.files.map((e) => e.toJson()).toList(),
           ),
