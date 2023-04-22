@@ -96,6 +96,7 @@ class _PeamanCreateFeedScreenState
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
@@ -106,6 +107,9 @@ class _PeamanCreateFeedScreenState
                 height: 10.h,
               ),
               const PeamanCreateFeedBody(),
+              SizedBox(
+                height: 50.h,
+              ),
             ],
           ).pad(10.0),
         ),

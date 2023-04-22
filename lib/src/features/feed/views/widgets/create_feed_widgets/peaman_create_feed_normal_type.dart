@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanCreateFeedMediaType extends ConsumerStatefulWidget {
-  const PeamanCreateFeedMediaType({
+class PeamanCreateFeedNormalType extends ConsumerStatefulWidget {
+  const PeamanCreateFeedNormalType({
     super.key,
     this.controller,
     this.inputBuilder,
@@ -29,11 +29,11 @@ class PeamanCreateFeedMediaType extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PeamanCreateFeedMediaTypeState();
+      _PeamanCreateFeedNormalTypeState();
 }
 
-class _PeamanCreateFeedMediaTypeState
-    extends ConsumerState<PeamanCreateFeedMediaType> {
+class _PeamanCreateFeedNormalTypeState
+    extends ConsumerState<PeamanCreateFeedNormalType> {
   PeamanCreateFeedProvider get _createFeedProvider =>
       ref.read(providerOfPeamanCreateFeed.notifier);
   List<PeamanFileUrlExtended> get selectedFiles => ref.watch(
@@ -85,7 +85,7 @@ class _PeamanCreateFeedMediaTypeState
   Widget _coverImgBuilder() {
     return Container(
       width: double.infinity,
-      height: 140.h,
+      height: ScreenUtil().screenWidth - 40.0,
       decoration: BoxDecoration(
         color: PeamanColors.extraLightGrey,
         borderRadius: BorderRadius.circular(10.r),
@@ -115,6 +115,10 @@ class _PeamanCreateFeedMediaTypeState
             selectedFiles.first,
           ),
         ),
+      ),
+    ).onPressed(
+      () => _createFeedProvider.onPressedEditMedia(
+        selectedFiles.first,
       ),
     );
   }

@@ -11,6 +11,62 @@ final providerOfPeamanFeedsFuture =
   return ref.watch(providerOfPeamanFeedRepository).getFeeds();
 });
 
+final providerOfSinglePeamanFeedByIdFuture =
+    FutureProvider.family<PeamanEither<PeamanFeed, PeamanError>, String>(
+        (ref, feedId) async {
+  return ref.watch(providerOfPeamanFeedRepository).getSingleFeed(
+        feedId: feedId,
+      );
+});
+
+final providerOfSinglePeamanFeedFromFeedsFuture =
+    Provider.family<AsyncValue<PeamanEither<PeamanFeed, PeamanError>>, String>(
+        (ref, feedId) {
+  final feedsFuture = ref.watch(providerOfPeamanFeedsFuture);
+
+  final AsyncValue<PeamanEither<PeamanFeed?, PeamanError>> feedFromFeedsList =
+      feedsFuture.when(
+    data: (data) {
+      return data.when(
+        (success) {
+          final index = success.indexWhere((element) => element.id == feedId);
+          if (index == -1) return const AsyncData(Success(null));
+          return AsyncData(Success(success[index]));
+        },
+        (failure) => AsyncError(failure.message, StackTrace.current),
+      );
+    },
+    loading: AsyncLoading.new,
+    error: AsyncError.new,
+  );
+
+  return feedFromFeedsList.when(
+    data: (data) {
+      return data.when(
+        (success) {
+          if (success != null) return AsyncData(Success(success));
+          final singleFeedFuture = ref.watch(
+            providerOfPeamanSingleFeedByIdFuture(feedId),
+          );
+          return singleFeedFuture.when(
+            data: (data) {
+              return data.when(
+                (success) => AsyncData(Success(success)),
+                (failure) => AsyncError(failure.message, StackTrace.current),
+              );
+            },
+            loading: () => const AsyncLoading(),
+            error: AsyncError.new,
+          );
+        },
+        (failure) => AsyncError(failure.message, StackTrace.current),
+      );
+    },
+    error: AsyncError.new,
+    loading: AsyncLoading.new,
+  );
+});
+
 final providerOfPeamanSingleFeedByIdFuture =
     FutureProvider.family<PeamanEither<PeamanFeed, PeamanError>, String>(
         (ref, feedId) async {

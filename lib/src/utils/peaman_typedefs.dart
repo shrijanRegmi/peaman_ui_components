@@ -15,3 +15,6 @@ typedef AVPCSE = AsyncValue<PeamanEither<List<PeamanChat>, PeamanError>>;
 
 // async value of list of peaman chats stream
 typedef AVPCS = AsyncValue<List<PeamanChat>>;
+
+// async value of peaman feed
+typedef AVPFE = AsyncValue<PeamanEither<PeamanFeed, PeamanError>>;

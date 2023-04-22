@@ -7,11 +7,15 @@ part 'peaman_feed_extra_data_model.g.dart';
 extension PeamanFeedExt on PeamanFeed {
   PeamanFeedExtraData get extraDataModel =>
       PeamanFeedExtraData.fromJson(extraData);
+
+  String? get selectedPollOptionId => extraDataModel.selectedPollOptionId;
 }
 
 @freezed
 class PeamanFeedExtraData with _$PeamanFeedExtraData {
-  const factory PeamanFeedExtraData() = _PeamanFeedExtraData;
+  const factory PeamanFeedExtraData({
+    final String? selectedPollOptionId,
+  }) = _PeamanFeedExtraData;
 
   factory PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =>
       _$PeamanFeedExtraDataFromJson(json);

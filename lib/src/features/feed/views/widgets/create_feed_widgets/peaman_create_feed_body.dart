@@ -41,10 +41,10 @@ class _PeamanCreateFeedBodyState extends ConsumerState<PeamanCreateFeedBody> {
     switch (selectedFeedType) {
       case PeamanFeedType.text:
         return widget.mediaTypeBuilder?.call(context, ref) ??
-            const PeamanCreateFeedMediaType();
+            const PeamanCreateFeedNormalType();
       case PeamanFeedType.file:
         return widget.mediaTypeBuilder?.call(context, ref) ??
-            const PeamanCreateFeedMediaType();
+            const PeamanCreateFeedNormalType();
       case PeamanFeedType.youTube:
         return widget.youTubeTypeBuilder?.call(context, ref) ??
             const PeamanCreateFeedYouTubeType();

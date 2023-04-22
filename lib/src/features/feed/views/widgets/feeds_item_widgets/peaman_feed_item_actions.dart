@@ -7,10 +7,10 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanFeedItemActions extends ConsumerStatefulWidget {
   const PeamanFeedItemActions({
     super.key,
-    required this.feedId,
+    required this.feed,
   });
 
-  final String feedId;
+  final PeamanFeed feed;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

@@ -150,24 +150,11 @@ class _PeamanFeedsListItemState extends ConsumerState<PeamanFeedsListItem> {
       child: widget.builder?.call(context, ref, feed) ??
           Column(
             children: [
-              PeamanFeedItemHeader(
-                feedId: feed.id!,
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              PeamanFeedItemBody(
-                feedId: feed.id!,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              PeamanFeedItemActions(
-                feedId: feed.id!,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
+              if (widget.feed.type != PeamanFeedType.poll)
+                PeamanFeedItemHeader(feed: feed).pB(15),
+              PeamanFeedItemBody(feed: feed).pB(20),
+              if (widget.feed.type != PeamanFeedType.poll)
+                PeamanFeedItemActions(feed: feed).pB(10),
             ],
           ),
     );

@@ -20,7 +20,12 @@ PeamanFeedExtraData _$PeamanFeedExtraDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PeamanFeedExtraData {
+  String? get selectedPollOptionId => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PeamanFeedExtraDataCopyWith<PeamanFeedExtraData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -28,6 +33,8 @@ abstract class $PeamanFeedExtraDataCopyWith<$Res> {
   factory $PeamanFeedExtraDataCopyWith(
           PeamanFeedExtraData value, $Res Function(PeamanFeedExtraData) then) =
       _$PeamanFeedExtraDataCopyWithImpl<$Res, PeamanFeedExtraData>;
+  @useResult
+  $Res call({String? selectedPollOptionId});
 }
 
 /// @nodoc
@@ -39,13 +46,30 @@ class _$PeamanFeedExtraDataCopyWithImpl<$Res, $Val extends PeamanFeedExtraData>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedPollOptionId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      selectedPollOptionId: freezed == selectedPollOptionId
+          ? _value.selectedPollOptionId
+          : selectedPollOptionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_PeamanFeedExtraDataCopyWith<$Res> {
+abstract class _$$_PeamanFeedExtraDataCopyWith<$Res>
+    implements $PeamanFeedExtraDataCopyWith<$Res> {
   factory _$$_PeamanFeedExtraDataCopyWith(_$_PeamanFeedExtraData value,
           $Res Function(_$_PeamanFeedExtraData) then) =
       __$$_PeamanFeedExtraDataCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? selectedPollOptionId});
 }
 
 /// @nodoc
@@ -55,30 +79,56 @@ class __$$_PeamanFeedExtraDataCopyWithImpl<$Res>
   __$$_PeamanFeedExtraDataCopyWithImpl(_$_PeamanFeedExtraData _value,
       $Res Function(_$_PeamanFeedExtraData) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedPollOptionId = freezed,
+  }) {
+    return _then(_$_PeamanFeedExtraData(
+      selectedPollOptionId: freezed == selectedPollOptionId
+          ? _value.selectedPollOptionId
+          : selectedPollOptionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
-  const _$_PeamanFeedExtraData();
+  const _$_PeamanFeedExtraData({this.selectedPollOptionId});
 
   factory _$_PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =>
       _$$_PeamanFeedExtraDataFromJson(json);
 
   @override
+  final String? selectedPollOptionId;
+
+  @override
   String toString() {
-    return 'PeamanFeedExtraData()';
+    return 'PeamanFeedExtraData(selectedPollOptionId: $selectedPollOptionId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_PeamanFeedExtraData);
+        (other.runtimeType == runtimeType &&
+            other is _$_PeamanFeedExtraData &&
+            (identical(other.selectedPollOptionId, selectedPollOptionId) ||
+                other.selectedPollOptionId == selectedPollOptionId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, selectedPollOptionId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PeamanFeedExtraDataCopyWith<_$_PeamanFeedExtraData> get copyWith =>
+      __$$_PeamanFeedExtraDataCopyWithImpl<_$_PeamanFeedExtraData>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -89,8 +139,16 @@ class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
 }
 
 abstract class _PeamanFeedExtraData implements PeamanFeedExtraData {
-  const factory _PeamanFeedExtraData() = _$_PeamanFeedExtraData;
+  const factory _PeamanFeedExtraData({final String? selectedPollOptionId}) =
+      _$_PeamanFeedExtraData;
 
   factory _PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =
       _$_PeamanFeedExtraData.fromJson;
+
+  @override
+  String? get selectedPollOptionId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PeamanFeedExtraDataCopyWith<_$_PeamanFeedExtraData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
