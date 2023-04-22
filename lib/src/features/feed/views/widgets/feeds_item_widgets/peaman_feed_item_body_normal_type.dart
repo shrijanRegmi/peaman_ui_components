@@ -109,8 +109,17 @@ class _PeamanFeedItemBodyNormalTypeState
                           ),
                   ),
           ),
+          padding: EdgeInsets.all(7.w),
           child: !isMoreImagesAvailable
-              ? null
+              ? file.type == PeamanFileType.video
+                  ? Align(
+                      alignment: Alignment.topLeft,
+                      child: Icon(
+                        Icons.play_arrow_rounded,
+                        size: 16.w,
+                      ),
+                    )
+                  : null
               : Stack(
                   children: [
                     if (file.type == PeamanFileType.video)
@@ -120,7 +129,7 @@ class _PeamanFeedItemBodyNormalTypeState
                           Icons.play_arrow_rounded,
                           size: 16.w,
                         ),
-                      ).pad(7),
+                      ),
                     Positioned.fill(
                       child: Center(
                         child: PeamanText.body2(

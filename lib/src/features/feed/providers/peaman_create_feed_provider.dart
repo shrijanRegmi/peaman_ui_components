@@ -190,19 +190,29 @@ class PeamanCreateFeedProvider
 
       url.when(
         (url) {
-          thumbnailUrlFuture?.when(
-            (thumbnailUrl) {
-              final fileUrl = PeamanFileUrl(
-                url: url,
-                thumbnailUrl: thumbnailUrl,
-                type: localFiles[i].type == PeamanFileType.image
-                    ? PeamanFileType.image
-                    : PeamanFileType.video,
-              );
-              fileUrls.add(fileUrl);
-            },
-            (failure) => null,
-          );
+          if (thumbnailUrlFuture == null) {
+            final fileUrl = PeamanFileUrl(
+              url: url,
+              type: localFiles[i].type == PeamanFileType.image
+                  ? PeamanFileType.image
+                  : PeamanFileType.video,
+            );
+            fileUrls.add(fileUrl);
+          } else {
+            thumbnailUrlFuture.when(
+              (thumbnailUrl) {
+                final fileUrl = PeamanFileUrl(
+                  url: url,
+                  thumbnailUrl: thumbnailUrl,
+                  type: localFiles[i].type == PeamanFileType.image
+                      ? PeamanFileType.image
+                      : PeamanFileType.video,
+                );
+                fileUrls.add(fileUrl);
+              },
+              (failure) => null,
+            );
+          }
         },
         (failure) => null,
       );
