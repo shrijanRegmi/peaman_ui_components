@@ -26,6 +26,7 @@ class PeamanText extends StatefulWidget {
   final TextStyle? style;
   final TextStyle? linkStyle;
   final TextAlign textAlign;
+  final TextOverflow? overflow;
   final _Type type;
   final Function()? onPressed;
 
@@ -49,6 +50,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -68,6 +70,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -87,6 +90,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -106,6 +110,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -125,6 +130,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -144,6 +150,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -163,6 +170,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -182,6 +190,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -201,6 +210,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -220,6 +230,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -239,6 +250,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -258,6 +270,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -277,6 +290,7 @@ class PeamanText extends StatefulWidget {
     this.linkStyle,
     this.textAlign = TextAlign.start,
     this.limit,
+    this.overflow,
     this.onPressed,
     this.linkify = false,
     this.onLinkPressed,
@@ -395,6 +409,7 @@ class _PTextState extends State<PeamanText> {
             ).merge(
               _defaultStyle?.merge(widget.style),
             ),
+            overflow: widget.overflow,
             textAlign: widget.textAlign,
             linkStyle: !widget.linkify
                 ? _defaultStyle?.merge(widget.style)

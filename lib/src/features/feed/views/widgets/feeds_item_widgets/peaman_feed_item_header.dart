@@ -92,40 +92,51 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
             children: [
               widget.avatarBuilder?.call(context, ref, user) ??
                   PeamanAvatarBuilder.network(user.photo).pR(10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      widget.nameBuilder?.call(context, ref, user) ??
-                          PeamanText.body1(
-                            '${user.name} ',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                      widget.userNameBuilder?.call(context, ref, user) ??
-                          PeamanText.body1(
-                            '@${user.userName}',
-                            style: const TextStyle(
-                              color: PeamanColors.grey,
-                            ),
-                          ),
-                    ],
-                  ),
-                  widget.dateBuilder?.call(context, ref, widget.feed) ??
-                      PeamanText.body2(
-                        timeago.format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                            widget.feed.createdAt!,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          child: widget.nameBuilder?.call(context, ref, user) ??
+                              PeamanText.body1(
+                                '${user.name} ',
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                        ),
+                        Flexible(
+                          child: Container(
+                            child: widget.userNameBuilder
+                                    ?.call(context, ref, user) ??
+                                PeamanText.body1(
+                                  '@${user.userName}',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: PeamanColors.grey,
+                                  ),
+                                ),
                           ),
                         ),
-                        style: const TextStyle(
-                          color: PeamanColors.midLightGrey,
-                          fontSize: 12.0,
+                      ],
+                    ),
+                    widget.dateBuilder?.call(context, ref, widget.feed) ??
+                        PeamanText.body2(
+                          timeago.format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                              widget.feed.createdAt!,
+                            ),
+                          ),
+                          style: const TextStyle(
+                            color: PeamanColors.midLightGrey,
+                            fontSize: 12.0,
+                          ),
                         ),
-                      ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
