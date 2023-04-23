@@ -41,6 +41,7 @@ dependencies:
   metadata_fetch: ^0.4.1
   scroll_to_index: ^3.0.1
   video_thumbnail: ^0.5.3
+  flutter_local_notifications: ^13.0.0
 
 dev_dependencies:
   flutter_test:

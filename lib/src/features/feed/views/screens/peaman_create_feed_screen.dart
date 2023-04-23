@@ -29,6 +29,7 @@ class PeamanCreateFeedScreen extends ConsumerStatefulWidget {
 class _PeamanCreateFeedScreenState
     extends ConsumerState<PeamanCreateFeedScreen> {
   var _isClearDraftRequired = false;
+  var _isShowingPopup = false;
 
   @override
   void initState() {
@@ -45,6 +46,9 @@ class _PeamanCreateFeedScreenState
         ),
       );
       if (hasStartedCreatingFeed) {
+        setState(() {
+          _isShowingPopup = true;
+        });
         showPeamanLoadingDialog(
           context: context,
           loadingText: 'Creating post...',
@@ -80,7 +84,11 @@ class _PeamanCreateFeedScreenState
   Widget build(BuildContext context) {
     ref.listen(providerOfPeamanCreateFeed, (previous, next) {
       if (previous?.hasStartedCreatingFeed != next.hasStartedCreatingFeed) {
-        context.pop();
+        if (next.hasStartedCreatingFeed) {
+          context.pop();
+        } else if (_isShowingPopup) {
+          context.pop();
+        }
       }
     });
 

@@ -79,10 +79,13 @@ class _PeamanFeedItemBodyNormalTypeState
           ),
           padding: EdgeInsets.all(10.w),
           child: file.type == PeamanFileType.video
-              ? const Align(
+              ? Align(
                   alignment: Alignment.topLeft,
                   child: Icon(
                     Icons.play_arrow_rounded,
+                    color: context.isDarkMode
+                        ? PeamanColors.white70
+                        : PeamanColors.white,
                   ),
                 )
               : null,
@@ -139,6 +142,9 @@ class _PeamanFeedItemBodyNormalTypeState
                           child: Icon(
                             Icons.play_arrow_rounded,
                             size: 16.w,
+                            color: context.isDarkMode
+                                ? PeamanColors.white70
+                                : PeamanColors.white,
                           ),
                         )
                       : null
@@ -150,6 +156,9 @@ class _PeamanFeedItemBodyNormalTypeState
                             child: Icon(
                               Icons.play_arrow_rounded,
                               size: 16.w,
+                              color: context.isDarkMode
+                                  ? PeamanColors.white70
+                                  : PeamanColors.white,
                             ),
                           ),
                         Positioned.fill(

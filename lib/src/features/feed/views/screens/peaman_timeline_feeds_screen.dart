@@ -23,6 +23,12 @@ class _PeamanTimelineFeedsScreenState
           orElse: () {},
         );
       }
+      if (previous?.updateFeedState != next.updateFeedState) {
+        next.updateFeedState.maybeWhen(
+          success: (_) => ref.invalidate(providerOfPeamanCreateFeed),
+          orElse: () {},
+        );
+      }
     });
 
     return Scaffold(

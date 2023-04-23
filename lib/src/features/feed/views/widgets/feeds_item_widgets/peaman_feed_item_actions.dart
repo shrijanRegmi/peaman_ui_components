@@ -222,7 +222,12 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
 
   void _onPressedComment() {}
 
-  void _onPressedReact() {}
+  void _onPressedReact() {
+    ref.read(providerOfPeamanLocalNotification.notifier).showAlertNotification(
+          title: 'Reaction',
+          body: 'Shrijan Regmi reacted to your post!',
+        );
+  }
 
   void _onPressedSave() {}
 

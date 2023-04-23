@@ -18,12 +18,10 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _isLoading = false;
+      });
     });
   }
 
@@ -38,8 +36,12 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
               loading: () => true,
               orElse: () => false,
             );
+    final isLocalNotificationInitialised =
+        ref.watch(providerOfPeamanLocalNotification);
 
-    return !isBlockedUsersLoading && !isBlockedByUsersLoading;
+    return !isBlockedUsersLoading &&
+        !isBlockedByUsersLoading &&
+        isLocalNotificationInitialised;
   }
 
   @override

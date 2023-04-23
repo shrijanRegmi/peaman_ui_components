@@ -53,6 +53,8 @@ class PeamanCreateFeedProvider
       _ref.watch(providerOfPeamanStorageRepository);
   PeamanFeedProvider get _feedProvider =>
       _ref.watch(providerOfPeamanFeed.notifier);
+  PeamanLocalNotificationProvider get _localNotificationProvider =>
+      _ref.watch(providerOfPeamanLocalNotification.notifier);
 
   void initializeValues({
     required final PeamanFeed? feed,
@@ -135,13 +137,37 @@ class PeamanCreateFeedProvider
     }
   }
 
-  Future<void> createFeed() async {
+  Future<void> createFeed({
+    final bool withNotification = true,
+    final String? startedUploadingPostNotificationTitle,
+    final String? startedUploadingPostNotificationBody,
+    final String? uploadingFilesNotificationTitle,
+    final String? uploadingFilesNotificationBody,
+    final String? completedUploadingPostNotificationTitle,
+    final String? completedUploadingPostNotificationBody,
+  }) async {
+    if (withNotification &&
+        startedUploadingPostNotificationTitle != '' &&
+        startedUploadingPostNotificationBody != '') {
+      _localNotificationProvider.showAlertNotification(
+        id: 1,
+        title: startedUploadingPostNotificationTitle ??
+            (state.feedToEdit != null ? 'Updating post' : 'Uploading post'),
+        body: startedUploadingPostNotificationBody ??
+            'Your post is being uploaded',
+      );
+    }
+
     state = state.copyWith(
       hasStartedCreatingFeed: true,
     );
     if (state.feedType == PeamanFeedType.text ||
         state.feedType == PeamanFeedType.file) {
-      await _createMediaFeed();
+      await _createMediaFeed(
+        withNotification: withNotification,
+        uploadingFilesNotificationTitle: uploadingFilesNotificationTitle,
+        uploadingFilesNotificationBody: uploadingFilesNotificationBody,
+      );
     } else if (state.feedType == PeamanFeedType.poll) {
       await _createPollFeed();
     } else if (state.feedType == PeamanFeedType.youTube) {
@@ -152,9 +178,56 @@ class PeamanCreateFeedProvider
         hasStartedCreatingFeed: false,
       );
     }
+
+    if (withNotification &&
+        completedUploadingPostNotificationTitle != '' &&
+        completedUploadingPostNotificationBody != '') {
+      _ref.read(providerOfPeamanFeed).createFeedState.maybeWhen(
+            success: (s) {
+              _localNotificationProvider.showAlertNotification(
+                id: 1,
+                title: completedUploadingPostNotificationTitle ??
+                    'Upload complete',
+                body: completedUploadingPostNotificationBody ??
+                    'Your post has been uploaded',
+              );
+            },
+            error: (e) {
+              _localNotificationProvider.showAlertNotification(
+                id: 1,
+                title: 'Upload failed!',
+                body: e.message,
+              );
+            },
+            orElse: () {},
+          );
+      _ref.read(providerOfPeamanFeed).updateFeedState.maybeWhen(
+            success: (s) {
+              _localNotificationProvider.showAlertNotification(
+                id: 1,
+                title: completedUploadingPostNotificationTitle ??
+                    'Update complete',
+                body: completedUploadingPostNotificationBody ??
+                    'Your post has been updated',
+              );
+            },
+            error: (e) {
+              _localNotificationProvider.showAlertNotification(
+                id: 1,
+                title: 'Update failed!',
+                body: e.message,
+              );
+            },
+            orElse: () {},
+          );
+    }
   }
 
-  Future<void> _createMediaFeed() async {
+  Future<void> _createMediaFeed({
+    final bool withNotification = true,
+    final String? uploadingFilesNotificationTitle,
+    final String? uploadingFilesNotificationBody,
+  }) async {
     if (state.captionController.text.trim().isEmpty && state.files.isEmpty) {
       return;
     }
@@ -174,7 +247,22 @@ class PeamanCreateFeedProvider
       final url = await _storageRepository.uploadFile(
         path: uploadPath,
         file: file,
-        onProgress: (p) {},
+        onProgress: (p) {
+          if (withNotification) {
+            _localNotificationProvider.showAlertNotification(
+              id: 1,
+              title: uploadingFilesNotificationTitle ??
+                  (state.feedToEdit != null
+                      ? 'Updating post'
+                      : 'Uploading post'),
+              body: uploadingFilesNotificationBody ??
+                  '${i + 1}/${localFiles.length}',
+              showProgress: true,
+              progress: (p * 100).toInt(),
+              maxProgress: 100,
+            );
+          }
+        },
       );
 
       PeamanEither<String, PeamanError>? thumbnailUrlFuture;
@@ -260,6 +348,10 @@ class PeamanCreateFeedProvider
         feed: feed,
       );
     }
+
+    if (localFiles.isEmpty) {
+      await Future.delayed(const Duration(milliseconds: 2000));
+    }
   }
 
   Future<void> _createPollFeed() async {
@@ -318,6 +410,8 @@ class PeamanCreateFeedProvider
         feed: feed,
       );
     }
+
+    await Future.delayed(const Duration(milliseconds: 2000));
   }
 
   Future<void> _createYoutubeFeed() async {
@@ -365,6 +459,8 @@ class PeamanCreateFeedProvider
         feed: feed,
       );
     }
+
+    await Future.delayed(const Duration(milliseconds: 2000));
   }
 
   Future<void> _pickImages() async {

@@ -73,7 +73,6 @@ class _PeamanCreateFeedNormalTypeState
                 fontSize: 16.sp,
               ),
               textCapitalization: TextCapitalization.sentences,
-              onChanged: (val) {},
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'What do you want to talk about?',
@@ -104,20 +103,34 @@ class _PeamanCreateFeedNormalTypeState
               ),
       ),
       padding: EdgeInsets.all(10.w),
-      child: Align(
-        alignment: Alignment.topRight,
-        child: PeamanRoundIconButton(
-          bgColor: PeamanColors.white,
-          padding: EdgeInsets.all(6.w),
-          icon: Icon(
-            Icons.delete_rounded,
-            size: 20.w,
-            color: PeamanColors.red,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          file.type == PeamanFileType.video
+              ? Align(
+                  alignment: Alignment.topLeft,
+                  child: Icon(
+                    Icons.play_arrow_rounded,
+                    color: context.isDarkMode
+                        ? PeamanColors.white70
+                        : PeamanColors.white,
+                  ),
+                )
+              : const SizedBox(),
+          PeamanRoundIconButton(
+            bgColor: PeamanColors.white,
+            padding: EdgeInsets.all(6.w),
+            icon: Icon(
+              Icons.delete_rounded,
+              size: 20.w,
+              color: PeamanColors.red,
+            ),
+            onPressed: () => _createFeedProvider.removeFromFiles(
+              selectedFiles.first,
+            ),
           ),
-          onPressed: () => _createFeedProvider.removeFromFiles(
-            selectedFiles.first,
-          ),
-        ),
+        ],
       ),
     ).onPressed(
       () => _createFeedProvider.onPressedEditMedia(
@@ -154,18 +167,33 @@ class _PeamanCreateFeedNormalTypeState
                     ),
             ),
             padding: EdgeInsets.all(5.w),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: PeamanRoundIconButton(
-                bgColor: PeamanColors.white,
-                padding: EdgeInsets.all(5.w),
-                icon: Icon(
-                  Icons.delete_rounded,
-                  size: 16.w,
-                  color: PeamanColors.red,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                file.type == PeamanFileType.video
+                    ? Align(
+                        alignment: Alignment.topLeft,
+                        child: Icon(
+                          Icons.play_arrow_rounded,
+                          size: 16.w,
+                          color: context.isDarkMode
+                              ? PeamanColors.white70
+                              : PeamanColors.white,
+                        ),
+                      )
+                    : const SizedBox(),
+                PeamanRoundIconButton(
+                  bgColor: PeamanColors.white,
+                  padding: EdgeInsets.all(5.w),
+                  icon: Icon(
+                    Icons.delete_rounded,
+                    size: 16.w,
+                    color: PeamanColors.red,
+                  ),
+                  onPressed: () => _createFeedProvider.removeFromFiles(file),
                 ),
-                onPressed: () => _createFeedProvider.removeFromFiles(file),
-              ),
+              ],
             ),
           ).pR(5).onPressed(
                 () => _createFeedProvider.onPressedEditMedia(file),
