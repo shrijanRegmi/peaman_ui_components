@@ -65,7 +65,7 @@ class PeamanCreateFeedProvider
         .map(
           (e) => PeamanFileUrlExtended(
             url: e.url!,
-            thumbnailUrl: e.thumbnailUrl!,
+            thumbnailUrl: e.thumbnailUrl,
             type: e.type,
             isLocal: false,
           ),
@@ -156,7 +156,9 @@ class PeamanCreateFeedProvider
         title: startedUploadingPostNotificationTitle ??
             (state.feedToEdit != null ? 'Updating post' : 'Uploading post'),
         body: startedUploadingPostNotificationBody ??
-            'Your post is being uploaded',
+            (state.feedToEdit != null
+                ? 'Your post is being updated'
+                : 'Your post is being uploaded'),
       );
     }
 
@@ -312,7 +314,7 @@ class PeamanCreateFeedProvider
 
     final feed = PeamanFeed(
       id: state.feedToEdit?.id ?? feedId,
-      ownerId: state.feedOwner?.uid,
+      ownerId: state.feedToEdit?.ownerId ?? state.feedOwner?.uid,
       caption: state.captionController.text.trim(),
       files: newFiles,
       searchKeys: _getSearchKeys(),
@@ -369,7 +371,7 @@ class PeamanCreateFeedProvider
 
     final feed = PeamanFeed(
       id: state.feedToEdit?.id ?? feedId,
-      ownerId: state.feedOwner?.uid,
+      ownerId: state.feedToEdit?.ownerId ?? state.feedOwner?.uid,
       caption: state.captionController.text.trim(),
       pollQuestion: state.pollQuestionController.text.trim(),
       pollOptions: pollOptions,
@@ -423,7 +425,7 @@ class PeamanCreateFeedProvider
 
     final feed = PeamanFeed(
       id: state.feedToEdit?.id ?? feedId,
-      ownerId: state.feedOwner?.uid,
+      ownerId: state.feedToEdit?.ownerId ?? state.feedOwner?.uid,
       caption: state.captionController.text.trim(),
       ytLink: state.youtubeLinkController.text.trim(),
       searchKeys: _getSearchKeys(),
