@@ -112,7 +112,9 @@ class PeamanCreateFeedProvider
     }
   }
 
-  void onPressedEditMedia(final PeamanFileUrlExtended file) async {
+  void onPressedEditMedia(
+    final PeamanFileUrlExtended file,
+  ) async {
     final index = state.files.indexWhere((e) => e.url == file.url);
     if (index != -1) {
       final files = List<PeamanFileUrlExtended>.from(state.files);
@@ -317,6 +319,10 @@ class PeamanCreateFeedProvider
       type: newFiles.isEmpty ? PeamanFeedType.text : PeamanFeedType.file,
     );
 
+    if (localFiles.isEmpty) {
+      await Future.delayed(const Duration(milliseconds: 3000));
+    }
+
     if (state.feedToEdit != null) {
       await _feedProvider.updateFeed(
         feedId: feed.id!,
@@ -348,10 +354,6 @@ class PeamanCreateFeedProvider
         feed: feed,
       );
     }
-
-    if (localFiles.isEmpty) {
-      await Future.delayed(const Duration(milliseconds: 2000));
-    }
   }
 
   Future<void> _createPollFeed() async {
@@ -374,6 +376,8 @@ class PeamanCreateFeedProvider
       searchKeys: _getSearchKeys(),
       type: PeamanFeedType.poll,
     );
+
+    await Future.delayed(const Duration(milliseconds: 3000));
 
     if (state.feedToEdit != null) {
       await _feedProvider.updateFeed(
@@ -410,8 +414,6 @@ class PeamanCreateFeedProvider
         feed: feed,
       );
     }
-
-    await Future.delayed(const Duration(milliseconds: 2000));
   }
 
   Future<void> _createYoutubeFeed() async {
@@ -427,6 +429,8 @@ class PeamanCreateFeedProvider
       searchKeys: _getSearchKeys(),
       type: PeamanFeedType.youTube,
     );
+
+    await Future.delayed(const Duration(milliseconds: 3000));
 
     if (state.feedToEdit != null) {
       await _feedProvider.updateFeed(
@@ -459,8 +463,6 @@ class PeamanCreateFeedProvider
         feed: feed,
       );
     }
-
-    await Future.delayed(const Duration(milliseconds: 2000));
   }
 
   Future<void> _pickImages() async {
