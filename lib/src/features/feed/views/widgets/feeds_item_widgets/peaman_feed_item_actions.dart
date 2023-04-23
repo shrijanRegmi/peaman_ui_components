@@ -8,9 +8,74 @@ class PeamanFeedItemActions extends ConsumerStatefulWidget {
   const PeamanFeedItemActions({
     super.key,
     required this.feed,
+    this.commentBuilder,
+    this.reactBuilder,
+    this.saveBuilder,
+    this.shareBuilder,
+    this.actionWidgetsBuilder,
+    this.onPressedComment,
+    this.onPressedReact,
+    this.onPressedSave,
+    this.onPressedShare,
   });
 
   final PeamanFeed feed;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? commentBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? reactBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? saveBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? shareBuilder;
+
+  final List<Widget> Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    Widget commentBuilder,
+    Widget reactBuilder,
+    Widget saveBuilder,
+    Widget shareBuilder,
+  )? actionWidgetsBuilder;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    Function(),
+  )? onPressedComment;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    Function(),
+  )? onPressedReact;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    Function(),
+  )? onPressedSave;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    Function(),
+  )? onPressedShare;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -22,28 +87,21 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _actionButtonBuilder(
-          svgPath: 'assets/svgs/outlined_comment.svg',
-          count: 21,
-        ),
-        _actionButtonBuilder(
-          svgPath: 'assets/svgs/outlined_love.svg',
-          activeColor: PeamanColors.red80,
-          count: 99,
-        ),
-        _actionButtonBuilder(
-          svgPath: 'assets/svgs/outlined_bookmark.svg',
-          count: 12,
-          activeColor: PeamanColors.secondary,
-          size: 18,
-        ),
-        _actionButtonBuilder(
-          svgPath: 'assets/svgs/outlined_send_message.svg',
-          count: 88,
-          size: 15,
-        ),
-      ],
+      children: widget.actionWidgetsBuilder?.call(
+            context,
+            ref,
+            widget.feed,
+            _commentBuilder(),
+            _reactBuilder(),
+            _saveBuilder(),
+            _shareBuilder(),
+          ) ??
+          [
+            _commentBuilder(),
+            _reactBuilder(),
+            _saveBuilder(),
+            _shareBuilder(),
+          ],
     );
   }
 
@@ -77,4 +135,96 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
       ],
     ).onPressed(onPressed);
   }
+
+  Widget _commentBuilder() {
+    return (widget.commentBuilder?.call(context, ref, widget.feed) ??
+            _actionButtonBuilder(
+              svgPath: 'assets/svgs/outlined_comment.svg',
+              count: 21,
+            ))
+        .onPressed(() {
+      if (widget.onPressedComment != null) {
+        widget.onPressedComment?.call(
+          context,
+          ref,
+          widget.feed,
+          _onPressedComment,
+        );
+      } else {
+        _onPressedComment();
+      }
+    });
+  }
+
+  Widget _reactBuilder() {
+    return (widget.reactBuilder?.call(context, ref, widget.feed) ??
+            _actionButtonBuilder(
+              svgPath: 'assets/svgs/outlined_love.svg',
+              activeColor: PeamanColors.red80,
+              count: 99,
+            ))
+        .onPressed(() {
+      if (widget.onPressedReact != null) {
+        widget.onPressedReact?.call(
+          context,
+          ref,
+          widget.feed,
+          _onPressedReact,
+        );
+      } else {
+        _onPressedReact();
+      }
+    });
+  }
+
+  Widget _saveBuilder() {
+    return (widget.saveBuilder?.call(context, ref, widget.feed) ??
+            _actionButtonBuilder(
+              svgPath: 'assets/svgs/outlined_bookmark.svg',
+              count: 12,
+              activeColor: PeamanColors.secondary,
+              size: 18,
+            ))
+        .onPressed(() {
+      if (widget.onPressedSave != null) {
+        widget.onPressedSave?.call(
+          context,
+          ref,
+          widget.feed,
+          _onPressedSave,
+        );
+      } else {
+        _onPressedSave();
+      }
+    });
+  }
+
+  Widget _shareBuilder() {
+    return (widget.shareBuilder?.call(context, ref, widget.feed) ??
+            _actionButtonBuilder(
+              svgPath: 'assets/svgs/outlined_send_message.svg',
+              count: 88,
+              size: 15,
+            ))
+        .onPressed(() {
+      if (widget.onPressedShare != null) {
+        widget.onPressedShare?.call(
+          context,
+          ref,
+          widget.feed,
+          _onPressedShare,
+        );
+      } else {
+        _onPressedShare();
+      }
+    });
+  }
+
+  void _onPressedComment() {}
+
+  void _onPressedReact() {}
+
+  void _onPressedSave() {}
+
+  void _onPressedShare() {}
 }

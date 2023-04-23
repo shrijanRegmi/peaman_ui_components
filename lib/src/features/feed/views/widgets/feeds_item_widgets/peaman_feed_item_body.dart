@@ -9,6 +9,7 @@ class PeamanFeedItemBody extends ConsumerStatefulWidget {
     this.normalTypeBuilder,
     this.youTubeTypeBuilder,
     this.pollTypeBuilder,
+    this.defaultTypeBuilder,
   });
 
   final PeamanFeed feed;
@@ -28,6 +29,11 @@ class PeamanFeedItemBody extends ConsumerStatefulWidget {
     WidgetRef,
     PeamanFeed,
   )? pollTypeBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+  )? defaultTypeBuilder;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -59,7 +65,8 @@ class _PeamanFeedItemBodyState extends ConsumerState<PeamanFeedItemBody> {
               feed: widget.feed,
             );
       default:
-        return const SizedBox();
+        return widget.defaultTypeBuilder?.call(context, ref, widget.feed) ??
+            const SizedBox();
     }
   }
 }

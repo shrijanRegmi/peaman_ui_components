@@ -13,6 +13,7 @@ export 'views/widgets/feeds_item_widgets/peaman_feed_item_actions.dart';
 export 'views/widgets/feeds_item_widgets/peaman_feed_item_body_normal_type.dart';
 export 'views/widgets/feeds_item_widgets/peaman_feed_item_body_youtube_type.dart';
 export 'views/widgets/feeds_item_widgets/peaman_feed_item_body_poll_type.dart';
+export 'views/widgets/feeds_item_widgets/peaman_poll_options_item.dart';
 
 export 'views/widgets/timeline_feeds_widgets/peaman_timeline_header.dart';
 
