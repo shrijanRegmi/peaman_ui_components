@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -586,10 +588,22 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
       final feed = modifiableFeeds[index];
       final extraDatas = {
         ...feed.toJson(),
-        ...feed.extraData,
         ...feedDataToJsonKey,
       };
-      final newFeed = PeamanFeed.fromJson(extraDatas);
+
+      var newFeed = PeamanFeed.fromJson(extraDatas);
+      if (feed.isReacted != newFeed.isReacted) {
+        if (!feed.isReacted && newFeed.isReacted) {
+          newFeed = newFeed.copyWith(
+            reactionsCount: newFeed.reactionsCount + 1,
+          );
+        } else if (feed.isReacted && !newFeed.isReacted) {
+          newFeed = newFeed.copyWith(
+            reactionsCount: max(newFeed.reactionsCount - 1, 0),
+          );
+        }
+      }
+
       modifiableFeeds[index] = newFeed;
     }
     return modifiableFeeds;
