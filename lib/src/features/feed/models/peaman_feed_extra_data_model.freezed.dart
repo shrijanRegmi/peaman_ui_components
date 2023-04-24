@@ -20,7 +20,9 @@ PeamanFeedExtraData _$PeamanFeedExtraDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PeamanFeedExtraData {
-  String? get selectedPollOptionId => throw _privateConstructorUsedError;
+  String? get appUserSelectedPollOptionId => throw _privateConstructorUsedError;
+  bool get isReacted => throw _privateConstructorUsedError;
+  bool get isSaved => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,8 @@ abstract class $PeamanFeedExtraDataCopyWith<$Res> {
           PeamanFeedExtraData value, $Res Function(PeamanFeedExtraData) then) =
       _$PeamanFeedExtraDataCopyWithImpl<$Res, PeamanFeedExtraData>;
   @useResult
-  $Res call({String? selectedPollOptionId});
+  $Res call(
+      {String? appUserSelectedPollOptionId, bool isReacted, bool isSaved});
 }
 
 /// @nodoc
@@ -50,13 +53,23 @@ class _$PeamanFeedExtraDataCopyWithImpl<$Res, $Val extends PeamanFeedExtraData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedPollOptionId = freezed,
+    Object? appUserSelectedPollOptionId = freezed,
+    Object? isReacted = null,
+    Object? isSaved = null,
   }) {
     return _then(_value.copyWith(
-      selectedPollOptionId: freezed == selectedPollOptionId
-          ? _value.selectedPollOptionId
-          : selectedPollOptionId // ignore: cast_nullable_to_non_nullable
+      appUserSelectedPollOptionId: freezed == appUserSelectedPollOptionId
+          ? _value.appUserSelectedPollOptionId
+          : appUserSelectedPollOptionId // ignore: cast_nullable_to_non_nullable
               as String?,
+      isReacted: null == isReacted
+          ? _value.isReacted
+          : isReacted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSaved: null == isSaved
+          ? _value.isSaved
+          : isSaved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -69,7 +82,8 @@ abstract class _$$_PeamanFeedExtraDataCopyWith<$Res>
       __$$_PeamanFeedExtraDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? selectedPollOptionId});
+  $Res call(
+      {String? appUserSelectedPollOptionId, bool isReacted, bool isSaved});
 }
 
 /// @nodoc
@@ -83,13 +97,23 @@ class __$$_PeamanFeedExtraDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedPollOptionId = freezed,
+    Object? appUserSelectedPollOptionId = freezed,
+    Object? isReacted = null,
+    Object? isSaved = null,
   }) {
     return _then(_$_PeamanFeedExtraData(
-      selectedPollOptionId: freezed == selectedPollOptionId
-          ? _value.selectedPollOptionId
-          : selectedPollOptionId // ignore: cast_nullable_to_non_nullable
+      appUserSelectedPollOptionId: freezed == appUserSelectedPollOptionId
+          ? _value.appUserSelectedPollOptionId
+          : appUserSelectedPollOptionId // ignore: cast_nullable_to_non_nullable
               as String?,
+      isReacted: null == isReacted
+          ? _value.isReacted
+          : isReacted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSaved: null == isSaved
+          ? _value.isSaved
+          : isSaved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -97,17 +121,26 @@ class __$$_PeamanFeedExtraDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
-  const _$_PeamanFeedExtraData({this.selectedPollOptionId});
+  const _$_PeamanFeedExtraData(
+      {this.appUserSelectedPollOptionId,
+      this.isReacted = false,
+      this.isSaved = false});
 
   factory _$_PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =>
       _$$_PeamanFeedExtraDataFromJson(json);
 
   @override
-  final String? selectedPollOptionId;
+  final String? appUserSelectedPollOptionId;
+  @override
+  @JsonKey()
+  final bool isReacted;
+  @override
+  @JsonKey()
+  final bool isSaved;
 
   @override
   String toString() {
-    return 'PeamanFeedExtraData(selectedPollOptionId: $selectedPollOptionId)';
+    return 'PeamanFeedExtraData(appUserSelectedPollOptionId: $appUserSelectedPollOptionId, isReacted: $isReacted, isSaved: $isSaved)';
   }
 
   @override
@@ -115,13 +148,19 @@ class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PeamanFeedExtraData &&
-            (identical(other.selectedPollOptionId, selectedPollOptionId) ||
-                other.selectedPollOptionId == selectedPollOptionId));
+            (identical(other.appUserSelectedPollOptionId,
+                    appUserSelectedPollOptionId) ||
+                other.appUserSelectedPollOptionId ==
+                    appUserSelectedPollOptionId) &&
+            (identical(other.isReacted, isReacted) ||
+                other.isReacted == isReacted) &&
+            (identical(other.isSaved, isSaved) || other.isSaved == isSaved));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, selectedPollOptionId);
+  int get hashCode =>
+      Object.hash(runtimeType, appUserSelectedPollOptionId, isReacted, isSaved);
 
   @JsonKey(ignore: true)
   @override
@@ -139,14 +178,20 @@ class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
 }
 
 abstract class _PeamanFeedExtraData implements PeamanFeedExtraData {
-  const factory _PeamanFeedExtraData({final String? selectedPollOptionId}) =
-      _$_PeamanFeedExtraData;
+  const factory _PeamanFeedExtraData(
+      {final String? appUserSelectedPollOptionId,
+      final bool isReacted,
+      final bool isSaved}) = _$_PeamanFeedExtraData;
 
   factory _PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =
       _$_PeamanFeedExtraData.fromJson;
 
   @override
-  String? get selectedPollOptionId;
+  String? get appUserSelectedPollOptionId;
+  @override
+  bool get isReacted;
+  @override
+  bool get isSaved;
   @override
   @JsonKey(ignore: true)
   _$$_PeamanFeedExtraDataCopyWith<_$_PeamanFeedExtraData> get copyWith =>

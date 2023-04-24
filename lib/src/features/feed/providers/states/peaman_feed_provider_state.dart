@@ -10,6 +10,19 @@ class PeamanFeedProviderState with _$PeamanFeedProviderState {
     @Default(CreateFeedState.initial()) final CreateFeedState createFeedState,
     @Default(UpdateFeedState.initial()) final UpdateFeedState updateFeedState,
     @Default(DeleteFeedState.initial()) final DeleteFeedState deleteFeedState,
+    @Default(SaveFeedState.initial()) final SaveFeedState saveFeedState,
+    @Default(UnsaveFeedState.initial()) final UnsaveFeedState unsaveFeedState,
+    @Default(ShareFeedState.initial()) final ShareFeedState shareFeedState,
+    @Default(CreateReactionState.initial())
+        final CreateReactionState createReactionState,
+    @Default(DeleteReactionState.initial())
+        final DeleteReactionState deleteReactionState,
+    @Default(CreateCommentState.initial())
+        final CreateCommentState createCommentState,
+    @Default(UpdateCommentState.initial())
+        final UpdateCommentState updateCommentState,
+    @Default(DeleteCommentState.initial())
+        final DeleteCommentState deleteCommentState,
   }) = _PeamanFeedProviderState;
 }
 
@@ -47,4 +60,100 @@ class DeleteFeedState with _$DeleteFeedState {
   const factory DeleteFeedState.error(
     final PeamanError error,
   ) = _DeleteFeedStateFailure;
+}
+
+@freezed
+class SaveFeedState with _$SaveFeedState {
+  const factory SaveFeedState.initial() = _SaveFeedStateInitial;
+  const factory SaveFeedState.loading() = _SaveFeedStateLoading;
+  const factory SaveFeedState.success(
+    final bool result,
+  ) = _SaveFeedStateSuccess;
+  const factory SaveFeedState.error(
+    final PeamanError error,
+  ) = _SaveFeedStateFailure;
+}
+
+@freezed
+class UnsaveFeedState with _$UnsaveFeedState {
+  const factory UnsaveFeedState.initial() = _UnsaveFeedStateInitial;
+  const factory UnsaveFeedState.loading() = _UnsaveFeedStateLoading;
+  const factory UnsaveFeedState.success(
+    final bool result,
+  ) = _UnsaveFeedStateSuccess;
+  const factory UnsaveFeedState.error(
+    final PeamanError error,
+  ) = _UnsaveFeedStateFailure;
+}
+
+@freezed
+class ShareFeedState with _$ShareFeedState {
+  const factory ShareFeedState.initial() = _ShareFeedStateInitial;
+  const factory ShareFeedState.loading() = _ShareFeedStateLoading;
+  const factory ShareFeedState.success(
+    final bool result,
+  ) = _ShareFeedStateSuccess;
+  const factory ShareFeedState.error(
+    final PeamanError error,
+  ) = _ShareFeedStateFailure;
+}
+
+@freezed
+class CreateReactionState with _$CreateReactionState {
+  const factory CreateReactionState.initial() = _CreateReactionStateInitial;
+  const factory CreateReactionState.loading() = _CreateReactionStateLoading;
+  const factory CreateReactionState.success(
+    final PeamanReaction result,
+  ) = _CreateReactionStateSuccess;
+  const factory CreateReactionState.error(
+    final PeamanError error,
+  ) = _CreateReactionStateFailure;
+}
+
+@freezed
+class DeleteReactionState with _$DeleteReactionState {
+  const factory DeleteReactionState.initial() = _DeleteReactionStateInitial;
+  const factory DeleteReactionState.loading() = _DeleteReactionStateLoading;
+  const factory DeleteReactionState.success(
+    final bool result,
+  ) = _DeleteReactionStateSuccess;
+  const factory DeleteReactionState.error(
+    final PeamanError error,
+  ) = _DeleteReactionStateFailure;
+}
+
+@freezed
+class CreateCommentState with _$CreateCommentState {
+  const factory CreateCommentState.initial() = _CreateCommentStateInitial;
+  const factory CreateCommentState.loading() = _CreateCommentStateLoading;
+  const factory CreateCommentState.success(
+    final PeamanComment result,
+  ) = _CreateCommentStateSuccess;
+  const factory CreateCommentState.error(
+    final PeamanError error,
+  ) = _CreateCommentStateFailure;
+}
+
+@freezed
+class UpdateCommentState with _$UpdateCommentState {
+  const factory UpdateCommentState.initial() = _UpdateCommentStateInitial;
+  const factory UpdateCommentState.loading() = _UpdateCommentStateLoading;
+  const factory UpdateCommentState.success(
+    final bool result,
+  ) = _UpdateCommentStateSuccess;
+  const factory UpdateCommentState.error(
+    final PeamanError error,
+  ) = _UpdateCommentStateFailure;
+}
+
+@freezed
+class DeleteCommentState with _$DeleteCommentState {
+  const factory DeleteCommentState.initial() = _DeleteCommentStateInitial;
+  const factory DeleteCommentState.loading() = _DeleteCommentStateLoading;
+  const factory DeleteCommentState.success(
+    final bool result,
+  ) = _DeleteCommentStateSuccess;
+  const factory DeleteCommentState.error(
+    final PeamanError error,
+  ) = _DeleteCommentStateFailure;
 }

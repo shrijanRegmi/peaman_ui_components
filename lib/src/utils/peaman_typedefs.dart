@@ -21,3 +21,6 @@ typedef AVPFE = AsyncValue<PeamanEither<PeamanFeed, PeamanError>>;
 
 // async value of list of peaman feeds
 typedef AVPFSE = AsyncValue<PeamanEither<List<PeamanFeed>, PeamanError>>;
+
+// async value of peaman reaction
+typedef AVPRE = AsyncValue<PeamanEither<PeamanReaction, PeamanError>>;

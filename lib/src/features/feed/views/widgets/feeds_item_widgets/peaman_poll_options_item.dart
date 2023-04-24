@@ -44,12 +44,13 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
                 children: [
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    width: portion == 0 || feed.selectedPollOptionId == null
-                        ? 0.0
-                        : portion / 100 * availableWidth,
+                    width:
+                        portion == 0 || feed.appUserSelectedPollOptionId == null
+                            ? 0.0
+                            : portion / 100 * availableWidth,
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      color: feed.selectedPollOptionId == option.id
+                      color: feed.appUserSelectedPollOptionId == option.id
                           ? PeamanColors.lightGrey.withOpacity(0.9)
                           : PeamanColors.extraLightGrey,
                       borderRadius: BorderRadius.only(
@@ -82,7 +83,7 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
             ),
           ),
         ),
-        if (feed.selectedPollOptionId != null)
+        if (feed.appUserSelectedPollOptionId != null)
           Positioned.fill(
             child: Row(
               children: [

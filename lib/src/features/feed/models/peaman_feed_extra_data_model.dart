@@ -8,13 +8,18 @@ extension PeamanFeedExt on PeamanFeed {
   PeamanFeedExtraData get extraDataModel =>
       PeamanFeedExtraData.fromJson(extraData);
 
-  String? get selectedPollOptionId => extraDataModel.selectedPollOptionId;
+  String? get appUserSelectedPollOptionId =>
+      extraDataModel.appUserSelectedPollOptionId;
+  bool get isReacted => extraDataModel.isReacted;
+  bool get isSaved => extraDataModel.isSaved;
 }
 
 @freezed
 class PeamanFeedExtraData with _$PeamanFeedExtraData {
   const factory PeamanFeedExtraData({
-    final String? selectedPollOptionId,
+    final String? appUserSelectedPollOptionId,
+    @Default(false) final bool isReacted,
+    @Default(false) final bool isSaved,
   }) = _PeamanFeedExtraData;
 
   factory PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =>

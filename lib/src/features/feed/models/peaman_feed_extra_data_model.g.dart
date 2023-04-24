@@ -9,7 +9,10 @@ part of 'peaman_feed_extra_data_model.dart';
 _$_PeamanFeedExtraData _$$_PeamanFeedExtraDataFromJson(
         Map<String, dynamic> json) =>
     _$_PeamanFeedExtraData(
-      selectedPollOptionId: json['selected_poll_option_id'] as String?,
+      appUserSelectedPollOptionId:
+          json['app_user_selected_poll_option_id'] as String?,
+      isReacted: json['is_reacted'] as bool? ?? false,
+      isSaved: json['is_saved'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_PeamanFeedExtraDataToJson(
@@ -22,6 +25,9 @@ Map<String, dynamic> _$$_PeamanFeedExtraDataToJson(
     }
   }
 
-  writeNotNull('selected_poll_option_id', instance.selectedPollOptionId);
+  writeNotNull(
+      'app_user_selected_poll_option_id', instance.appUserSelectedPollOptionId);
+  val['is_reacted'] = instance.isReacted;
+  val['is_saved'] = instance.isSaved;
   return val;
 }

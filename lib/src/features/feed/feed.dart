@@ -32,3 +32,4 @@ export 'providers/peaman_feed_provider.dart';
 export 'providers/states/peaman_feed_provider_state.dart';
 export 'providers/peaman_create_feed_provider.dart';
 export 'providers/states/peaman_create_feed_provider_state.dart';
+export 'providers/args/peaman_get_single_reaction_by_id_args.dart';

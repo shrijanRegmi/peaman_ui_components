@@ -140,7 +140,7 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
     return (widget.commentBuilder?.call(context, ref, widget.feed) ??
             _actionButtonBuilder(
               svgPath: 'assets/svgs/outlined_comment.svg',
-              count: 21,
+              count: widget.feed.commentsCount,
             ))
         .onPressed(() {
       if (widget.onPressedComment != null) {
@@ -161,7 +161,8 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
             _actionButtonBuilder(
               svgPath: 'assets/svgs/outlined_love.svg',
               activeColor: PeamanColors.red80,
-              count: 99,
+              count: widget.feed.reactionsCount,
+              isActive: widget.feed.isReacted,
             ))
         .onPressed(() {
       if (widget.onPressedReact != null) {
@@ -181,8 +182,9 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
     return (widget.saveBuilder?.call(context, ref, widget.feed) ??
             _actionButtonBuilder(
               svgPath: 'assets/svgs/outlined_bookmark.svg',
-              count: 12,
+              count: widget.feed.savesCount,
               activeColor: PeamanColors.secondary,
+              isActive: widget.feed.isSaved,
               size: 18,
             ))
         .onPressed(() {
@@ -203,7 +205,7 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
     return (widget.shareBuilder?.call(context, ref, widget.feed) ??
             _actionButtonBuilder(
               svgPath: 'assets/svgs/outlined_send_message.svg',
-              count: 88,
+              count: widget.feed.sharesCount,
               size: 15,
             ))
         .onPressed(() {
@@ -223,10 +225,17 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
   void _onPressedComment() {}
 
   void _onPressedReact() {
-    ref.read(providerOfPeamanLocalNotification.notifier).showAlertNotification(
-          title: 'Reaction',
-          body: 'Shrijan Regmi reacted to your post!',
-        );
+    if (widget.feed.isReacted) {
+      ref.read(providerOfPeamanFeed.notifier).deleteFeedReaction(
+            feedId: widget.feed.id!,
+            feedOwnerId: widget.feed.ownerId!,
+          );
+    } else {
+      ref.read(providerOfPeamanFeed.notifier).createFeedReaction(
+            feedId: widget.feed.id!,
+            feedOwnerId: widget.feed.ownerId!,
+          );
+    }
   }
 
   void _onPressedSave() {}
