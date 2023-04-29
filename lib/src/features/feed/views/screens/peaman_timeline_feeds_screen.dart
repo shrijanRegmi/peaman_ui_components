@@ -11,9 +11,9 @@ class PeamanTimelineFeedsScreen extends ConsumerStatefulWidget {
 
   static const route = '/peaman_timeline_feeds_screen';
 
-  final Function(BuildContext, WidgetRef)? headerBuilder;
-  final Function(BuildContext, WidgetRef)? feedsListBuilder;
-  final Function(BuildContext, WidgetRef)? feedInitiatorButtonBuilder;
+  final PreferredSizeWidget Function(BuildContext, WidgetRef)? headerBuilder;
+  final Widget Function(BuildContext, WidgetRef)? feedsListBuilder;
+  final Widget Function(BuildContext, WidgetRef)? feedInitiatorButtonBuilder;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
