@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -50,6 +51,12 @@ class PeamanTheme {
         prefixIconColor: PeamanColors.primary,
         suffixIconColor: PeamanColors.primary,
       ),
+      floatingActionButtonTheme:
+          _defaultTheme.floatingActionButtonTheme.copyWith(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
+      ),
     );
   }
 
@@ -87,6 +94,9 @@ class PeamanTheme {
       floatingActionButtonTheme:
           _defaultTheme.floatingActionButtonTheme.copyWith(
         foregroundColor: PeamanColors.white70,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
       ),
     );
   }
