@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanTimelineHeader extends ConsumerStatefulWidget
@@ -11,6 +10,7 @@ class PeamanTimelineHeader extends ConsumerStatefulWidget
     super.key,
     this.titleText,
     this.title,
+    this.backgroundColor,
     this.leading,
     this.leadingWidth,
     this.centerTitle = true,
@@ -23,6 +23,7 @@ class PeamanTimelineHeader extends ConsumerStatefulWidget
 
   final String? titleText;
   final Widget? title;
+  final Color? backgroundColor;
   final double elevation;
   final double height;
   final double? leadingWidth;
@@ -53,6 +54,7 @@ class _PeamanTimelineHeaderState extends ConsumerState<PeamanTimelineHeader> {
             'Peaman',
             style: GoogleFonts.caveat(),
           ),
+      backgroundColor: widget.backgroundColor,
       onPressedTitle: widget.onPressedTitle,
       onPressedLeading: widget.onPressedLeading,
       elevation: 0.5,
