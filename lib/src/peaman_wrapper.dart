@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/shared/views/screens/peaman_splash_screen.dart';
 
 class PeamanWrapper extends StatefulHookConsumerWidget {
-  const PeamanWrapper({super.key});
+  const PeamanWrapper({
+    super.key,
+    this.splashScreen,
+    this.loginScreen,
+    this.onboardingScreen,
+    this.homeScreen,
+  });
+
+  final Widget? splashScreen;
+  final Widget? loginScreen;
+  final Widget? onboardingScreen;
+  final Widget? homeScreen;
 
   static const route = '/';
 
@@ -55,23 +65,23 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
     return ref.watch(providerOfLoggedInUserStream).when(
       data: (user) {
         if (_isLoading || !_isInitialLockOpen()) {
-          return const PeamanSplashScreen();
+          return widget.splashScreen ?? const PeamanSplashScreen();
         }
 
         if (user != null) {
           if (user.isOnboardingCompleted) {
-            return const PeamanTimelineFeedsScreen();
+            return widget.homeScreen ?? const PeamanTimelineFeedsScreen();
           } else {
-            return const PeamanOnboardingScreen();
+            return widget.onboardingScreen ?? const PeamanOnboardingScreen();
           }
         }
-        return const PeamanLoginScreen();
+        return widget.loginScreen ?? const PeamanLoginScreen();
       },
       error: (e, _) {
-        return const PeamanLoginScreen();
+        return widget.loginScreen ?? const PeamanLoginScreen();
       },
       loading: () {
-        return const PeamanSplashScreen();
+        return widget.splashScreen ?? const PeamanSplashScreen();
       },
     );
   }
