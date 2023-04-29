@@ -5,12 +5,14 @@ import 'package:peaman_ui_components/src/features/shared/views/screens/peaman_sp
 class PeamanWrapper extends StatefulHookConsumerWidget {
   const PeamanWrapper({
     super.key,
+    this.falseLoadingDuration,
     this.splashScreen,
     this.loginScreen,
     this.onboardingScreen,
     this.homeScreen,
   });
 
+  final Duration? falseLoadingDuration;
   final Widget? splashScreen;
   final Widget? loginScreen;
   final Widget? onboardingScreen;
@@ -28,11 +30,16 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    Future.delayed(
+      widget.falseLoadingDuration ?? const Duration(milliseconds: 5000),
+      () {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      },
+    );
   }
 
   bool _isInitialLockOpen() {
