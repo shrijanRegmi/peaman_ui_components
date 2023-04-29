@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanTimelineFeedsScreen extends ConsumerStatefulWidget {
-  const PeamanTimelineFeedsScreen({super.key});
+  const PeamanTimelineFeedsScreen({
+    super.key,
+    this.headerBuilder,
+    this.feedsListBuilder,
+    this.feedInitiatorButtonBuilder,
+  });
 
   static const route = '/peaman_timeline_feeds_screen';
+
+  final Function(BuildContext, WidgetRef)? headerBuilder;
+  final Function(BuildContext, WidgetRef)? feedsListBuilder;
+  final Function(BuildContext, WidgetRef)? feedInitiatorButtonBuilder;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -31,13 +40,18 @@ class _PeamanTimelineFeedsScreenState
     });
 
     return Scaffold(
-      appBar: const PeamanTimelineHeader(),
-      body: RefreshIndicator(
-        onRefresh: () async =>
-            ref.invalidate(providerOfPeamanTimelineFeedsFuture),
-        child: const PeamanFeedsList(),
-      ),
-      floatingActionButton: const PeamanFeedInitiatorButton(),
+      appBar: widget.headerBuilder?.call(context, ref) ??
+          const PeamanTimelineHeader(),
+      body: widget.feedsListBuilder?.call(context, ref) ??
+          RefreshIndicator(
+            onRefresh: () async => ref.invalidate(
+              providerOfPeamanTimelineFeedsFuture,
+            ),
+            child: const PeamanFeedsList(),
+          ),
+      floatingActionButton:
+          widget.feedInitiatorButtonBuilder?.call(context, ref) ??
+              const PeamanFeedInitiatorButton(),
     );
   }
 }
