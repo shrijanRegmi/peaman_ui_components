@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>416194645656-3buhtploq9tn9bf3asgt8u4r7uhdv6tg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.416194645656-3buhtploq9tn9bf3asgt8u4r7uhdv6tg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyADhVSgRWq_zWFOqZYtgPKeiUNLdchC5fE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>416194645656</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.peaman.app</string>
+	<key>PROJECT_ID</key>
+	<string>peaman-86089</string>
+	<key>STORAGE_BUCKET</key>
+	<string>peaman-86089.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:416194645656:ios:131e6b0f3640497226caed</string>
+</dict>
+</plist>
