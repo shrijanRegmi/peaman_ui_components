@@ -238,7 +238,17 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
     }
   }
 
-  void _onPressedSave() {}
+  void _onPressedSave() {
+    if (widget.feed.isSaved) {
+      ref.read(providerOfPeamanFeed.notifier).unsaveFeed(
+            feedId: widget.feed.id!,
+          );
+    } else {
+      ref.read(providerOfPeamanFeed.notifier).saveFeed(
+            feedId: widget.feed.id!,
+          );
+    }
+  }
 
   void _onPressedShare() {}
 }

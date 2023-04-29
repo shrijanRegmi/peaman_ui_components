@@ -10,43 +10,13 @@ final providerOfPeamanFeed =
 
 final providerOfPeamanTimelineFeedsFuture =
     FutureProvider<PeamanEither<List<PeamanFeed>, PeamanError>>((ref) async {
-  final uid = ref.read(
-    providerOfLoggedInUser.select((value) => value.uid),
-  );
   final feedRepository = ref.watch(providerOfPeamanFeedRepository);
   return feedRepository.getFeeds().then(
         (value) => value.when(
           (success) async {
-            final futures = <Future<PeamanFeed?>>[];
-
-            for (final feed in success) {
-              final future = feedRepository
-                  .getSingleReaction(
-                    feedId: feed.id!,
-                    reactionId: '${uid}_${feed.id}',
-                  )
-                  .then(
-                    (value) => value.when(
-                      (success) => feed.copyWith(
-                        extraData: {
-                          ...feed.extraData,
-                          'isReacted'.toJsonKey:
-                              success.id != null && !success.unreacted,
-                        },
-                      ),
-                      (failure) => feed,
-                    ),
-                  )
-                  .catchError((_) => feed);
-
-              futures.add(future);
-            }
-
-            final result = await Future.wait(futures);
-            final updatedFeeds = result
-                .where((element) => element != null)
-                .map((e) => e!)
-                .toList();
+            final updatedFeeds = await ref
+                .read(providerOfPeamanFeed.notifier)
+                .addStatusToFeeds(feeds: success);
             ref
                 .read(providerOfPeamanFeed.notifier)
                 .setTimelineFeeds(updatedFeeds);
@@ -249,6 +219,12 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     state = state.copyWith(
       saveFeedState: const SaveFeedState.loading(),
     );
+    updateToFeeds(
+      feedId: feedId,
+      feedData: {
+        'isSaved': true,
+      },
+    );
     final result = await _feedRepository.saveFeed(
       feedId: feedId,
       uid: _appUser.uid!,
@@ -261,11 +237,23 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         state = state.copyWith(
           saveFeedState: SaveFeedState.success(success),
         );
+        updateToFeeds(
+          feedId: feedId,
+          feedData: {
+            'isSaved': true,
+          },
+        );
       },
       (failure) {
         _logProvider.logError(failure.message);
         state = state.copyWith(
           saveFeedState: SaveFeedState.error(failure),
+        );
+        updateToFeeds(
+          feedId: feedId,
+          feedData: {
+            'isSaved': false,
+          },
         );
       },
     );
@@ -277,6 +265,12 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
   }) async {
     state = state.copyWith(
       unsaveFeedState: const UnsaveFeedState.loading(),
+    );
+    updateToFeeds(
+      feedId: feedId,
+      feedData: {
+        'isSaved': false,
+      },
     );
     final result = await _feedRepository.unsaveFeed(
       feedId: feedId,
@@ -290,11 +284,23 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         state = state.copyWith(
           unsaveFeedState: UnsaveFeedState.success(success),
         );
+        updateToFeeds(
+          feedId: feedId,
+          feedData: {
+            'isSaved': false,
+          },
+        );
       },
       (failure) {
         _logProvider.logError(failure.message);
         state = state.copyWith(
           unsaveFeedState: UnsaveFeedState.error(failure),
+        );
+        updateToFeeds(
+          feedId: feedId,
+          feedData: {
+            'isSaved': true,
+          },
         );
       },
     );
@@ -541,6 +547,67 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     );
   }
 
+  Future<List<PeamanFeed>> addStatusToFeeds({
+    required final List<PeamanFeed> feeds,
+  }) async {
+    final futures = <Future<PeamanFeed?>>[];
+
+    for (final feed in feeds) {
+      var newFeed = feed;
+
+      final reactionFuture = _feedRepository.getSingleReaction(
+        feedId: feed.id!,
+        reactionId: '${_appUser.uid}_${feed.id}',
+      );
+      final saveFuture = _feedRepository.getSingleFeedSaver(
+        feedId: feed.id!,
+        uid: _appUser.uid!,
+      );
+
+      final future = Future.wait<dynamic>([
+        reactionFuture,
+        saveFuture,
+      ]).then((value) {
+        if (value.first is PeamanEither<PeamanReaction, PeamanError>) {
+          final reaction =
+              value.first as PeamanEither<PeamanReaction, PeamanError>;
+          newFeed = reaction.when(
+            (success) => newFeed.copyWith(
+              extraData: {
+                ...newFeed.extraData,
+                'isReacted'.toJsonKey: success.id != null && !success.unreacted,
+              },
+            ),
+            (failure) => newFeed,
+          );
+        }
+        if (value.length >= 2 &&
+            value[1] is PeamanEither<PeamanSubUser, PeamanError>) {
+          final feedSaver =
+              value[1] as PeamanEither<PeamanSubUser, PeamanError>;
+          newFeed = feedSaver.when(
+            (success) => newFeed.copyWith(
+              extraData: {
+                ...newFeed.extraData,
+                'isSaved'.toJsonKey: success.uid == _appUser.uid,
+              },
+            ),
+            (failure) => newFeed,
+          );
+        }
+
+        return newFeed;
+      });
+
+      futures.add(future);
+    }
+
+    final result = await Future.wait(futures);
+    final updatedFeeds =
+        result.where((element) => element != null).map((e) => e!).toList();
+    return updatedFeeds;
+  }
+
   void setTimelineFeeds(final List<PeamanFeed> newVal) {
     state = state.copyWith(
       timelineFeeds: newVal,
@@ -585,13 +652,15 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
       (element) => element.id == feedId,
     );
     if (index != -1) {
-      final feed = modifiableFeeds[index];
-      final extraDatas = {
-        ...feed.toJson(),
-        ...feedDataToJsonKey,
-      };
+      var feed = modifiableFeeds[index];
+      var newFeed = feed.copyWith(
+        extraData: {
+          ...feed.extraData,
+          ...feedDataToJsonKey,
+        },
+      );
 
-      var newFeed = PeamanFeed.fromJson(extraDatas);
+      // update reactions countc
       if (feed.isReacted != newFeed.isReacted) {
         if (!feed.isReacted && newFeed.isReacted) {
           newFeed = newFeed.copyWith(
@@ -600,6 +669,19 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         } else if (feed.isReacted && !newFeed.isReacted) {
           newFeed = newFeed.copyWith(
             reactionsCount: max(newFeed.reactionsCount - 1, 0),
+          );
+        }
+      }
+
+      // update saves count
+      if (feed.isSaved != newFeed.isSaved) {
+        if (!feed.isSaved && newFeed.isSaved) {
+          newFeed = newFeed.copyWith(
+            savesCount: newFeed.savesCount + 1,
+          );
+        } else if (feed.isSaved && !newFeed.isSaved) {
+          newFeed = newFeed.copyWith(
+            savesCount: max(newFeed.savesCount - 1, 0),
           );
         }
       }
