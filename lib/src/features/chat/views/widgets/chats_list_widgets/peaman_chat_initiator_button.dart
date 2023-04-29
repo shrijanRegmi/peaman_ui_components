@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatInitiatorButton extends ConsumerWidget {
@@ -12,9 +10,7 @@ class PeamanChatInitiatorButton extends ConsumerWidget {
       onPressed: () => showPeamanChatInitiatorDialog(
         context: context,
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.r),
-      ),
+      shape: context.theme.floatingActionButtonTheme.shape,
       child: const Icon(Icons.add_rounded),
     );
   }
