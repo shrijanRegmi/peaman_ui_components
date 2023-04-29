@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "416194645656",
+    "project_id": "peaman-86089",
+    "storage_bucket": "peaman-86089.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416194645656:android:43b3bf0b3cd6571026caed",
+        "android_client_info": {
+          "package_name": "com.peaman.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416194645656-jb1phkr1def9grkmvqc6bk7ho4lb5n52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2-m2RyoscRC-sCCWc7wBpTihRzm8JtWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416194645656-jb1phkr1def9grkmvqc6bk7ho4lb5n52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
