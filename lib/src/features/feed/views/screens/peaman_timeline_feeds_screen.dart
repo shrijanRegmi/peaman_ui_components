@@ -42,7 +42,7 @@ class _PeamanTimelineFeedsScreenState
 
     return Scaffold(
       appBar: widget.headerBuilder?.call(context, ref) ??
-          const PeamanTimelineHeader(),
+          const PeamanTimelineFeedsScreenHeader(),
       body: widget.feedsListBuilder?.call(context, ref) ??
           RefreshIndicator(
             onRefresh: () async => ref.invalidate(

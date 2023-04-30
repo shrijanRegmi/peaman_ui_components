@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanTimelineHeader extends ConsumerStatefulWidget
+class PeamanTimelineFeedsScreenHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
-  const PeamanTimelineHeader({
+  const PeamanTimelineFeedsScreenHeader({
     super.key,
     this.titleText,
     this.title,
@@ -41,7 +41,8 @@ class PeamanTimelineHeader extends ConsumerStatefulWidget
   Size get preferredSize => Size.fromHeight(height.h);
 }
 
-class _PeamanTimelineHeaderState extends ConsumerState<PeamanTimelineHeader> {
+class _PeamanTimelineHeaderState
+    extends ConsumerState<PeamanTimelineFeedsScreenHeader> {
   @override
   Widget build(BuildContext context) {
     final appUserPhoto = ref.watch(
