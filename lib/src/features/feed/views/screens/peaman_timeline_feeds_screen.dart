@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanTimelineFeedsScreen extends ConsumerStatefulWidget {
@@ -47,7 +48,14 @@ class _PeamanTimelineFeedsScreenState
             onRefresh: () async => ref.invalidate(
               providerOfPeamanTimelineFeedsFuture,
             ),
-            child: const PeamanFeedsList(),
+            child: PeamanFeedsList(
+              lastItemPadding: EdgeInsets.only(
+                top: 15.h,
+                bottom: 100.h,
+                left: 20.w,
+                right: 20.w,
+              ),
+            ),
           ),
       floatingActionButton:
           widget.feedInitiatorButtonBuilder?.call(context, ref) ??
