@@ -721,7 +721,11 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     );
     if (index != -1) {
       var feed = modifiableFeeds[index];
-      var newFeed = feed.copyWith(
+      final combinedData = {
+        ...feed.toJson(),
+        ...feedDataToJsonKey,
+      };
+      var newFeed = PeamanFeed.fromJson(combinedData).copyWith(
         extraData: {
           ...feed.extraData,
           ...feedDataToJsonKey,
