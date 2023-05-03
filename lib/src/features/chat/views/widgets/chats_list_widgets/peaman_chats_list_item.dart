@@ -302,11 +302,18 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                         size: 45.0,
                         onPressed: () {},
                       )
-                    : PeamanAvatarBuilder.multiNetwork(
-                        avatars,
-                        size: 45.0,
-                        onPressed: () {},
-                      )),
+                    : PeamanAvatarBuilder.multiNetwork(avatars, size: 45.0,
+                        onPressed: () {
+                        if (_chat.type == PeamanChatType.group) return;
+                        if (users.isEmpty) return;
+
+                        context.pushNamed(
+                          PeamanProfileScreen.route,
+                          arguments: PeamanProfileScreenArgs(
+                            userId: users.first.uid!,
+                          ),
+                        );
+                      })),
             SizedBox(
               width: avatars.length >= 3 ? 10.0 : 5.0,
             ),

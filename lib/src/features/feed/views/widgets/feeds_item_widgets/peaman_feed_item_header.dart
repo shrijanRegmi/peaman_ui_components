@@ -90,7 +90,15 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
           child: Row(
             children: [
               widget.avatarBuilder?.call(context, ref, user) ??
-                  PeamanAvatarBuilder.network(user.photo).pR(10),
+                  PeamanAvatarBuilder.network(
+                    user.photo,
+                    onPressed: () => context.pushNamed(
+                      PeamanProfileScreen.route,
+                      arguments: PeamanProfileScreenArgs(
+                        userId: user.uid!,
+                      ),
+                    ),
+                  ).pR(10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +113,12 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
+                                onPressed: () => context.pushNamed(
+                                  PeamanProfileScreen.route,
+                                  arguments: PeamanProfileScreenArgs(
+                                    userId: user.uid!,
+                                  ),
+                                ),
                               ),
                         ),
                         Flexible(
@@ -116,6 +130,12 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     color: PeamanColors.grey,
+                                  ),
+                                  onPressed: () => context.pushNamed(
+                                    PeamanProfileScreen.route,
+                                    arguments: PeamanProfileScreenArgs(
+                                      userId: user.uid!,
+                                    ),
                                   ),
                                 ),
                           ),

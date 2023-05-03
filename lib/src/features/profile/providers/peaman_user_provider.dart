@@ -5,6 +5,12 @@ final providerOfPeamanUser =
   return PeamanUserProvider(ref);
 });
 
+final providerOfPeamanUserByIdFuture =
+    FutureProvider.family<PeamanEither<PeamanUser, PeamanError>, String>(
+        (ref, userId) {
+  return ref.watch(providerOfPeamanUserRepository).getSingleUser(uid: userId);
+});
+
 final providerOfPeamanUsersBySearchKeys =
     FutureProvider.family<PeamanEither<List<PeamanUser>, PeamanError>, String>(
   (ref, searchKey) {

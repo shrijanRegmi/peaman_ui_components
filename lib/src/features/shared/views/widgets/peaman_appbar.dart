@@ -50,14 +50,17 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
           ? leading!.onPressed(
               () => onPressedLeading?.call(() {}),
             )
-          : IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-              ),
-              iconSize: 20.0,
-              onPressed: () => onPressedLeading.isNull
-                  ? context.pop()
-                  : onPressedLeading?.call(() => context.pop()),
+          : Center(
+              child: PeamanRoundIconButton(
+                padding: EdgeInsets.all(7.w),
+                icon: Icon(
+                  Icons.arrow_back_rounded,
+                  size: 16.w,
+                ),
+                onPressed: () => onPressedLeading.isNull
+                    ? context.pop()
+                    : onPressedLeading?.call(() => context.pop()),
+              ).pR(10.0),
             ),
       centerTitle: centerTitle,
       actions: actions,

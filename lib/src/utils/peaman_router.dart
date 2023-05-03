@@ -100,6 +100,19 @@ class PeamanRouter {
 
       // <---------------- FEED END ---------------->
 
+      // <---------------- PROFILE START ---------------->
+
+      case PeamanProfileScreen.route:
+        final arguments = settings.arguments as PeamanProfileScreenArgs;
+        return buildRoute(
+          settings,
+          PeamanProfileScreen(
+            userId: arguments.userId,
+          ),
+        );
+
+      // <---------------- PROFILE END ---------------->
+
       default:
         return buildRoute(
           settings,

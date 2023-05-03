@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -12,6 +13,7 @@ class PeamanButton extends StatelessWidget {
   final String? value;
   final TextStyle? valueStyle;
   final Color? color;
+  final Color? splashColor;
   final BorderSide? borderSide;
 
   final Widget? icon;
@@ -28,6 +30,7 @@ class PeamanButton extends StatelessWidget {
     this.value,
     this.valueStyle,
     this.color,
+    this.splashColor,
     this.icon,
     this.minWidth,
     this.borderRadius = 5.0,
@@ -44,6 +47,7 @@ class PeamanButton extends StatelessWidget {
     this.value,
     this.valueStyle,
     this.borderSide,
+    this.splashColor,
     this.icon,
     this.minWidth,
     this.borderRadius = 5.0,
@@ -75,13 +79,14 @@ class PeamanButton extends StatelessWidget {
     return MaterialButton(
       onPressed: onPressed,
       color: thisColor,
-      minWidth: minWidth,
+      minWidth: minWidth?.w,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius.r),
       ),
       elevation: elevation,
       padding: padding,
       disabledColor: theme.disabledColor,
+      splashColor: splashColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -116,14 +121,17 @@ class PeamanButton extends StatelessWidget {
     final theme = context.theme;
     final thisBorderSide = borderSide ??
         BorderSide(
-          color: theme.colorScheme.primary,
+          color: context.isDarkMode
+              ? PeamanColors.white70
+              : theme.colorScheme.primary,
+          width: context.isDarkMode ? 0.5 : 1.0,
         );
 
     return MaterialButton(
       onPressed: onPressed,
-      minWidth: minWidth,
+      minWidth: minWidth?.w,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius.r),
         side: thisBorderSide,
       ),
       elevation: elevation,
@@ -131,7 +139,7 @@ class PeamanButton extends StatelessWidget {
       highlightColor: Colors.transparent,
       focusColor: thisBorderSide.color.withOpacity(0.2),
       hoverColor: thisBorderSide.color.withOpacity(0.2),
-      splashColor: thisBorderSide.color.withOpacity(0.2),
+      splashColor: splashColor ?? thisBorderSide.color.withOpacity(0.2),
       disabledColor: theme.disabledColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

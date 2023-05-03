@@ -20,6 +20,12 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
     );
     switch (option.id) {
       case 0:
+        context.pushNamed(
+          PeamanProfileScreen.route,
+          arguments: PeamanProfileScreenArgs(userId: user.uid!),
+        );
+        break;
+      case 1:
         context
           ..pop()
           ..pushNamed(
@@ -146,9 +152,22 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
           !(chatActiveUserIdsWrapper?.values.contains(user.uid) ?? false);
 
       return [
+        PeamanSelectableOption(
+          id: 0,
+          leading: PeamanRoundIconButton(
+            icon: Icon(
+              Icons.person_rounded,
+              color: PeamanColors.white,
+              size: 12.w,
+            ),
+            padding: EdgeInsets.all(7.w),
+            bgColor: context.theme.colorScheme.primary,
+          ),
+          title: 'View profile',
+        ),
         if (isGroupChat)
           PeamanSelectableOption(
-            id: 0,
+            id: 1,
             leading: PeamanRoundIconButton(
               icon: Icon(
                 Icons.send,
@@ -160,19 +179,6 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
             ),
             title: 'Send message',
           ),
-        // PeamanSelectableOption(
-        //   id: 1,
-        //   leading: PeamanRoundIconButton(
-        //     icon: Icon(
-        //       Icons.person_rounded,
-        //       color: PeamanColors.white,
-        //       size: 12.w,
-        //     ),
-        //     padding: EdgeInsets.all(7.w),
-        //     bgColor: context.theme.colorScheme.primary,
-        //   ),
-        //   title: 'View profile',
-        // ),
         if (isGroupChat && isChatAdmin && !isRemoved)
           PeamanSelectableOption(
             id: 2,

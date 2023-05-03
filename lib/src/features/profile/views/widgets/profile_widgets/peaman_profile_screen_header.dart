@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanTimelineFeedsScreenHeader extends ConsumerStatefulWidget
+class PeamanProfileScreenHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
-  const PeamanTimelineFeedsScreenHeader({
+  const PeamanProfileScreenHeader({
     super.key,
+    required this.userId,
     this.titleText,
     this.title,
     this.backgroundColor,
@@ -21,6 +20,7 @@ class PeamanTimelineFeedsScreenHeader extends ConsumerStatefulWidget
     this.actions = const [],
   });
 
+  final String userId;
   final String? titleText;
   final Widget? title;
   final Color? backgroundColor;
@@ -42,40 +42,51 @@ class PeamanTimelineFeedsScreenHeader extends ConsumerStatefulWidget
 }
 
 class _PeamanTimelineHeaderState
-    extends ConsumerState<PeamanTimelineFeedsScreenHeader> {
+    extends ConsumerState<PeamanProfileScreenHeader> {
   @override
   Widget build(BuildContext context) {
-    final uid = ref.watch(
-      providerOfLoggedInUser.select((value) => value.uid),
+    final userFuture = ref.watch(
+      providerOfPeamanUserByIdFuture(widget.userId),
     );
-    final appUserPhoto = ref.watch(
-      providerOfLoggedInUser.select((value) => value.photo),
+    final userName = userFuture.maybeWhen(
+      data: (data) => data.when(
+        (success) => '@${success.userName}',
+        (failure) => '',
+      ),
+      orElse: () => '',
     );
+
     return PeamanAppbar(
       titleText: widget.titleText,
       title: widget.title ??
-          PeamanText.heading4(
-            'Peaman',
-            style: GoogleFonts.caveat(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!userFuture.isLoading)
+                PeamanText.subtitle2(
+                  userName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              if (!userFuture.isLoading)
+                SizedBox(
+                  width: 4.w,
+                ),
+              if (!userFuture.isLoading)
+                Icon(
+                  Icons.verified_rounded,
+                  color: context.theme.colorScheme.secondary,
+                  size: 16.w,
+                )
+            ],
           ),
       backgroundColor: widget.backgroundColor,
       onPressedTitle: widget.onPressedTitle,
       onPressedLeading: widget.onPressedLeading,
-      elevation: 0.5,
+      elevation: 0,
       leadingWidth: widget.leadingWidth,
-      leading: widget.leading ??
-          Center(
-            child: PeamanAvatarBuilder.network(
-              appUserPhoto,
-              size: 33.0,
-              onPressed: () => context.pushNamed(
-                PeamanProfileScreen.route,
-                arguments: PeamanProfileScreenArgs(
-                  userId: uid!,
-                ),
-              ),
-            ),
-          ),
+      leading: widget.leading,
       centerTitle: widget.centerTitle,
       actions: widget.actions.isNotEmpty
           ? widget.actions
@@ -83,16 +94,10 @@ class _PeamanTimelineHeaderState
               Center(
                 child: PeamanRoundIconButton(
                   padding: EdgeInsets.all(7.w),
-                  onPressed: () => context.pushNamed(
-                    PeamanChatsListScreen.route,
-                  ),
-                  icon: SvgPicture.asset(
-                    'assets/svgs/outlined_send_message.svg',
-                    package: 'peaman_ui_components',
-                    color: context.isDarkMode
-                        ? PeamanColors.white70
-                        : PeamanColors.black,
-                    width: 16.w,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.more_horiz_rounded,
+                    size: 16.w,
                   ),
                 ).pR(10.0),
               ),

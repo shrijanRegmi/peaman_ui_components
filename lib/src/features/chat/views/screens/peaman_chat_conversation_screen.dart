@@ -161,6 +161,17 @@ class _PeamanChatConversationScreenState
             loading: () => 'Loading...',
             orElse: () => 'Unknown',
           ),
+          onPressedTitle: (def) {
+            if (_chatType == PeamanChatType.oneToOne &&
+                _chatUserIdsWrapper.values.isNotEmpty) {
+              context.pushNamed(
+                PeamanProfileScreen.route,
+                arguments: PeamanProfileScreenArgs(
+                  userId: _chatUserIdsWrapper.values.first,
+                ),
+              );
+            }
+          },
           onPressedLeading: (def) {
             ref.read(providerOfPeamanChat.notifier)
               ..setTypingStatus(chatId: _chatId, typedValue: '')
