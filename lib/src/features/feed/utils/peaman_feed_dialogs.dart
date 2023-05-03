@@ -45,7 +45,7 @@ Future<T?> showPeamanFeedMenuBottomsheet<T>({
               ),
               title: 'Edit post',
             ),
-          if (feed.ownerId == uid || isAdmin)
+          if (isAdmin)
             PeamanSelectableOption(
               id: 2,
               leading: PeamanRoundIconButton(
@@ -105,8 +105,9 @@ Future<T?> showPeamanFeedMenuBottomsheet<T>({
               description:
                   "This post won't be visible to any user and they won't be able to interact with it.",
               onConfirm: (context, ref) {
-                ref.read(providerOfPeamanFeed.notifier).hideFeed(
+                ref.read(providerOfPeamanFeed.notifier).setFeedVisibility(
                       feedId: feed.id!,
+                      visibility: false,
                       successLogMessage: 'The post has been hidden',
                     );
               },

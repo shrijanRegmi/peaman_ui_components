@@ -10,12 +10,26 @@ final providerOfPeamanFeed =
 final providerOfPeamanTimelineFeedsFuture =
     FutureProvider<PeamanEither<List<PeamanFeed>, PeamanError>>((ref) async {
   final feedRepository = ref.watch(providerOfPeamanFeedRepository);
+  final hiddenFeedsRef = ref.read(providerOfPeamanUserHiddenFeeds);
   return feedRepository.getFeeds().then(
         (value) => value.when(
           (success) async {
+            final hiddenFeedIds = hiddenFeedsRef.maybeWhen(
+              data: (hiddenFeeds) => hiddenFeeds
+                  .where((element) => element.id != null)
+                  .map((e) => e.id!)
+                  .toList(),
+              orElse: () => <String>[],
+            );
+
+            final feeds = success
+                .where((element) => !hiddenFeedIds.contains(element.id))
+                .toList();
+
             final updatedFeeds = await ref
                 .read(providerOfPeamanFeed.notifier)
-                .addStatusToFeeds(feeds: success);
+                .addStatusToFeeds(feeds: feeds);
+
             ref
                 .read(providerOfPeamanFeed.notifier)
                 .setTimelineFeeds(updatedFeeds);
@@ -98,6 +112,15 @@ final providerOfPeamanSingleReactionByIdFuture = FutureProvider.family<
         feedId: args.feedId,
         reactionId: args.reactionId,
       );
+});
+
+final providerOfPeamanUserHiddenFeeds =
+    StreamProvider<List<PeamanSubFeed>>((ref) {
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanFeedRepository)
+      .getUserHiddenFeedsStream(uid: authUser!.uid);
 });
 
 class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
@@ -218,14 +241,9 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     state = state.copyWith(
       hideFeedState: const HideFeedState.loading(),
     );
-    final result = await _feedRepository.updateFeed(
+    final result = await _feedRepository.hideFeed(
       feedId: feedId,
-      fields: [
-        const PeamanField(
-          key: 'visibility',
-          value: false,
-        ),
-      ],
+      uid: _appUser.uid!,
     );
     result.when(
       (success) {
@@ -253,14 +271,9 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     state = state.copyWith(
       showFeedState: const ShowFeedState.loading(),
     );
-    final result = await _feedRepository.updateFeed(
+    final result = await _feedRepository.showFeed(
       feedId: feedId,
-      fields: [
-        const PeamanField(
-          key: 'visibility',
-          value: true,
-        ),
-      ],
+      uid: _appUser.uid!,
     );
     result.when(
       (success) {
@@ -369,6 +382,44 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
           feedData: {
             'isSaved': true,
           },
+        );
+      },
+    );
+  }
+
+  Future<void> setFeedVisibility({
+    required final String feedId,
+    required final bool visibility,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      setFeedVisibilityState: const SetFeedVisibilityState.loading(),
+    );
+    final result = await _feedRepository.updateFeed(
+      feedId: feedId,
+      fields: [
+        PeamanField(
+          key: 'visibility',
+          value: visibility,
+        ),
+      ],
+    );
+    result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        state = state.copyWith(
+          setFeedVisibilityState: SetFeedVisibilityState.success(success),
+        );
+        if (!visibility) {
+          removeFromFeeds(feedId);
+        }
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        state = state.copyWith(
+          setFeedVisibilityState: SetFeedVisibilityState.error(failure),
         );
       },
     );

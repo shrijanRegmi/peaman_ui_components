@@ -25,6 +25,8 @@ mixin _$PeamanFeedProviderState {
   SaveFeedState get saveFeedState => throw _privateConstructorUsedError;
   UnsaveFeedState get unsaveFeedState => throw _privateConstructorUsedError;
   ShareFeedState get shareFeedState => throw _privateConstructorUsedError;
+  SetFeedVisibilityState get setFeedVisibilityState =>
+      throw _privateConstructorUsedError;
   CreateReactionState get createReactionState =>
       throw _privateConstructorUsedError;
   DeleteReactionState get deleteReactionState =>
@@ -57,6 +59,7 @@ abstract class $PeamanFeedProviderStateCopyWith<$Res> {
       SaveFeedState saveFeedState,
       UnsaveFeedState unsaveFeedState,
       ShareFeedState shareFeedState,
+      SetFeedVisibilityState setFeedVisibilityState,
       CreateReactionState createReactionState,
       DeleteReactionState deleteReactionState,
       CreateCommentState createCommentState,
@@ -71,6 +74,7 @@ abstract class $PeamanFeedProviderStateCopyWith<$Res> {
   $SaveFeedStateCopyWith<$Res> get saveFeedState;
   $UnsaveFeedStateCopyWith<$Res> get unsaveFeedState;
   $ShareFeedStateCopyWith<$Res> get shareFeedState;
+  $SetFeedVisibilityStateCopyWith<$Res> get setFeedVisibilityState;
   $CreateReactionStateCopyWith<$Res> get createReactionState;
   $DeleteReactionStateCopyWith<$Res> get deleteReactionState;
   $CreateCommentStateCopyWith<$Res> get createCommentState;
@@ -101,6 +105,7 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
     Object? saveFeedState = null,
     Object? unsaveFeedState = null,
     Object? shareFeedState = null,
+    Object? setFeedVisibilityState = null,
     Object? createReactionState = null,
     Object? deleteReactionState = null,
     Object? createCommentState = null,
@@ -144,6 +149,10 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
           ? _value.shareFeedState
           : shareFeedState // ignore: cast_nullable_to_non_nullable
               as ShareFeedState,
+      setFeedVisibilityState: null == setFeedVisibilityState
+          ? _value.setFeedVisibilityState
+          : setFeedVisibilityState // ignore: cast_nullable_to_non_nullable
+              as SetFeedVisibilityState,
       createReactionState: null == createReactionState
           ? _value.createReactionState
           : createReactionState // ignore: cast_nullable_to_non_nullable
@@ -233,6 +242,15 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $SetFeedVisibilityStateCopyWith<$Res> get setFeedVisibilityState {
+    return $SetFeedVisibilityStateCopyWith<$Res>(_value.setFeedVisibilityState,
+        (value) {
+      return _then(_value.copyWith(setFeedVisibilityState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $CreateReactionStateCopyWith<$Res> get createReactionState {
     return $CreateReactionStateCopyWith<$Res>(_value.createReactionState,
         (value) {
@@ -295,6 +313,7 @@ abstract class _$$_PeamanFeedProviderStateCopyWith<$Res>
       SaveFeedState saveFeedState,
       UnsaveFeedState unsaveFeedState,
       ShareFeedState shareFeedState,
+      SetFeedVisibilityState setFeedVisibilityState,
       CreateReactionState createReactionState,
       DeleteReactionState deleteReactionState,
       CreateCommentState createCommentState,
@@ -317,6 +336,8 @@ abstract class _$$_PeamanFeedProviderStateCopyWith<$Res>
   $UnsaveFeedStateCopyWith<$Res> get unsaveFeedState;
   @override
   $ShareFeedStateCopyWith<$Res> get shareFeedState;
+  @override
+  $SetFeedVisibilityStateCopyWith<$Res> get setFeedVisibilityState;
   @override
   $CreateReactionStateCopyWith<$Res> get createReactionState;
   @override
@@ -350,6 +371,7 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
     Object? saveFeedState = null,
     Object? unsaveFeedState = null,
     Object? shareFeedState = null,
+    Object? setFeedVisibilityState = null,
     Object? createReactionState = null,
     Object? deleteReactionState = null,
     Object? createCommentState = null,
@@ -393,6 +415,10 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
           ? _value.shareFeedState
           : shareFeedState // ignore: cast_nullable_to_non_nullable
               as ShareFeedState,
+      setFeedVisibilityState: null == setFeedVisibilityState
+          ? _value.setFeedVisibilityState
+          : setFeedVisibilityState // ignore: cast_nullable_to_non_nullable
+              as SetFeedVisibilityState,
       createReactionState: null == createReactionState
           ? _value.createReactionState
           : createReactionState // ignore: cast_nullable_to_non_nullable
@@ -430,6 +456,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
       this.saveFeedState = const SaveFeedState.initial(),
       this.unsaveFeedState = const UnsaveFeedState.initial(),
       this.shareFeedState = const ShareFeedState.initial(),
+      this.setFeedVisibilityState = const SetFeedVisibilityState.initial(),
       this.createReactionState = const CreateReactionState.initial(),
       this.deleteReactionState = const DeleteReactionState.initial(),
       this.createCommentState = const CreateCommentState.initial(),
@@ -472,6 +499,9 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
   final ShareFeedState shareFeedState;
   @override
   @JsonKey()
+  final SetFeedVisibilityState setFeedVisibilityState;
+  @override
+  @JsonKey()
   final CreateReactionState createReactionState;
   @override
   @JsonKey()
@@ -488,7 +518,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
 
   @override
   String toString() {
-    return 'PeamanFeedProviderState(timelineFeeds: $timelineFeeds, createFeedState: $createFeedState, updateFeedState: $updateFeedState, deleteFeedState: $deleteFeedState, hideFeedState: $hideFeedState, showFeedState: $showFeedState, saveFeedState: $saveFeedState, unsaveFeedState: $unsaveFeedState, shareFeedState: $shareFeedState, createReactionState: $createReactionState, deleteReactionState: $deleteReactionState, createCommentState: $createCommentState, updateCommentState: $updateCommentState, deleteCommentState: $deleteCommentState)';
+    return 'PeamanFeedProviderState(timelineFeeds: $timelineFeeds, createFeedState: $createFeedState, updateFeedState: $updateFeedState, deleteFeedState: $deleteFeedState, hideFeedState: $hideFeedState, showFeedState: $showFeedState, saveFeedState: $saveFeedState, unsaveFeedState: $unsaveFeedState, shareFeedState: $shareFeedState, setFeedVisibilityState: $setFeedVisibilityState, createReactionState: $createReactionState, deleteReactionState: $deleteReactionState, createCommentState: $createCommentState, updateCommentState: $updateCommentState, deleteCommentState: $deleteCommentState)';
   }
 
   @override
@@ -514,6 +544,8 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
                 other.unsaveFeedState == unsaveFeedState) &&
             (identical(other.shareFeedState, shareFeedState) ||
                 other.shareFeedState == shareFeedState) &&
+            (identical(other.setFeedVisibilityState, setFeedVisibilityState) ||
+                other.setFeedVisibilityState == setFeedVisibilityState) &&
             (identical(other.createReactionState, createReactionState) ||
                 other.createReactionState == createReactionState) &&
             (identical(other.deleteReactionState, deleteReactionState) ||
@@ -538,6 +570,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
       saveFeedState,
       unsaveFeedState,
       shareFeedState,
+      setFeedVisibilityState,
       createReactionState,
       deleteReactionState,
       createCommentState,
@@ -564,6 +597,7 @@ abstract class _PeamanFeedProviderState implements PeamanFeedProviderState {
           final SaveFeedState saveFeedState,
           final UnsaveFeedState unsaveFeedState,
           final ShareFeedState shareFeedState,
+          final SetFeedVisibilityState setFeedVisibilityState,
           final CreateReactionState createReactionState,
           final DeleteReactionState deleteReactionState,
           final CreateCommentState createCommentState,
@@ -589,6 +623,8 @@ abstract class _PeamanFeedProviderState implements PeamanFeedProviderState {
   UnsaveFeedState get unsaveFeedState;
   @override
   ShareFeedState get shareFeedState;
+  @override
+  SetFeedVisibilityState get setFeedVisibilityState;
   @override
   CreateReactionState get createReactionState;
   @override
@@ -5453,6 +5489,635 @@ abstract class _ShareFeedStateFailure implements ShareFeedState {
   @JsonKey(ignore: true)
   _$$_ShareFeedStateFailureCopyWith<_$_ShareFeedStateFailure> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SetFeedVisibilityState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetFeedVisibilityStateInitial value) initial,
+    required TResult Function(_SetFeedVisibilityStateLoading value) loading,
+    required TResult Function(_SetFeedVisibilityStateSuccess value) success,
+    required TResult Function(_SetFeedVisibilityStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult? Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult? Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult? Function(_SetFeedVisibilityStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult Function(_SetFeedVisibilityStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SetFeedVisibilityStateCopyWith<$Res> {
+  factory $SetFeedVisibilityStateCopyWith(SetFeedVisibilityState value,
+          $Res Function(SetFeedVisibilityState) then) =
+      _$SetFeedVisibilityStateCopyWithImpl<$Res, SetFeedVisibilityState>;
+}
+
+/// @nodoc
+class _$SetFeedVisibilityStateCopyWithImpl<$Res,
+        $Val extends SetFeedVisibilityState>
+    implements $SetFeedVisibilityStateCopyWith<$Res> {
+  _$SetFeedVisibilityStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_SetFeedVisibilityStateInitialCopyWith<$Res> {
+  factory _$$_SetFeedVisibilityStateInitialCopyWith(
+          _$_SetFeedVisibilityStateInitial value,
+          $Res Function(_$_SetFeedVisibilityStateInitial) then) =
+      __$$_SetFeedVisibilityStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetFeedVisibilityStateInitialCopyWithImpl<$Res>
+    extends _$SetFeedVisibilityStateCopyWithImpl<$Res,
+        _$_SetFeedVisibilityStateInitial>
+    implements _$$_SetFeedVisibilityStateInitialCopyWith<$Res> {
+  __$$_SetFeedVisibilityStateInitialCopyWithImpl(
+      _$_SetFeedVisibilityStateInitial _value,
+      $Res Function(_$_SetFeedVisibilityStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetFeedVisibilityStateInitial
+    implements _SetFeedVisibilityStateInitial {
+  const _$_SetFeedVisibilityStateInitial();
+
+  @override
+  String toString() {
+    return 'SetFeedVisibilityState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetFeedVisibilityStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetFeedVisibilityStateInitial value) initial,
+    required TResult Function(_SetFeedVisibilityStateLoading value) loading,
+    required TResult Function(_SetFeedVisibilityStateSuccess value) success,
+    required TResult Function(_SetFeedVisibilityStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult? Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult? Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult? Function(_SetFeedVisibilityStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult Function(_SetFeedVisibilityStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetFeedVisibilityStateInitial
+    implements SetFeedVisibilityState {
+  const factory _SetFeedVisibilityStateInitial() =
+      _$_SetFeedVisibilityStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_SetFeedVisibilityStateLoadingCopyWith<$Res> {
+  factory _$$_SetFeedVisibilityStateLoadingCopyWith(
+          _$_SetFeedVisibilityStateLoading value,
+          $Res Function(_$_SetFeedVisibilityStateLoading) then) =
+      __$$_SetFeedVisibilityStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SetFeedVisibilityStateLoadingCopyWithImpl<$Res>
+    extends _$SetFeedVisibilityStateCopyWithImpl<$Res,
+        _$_SetFeedVisibilityStateLoading>
+    implements _$$_SetFeedVisibilityStateLoadingCopyWith<$Res> {
+  __$$_SetFeedVisibilityStateLoadingCopyWithImpl(
+      _$_SetFeedVisibilityStateLoading _value,
+      $Res Function(_$_SetFeedVisibilityStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SetFeedVisibilityStateLoading
+    implements _SetFeedVisibilityStateLoading {
+  const _$_SetFeedVisibilityStateLoading();
+
+  @override
+  String toString() {
+    return 'SetFeedVisibilityState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetFeedVisibilityStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetFeedVisibilityStateInitial value) initial,
+    required TResult Function(_SetFeedVisibilityStateLoading value) loading,
+    required TResult Function(_SetFeedVisibilityStateSuccess value) success,
+    required TResult Function(_SetFeedVisibilityStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult? Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult? Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult? Function(_SetFeedVisibilityStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult Function(_SetFeedVisibilityStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetFeedVisibilityStateLoading
+    implements SetFeedVisibilityState {
+  const factory _SetFeedVisibilityStateLoading() =
+      _$_SetFeedVisibilityStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_SetFeedVisibilityStateSuccessCopyWith<$Res> {
+  factory _$$_SetFeedVisibilityStateSuccessCopyWith(
+          _$_SetFeedVisibilityStateSuccess value,
+          $Res Function(_$_SetFeedVisibilityStateSuccess) then) =
+      __$$_SetFeedVisibilityStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool result});
+}
+
+/// @nodoc
+class __$$_SetFeedVisibilityStateSuccessCopyWithImpl<$Res>
+    extends _$SetFeedVisibilityStateCopyWithImpl<$Res,
+        _$_SetFeedVisibilityStateSuccess>
+    implements _$$_SetFeedVisibilityStateSuccessCopyWith<$Res> {
+  __$$_SetFeedVisibilityStateSuccessCopyWithImpl(
+      _$_SetFeedVisibilityStateSuccess _value,
+      $Res Function(_$_SetFeedVisibilityStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_SetFeedVisibilityStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetFeedVisibilityStateSuccess
+    implements _SetFeedVisibilityStateSuccess {
+  const _$_SetFeedVisibilityStateSuccess(this.result);
+
+  @override
+  final bool result;
+
+  @override
+  String toString() {
+    return 'SetFeedVisibilityState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetFeedVisibilityStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetFeedVisibilityStateSuccessCopyWith<_$_SetFeedVisibilityStateSuccess>
+      get copyWith => __$$_SetFeedVisibilityStateSuccessCopyWithImpl<
+          _$_SetFeedVisibilityStateSuccess>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetFeedVisibilityStateInitial value) initial,
+    required TResult Function(_SetFeedVisibilityStateLoading value) loading,
+    required TResult Function(_SetFeedVisibilityStateSuccess value) success,
+    required TResult Function(_SetFeedVisibilityStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult? Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult? Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult? Function(_SetFeedVisibilityStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult Function(_SetFeedVisibilityStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetFeedVisibilityStateSuccess
+    implements SetFeedVisibilityState {
+  const factory _SetFeedVisibilityStateSuccess(final bool result) =
+      _$_SetFeedVisibilityStateSuccess;
+
+  bool get result;
+  @JsonKey(ignore: true)
+  _$$_SetFeedVisibilityStateSuccessCopyWith<_$_SetFeedVisibilityStateSuccess>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SetFeedVisibilityStateFailureCopyWith<$Res> {
+  factory _$$_SetFeedVisibilityStateFailureCopyWith(
+          _$_SetFeedVisibilityStateFailure value,
+          $Res Function(_$_SetFeedVisibilityStateFailure) then) =
+      __$$_SetFeedVisibilityStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_SetFeedVisibilityStateFailureCopyWithImpl<$Res>
+    extends _$SetFeedVisibilityStateCopyWithImpl<$Res,
+        _$_SetFeedVisibilityStateFailure>
+    implements _$$_SetFeedVisibilityStateFailureCopyWith<$Res> {
+  __$$_SetFeedVisibilityStateFailureCopyWithImpl(
+      _$_SetFeedVisibilityStateFailure _value,
+      $Res Function(_$_SetFeedVisibilityStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_SetFeedVisibilityStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SetFeedVisibilityStateFailure
+    implements _SetFeedVisibilityStateFailure {
+  const _$_SetFeedVisibilityStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'SetFeedVisibilityState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SetFeedVisibilityStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SetFeedVisibilityStateFailureCopyWith<_$_SetFeedVisibilityStateFailure>
+      get copyWith => __$$_SetFeedVisibilityStateFailureCopyWithImpl<
+          _$_SetFeedVisibilityStateFailure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetFeedVisibilityStateInitial value) initial,
+    required TResult Function(_SetFeedVisibilityStateLoading value) loading,
+    required TResult Function(_SetFeedVisibilityStateSuccess value) success,
+    required TResult Function(_SetFeedVisibilityStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult? Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult? Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult? Function(_SetFeedVisibilityStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetFeedVisibilityStateInitial value)? initial,
+    TResult Function(_SetFeedVisibilityStateLoading value)? loading,
+    TResult Function(_SetFeedVisibilityStateSuccess value)? success,
+    TResult Function(_SetFeedVisibilityStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetFeedVisibilityStateFailure
+    implements SetFeedVisibilityState {
+  const factory _SetFeedVisibilityStateFailure(final PeamanError error) =
+      _$_SetFeedVisibilityStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_SetFeedVisibilityStateFailureCopyWith<_$_SetFeedVisibilityStateFailure>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

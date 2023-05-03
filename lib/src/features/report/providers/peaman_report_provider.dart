@@ -19,6 +19,8 @@ class PeamanReportProvider extends StateNotifier<PeamanReportProviderState> {
       _ref.watch(providerOfPeamanReportRepository);
   PeamanInfoProvider get _logProvider =>
       _ref.read(providerOfPeamanInfo.notifier);
+  PeamanFeedProvider get _feedProvider =>
+      _ref.read(providerOfPeamanFeed.notifier);
 
   Future<void> submitReport({
     required final String id,
@@ -49,6 +51,9 @@ class PeamanReportProvider extends StateNotifier<PeamanReportProviderState> {
         state = state.copyWith(
           submitReportState: SubmitReportState.success(success),
         );
+        if (success.type == PeamanReportType.feed) {
+          _feedProvider.hideFeed(feedId: success.id!);
+        }
       },
       (failure) {
         _logProvider.logError(failure.message);

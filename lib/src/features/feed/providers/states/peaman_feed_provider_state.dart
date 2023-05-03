@@ -15,6 +15,8 @@ class PeamanFeedProviderState with _$PeamanFeedProviderState {
     @Default(SaveFeedState.initial()) final SaveFeedState saveFeedState,
     @Default(UnsaveFeedState.initial()) final UnsaveFeedState unsaveFeedState,
     @Default(ShareFeedState.initial()) final ShareFeedState shareFeedState,
+    @Default(SetFeedVisibilityState.initial())
+        final SetFeedVisibilityState setFeedVisibilityState,
     @Default(CreateReactionState.initial())
         final CreateReactionState createReactionState,
     @Default(DeleteReactionState.initial())
@@ -122,6 +124,20 @@ class ShareFeedState with _$ShareFeedState {
   const factory ShareFeedState.error(
     final PeamanError error,
   ) = _ShareFeedStateFailure;
+}
+
+@freezed
+class SetFeedVisibilityState with _$SetFeedVisibilityState {
+  const factory SetFeedVisibilityState.initial() =
+      _SetFeedVisibilityStateInitial;
+  const factory SetFeedVisibilityState.loading() =
+      _SetFeedVisibilityStateLoading;
+  const factory SetFeedVisibilityState.success(
+    final bool result,
+  ) = _SetFeedVisibilityStateSuccess;
+  const factory SetFeedVisibilityState.error(
+    final PeamanError error,
+  ) = _SetFeedVisibilityStateFailure;
 }
 
 @freezed
