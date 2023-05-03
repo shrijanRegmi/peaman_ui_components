@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -188,7 +189,7 @@ class _PeamanUsersListItemState extends ConsumerState<PeamanUsersListItem> {
         GestureDetector(
           onTap: () => widget.onPressed?.call(context, ref, user),
           child: Padding(
-            padding: widget.padding ?? const EdgeInsets.all(10.0),
+            padding: widget.padding ?? EdgeInsets.all(10.w),
             child: Row(
               children: [
                 Column(

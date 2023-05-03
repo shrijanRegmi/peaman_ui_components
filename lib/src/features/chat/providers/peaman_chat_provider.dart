@@ -294,8 +294,96 @@ class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
         );
       },
     );
-    removeFromToTempMessages(message);
-    setTypingStatus(chatId: chatId, typedValue: '');
+  }
+
+  Future<void> sendFeedShareMessageByChatId({
+    required final String chatId,
+    required final String feedId,
+  }) async {
+    final chat = getSingleChat(chatId);
+    if (chat == null) return;
+
+    final millis = DateTime.now().millisecondsSinceEpoch;
+    var message = PeamanChatMessage(
+      chatId: chatId,
+      chatType: chat.type,
+      senderId: _appUser.uid,
+      senderName: _appUser.name,
+      receiverIds: List<String>.from(chat.activeUserIds)
+        ..removeWhere((element) => element == _appUser.uid),
+      type: PeamanChatMessageType.feedShare,
+      extraId: feedId,
+      createdAt: millis,
+      updatedAt: millis,
+    );
+
+    state = state.copyWith(
+      sendFeedShareMessageState: const SendFeedShareMessageState.loading(),
+    );
+    final result = await _chatRepository.createChatMessage(
+      message: message,
+    );
+    state = result.when(
+      (success) => state.copyWith(
+        sendFeedShareMessageState: SendFeedShareMessageState.success(success),
+      ),
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          sendFeedShareMessageState: SendFeedShareMessageState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> sendFeedShareMessageByUserId({
+    required final String userId,
+    required final String feedId,
+  }) async {
+    final chats = _ref.read(providerOfPeamanUserChatsStream);
+    final chat = chats.maybeWhen(
+      data: (data) {
+        final index = data.indexWhere((element) =>
+            element.type == PeamanChatType.oneToOne &&
+            element.activeUserIds.contains(userId));
+        if (index == -1) return null;
+
+        return data[index];
+      },
+      orElse: () => null,
+    );
+    if (chat == null) return;
+
+    final millis = DateTime.now().millisecondsSinceEpoch;
+    var message = PeamanChatMessage(
+      chatId: chat.id,
+      chatType: PeamanChatType.oneToOne,
+      senderId: _appUser.uid,
+      senderName: _appUser.name,
+      receiverIds: [userId],
+      type: PeamanChatMessageType.feedShare,
+      extraId: feedId,
+      createdAt: millis,
+      updatedAt: millis,
+    );
+
+    state = state.copyWith(
+      sendFeedShareMessageState: const SendFeedShareMessageState.loading(),
+    );
+    final result = await _chatRepository.createChatMessage(
+      message: message,
+    );
+    state = result.when(
+      (success) => state.copyWith(
+        sendFeedShareMessageState: SendFeedShareMessageState.success(success),
+      ),
+      (failure) {
+        _logProvider.logError(failure.message);
+        return state.copyWith(
+          sendFeedShareMessageState: SendFeedShareMessageState.error(failure),
+        );
+      },
+    );
   }
 
   Future<void> unsendMessage({

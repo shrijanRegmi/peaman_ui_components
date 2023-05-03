@@ -14,6 +14,8 @@ class PeamanChatProviderState with _$PeamanChatProviderState {
     @Default(CreateChatState.initial()) final CreateChatState createChatState,
     @Default(SendInfoMessageState.initial())
         final SendInfoMessageState sendInfoMessageState,
+    @Default(SendFeedShareMessageState.initial())
+        final SendFeedShareMessageState sendFeedShareMessageState,
     @Default(UpdateMessageState.initial())
         final UpdateMessageState updateMessageState,
     @Default(DeleteMessageState.initial())
@@ -75,6 +77,20 @@ class SendInfoMessageState with _$SendInfoMessageState {
   const factory SendInfoMessageState.error(
     final PeamanError error,
   ) = _SendInfoMessageStateFailure;
+}
+
+@freezed
+class SendFeedShareMessageState with _$SendFeedShareMessageState {
+  const factory SendFeedShareMessageState.initial() =
+      _SendFeedShareMessageStateInitial;
+  const factory SendFeedShareMessageState.loading() =
+      _SendFeedShareMessageStateLoading;
+  const factory SendFeedShareMessageState.success(
+    final PeamanChatMessage result,
+  ) = _SendFeedShareMessageStateSuccess;
+  const factory SendFeedShareMessageState.error(
+    final PeamanError error,
+  ) = _SendFeedShareMessageStateFailure;
 }
 
 @freezed

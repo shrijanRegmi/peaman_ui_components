@@ -23,6 +23,8 @@ mixin _$PeamanChatProviderState {
   CreateChatState get createChatState => throw _privateConstructorUsedError;
   SendInfoMessageState get sendInfoMessageState =>
       throw _privateConstructorUsedError;
+  SendFeedShareMessageState get sendFeedShareMessageState =>
+      throw _privateConstructorUsedError;
   UpdateMessageState get updateMessageState =>
       throw _privateConstructorUsedError;
   DeleteMessageState get deleteMessageState =>
@@ -64,6 +66,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
       SendMessageState sendMessageState,
       CreateChatState createChatState,
       SendInfoMessageState sendInfoMessageState,
+      SendFeedShareMessageState sendFeedShareMessageState,
       UpdateMessageState updateMessageState,
       DeleteMessageState deleteMessageState,
       UnsendMessageState unsendMessageState,
@@ -84,6 +87,7 @@ abstract class $PeamanChatProviderStateCopyWith<$Res> {
   $SendMessageStateCopyWith<$Res> get sendMessageState;
   $CreateChatStateCopyWith<$Res> get createChatState;
   $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState;
+  $SendFeedShareMessageStateCopyWith<$Res> get sendFeedShareMessageState;
   $UpdateMessageStateCopyWith<$Res> get updateMessageState;
   $DeleteMessageStateCopyWith<$Res> get deleteMessageState;
   $UnsendMessageStateCopyWith<$Res> get unsendMessageState;
@@ -120,6 +124,7 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     Object? sendMessageState = null,
     Object? createChatState = null,
     Object? sendInfoMessageState = null,
+    Object? sendFeedShareMessageState = null,
     Object? updateMessageState = null,
     Object? deleteMessageState = null,
     Object? unsendMessageState = null,
@@ -158,6 +163,10 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
           ? _value.sendInfoMessageState
           : sendInfoMessageState // ignore: cast_nullable_to_non_nullable
               as SendInfoMessageState,
+      sendFeedShareMessageState: null == sendFeedShareMessageState
+          ? _value.sendFeedShareMessageState
+          : sendFeedShareMessageState // ignore: cast_nullable_to_non_nullable
+              as SendFeedShareMessageState,
       updateMessageState: null == updateMessageState
           ? _value.updateMessageState
           : updateMessageState // ignore: cast_nullable_to_non_nullable
@@ -247,6 +256,15 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
     return $SendInfoMessageStateCopyWith<$Res>(_value.sendInfoMessageState,
         (value) {
       return _then(_value.copyWith(sendInfoMessageState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SendFeedShareMessageStateCopyWith<$Res> get sendFeedShareMessageState {
+    return $SendFeedShareMessageStateCopyWith<$Res>(
+        _value.sendFeedShareMessageState, (value) {
+      return _then(_value.copyWith(sendFeedShareMessageState: value) as $Val);
     });
   }
 
@@ -395,6 +413,7 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
       SendMessageState sendMessageState,
       CreateChatState createChatState,
       SendInfoMessageState sendInfoMessageState,
+      SendFeedShareMessageState sendFeedShareMessageState,
       UpdateMessageState updateMessageState,
       DeleteMessageState deleteMessageState,
       UnsendMessageState unsendMessageState,
@@ -418,6 +437,8 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
   $CreateChatStateCopyWith<$Res> get createChatState;
   @override
   $SendInfoMessageStateCopyWith<$Res> get sendInfoMessageState;
+  @override
+  $SendFeedShareMessageStateCopyWith<$Res> get sendFeedShareMessageState;
   @override
   $UpdateMessageStateCopyWith<$Res> get updateMessageState;
   @override
@@ -467,6 +488,7 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? sendMessageState = null,
     Object? createChatState = null,
     Object? sendInfoMessageState = null,
+    Object? sendFeedShareMessageState = null,
     Object? updateMessageState = null,
     Object? deleteMessageState = null,
     Object? unsendMessageState = null,
@@ -505,6 +527,10 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
           ? _value.sendInfoMessageState
           : sendInfoMessageState // ignore: cast_nullable_to_non_nullable
               as SendInfoMessageState,
+      sendFeedShareMessageState: null == sendFeedShareMessageState
+          ? _value.sendFeedShareMessageState
+          : sendFeedShareMessageState // ignore: cast_nullable_to_non_nullable
+              as SendFeedShareMessageState,
       updateMessageState: null == updateMessageState
           ? _value.updateMessageState
           : updateMessageState // ignore: cast_nullable_to_non_nullable
@@ -582,6 +608,8 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
       this.sendMessageState = const SendMessageState.initial(),
       this.createChatState = const CreateChatState.initial(),
       this.sendInfoMessageState = const SendInfoMessageState.initial(),
+      this.sendFeedShareMessageState =
+          const SendFeedShareMessageState.initial(),
       this.updateMessageState = const UpdateMessageState.initial(),
       this.deleteMessageState = const DeleteMessageState.initial(),
       this.unsendMessageState = const UnsendMessageState.initial(),
@@ -621,6 +649,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   @override
   @JsonKey()
   final SendInfoMessageState sendInfoMessageState;
+  @override
+  @JsonKey()
+  final SendFeedShareMessageState sendFeedShareMessageState;
   @override
   @JsonKey()
   final UpdateMessageState updateMessageState;
@@ -677,7 +708,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
 
   @override
   String toString() {
-    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, createChatState: $createChatState, sendInfoMessageState: $sendInfoMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, setChatTitleState: $setChatTitleState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
+    return 'PeamanChatProviderState(messageController: $messageController, files: $files, sendMessageState: $sendMessageState, createChatState: $createChatState, sendInfoMessageState: $sendInfoMessageState, sendFeedShareMessageState: $sendFeedShareMessageState, updateMessageState: $updateMessageState, deleteMessageState: $deleteMessageState, unsendMessageState: $unsendMessageState, readChatState: $readChatState, updateChatState: $updateChatState, deleteChatState: $deleteChatState, archiveChatState: $archiveChatState, muteChatState: $muteChatState, unmuteChatState: $unmuteChatState, leaveChatState: $leaveChatState, setChatTitleState: $setChatTitleState, addChatMembersState: $addChatMembersState, removeChatMembersState: $removeChatMembersState, setTypingStatusState: $setTypingStatusState, tempMessages: $tempMessages, messageToReply: $messageToReply)';
   }
 
   @override
@@ -694,6 +725,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
                 other.createChatState == createChatState) &&
             (identical(other.sendInfoMessageState, sendInfoMessageState) ||
                 other.sendInfoMessageState == sendInfoMessageState) &&
+            (identical(other.sendFeedShareMessageState,
+                    sendFeedShareMessageState) ||
+                other.sendFeedShareMessageState == sendFeedShareMessageState) &&
             (identical(other.updateMessageState, updateMessageState) ||
                 other.updateMessageState == updateMessageState) &&
             (identical(other.deleteMessageState, deleteMessageState) ||
@@ -736,6 +770,7 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
         sendMessageState,
         createChatState,
         sendInfoMessageState,
+        sendFeedShareMessageState,
         updateMessageState,
         deleteMessageState,
         unsendMessageState,
@@ -770,6 +805,7 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       final SendMessageState sendMessageState,
       final CreateChatState createChatState,
       final SendInfoMessageState sendInfoMessageState,
+      final SendFeedShareMessageState sendFeedShareMessageState,
       final UpdateMessageState updateMessageState,
       final DeleteMessageState deleteMessageState,
       final UnsendMessageState unsendMessageState,
@@ -797,6 +833,8 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   CreateChatState get createChatState;
   @override
   SendInfoMessageState get sendInfoMessageState;
+  @override
+  SendFeedShareMessageState get sendFeedShareMessageState;
   @override
   UpdateMessageState get updateMessageState;
   @override
@@ -2695,6 +2733,649 @@ abstract class _SendInfoMessageStateFailure implements SendInfoMessageState {
   PeamanError get error;
   @JsonKey(ignore: true)
   _$$_SendInfoMessageStateFailureCopyWith<_$_SendInfoMessageStateFailure>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SendFeedShareMessageState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendFeedShareMessageStateInitial value) initial,
+    required TResult Function(_SendFeedShareMessageStateLoading value) loading,
+    required TResult Function(_SendFeedShareMessageStateSuccess value) success,
+    required TResult Function(_SendFeedShareMessageStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult? Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult? Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult? Function(_SendFeedShareMessageStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult Function(_SendFeedShareMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SendFeedShareMessageStateCopyWith<$Res> {
+  factory $SendFeedShareMessageStateCopyWith(SendFeedShareMessageState value,
+          $Res Function(SendFeedShareMessageState) then) =
+      _$SendFeedShareMessageStateCopyWithImpl<$Res, SendFeedShareMessageState>;
+}
+
+/// @nodoc
+class _$SendFeedShareMessageStateCopyWithImpl<$Res,
+        $Val extends SendFeedShareMessageState>
+    implements $SendFeedShareMessageStateCopyWith<$Res> {
+  _$SendFeedShareMessageStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_SendFeedShareMessageStateInitialCopyWith<$Res> {
+  factory _$$_SendFeedShareMessageStateInitialCopyWith(
+          _$_SendFeedShareMessageStateInitial value,
+          $Res Function(_$_SendFeedShareMessageStateInitial) then) =
+      __$$_SendFeedShareMessageStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SendFeedShareMessageStateInitialCopyWithImpl<$Res>
+    extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
+        _$_SendFeedShareMessageStateInitial>
+    implements _$$_SendFeedShareMessageStateInitialCopyWith<$Res> {
+  __$$_SendFeedShareMessageStateInitialCopyWithImpl(
+      _$_SendFeedShareMessageStateInitial _value,
+      $Res Function(_$_SendFeedShareMessageStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SendFeedShareMessageStateInitial
+    implements _SendFeedShareMessageStateInitial {
+  const _$_SendFeedShareMessageStateInitial();
+
+  @override
+  String toString() {
+    return 'SendFeedShareMessageState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendFeedShareMessageStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendFeedShareMessageStateInitial value) initial,
+    required TResult Function(_SendFeedShareMessageStateLoading value) loading,
+    required TResult Function(_SendFeedShareMessageStateSuccess value) success,
+    required TResult Function(_SendFeedShareMessageStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult? Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult? Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult? Function(_SendFeedShareMessageStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult Function(_SendFeedShareMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendFeedShareMessageStateInitial
+    implements SendFeedShareMessageState {
+  const factory _SendFeedShareMessageStateInitial() =
+      _$_SendFeedShareMessageStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_SendFeedShareMessageStateLoadingCopyWith<$Res> {
+  factory _$$_SendFeedShareMessageStateLoadingCopyWith(
+          _$_SendFeedShareMessageStateLoading value,
+          $Res Function(_$_SendFeedShareMessageStateLoading) then) =
+      __$$_SendFeedShareMessageStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SendFeedShareMessageStateLoadingCopyWithImpl<$Res>
+    extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
+        _$_SendFeedShareMessageStateLoading>
+    implements _$$_SendFeedShareMessageStateLoadingCopyWith<$Res> {
+  __$$_SendFeedShareMessageStateLoadingCopyWithImpl(
+      _$_SendFeedShareMessageStateLoading _value,
+      $Res Function(_$_SendFeedShareMessageStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SendFeedShareMessageStateLoading
+    implements _SendFeedShareMessageStateLoading {
+  const _$_SendFeedShareMessageStateLoading();
+
+  @override
+  String toString() {
+    return 'SendFeedShareMessageState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendFeedShareMessageStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendFeedShareMessageStateInitial value) initial,
+    required TResult Function(_SendFeedShareMessageStateLoading value) loading,
+    required TResult Function(_SendFeedShareMessageStateSuccess value) success,
+    required TResult Function(_SendFeedShareMessageStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult? Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult? Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult? Function(_SendFeedShareMessageStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult Function(_SendFeedShareMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendFeedShareMessageStateLoading
+    implements SendFeedShareMessageState {
+  const factory _SendFeedShareMessageStateLoading() =
+      _$_SendFeedShareMessageStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_SendFeedShareMessageStateSuccessCopyWith<$Res> {
+  factory _$$_SendFeedShareMessageStateSuccessCopyWith(
+          _$_SendFeedShareMessageStateSuccess value,
+          $Res Function(_$_SendFeedShareMessageStateSuccess) then) =
+      __$$_SendFeedShareMessageStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanChatMessage result});
+
+  $PeamanChatMessageCopyWith<$Res> get result;
+}
+
+/// @nodoc
+class __$$_SendFeedShareMessageStateSuccessCopyWithImpl<$Res>
+    extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
+        _$_SendFeedShareMessageStateSuccess>
+    implements _$$_SendFeedShareMessageStateSuccessCopyWith<$Res> {
+  __$$_SendFeedShareMessageStateSuccessCopyWithImpl(
+      _$_SendFeedShareMessageStateSuccess _value,
+      $Res Function(_$_SendFeedShareMessageStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_SendFeedShareMessageStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as PeamanChatMessage,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanChatMessageCopyWith<$Res> get result {
+    return $PeamanChatMessageCopyWith<$Res>(_value.result, (value) {
+      return _then(_value.copyWith(result: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SendFeedShareMessageStateSuccess
+    implements _SendFeedShareMessageStateSuccess {
+  const _$_SendFeedShareMessageStateSuccess(this.result);
+
+  @override
+  final PeamanChatMessage result;
+
+  @override
+  String toString() {
+    return 'SendFeedShareMessageState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendFeedShareMessageStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SendFeedShareMessageStateSuccessCopyWith<
+          _$_SendFeedShareMessageStateSuccess>
+      get copyWith => __$$_SendFeedShareMessageStateSuccessCopyWithImpl<
+          _$_SendFeedShareMessageStateSuccess>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendFeedShareMessageStateInitial value) initial,
+    required TResult Function(_SendFeedShareMessageStateLoading value) loading,
+    required TResult Function(_SendFeedShareMessageStateSuccess value) success,
+    required TResult Function(_SendFeedShareMessageStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult? Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult? Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult? Function(_SendFeedShareMessageStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult Function(_SendFeedShareMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendFeedShareMessageStateSuccess
+    implements SendFeedShareMessageState {
+  const factory _SendFeedShareMessageStateSuccess(
+      final PeamanChatMessage result) = _$_SendFeedShareMessageStateSuccess;
+
+  PeamanChatMessage get result;
+  @JsonKey(ignore: true)
+  _$$_SendFeedShareMessageStateSuccessCopyWith<
+          _$_SendFeedShareMessageStateSuccess>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SendFeedShareMessageStateFailureCopyWith<$Res> {
+  factory _$$_SendFeedShareMessageStateFailureCopyWith(
+          _$_SendFeedShareMessageStateFailure value,
+          $Res Function(_$_SendFeedShareMessageStateFailure) then) =
+      __$$_SendFeedShareMessageStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_SendFeedShareMessageStateFailureCopyWithImpl<$Res>
+    extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
+        _$_SendFeedShareMessageStateFailure>
+    implements _$$_SendFeedShareMessageStateFailureCopyWith<$Res> {
+  __$$_SendFeedShareMessageStateFailureCopyWithImpl(
+      _$_SendFeedShareMessageStateFailure _value,
+      $Res Function(_$_SendFeedShareMessageStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_SendFeedShareMessageStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SendFeedShareMessageStateFailure
+    implements _SendFeedShareMessageStateFailure {
+  const _$_SendFeedShareMessageStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'SendFeedShareMessageState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendFeedShareMessageStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SendFeedShareMessageStateFailureCopyWith<
+          _$_SendFeedShareMessageStateFailure>
+      get copyWith => __$$_SendFeedShareMessageStateFailureCopyWithImpl<
+          _$_SendFeedShareMessageStateFailure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanChatMessage result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanChatMessage result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanChatMessage result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SendFeedShareMessageStateInitial value) initial,
+    required TResult Function(_SendFeedShareMessageStateLoading value) loading,
+    required TResult Function(_SendFeedShareMessageStateSuccess value) success,
+    required TResult Function(_SendFeedShareMessageStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult? Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult? Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult? Function(_SendFeedShareMessageStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SendFeedShareMessageStateInitial value)? initial,
+    TResult Function(_SendFeedShareMessageStateLoading value)? loading,
+    TResult Function(_SendFeedShareMessageStateSuccess value)? success,
+    TResult Function(_SendFeedShareMessageStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendFeedShareMessageStateFailure
+    implements SendFeedShareMessageState {
+  const factory _SendFeedShareMessageStateFailure(final PeamanError error) =
+      _$_SendFeedShareMessageStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_SendFeedShareMessageStateFailureCopyWith<
+          _$_SendFeedShareMessageStateFailure>
       get copyWith => throw _privateConstructorUsedError;
 }
 

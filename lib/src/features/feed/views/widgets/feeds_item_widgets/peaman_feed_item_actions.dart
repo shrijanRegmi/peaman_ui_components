@@ -249,5 +249,12 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
     }
   }
 
-  void _onPressedShare() {}
+  void _onPressedShare() {
+    showPeamanNormalBottomsheet(
+      context: context,
+      widget: PeamanFeedSharePopup(
+        feed: widget.feed,
+      ),
+    );
+  }
 }
