@@ -30,6 +30,7 @@ export 'views/widgets/peaman_users_list_popup.dart';
 export 'views/widgets/peaman_chats_list_popup.dart';
 export 'views/widgets/peaman_search_builder.dart';
 export 'views/widgets/peaman_date_divider.dart';
+export 'views/widgets/peaman_popup_header.dart';
 
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_selectable_option_model.dart';
@@ -45,7 +46,6 @@ export 'helpers/peaman_common_helper.dart';
 export 'extensions/peaman_object_extension.dart';
 export 'extensions/peaman_context_extension.dart';
 export 'extensions/peaman_widget_extension.dart';
-// export 'extensions/peaman_string_extension.dart';
 
 export 'enums/peaman_search_type.dart';
 export 'enums/peaman_selection_type.dart';

@@ -106,9 +106,10 @@ class _PeamanReportPopupState extends ConsumerState<PeamanReportPopup> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _headerBuilder(
+        PeamanPopupHeader(
+          title: 'Report',
           isLoading: isLoading,
-        ).pX(20).pT(20).pB(15),
+        ),
         SizedBox(
           height: 5.h,
         ),
@@ -222,38 +223,6 @@ class _PeamanReportPopupState extends ConsumerState<PeamanReportPopup> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _headerBuilder({
-    final bool isLoading = false,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            PeamanText.heading6(
-              'Report',
-              style: TextStyle(
-                fontSize: 18.sp,
-              ),
-            ),
-            if (isLoading)
-              PeamanSpinner(
-                size: 12.w,
-              ).pL(10.0)
-          ],
-        ),
-        PeamanRoundIconButton(
-          icon: Icon(
-            Icons.close_rounded,
-            size: 16.w,
-          ),
-          padding: EdgeInsets.all(9.w),
-          onPressed: context.pop,
-        )
-      ],
     );
   }
 

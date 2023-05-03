@@ -203,35 +203,15 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
                   ? ScreenUtil().statusBarHeight
                   : 0.0,
             ),
-            _headerBuilder().pX(20).pT(20).pB(15),
+            PeamanPopupHeader(
+              title: widget.title,
+            ),
             Expanded(
               child: _listBuilder(),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _headerBuilder() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        PeamanText.heading6(
-          widget.title,
-          style: TextStyle(
-            fontSize: 18.sp,
-          ),
-        ),
-        PeamanRoundIconButton(
-          icon: Icon(
-            Icons.close_rounded,
-            size: 16.w,
-          ),
-          padding: EdgeInsets.all(9.w),
-          onPressed: () => context.pop(),
-        )
-      ],
     );
   }
 
