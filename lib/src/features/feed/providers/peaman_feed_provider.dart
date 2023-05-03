@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 final providerOfPeamanFeed =
@@ -207,6 +206,75 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         _logProvider.logError(failure.message);
         state = state.copyWith(
           deleteFeedState: DeleteFeedState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> hideFeed({
+    required final String feedId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      hideFeedState: const HideFeedState.loading(),
+    );
+    final result = await _feedRepository.updateFeed(
+      feedId: feedId,
+      fields: [
+        const PeamanField(
+          key: 'visibility',
+          value: false,
+        ),
+      ],
+    );
+    result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        state = state.copyWith(
+          hideFeedState: HideFeedState.success(success),
+        );
+        removeFromFeeds(feedId);
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        state = state.copyWith(
+          hideFeedState: HideFeedState.error(failure),
+        );
+      },
+    );
+  }
+
+  Future<void> showFeed({
+    required final String feedId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      showFeedState: const ShowFeedState.loading(),
+    );
+    final result = await _feedRepository.updateFeed(
+      feedId: feedId,
+      fields: [
+        const PeamanField(
+          key: 'visibility',
+          value: true,
+        ),
+      ],
+    );
+    result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        state = state.copyWith(
+          showFeedState: ShowFeedState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        state = state.copyWith(
+          showFeedState: ShowFeedState.error(failure),
         );
       },
     );

@@ -98,6 +98,20 @@ Future<T?> showPeamanFeedMenuBottomsheet<T>({
               ),
             );
             break;
+          case 2:
+            showPeamanConfirmationDialog(
+              context: context,
+              title: 'Are you sure you want to hide this post?',
+              description:
+                  "This post won't be visible to any user and they won't be able to interact with it.",
+              onConfirm: (context, ref) {
+                ref.read(providerOfPeamanFeed.notifier).hideFeed(
+                      feedId: feed.id!,
+                      successLogMessage: 'The post has been hidden',
+                    );
+              },
+            );
+            break;
           default:
         }
       });

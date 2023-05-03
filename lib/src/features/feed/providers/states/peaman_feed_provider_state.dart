@@ -10,6 +10,8 @@ class PeamanFeedProviderState with _$PeamanFeedProviderState {
     @Default(CreateFeedState.initial()) final CreateFeedState createFeedState,
     @Default(UpdateFeedState.initial()) final UpdateFeedState updateFeedState,
     @Default(DeleteFeedState.initial()) final DeleteFeedState deleteFeedState,
+    @Default(HideFeedState.initial()) final HideFeedState hideFeedState,
+    @Default(ShowFeedState.initial()) final ShowFeedState showFeedState,
     @Default(SaveFeedState.initial()) final SaveFeedState saveFeedState,
     @Default(UnsaveFeedState.initial()) final UnsaveFeedState unsaveFeedState,
     @Default(ShareFeedState.initial()) final ShareFeedState shareFeedState,
@@ -60,6 +62,30 @@ class DeleteFeedState with _$DeleteFeedState {
   const factory DeleteFeedState.error(
     final PeamanError error,
   ) = _DeleteFeedStateFailure;
+}
+
+@freezed
+class HideFeedState with _$HideFeedState {
+  const factory HideFeedState.initial() = _HideFeedStateInitial;
+  const factory HideFeedState.loading() = _HideFeedStateLoading;
+  const factory HideFeedState.success(
+    final bool result,
+  ) = _HideFeedStateSuccess;
+  const factory HideFeedState.error(
+    final PeamanError error,
+  ) = _HideFeedStateFailure;
+}
+
+@freezed
+class ShowFeedState with _$ShowFeedState {
+  const factory ShowFeedState.initial() = _ShowFeedStateInitial;
+  const factory ShowFeedState.loading() = _ShowFeedStateLoading;
+  const factory ShowFeedState.success(
+    final bool result,
+  ) = _ShowFeedStateSuccess;
+  const factory ShowFeedState.error(
+    final PeamanError error,
+  ) = _ShowFeedStateFailure;
 }
 
 @freezed
