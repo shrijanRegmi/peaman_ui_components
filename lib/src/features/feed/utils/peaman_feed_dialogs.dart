@@ -112,6 +112,14 @@ Future<T?> showPeamanFeedMenuBottomsheet<T>({
               },
             );
             break;
+          case 3:
+            showPeamanNormalBottomsheet(
+              context: context,
+              widget: PeamanReportPopup.feed(
+                feed: feed,
+              ),
+            );
+            break;
           default:
         }
       });

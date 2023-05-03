@@ -14,6 +14,7 @@ export 'src/features/chat/chat.dart';
 export 'src/features/feed/feed.dart';
 export 'src/features/profile/profile.dart';
 export 'src/features/notification/notification.dart';
+export 'src/features/report/report.dart';
 export 'src/features/shared/shared.dart';
 
 // utils
