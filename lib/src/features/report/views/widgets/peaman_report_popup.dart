@@ -3,31 +3,84 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanReportPopup extends ConsumerStatefulWidget {
-  final PeamanFeed? feed;
-  final PeamanUser? user;
-  final PeamanComment? comment;
-  final PeamanReportType reportType;
-
   const PeamanReportPopup.user({
     super.key,
     required this.user,
+    this.reportReasons,
   })  : reportType = PeamanReportType.user,
         feed = null,
-        comment = null;
+        comment = null,
+        chat = null,
+        message = null,
+        assert(
+          user != null,
+          'user cannot be null',
+        );
 
   const PeamanReportPopup.feed({
     super.key,
     required this.feed,
+    this.reportReasons,
   })  : reportType = PeamanReportType.feed,
         user = null,
-        comment = null;
+        comment = null,
+        chat = null,
+        message = null,
+        assert(
+          feed != null,
+          'feed cannot be null',
+        );
 
   const PeamanReportPopup.comment({
     super.key,
     required this.comment,
+    this.reportReasons,
   })  : reportType = PeamanReportType.comment,
         user = null,
-        feed = null;
+        feed = null,
+        chat = null,
+        message = null,
+        assert(
+          comment != null,
+          'comment cannot be null',
+        );
+
+  const PeamanReportPopup.chat({
+    super.key,
+    required this.chat,
+    this.reportReasons,
+  })  : reportType = PeamanReportType.comment,
+        user = null,
+        feed = null,
+        comment = null,
+        message = null,
+        assert(
+          chat != null,
+          'chat cannot be null',
+        );
+
+  const PeamanReportPopup.message({
+    super.key,
+    required this.message,
+    this.reportReasons,
+  })  : reportType = PeamanReportType.comment,
+        user = null,
+        feed = null,
+        comment = null,
+        chat = null,
+        assert(
+          message != null,
+          'message cannot be null',
+        );
+
+  final PeamanReportType reportType;
+
+  final PeamanFeed? feed;
+  final PeamanUser? user;
+  final PeamanComment? comment;
+  final PeamanChat? chat;
+  final PeamanChatMessage? message;
+  final List<String>? reportReasons;
 
   @override
   ConsumerState<PeamanReportPopup> createState() => _PeamanReportPopupState();
@@ -53,7 +106,9 @@ class _PeamanReportPopupState extends ConsumerState<PeamanReportPopup> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _headerBuilder().pX(20).pT(20).pB(15),
+        _headerBuilder(
+          isLoading: isLoading,
+        ).pX(20).pT(20).pB(15),
         SizedBox(
           height: 5.h,
         ),
@@ -79,12 +134,36 @@ class _PeamanReportPopupState extends ConsumerState<PeamanReportPopup> {
         ),
         Expanded(
           child: PeamanReportReasonsList(
-            onPressedReason: (reason) {
+            reportReasons: widget.reportReasons,
+            onPressedReason: (context, ref, reason) {
               if (isLoading) return;
 
-              ref
-                  .read(providerOfPeamanReport.notifier)
-                  .submitReport(reason: reason);
+              late String id;
+
+              switch (widget.reportType) {
+                case PeamanReportType.user:
+                  id = widget.user!.uid!;
+                  break;
+                case PeamanReportType.chat:
+                  id = widget.chat!.id!;
+                  break;
+                case PeamanReportType.message:
+                  id = widget.message!.id!;
+                  break;
+                case PeamanReportType.feed:
+                  id = widget.feed!.id!;
+                  break;
+                case PeamanReportType.comment:
+                  id = widget.comment!.id!;
+                  break;
+                default:
+              }
+
+              ref.read(providerOfPeamanReport.notifier).submitReport(
+                    id: id,
+                    reportType: widget.reportType,
+                    reason: reason,
+                  );
             },
           ),
         ),
@@ -146,15 +225,25 @@ class _PeamanReportPopupState extends ConsumerState<PeamanReportPopup> {
     );
   }
 
-  Widget _headerBuilder() {
+  Widget _headerBuilder({
+    final bool isLoading = false,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        PeamanText.heading6(
-          'Report',
-          style: TextStyle(
-            fontSize: 18.sp,
-          ),
+        Row(
+          children: [
+            PeamanText.heading6(
+              'Report',
+              style: TextStyle(
+                fontSize: 18.sp,
+              ),
+            ),
+            if (isLoading)
+              PeamanSpinner(
+                size: 12.w,
+              ).pL(10.0)
+          ],
         ),
         PeamanRoundIconButton(
           icon: Icon(

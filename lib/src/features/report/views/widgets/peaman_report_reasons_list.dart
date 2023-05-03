@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-
-import 'peaman_report_reasons_list_item.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanReportReasonsList extends StatelessWidget {
-  final Function(String)? onPressedReason;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    String,
+  )? onPressedReason;
+  final List<String>? reportReasons;
 
   PeamanReportReasonsList({
     super.key,
     this.onPressedReason,
+    this.reportReasons,
   });
 
   final _reasons = [
@@ -28,14 +33,16 @@ class PeamanReportReasonsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = reportReasons ?? _reasons;
+
     return ListView.builder(
-      itemCount: _reasons.length,
+      itemCount: list.length,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
-        final reason = _reasons[index];
+        final reason = list[index];
         return PeamanReportReasonsListItem(
           reason: reason,
-          onPressed: () => onPressedReason?.call(reason),
+          onPressed: onPressedReason,
         );
       },
     );

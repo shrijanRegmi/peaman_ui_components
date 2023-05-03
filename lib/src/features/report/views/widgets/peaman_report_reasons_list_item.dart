@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanReportReasonsListItem extends StatelessWidget {
+class PeamanReportReasonsListItem extends ConsumerWidget {
   final String reason;
-  final Function()? onPressed;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    String,
+  )? onPressed;
 
   const PeamanReportReasonsListItem({
     super.key,
@@ -13,9 +17,9 @@ class PeamanReportReasonsListItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
-      onTap: onPressed,
+      onTap: () => onPressed?.call(context, ref, reason),
       contentPadding: EdgeInsets.symmetric(
         horizontal: 20.w,
       ),

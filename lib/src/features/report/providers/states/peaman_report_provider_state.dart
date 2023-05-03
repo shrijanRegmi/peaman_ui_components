@@ -16,7 +16,7 @@ class SubmitReportState with _$SubmitReportState {
   const factory SubmitReportState.initial() = _SubmitReportStateInitial;
   const factory SubmitReportState.loading() = _SubmitReportStateLoading;
   const factory SubmitReportState.success(
-    final bool result,
+    final PeamanReport result,
   ) = _SubmitReportStateSuccess;
   const factory SubmitReportState.error(
     final PeamanError error,

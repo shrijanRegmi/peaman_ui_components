@@ -331,43 +331,43 @@ class _PTextState extends State<PeamanText> {
   void _chooseDefaultStyle() {
     switch (widget.type) {
       case _Type.heading1:
-        _defaultStyle = context.theme.textTheme.headline1;
+        _defaultStyle = context.theme.textTheme.displayLarge;
         break;
       case _Type.heading2:
-        _defaultStyle = context.theme.textTheme.headline2;
+        _defaultStyle = context.theme.textTheme.displayMedium;
         break;
       case _Type.heading3:
-        _defaultStyle = context.theme.textTheme.headline3;
+        _defaultStyle = context.theme.textTheme.displaySmall;
         break;
       case _Type.heading4:
-        _defaultStyle = context.theme.textTheme.headline4;
+        _defaultStyle = context.theme.textTheme.headlineMedium;
         break;
       case _Type.heading5:
-        _defaultStyle = context.theme.textTheme.headline5;
+        _defaultStyle = context.theme.textTheme.headlineSmall;
         break;
       case _Type.heading6:
-        _defaultStyle = context.theme.textTheme.headline6;
+        _defaultStyle = context.theme.textTheme.titleLarge;
         break;
       case _Type.subtitle1:
-        _defaultStyle = context.theme.textTheme.subtitle1;
+        _defaultStyle = context.theme.textTheme.titleMedium;
         break;
       case _Type.subtitle2:
-        _defaultStyle = context.theme.textTheme.subtitle2;
+        _defaultStyle = context.theme.textTheme.titleSmall;
         break;
       case _Type.body1:
-        _defaultStyle = context.theme.textTheme.bodyText1;
+        _defaultStyle = context.theme.textTheme.bodyLarge;
         break;
       case _Type.body2:
-        _defaultStyle = context.theme.textTheme.bodyText2;
+        _defaultStyle = context.theme.textTheme.bodyMedium;
         break;
       case _Type.button:
-        _defaultStyle = context.theme.textTheme.button;
+        _defaultStyle = context.theme.textTheme.labelLarge;
         break;
       case _Type.caption:
-        _defaultStyle = context.theme.textTheme.caption;
+        _defaultStyle = context.theme.textTheme.bodySmall;
         break;
       case _Type.overline:
-        _defaultStyle = context.theme.textTheme.overline;
+        _defaultStyle = context.theme.textTheme.labelSmall;
         break;
       default:
     }

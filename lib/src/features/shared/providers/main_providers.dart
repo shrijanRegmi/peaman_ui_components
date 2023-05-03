@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 final providerOfPeamanAuthRepository = Provider<PeamanAuthRepository>((ref) {
@@ -34,4 +33,9 @@ final providerOfPeamanCloudFunctionRepository =
 final providerOfPeamanCloudMessagingRepository =
     Provider<PeamanCloudMessagingRepository>((ref) {
   return PeamanCloudMessagingRepositoryImpl();
+});
+
+final providerOfPeamanReportRepository =
+    Provider<PeamanReportRepository>((ref) {
+  return PeamanReportRepositoryImpl();
 });

@@ -2,13 +2,27 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 final providerOfPeamanReport = StateNotifierProvider.autoDispose<
     PeamanReportProvider, PeamanReportProviderState>((ref) {
-  return PeamanReportProvider();
+  return PeamanReportProvider(ref);
 });
 
 class PeamanReportProvider extends StateNotifier<PeamanReportProviderState> {
-  PeamanReportProvider() : super(const PeamanReportProviderState());
+  PeamanReportProvider(
+    final Ref ref,
+  )   : _ref = ref,
+        super(const PeamanReportProviderState());
+
+  final Ref _ref;
+
+  PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
+
+  PeamanReportRepository get _reportRepository =>
+      _ref.watch(providerOfPeamanReportRepository);
+  PeamanInfoProvider get _logProvider =>
+      _ref.read(providerOfPeamanInfo.notifier);
 
   Future<void> submitReport({
+    required final String id,
+    required final PeamanReportType reportType,
     required final String reason,
     final String? successLogMessage,
   }) async {
@@ -16,8 +30,32 @@ class PeamanReportProvider extends StateNotifier<PeamanReportProviderState> {
       submitReportState: const SubmitReportState.loading(),
     );
 
-    state = state.copyWith(
-      submitReportState: const SubmitReportState.success(true),
+    final reportedBy = PeamanReportedBy(
+      uid: _appUser.uid!,
+      reason: reason,
+    );
+
+    final result = await _reportRepository.submitReport(
+      id: id,
+      reportType: reportType,
+      reportedBy: reportedBy,
+    );
+
+    result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        state = state.copyWith(
+          submitReportState: SubmitReportState.success(success),
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        state = state.copyWith(
+          submitReportState: SubmitReportState.error(failure),
+        );
+      },
     );
   }
 }

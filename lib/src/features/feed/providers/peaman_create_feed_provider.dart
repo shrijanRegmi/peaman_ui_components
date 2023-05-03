@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';

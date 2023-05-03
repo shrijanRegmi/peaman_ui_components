@@ -160,7 +160,7 @@ mixin _$SubmitReportState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(bool result) success,
+    required TResult Function(PeamanReport result) success,
     required TResult Function(PeamanError error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -168,7 +168,7 @@ mixin _$SubmitReportState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(bool result)? success,
+    TResult? Function(PeamanReport result)? success,
     TResult? Function(PeamanError error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -176,7 +176,7 @@ mixin _$SubmitReportState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool result)? success,
+    TResult Function(PeamanReport result)? success,
     TResult Function(PeamanError error)? error,
     required TResult orElse(),
   }) =>
@@ -268,7 +268,7 @@ class _$_SubmitReportStateInitial implements _SubmitReportStateInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(bool result) success,
+    required TResult Function(PeamanReport result) success,
     required TResult Function(PeamanError error) error,
   }) {
     return initial();
@@ -279,7 +279,7 @@ class _$_SubmitReportStateInitial implements _SubmitReportStateInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(bool result)? success,
+    TResult? Function(PeamanReport result)? success,
     TResult? Function(PeamanError error)? error,
   }) {
     return initial?.call();
@@ -290,7 +290,7 @@ class _$_SubmitReportStateInitial implements _SubmitReportStateInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool result)? success,
+    TResult Function(PeamanReport result)? success,
     TResult Function(PeamanError error)? error,
     required TResult orElse(),
   }) {
@@ -384,7 +384,7 @@ class _$_SubmitReportStateLoading implements _SubmitReportStateLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(bool result) success,
+    required TResult Function(PeamanReport result) success,
     required TResult Function(PeamanError error) error,
   }) {
     return loading();
@@ -395,7 +395,7 @@ class _$_SubmitReportStateLoading implements _SubmitReportStateLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(bool result)? success,
+    TResult? Function(PeamanReport result)? success,
     TResult? Function(PeamanError error)? error,
   }) {
     return loading?.call();
@@ -406,7 +406,7 @@ class _$_SubmitReportStateLoading implements _SubmitReportStateLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool result)? success,
+    TResult Function(PeamanReport result)? success,
     TResult Function(PeamanError error)? error,
     required TResult orElse(),
   }) {
@@ -465,7 +465,9 @@ abstract class _$$_SubmitReportStateSuccessCopyWith<$Res> {
           $Res Function(_$_SubmitReportStateSuccess) then) =
       __$$_SubmitReportStateSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool result});
+  $Res call({PeamanReport result});
+
+  $PeamanReportCopyWith<$Res> get result;
 }
 
 /// @nodoc
@@ -485,8 +487,16 @@ class __$$_SubmitReportStateSuccessCopyWithImpl<$Res>
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as PeamanReport,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanReportCopyWith<$Res> get result {
+    return $PeamanReportCopyWith<$Res>(_value.result, (value) {
+      return _then(_value.copyWith(result: value));
+    });
   }
 }
 
@@ -496,7 +506,7 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
   const _$_SubmitReportStateSuccess(this.result);
 
   @override
-  final bool result;
+  final PeamanReport result;
 
   @override
   String toString() {
@@ -526,7 +536,7 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(bool result) success,
+    required TResult Function(PeamanReport result) success,
     required TResult Function(PeamanError error) error,
   }) {
     return success(result);
@@ -537,7 +547,7 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(bool result)? success,
+    TResult? Function(PeamanReport result)? success,
     TResult? Function(PeamanError error)? error,
   }) {
     return success?.call(result);
@@ -548,7 +558,7 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool result)? success,
+    TResult Function(PeamanReport result)? success,
     TResult Function(PeamanError error)? error,
     required TResult orElse(),
   }) {
@@ -597,10 +607,10 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
 }
 
 abstract class _SubmitReportStateSuccess implements SubmitReportState {
-  const factory _SubmitReportStateSuccess(final bool result) =
+  const factory _SubmitReportStateSuccess(final PeamanReport result) =
       _$_SubmitReportStateSuccess;
 
-  bool get result;
+  PeamanReport get result;
   @JsonKey(ignore: true)
   _$$_SubmitReportStateSuccessCopyWith<_$_SubmitReportStateSuccess>
       get copyWith => throw _privateConstructorUsedError;
@@ -683,7 +693,7 @@ class _$_SubmitReportStateError implements _SubmitReportStateError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(bool result) success,
+    required TResult Function(PeamanReport result) success,
     required TResult Function(PeamanError error) error,
   }) {
     return error(this.error);
@@ -694,7 +704,7 @@ class _$_SubmitReportStateError implements _SubmitReportStateError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(bool result)? success,
+    TResult? Function(PeamanReport result)? success,
     TResult? Function(PeamanError error)? error,
   }) {
     return error?.call(this.error);
@@ -705,7 +715,7 @@ class _$_SubmitReportStateError implements _SubmitReportStateError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool result)? success,
+    TResult Function(PeamanReport result)? success,
     TResult Function(PeamanError error)? error,
     required TResult orElse(),
   }) {
