@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanConfirmationDialog extends ConsumerWidget {
@@ -55,7 +54,7 @@ class PeamanConfirmationDialog extends ConsumerWidget {
                   borderSide: BorderSide(
                     color: context.isDarkMode
                         ? PeamanColors.lightGrey
-                        : PeamanColors.primary,
+                        : context.theme.colorScheme.primary,
                   ),
                   onPressed: () => context.pop(),
                 ),
