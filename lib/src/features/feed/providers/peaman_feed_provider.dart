@@ -41,6 +41,12 @@ final providerOfPeamanTimelineFeedsFuture =
       );
 });
 
+final providerOfPeamanFeedsByOwnerId =
+    FutureProvider.family<PeamanEither<List<PeamanFeed>, PeamanError>, String>(
+        (ref, ownerId) {
+  return ref.watch(providerOfPeamanFeedRepository).getUserFeeds(uid: ownerId);
+});
+
 final providerOfSinglePeamanFeedByIdFuture =
     FutureProvider.family<PeamanEither<PeamanFeed, PeamanError>, String>(
         (ref, feedId) async {

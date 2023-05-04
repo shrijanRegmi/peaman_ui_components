@@ -3,7 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanProfileAbout extends ConsumerStatefulWidget {
-  const PeamanProfileAbout({super.key});
+  const PeamanProfileAbout({
+    super.key,
+    required this.user,
+  });
+
+  final PeamanUser user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

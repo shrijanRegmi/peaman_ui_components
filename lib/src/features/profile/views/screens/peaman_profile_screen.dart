@@ -30,9 +30,9 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        ref.invalidate(
-          providerOfSingleUserByIdFuture(widget.userId),
-        );
+        ref
+          ..invalidate(providerOfSingleUserByIdFuture(widget.userId))
+          ..invalidate(providerOfPeamanFeedsByOwnerId(widget.userId));
       }
     });
     super.initState();
@@ -75,7 +75,9 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
               )
             ];
           },
-          body: const PeamanProfileCategoryBody(),
+          body: PeamanProfileCategoryBody(
+            user: user,
+          ),
         ),
       ),
     );

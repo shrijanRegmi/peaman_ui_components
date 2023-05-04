@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanProfileCategory extends StatefulHookConsumerWidget {
-  const PeamanProfileCategory({super.key});
+  const PeamanProfileCategory({
+    super.key,
+    required this.user,
+  });
+
+  final PeamanUser user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -13,9 +18,11 @@ class _PeamanProfileCategoryState extends ConsumerState<PeamanProfileCategory> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        PeamanProfileCategoryHeader(),
-        PeamanProfileCategoryBody(),
+      children: [
+        const PeamanProfileCategoryHeader(),
+        PeamanProfileCategoryBody(
+          user: widget.user,
+        ),
       ],
     );
   }
