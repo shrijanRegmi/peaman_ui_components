@@ -55,6 +55,13 @@ class _PeamanTimelineHeaderState
       ),
       orElse: () => '',
     );
+    final isVerified = userFuture.maybeWhen(
+      data: (data) => data.when(
+        (success) => success.isVerified,
+        (failure) => false,
+      ),
+      orElse: () => false,
+    );
 
     return PeamanAppbar(
       titleText: widget.titleText,
@@ -69,16 +76,12 @@ class _PeamanTimelineHeaderState
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              if (!userFuture.isLoading)
-                SizedBox(
-                  width: 4.w,
-                ),
-              if (!userFuture.isLoading)
+              if (!userFuture.isLoading && isVerified)
                 Icon(
                   Icons.verified_rounded,
                   color: context.theme.colorScheme.secondary,
                   size: 16.w,
-                )
+                ).pL(4.0)
             ],
           ),
       backgroundColor: widget.backgroundColor,

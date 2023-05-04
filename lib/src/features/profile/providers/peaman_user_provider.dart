@@ -50,6 +50,24 @@ final providerOfPeamanFollowingsStream =
       .getFollowingsStream(uid: authUser!.uid);
 });
 
+final providerOfPeamanSentFollowRequests =
+    StreamProvider<List<PeamanFollowRequest>>((ref) {
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanUserRepository)
+      .getSentFollowRequestsStream(uid: authUser!.uid);
+});
+
+final providerOfPeamanReceivedFollowRequests =
+    StreamProvider<List<PeamanFollowRequest>>((ref) {
+  final authUser = ref.watch(providerOfPeamanAuthUser);
+  if (authUser.isNull) return Stream.value([]);
+  return ref
+      .watch(providerOfPeamanUserRepository)
+      .getReceivedFollowRequestsStream(uid: authUser!.uid);
+});
+
 final providerOfPeamanSuggestedUsersFuture =
     FutureProvider<PeamanEither<List<PeamanUser>, PeamanError>>((ref) async {
   final authUser = ref.watch(providerOfPeamanAuthUser);
@@ -96,6 +114,67 @@ final providerOfPeamanSuggestedUsersFuture =
       );
 });
 
+final providerOfPeamanUserRelationshipStatus =
+    Provider.family<PeamanUserRelationshipStatus, String>((ref, userId) {
+  final followerUserIds = ref
+          .watch(providerOfPeamanFollowersStream)
+          .asData
+          ?.value
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList() ??
+      <String>[];
+  final followingUserIds = ref
+          .watch(providerOfPeamanFollowingsStream)
+          .asData
+          ?.value
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList() ??
+      <String>[];
+  final sentFollowRequestsUserIds = ref
+          .watch(providerOfPeamanSentFollowRequests)
+          .asData
+          ?.value
+          .where((element) => !element.isAccepted)
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList() ??
+      <String>[];
+  final receivedFollowRequestsUserIds = ref
+          .watch(providerOfPeamanReceivedFollowRequests)
+          .asData
+          ?.value
+          .where((element) => !element.isAccepted)
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList() ??
+      <String>[];
+  final acceptedFollowRequestsUserIds = ref
+          .watch(providerOfPeamanReceivedFollowRequests)
+          .asData
+          ?.value
+          .where((element) => element.isAccepted)
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList() ??
+      <String>[];
+
+  if (followingUserIds.contains(userId)) {
+    return PeamanUserRelationshipStatus.unfollow;
+  } else if (sentFollowRequestsUserIds.contains(userId)) {
+    return PeamanUserRelationshipStatus.cancelFollowRequest;
+  } else if (receivedFollowRequestsUserIds.contains(userId)) {
+    return PeamanUserRelationshipStatus.acceptFollowRequest;
+  } else if (followerUserIds.contains(userId) &&
+      !followingUserIds.contains(userId) &&
+      acceptedFollowRequestsUserIds.contains(userId)) {
+    return PeamanUserRelationshipStatus.followBack;
+  } else {
+    return PeamanUserRelationshipStatus.follow;
+  }
+});
+
 class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   PeamanUserProvider(final Ref ref)
       : _ref = ref,
@@ -110,7 +189,6 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
 
   Future<void> blockUser({
     required final String friendId,
-    final String? uid,
     final String? successLogMessage,
   }) async {
     state = state.copyWith(
@@ -132,7 +210,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             }
 
             final result = await _userRepository.blockUser(
-              uid: uid ?? _appUser.uid!,
+              uid: _appUser.uid!,
               friendId: friendId,
             );
             state = result.when(
@@ -165,8 +243,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   }
 
   Future<void> unblockUser({
-    required final String friendId,
-    final String? uid,
+    required final String userId,
     final String? successLogMessage,
   }) async {
     state = state.copyWith(
@@ -176,7 +253,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
     _ref.read(providerOfPeamanBlockedUsersStream).maybeWhen(
           data: (data) async {
             final blockedUids = data.map((e) => e.uid).toList();
-            if (!blockedUids.contains(friendId)) {
+            if (!blockedUids.contains(userId)) {
               const error = PeamanError(
                 message: 'The user is not already blocked.',
               );
@@ -188,8 +265,8 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             }
 
             final result = await _userRepository.unblockUser(
-              uid: uid ?? _appUser.uid!,
-              friendId: friendId,
+              uid: _appUser.uid!,
+              friendId: userId,
             );
             state = result.when(
               (success) {
@@ -220,6 +297,287 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
         );
   }
 
+  Future<void> followUser({
+    required final String userId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      followUserState: const FollowUserState.loading(),
+    );
+
+    _ref.read(providerOfPeamanSentFollowRequests).maybeWhen(
+          data: (data) async {
+            final sentFollowRequestUserIds = data.map((e) => e.uid).toList();
+            if (sentFollowRequestUserIds.contains(userId)) {
+              const error = PeamanError(
+                message: 'The user is already followed',
+              );
+              _logProvider.logError(error.message);
+              state = state.copyWith(
+                followUserState: const FollowUserState.error(error),
+              );
+              return;
+            }
+
+            final result = await _userRepository.followUser(
+              uid: _appUser.uid!,
+              friendId: userId,
+            );
+            state = result.when(
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  followUserState: FollowUserState.success(success),
+                );
+              },
+              (failure) {
+                _logProvider.logError(failure.message);
+                return state.copyWith(
+                  followUserState: FollowUserState.error(failure),
+                );
+              },
+            );
+          },
+          error: (e, _) {
+            _logProvider.logError(e.toString());
+            state = state.copyWith(
+              followUserState: FollowUserState.error(
+                PeamanError(message: e.toString()),
+              ),
+            );
+          },
+          orElse: () {},
+        );
+  }
+
+  Future<void> unfollowUser({
+    required final String userId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      unfollowUserState: const UnfollowUserState.loading(),
+    );
+
+    _ref.read(providerOfPeamanFollowingsStream).maybeWhen(
+          data: (data) async {
+            final followingUserIds = data.map((e) => e.uid).toList();
+            if (!followingUserIds.contains(userId)) {
+              const error = PeamanError(
+                message: 'The user is already unfollowed',
+              );
+              _logProvider.logError(error.message);
+              state = state.copyWith(
+                unfollowUserState: const UnfollowUserState.error(error),
+              );
+              return;
+            }
+
+            final result = await _userRepository.unfollowUser(
+              uid: _appUser.uid!,
+              friendId: userId,
+            );
+            state = result.when(
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  unfollowUserState: UnfollowUserState.success(success),
+                );
+              },
+              (failure) {
+                _logProvider.logError(failure.message);
+                return state.copyWith(
+                  unfollowUserState: UnfollowUserState.error(failure),
+                );
+              },
+            );
+          },
+          error: (e, _) {
+            _logProvider.logError(e.toString());
+            state = state.copyWith(
+              unfollowUserState: UnfollowUserState.error(
+                PeamanError(message: e.toString()),
+              ),
+            );
+          },
+          orElse: () {},
+        );
+  }
+
+  Future<void> cancelFollowRequest({
+    required final String userId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      cancelFollowState: const CancelFollowState.loading(),
+    );
+
+    _ref.read(providerOfPeamanSentFollowRequests).maybeWhen(
+          data: (data) async {
+            final sentFollowRequestUserIds = data
+                .where((element) => !element.isAccepted)
+                .map((e) => e.uid)
+                .toList();
+            if (!sentFollowRequestUserIds.contains(userId)) {
+              const error = PeamanError(
+                message: 'The follow request is already canceled',
+              );
+              _logProvider.logError(error.message);
+              state = state.copyWith(
+                cancelFollowState: const CancelFollowState.error(error),
+              );
+              return;
+            }
+
+            final result = await _userRepository.cancelFollowRequest(
+              uid: _appUser.uid!,
+              friendId: userId,
+            );
+            state = result.when(
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  cancelFollowState: CancelFollowState.success(success),
+                );
+              },
+              (failure) {
+                _logProvider.logError(failure.message);
+                return state.copyWith(
+                  cancelFollowState: CancelFollowState.error(failure),
+                );
+              },
+            );
+          },
+          error: (e, _) {
+            _logProvider.logError(e.toString());
+            state = state.copyWith(
+              cancelFollowState: CancelFollowState.error(
+                PeamanError(message: e.toString()),
+              ),
+            );
+          },
+          orElse: () {},
+        );
+  }
+
+  Future<void> acceptFollowRequest({
+    required final String userId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      acceptFollowState: const AcceptFollowState.loading(),
+    );
+
+    _ref.read(providerOfPeamanFollowersStream).maybeWhen(
+          data: (data) async {
+            final followerUserIds = data.map((e) => e.uid).toList();
+            if (followerUserIds.contains(userId)) {
+              const error = PeamanError(
+                message: 'The follow request is already accepted',
+              );
+              _logProvider.logError(error.message);
+              state = state.copyWith(
+                acceptFollowState: const AcceptFollowState.error(error),
+              );
+              return;
+            }
+
+            final result = await _userRepository.acceptFollowRequest(
+              uid: _appUser.uid!,
+              friendId: userId,
+            );
+            state = result.when(
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  acceptFollowState: AcceptFollowState.success(success),
+                );
+              },
+              (failure) {
+                _logProvider.logError(failure.message);
+                return state.copyWith(
+                  acceptFollowState: AcceptFollowState.error(failure),
+                );
+              },
+            );
+          },
+          error: (e, _) {
+            _logProvider.logError(e.toString());
+            state = state.copyWith(
+              acceptFollowState: AcceptFollowState.error(
+                PeamanError(message: e.toString()),
+              ),
+            );
+          },
+          orElse: () {},
+        );
+  }
+
+  Future<void> followBackUser({
+    required final String userId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      followBackState: const FollowBackState.loading(),
+    );
+
+    _ref.read(providerOfPeamanReceivedFollowRequests).maybeWhen(
+          data: (data) async {
+            final receivedFollowRequestUserIds = data
+                .where((element) => !element.isAccepted)
+                .map((e) => e.uid)
+                .toList();
+            if (receivedFollowRequestUserIds.contains(userId)) {
+              const error = PeamanError(
+                message: 'The user is already followed',
+              );
+              _logProvider.logError(error.message);
+              state = state.copyWith(
+                followBackState: const FollowBackState.error(error),
+              );
+              return;
+            }
+
+            final result = await _userRepository.followBackUser(
+              uid: _appUser.uid!,
+              friendId: userId,
+            );
+            state = result.when(
+              (success) {
+                if (successLogMessage != null) {
+                  _logProvider.logSuccess(successLogMessage);
+                }
+                return state.copyWith(
+                  followBackState: FollowBackState.success(success),
+                );
+              },
+              (failure) {
+                _logProvider.logError(failure.message);
+                return state.copyWith(
+                  followBackState: FollowBackState.error(failure),
+                );
+              },
+            );
+          },
+          error: (e, _) {
+            _logProvider.logError(e.toString());
+            state = state.copyWith(
+              followBackState: FollowBackState.error(
+                PeamanError(message: e.toString()),
+              ),
+            );
+          },
+          orElse: () {},
+        );
+  }
+
   Future<void> toggleBlockUnblock({
     required final String friendId,
     final String? successLogMessage,
@@ -229,7 +587,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             final blockedUids = data.map((e) => e.uid).toList();
             if (blockedUids.contains(friendId)) {
               await unblockUser(
-                friendId: friendId,
+                userId: friendId,
                 successLogMessage: successLogMessage,
               );
             } else {
@@ -244,6 +602,88 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
           },
           orElse: () {},
         );
+  }
+
+  Future<void> performFollowAction({
+    required final String userId,
+    final String? followSuccessLogMessage,
+    final String? unfollowSuccessLogMessage,
+    final String? cancelfollowRequestSuccessLogMessage,
+    final String? acceptFollowRequestSuccessLogMessage,
+    final String? followBackSuccessLogMessage,
+  }) async {
+    final followerUserIds = _ref
+            .read(providerOfPeamanFollowersStream)
+            .asData
+            ?.value
+            .where((element) => element.uid != null)
+            .map((e) => e.uid!)
+            .toList() ??
+        <String>[];
+    final followingUserIds = _ref
+            .read(providerOfPeamanFollowingsStream)
+            .asData
+            ?.value
+            .where((element) => element.uid != null)
+            .map((e) => e.uid!)
+            .toList() ??
+        <String>[];
+    final sentFollowRequestsUserIds = _ref
+            .read(providerOfPeamanSentFollowRequests)
+            .asData
+            ?.value
+            .where((element) => !element.isAccepted)
+            .where((element) => element.uid != null)
+            .map((e) => e.uid!)
+            .toList() ??
+        <String>[];
+    final receivedFollowRequestsUserIds = _ref
+            .read(providerOfPeamanReceivedFollowRequests)
+            .asData
+            ?.value
+            .where((element) => !element.isAccepted)
+            .where((element) => element.uid != null)
+            .map((e) => e.uid!)
+            .toList() ??
+        <String>[];
+    final acceptedFollowRequestsUserIds = _ref
+            .read(providerOfPeamanReceivedFollowRequests)
+            .asData
+            ?.value
+            .where((element) => element.isAccepted)
+            .where((element) => element.uid != null)
+            .map((e) => e.uid!)
+            .toList() ??
+        <String>[];
+
+    if (followingUserIds.contains(userId)) {
+      return unfollowUser(
+        userId: userId,
+        successLogMessage: unfollowSuccessLogMessage,
+      );
+    } else if (sentFollowRequestsUserIds.contains(userId)) {
+      return cancelFollowRequest(
+        userId: userId,
+        successLogMessage: cancelfollowRequestSuccessLogMessage,
+      );
+    } else if (receivedFollowRequestsUserIds.contains(userId)) {
+      return acceptFollowRequest(
+        userId: userId,
+        successLogMessage: acceptFollowRequestSuccessLogMessage,
+      );
+    } else if (followerUserIds.contains(userId) &&
+        !followingUserIds.contains(userId) &&
+        acceptedFollowRequestsUserIds.contains(userId)) {
+      return followBackUser(
+        userId: userId,
+        successLogMessage: followBackSuccessLogMessage,
+      );
+    } else {
+      return followUser(
+        userId: userId,
+        successLogMessage: followSuccessLogMessage,
+      );
+    }
   }
 
   Future<PeamanEither<bool, PeamanError>> updateUser({

@@ -55,6 +55,18 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
               orElse: () => false,
             );
 
+    final isSentFollowRequestsLoading =
+        ref.watch(providerOfPeamanSentFollowRequests).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
+    final isReceivedFollowRequestsLoading =
+        ref.watch(providerOfPeamanReceivedFollowRequests).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
     final isLocalNotificationInitialised =
         ref.watch(providerOfPeamanLocalNotification);
 
@@ -67,7 +79,9 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
     return !isBlockedUsersLoading &&
         !isBlockedByUsersLoading &&
         isLocalNotificationInitialised &&
-        !isUserHiddenFeedsLoading;
+        !isUserHiddenFeedsLoading &&
+        !isSentFollowRequestsLoading &&
+        !isReceivedFollowRequestsLoading;
   }
 
   @override

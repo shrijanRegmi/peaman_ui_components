@@ -38,6 +38,10 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
     super.initState();
   }
 
+  String get _uid => ref.watch(
+        providerOfLoggedInUser.select((value) => value.uid!),
+      );
+
   @override
   Widget build(BuildContext context) {
     final userFuture = ref.watch(
@@ -95,12 +99,14 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
         SizedBox(
           height: 20.h,
         ),
-        PeamanProfileActions(
-          user: user,
-        ),
-        SizedBox(
-          height: 15.h,
-        ),
+        if (widget.userId != _uid)
+          PeamanProfileActions(
+            user: user,
+          ),
+        if (widget.userId != _uid)
+          SizedBox(
+            height: 15.h,
+          ),
         const PeamanProfileCategoryHeader()
       ],
     );
