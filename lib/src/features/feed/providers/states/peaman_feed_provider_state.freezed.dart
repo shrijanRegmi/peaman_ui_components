@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PeamanFeedProviderState {
   List<PeamanFeed> get timelineFeeds => throw _privateConstructorUsedError;
+  List<PeamanFeed> get profileFeeds => throw _privateConstructorUsedError;
   CreateFeedState get createFeedState => throw _privateConstructorUsedError;
   UpdateFeedState get updateFeedState => throw _privateConstructorUsedError;
   DeleteFeedState get deleteFeedState => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $PeamanFeedProviderStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<PeamanFeed> timelineFeeds,
+      List<PeamanFeed> profileFeeds,
       CreateFeedState createFeedState,
       UpdateFeedState updateFeedState,
       DeleteFeedState deleteFeedState,
@@ -97,6 +99,7 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? timelineFeeds = null,
+    Object? profileFeeds = null,
     Object? createFeedState = null,
     Object? updateFeedState = null,
     Object? deleteFeedState = null,
@@ -116,6 +119,10 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
       timelineFeeds: null == timelineFeeds
           ? _value.timelineFeeds
           : timelineFeeds // ignore: cast_nullable_to_non_nullable
+              as List<PeamanFeed>,
+      profileFeeds: null == profileFeeds
+          ? _value.profileFeeds
+          : profileFeeds // ignore: cast_nullable_to_non_nullable
               as List<PeamanFeed>,
       createFeedState: null == createFeedState
           ? _value.createFeedState
@@ -305,6 +312,7 @@ abstract class _$$_PeamanFeedProviderStateCopyWith<$Res>
   @useResult
   $Res call(
       {List<PeamanFeed> timelineFeeds,
+      List<PeamanFeed> profileFeeds,
       CreateFeedState createFeedState,
       UpdateFeedState updateFeedState,
       DeleteFeedState deleteFeedState,
@@ -363,6 +371,7 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? timelineFeeds = null,
+    Object? profileFeeds = null,
     Object? createFeedState = null,
     Object? updateFeedState = null,
     Object? deleteFeedState = null,
@@ -382,6 +391,10 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
       timelineFeeds: null == timelineFeeds
           ? _value._timelineFeeds
           : timelineFeeds // ignore: cast_nullable_to_non_nullable
+              as List<PeamanFeed>,
+      profileFeeds: null == profileFeeds
+          ? _value._profileFeeds
+          : profileFeeds // ignore: cast_nullable_to_non_nullable
               as List<PeamanFeed>,
       createFeedState: null == createFeedState
           ? _value.createFeedState
@@ -448,6 +461,7 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
 class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
   const _$_PeamanFeedProviderState(
       {final List<PeamanFeed> timelineFeeds = const <PeamanFeed>[],
+      final List<PeamanFeed> profileFeeds = const <PeamanFeed>[],
       this.createFeedState = const CreateFeedState.initial(),
       this.updateFeedState = const UpdateFeedState.initial(),
       this.deleteFeedState = const DeleteFeedState.initial(),
@@ -462,7 +476,8 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
       this.createCommentState = const CreateCommentState.initial(),
       this.updateCommentState = const UpdateCommentState.initial(),
       this.deleteCommentState = const DeleteCommentState.initial()})
-      : _timelineFeeds = timelineFeeds;
+      : _timelineFeeds = timelineFeeds,
+        _profileFeeds = profileFeeds;
 
   final List<PeamanFeed> _timelineFeeds;
   @override
@@ -471,6 +486,15 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
     if (_timelineFeeds is EqualUnmodifiableListView) return _timelineFeeds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_timelineFeeds);
+  }
+
+  final List<PeamanFeed> _profileFeeds;
+  @override
+  @JsonKey()
+  List<PeamanFeed> get profileFeeds {
+    if (_profileFeeds is EqualUnmodifiableListView) return _profileFeeds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_profileFeeds);
   }
 
   @override
@@ -518,7 +542,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
 
   @override
   String toString() {
-    return 'PeamanFeedProviderState(timelineFeeds: $timelineFeeds, createFeedState: $createFeedState, updateFeedState: $updateFeedState, deleteFeedState: $deleteFeedState, hideFeedState: $hideFeedState, showFeedState: $showFeedState, saveFeedState: $saveFeedState, unsaveFeedState: $unsaveFeedState, shareFeedState: $shareFeedState, setFeedVisibilityState: $setFeedVisibilityState, createReactionState: $createReactionState, deleteReactionState: $deleteReactionState, createCommentState: $createCommentState, updateCommentState: $updateCommentState, deleteCommentState: $deleteCommentState)';
+    return 'PeamanFeedProviderState(timelineFeeds: $timelineFeeds, profileFeeds: $profileFeeds, createFeedState: $createFeedState, updateFeedState: $updateFeedState, deleteFeedState: $deleteFeedState, hideFeedState: $hideFeedState, showFeedState: $showFeedState, saveFeedState: $saveFeedState, unsaveFeedState: $unsaveFeedState, shareFeedState: $shareFeedState, setFeedVisibilityState: $setFeedVisibilityState, createReactionState: $createReactionState, deleteReactionState: $deleteReactionState, createCommentState: $createCommentState, updateCommentState: $updateCommentState, deleteCommentState: $deleteCommentState)';
   }
 
   @override
@@ -528,6 +552,8 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
             other is _$_PeamanFeedProviderState &&
             const DeepCollectionEquality()
                 .equals(other._timelineFeeds, _timelineFeeds) &&
+            const DeepCollectionEquality()
+                .equals(other._profileFeeds, _profileFeeds) &&
             (identical(other.createFeedState, createFeedState) ||
                 other.createFeedState == createFeedState) &&
             (identical(other.updateFeedState, updateFeedState) ||
@@ -562,6 +588,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_timelineFeeds),
+      const DeepCollectionEquality().hash(_profileFeeds),
       createFeedState,
       updateFeedState,
       deleteFeedState,
@@ -589,6 +616,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
 abstract class _PeamanFeedProviderState implements PeamanFeedProviderState {
   const factory _PeamanFeedProviderState(
           {final List<PeamanFeed> timelineFeeds,
+          final List<PeamanFeed> profileFeeds,
           final CreateFeedState createFeedState,
           final UpdateFeedState updateFeedState,
           final DeleteFeedState deleteFeedState,
@@ -607,6 +635,8 @@ abstract class _PeamanFeedProviderState implements PeamanFeedProviderState {
 
   @override
   List<PeamanFeed> get timelineFeeds;
+  @override
+  List<PeamanFeed> get profileFeeds;
   @override
   CreateFeedState get createFeedState;
   @override

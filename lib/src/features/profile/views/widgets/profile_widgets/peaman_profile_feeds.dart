@@ -50,24 +50,22 @@ class _PeamanProfileFeedsState extends ConsumerState<PeamanProfileFeeds> {
       behavior: PeamanNoGlowScrollConfiguration(),
       child: PeamanFeedsList.byFeedProivder(
         physics: const AlwaysScrollableScrollPhysics(),
-        feedsProvider: (context, ref) => ref.watch(
-          providerOfPeamanFeedsByOwnerId(widget.user.uid!).select((value) {
-            return value.when(
-              data: (data) {
-                return data.when(
-                  (success) => AsyncData(
-                    Success(
-                      success.where(_hasTypeMatched).toList(),
-                    ),
-                  ),
-                  (failure) => AsyncError(failure, StackTrace.current),
-                );
-              },
-              error: AsyncError.new,
-              loading: AsyncLoading.new,
-            );
-          }),
-        ),
+        feedsProvider: (context, ref) =>
+            ref.watch(providerOfPeamanFeedsByOwnerId(widget.user.uid!)).when(
+                  data: (data) {
+                    final profileFeeds = ref
+                        .watch(
+                          providerOfPeamanFeed.select(
+                            (value) => value.profileFeeds,
+                          ),
+                        )
+                        .where(_hasTypeMatched)
+                        .toList();
+                    return AsyncData(Success(profileFeeds));
+                  },
+                  error: AsyncError.new,
+                  loading: AsyncLoading.new,
+                ),
       ),
     );
   }

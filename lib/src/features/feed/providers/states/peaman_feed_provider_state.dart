@@ -7,6 +7,7 @@ part 'peaman_feed_provider_state.freezed.dart';
 class PeamanFeedProviderState with _$PeamanFeedProviderState {
   const factory PeamanFeedProviderState({
     @Default(<PeamanFeed>[]) final List<PeamanFeed> timelineFeeds,
+    @Default(<PeamanFeed>[]) final List<PeamanFeed> profileFeeds,
     @Default(CreateFeedState.initial()) final CreateFeedState createFeedState,
     @Default(UpdateFeedState.initial()) final UpdateFeedState updateFeedState,
     @Default(DeleteFeedState.initial()) final DeleteFeedState deleteFeedState,

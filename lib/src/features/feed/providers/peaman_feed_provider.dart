@@ -10,25 +10,12 @@ final providerOfPeamanFeed =
 final providerOfPeamanTimelineFeedsFuture =
     FutureProvider<PeamanEither<List<PeamanFeed>, PeamanError>>((ref) async {
   final feedRepository = ref.watch(providerOfPeamanFeedRepository);
-  final hiddenFeedsRef = ref.read(providerOfPeamanUserHiddenFeeds);
   return feedRepository.getFeeds().then(
         (value) => value.when(
           (success) async {
-            final hiddenFeedIds = hiddenFeedsRef.maybeWhen(
-              data: (hiddenFeeds) => hiddenFeeds
-                  .where((element) => element.id != null)
-                  .map((e) => e.id!)
-                  .toList(),
-              orElse: () => <String>[],
-            );
-
-            final feeds = success
-                .where((element) => !hiddenFeedIds.contains(element.id))
-                .toList();
-
             final updatedFeeds = await ref
                 .read(providerOfPeamanFeed.notifier)
-                .addStatusToFeeds(feeds: feeds);
+                .addStatusToFeeds(feeds: success);
 
             ref
                 .read(providerOfPeamanFeed.notifier)
@@ -44,7 +31,25 @@ final providerOfPeamanTimelineFeedsFuture =
 final providerOfPeamanFeedsByOwnerId =
     FutureProvider.family<PeamanEither<List<PeamanFeed>, PeamanError>, String>(
         (ref, ownerId) {
-  return ref.watch(providerOfPeamanFeedRepository).getUserFeeds(uid: ownerId);
+  return ref
+      .watch(providerOfPeamanFeedRepository)
+      .getUserFeeds(uid: ownerId)
+      .then(
+        (value) => value.when(
+          (success) async {
+            final updatedFeeds = await ref
+                .read(providerOfPeamanFeed.notifier)
+                .addStatusToFeeds(feeds: success);
+
+            ref
+                .read(providerOfPeamanFeed.notifier)
+                .setProfileFeeds(updatedFeeds);
+
+            return Success(updatedFeeds);
+          },
+          Failure.new,
+        ),
+      );
 });
 
 final providerOfSinglePeamanFeedByIdFuture =
@@ -673,8 +678,26 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
   }
 
   Future<List<PeamanFeed>> addStatusToFeeds({
-    required final List<PeamanFeed> feeds,
+    required List<PeamanFeed> feeds,
   }) async {
+    final hiddenFeedsRef = _ref.read(providerOfPeamanUserHiddenFeeds);
+
+    final hiddenFeedIds = hiddenFeedsRef.maybeWhen(
+      data: (hiddenFeeds) => hiddenFeeds
+          .where((element) => element.id != null)
+          .map((e) => e.id!)
+          .toList(),
+      orElse: () => <String>[],
+    );
+
+    feeds = feeds
+        .where(
+          (element) => !hiddenFeedIds.contains(
+            element.id,
+          ),
+        )
+        .toList();
+
     final futures = <Future<PeamanFeed?>>[];
 
     for (final feed in feeds) {
@@ -739,6 +762,12 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     );
   }
 
+  void setProfileFeeds(final List<PeamanFeed> newVal) {
+    state = state.copyWith(
+      profileFeeds: newVal,
+    );
+  }
+
   void addToFeeds(
     final PeamanFeed feed, {
     final bool addToLast = false,
@@ -757,6 +786,11 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     state = state.copyWith(
       timelineFeeds: _getUpdatedFeedsList(
         feeds: state.timelineFeeds,
+        feedId: feedId,
+        feedData: feedData,
+      ),
+      profileFeeds: _getUpdatedFeedsList(
+        feeds: state.profileFeeds,
         feedId: feedId,
         feedData: feedData,
       ),
@@ -822,8 +856,16 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
 
   void removeFromFeeds(final String feedId) {
     state = state.copyWith(
-      timelineFeeds:
-          state.timelineFeeds.where((element) => element.id != feedId).toList(),
+      timelineFeeds: state.timelineFeeds
+          .where(
+            (element) => element.id != feedId,
+          )
+          .toList(),
+      profileFeeds: state.profileFeeds
+          .where(
+            (element) => element.id != feedId,
+          )
+          .toList(),
     );
   }
 }
