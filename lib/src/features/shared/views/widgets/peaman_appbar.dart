@@ -60,7 +60,7 @@ class PeamanAppbar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () => onPressedLeading.isNull
                     ? context.pop()
                     : onPressedLeading?.call(() => context.pop()),
-              ).pR(10.0),
+              ),
             ),
       centerTitle: centerTitle,
       actions: actions,

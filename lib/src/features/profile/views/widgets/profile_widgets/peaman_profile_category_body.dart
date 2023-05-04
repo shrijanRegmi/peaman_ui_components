@@ -21,7 +21,19 @@ class _PeamanProfileCategoryBodyState
     return TabBarView(
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        PeamanProfileFeeds(
+        PeamanProfileFeeds.all(
+          user: widget.user,
+        ),
+        PeamanProfileFeeds.image(
+          user: widget.user,
+        ),
+        PeamanProfileFeeds.video(
+          user: widget.user,
+        ),
+        PeamanProfileFeeds.youtube(
+          user: widget.user,
+        ),
+        PeamanProfileFeeds.poll(
           user: widget.user,
         ),
         PeamanProfileAbout(

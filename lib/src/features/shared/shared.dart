@@ -31,6 +31,7 @@ export 'views/widgets/peaman_chats_list_popup.dart';
 export 'views/widgets/peaman_search_builder.dart';
 export 'views/widgets/peaman_date_divider.dart';
 export 'views/widgets/peaman_popup_header.dart';
+export 'views/widgets/peaman_verified_badge.dart';
 
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_selectable_option_model.dart';

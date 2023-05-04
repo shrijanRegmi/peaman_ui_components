@@ -68,7 +68,7 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
 
   Widget _dataBuilder(final PeamanUser user) {
     return DefaultTabController(
-      length: 2,
+      length: 6,
       child: ScrollConfiguration(
         behavior: PeamanNoGlowScrollConfiguration(),
         child: NestedScrollView(

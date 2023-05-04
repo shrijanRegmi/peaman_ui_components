@@ -77,14 +77,11 @@ class _PeamanTimelineHeaderState
                   ),
                 ),
               if (!userFuture.isLoading && isVerified)
-                Icon(
-                  Icons.verified_rounded,
-                  color: context.theme.colorScheme.secondary,
-                  size: 16.w,
-                ).pL(4.0)
+                const PeamanVerifiedBadge().pL(4.0),
             ],
           ),
-      backgroundColor: widget.backgroundColor,
+      backgroundColor:
+          widget.backgroundColor ?? context.theme.scaffoldBackgroundColor,
       onPressedTitle: widget.onPressedTitle,
       onPressedLeading: widget.onPressedLeading,
       elevation: 0,
