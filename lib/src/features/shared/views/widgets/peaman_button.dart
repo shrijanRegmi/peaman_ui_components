@@ -108,10 +108,11 @@ class PeamanButton extends StatelessWidget {
               width: 20.0,
             ),
           if (isLoading)
-            const PeamanSpinner(
-              size: 20.0,
-              color: PeamanColors.white,
-            )
+            loader ??
+                const PeamanSpinner(
+                  size: 20.0,
+                  color: PeamanColors.white,
+                )
         ],
       ),
     );
@@ -162,9 +163,10 @@ class PeamanButton extends StatelessWidget {
               width: 20.0,
             ),
           if (isLoading)
-            PeamanSpinner(
-              color: thisBorderSide.color,
-            ),
+            loader ??
+                PeamanSpinner(
+                  color: thisBorderSide.color,
+                ),
         ],
       ),
     );

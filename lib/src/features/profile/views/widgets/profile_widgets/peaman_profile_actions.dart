@@ -26,9 +26,14 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         PeamanButton.filled(
-          value: btnText,
+          value: isBtnLoading ? null : btnText,
           minWidth: 130,
           borderRadius: 10.0,
+          isLoading: isBtnLoading,
+          loader: PeamanSpinner(
+            size: 14.w,
+            color: PeamanColors.white,
+          ),
           onPressed: () =>
               ref.watch(providerOfPeamanUser.notifier).performFollowAction(
                     userId: widget.user.uid!,
