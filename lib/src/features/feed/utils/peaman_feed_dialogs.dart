@@ -117,7 +117,7 @@ Future<T?> showPeamanFeedMenuBottomsheet<T>({
             showPeamanNormalBottomsheet(
               context: context,
               widget: PeamanReportPopup.feed(
-                feed: feed,
+                feedId: feed.id!,
               ),
             );
             break;

@@ -97,7 +97,10 @@ class _PeamanTimelineHeaderState
               Center(
                 child: PeamanRoundIconButton(
                   padding: EdgeInsets.all(7.w),
-                  onPressed: () {},
+                  onPressed: () => showPeamanProfileMenuBottomsheet(
+                    context: context,
+                    userId: widget.userId,
+                  ),
                   icon: Icon(
                     Icons.more_horiz_rounded,
                     size: 16.w,

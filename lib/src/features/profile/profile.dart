@@ -25,3 +25,5 @@ export 'models/peaman_delete_profile_trigger_model.dart';
 export 'extensions/peaman_user_extension.dart';
 
 export 'enums/peaman_user_relationship_status.dart';
+
+export 'utils/peaman_profile_dialogs.dart';

@@ -5,81 +5,81 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanReportPopup extends ConsumerStatefulWidget {
   const PeamanReportPopup.user({
     super.key,
-    required this.user,
+    required this.userId,
     this.reportReasons,
   })  : reportType = PeamanReportType.user,
-        feed = null,
-        comment = null,
-        chat = null,
-        message = null,
+        feedId = null,
+        commentId = null,
+        chatId = null,
+        messageId = null,
         assert(
-          user != null,
-          'user cannot be null',
+          userId != null,
+          'userId cannot be null',
         );
 
   const PeamanReportPopup.feed({
     super.key,
-    required this.feed,
+    required this.feedId,
     this.reportReasons,
   })  : reportType = PeamanReportType.feed,
-        user = null,
-        comment = null,
-        chat = null,
-        message = null,
+        userId = null,
+        commentId = null,
+        chatId = null,
+        messageId = null,
         assert(
-          feed != null,
-          'feed cannot be null',
+          feedId != null,
+          'feedId cannot be null',
         );
 
   const PeamanReportPopup.comment({
     super.key,
-    required this.comment,
+    required this.commentId,
     this.reportReasons,
   })  : reportType = PeamanReportType.comment,
-        user = null,
-        feed = null,
-        chat = null,
-        message = null,
+        userId = null,
+        feedId = null,
+        chatId = null,
+        messageId = null,
         assert(
-          comment != null,
-          'comment cannot be null',
+          commentId != null,
+          'commentId cannot be null',
         );
 
   const PeamanReportPopup.chat({
     super.key,
-    required this.chat,
+    required this.chatId,
     this.reportReasons,
   })  : reportType = PeamanReportType.comment,
-        user = null,
-        feed = null,
-        comment = null,
-        message = null,
+        userId = null,
+        feedId = null,
+        commentId = null,
+        messageId = null,
         assert(
-          chat != null,
-          'chat cannot be null',
+          chatId != null,
+          'chatId cannot be null',
         );
 
   const PeamanReportPopup.message({
     super.key,
-    required this.message,
+    required this.messageId,
     this.reportReasons,
   })  : reportType = PeamanReportType.comment,
-        user = null,
-        feed = null,
-        comment = null,
-        chat = null,
+        userId = null,
+        feedId = null,
+        commentId = null,
+        chatId = null,
         assert(
-          message != null,
-          'message cannot be null',
+          messageId != null,
+          'messageId cannot be null',
         );
 
   final PeamanReportType reportType;
 
-  final PeamanFeed? feed;
-  final PeamanUser? user;
-  final PeamanComment? comment;
-  final PeamanChat? chat;
-  final PeamanChatMessage? message;
+  final String? feedId;
+  final String? userId;
+  final String? commentId;
+  final String? chatId;
+  final String? messageId;
   final List<String>? reportReasons;
 
   @override
@@ -143,19 +143,19 @@ class _PeamanReportPopupState extends ConsumerState<PeamanReportPopup> {
 
               switch (widget.reportType) {
                 case PeamanReportType.user:
-                  id = widget.user!.uid!;
+                  id = widget.userId!;
                   break;
                 case PeamanReportType.chat:
-                  id = widget.chat!.id!;
+                  id = widget.chatId!;
                   break;
                 case PeamanReportType.message:
-                  id = widget.message!.id!;
+                  id = widget.messageId!;
                   break;
                 case PeamanReportType.feed:
-                  id = widget.feed!.id!;
+                  id = widget.feedId!;
                   break;
                 case PeamanReportType.comment:
-                  id = widget.comment!.id!;
+                  id = widget.commentId!;
                   break;
                 default:
               }

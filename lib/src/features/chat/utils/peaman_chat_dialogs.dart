@@ -7,7 +7,12 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
   required final BuildContext context,
   required final PeamanUser user,
   required final String chatId,
-  final Function(BuildContext, WidgetRef, PeamanSelectableOption, Function())?
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanSelectableOption,
+    Function(),
+  )?
       onSelectOption,
 }) {
   void defaultOnSelectOption(
@@ -239,7 +244,12 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
 
 Future<T?> showPeamanChatInitiatorDialog<T>({
   required final BuildContext context,
-  final Function(BuildContext, WidgetRef, PeamanSelectableOption, Function())?
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanSelectableOption,
+    Function(),
+  )?
       onSelectOption,
 }) {
   void defaultOnSelectOption(
