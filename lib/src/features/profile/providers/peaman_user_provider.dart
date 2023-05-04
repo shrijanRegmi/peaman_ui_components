@@ -160,12 +160,12 @@ final providerOfPeamanUserRelationshipStatus =
           .toList() ??
       <String>[];
 
-  if (followingUserIds.contains(userId)) {
-    return PeamanUserRelationshipStatus.unfollow;
-  } else if (sentFollowRequestsUserIds.contains(userId)) {
+  if (sentFollowRequestsUserIds.contains(userId)) {
     return PeamanUserRelationshipStatus.cancelFollowRequest;
   } else if (receivedFollowRequestsUserIds.contains(userId)) {
     return PeamanUserRelationshipStatus.acceptFollowRequest;
+  } else if (followingUserIds.contains(userId)) {
+    return PeamanUserRelationshipStatus.unfollow;
   } else if (followerUserIds.contains(userId) &&
       !followingUserIds.contains(userId) &&
       acceptedFollowRequestsUserIds.contains(userId)) {
@@ -307,7 +307,10 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
 
     _ref.read(providerOfPeamanSentFollowRequests).maybeWhen(
           data: (data) async {
-            final sentFollowRequestUserIds = data.map((e) => e.uid).toList();
+            final sentFollowRequestUserIds = data
+                .where((element) => !element.isAccepted)
+                .map((e) => e.uid)
+                .toList();
             if (sentFollowRequestUserIds.contains(userId)) {
               const error = PeamanError(
                 message: 'The user is already followed',
@@ -656,12 +659,7 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
             .toList() ??
         <String>[];
 
-    if (followingUserIds.contains(userId)) {
-      return unfollowUser(
-        userId: userId,
-        successLogMessage: unfollowSuccessLogMessage,
-      );
-    } else if (sentFollowRequestsUserIds.contains(userId)) {
+    if (sentFollowRequestsUserIds.contains(userId)) {
       return cancelFollowRequest(
         userId: userId,
         successLogMessage: cancelfollowRequestSuccessLogMessage,
@@ -670,6 +668,11 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
       return acceptFollowRequest(
         userId: userId,
         successLogMessage: acceptFollowRequestSuccessLogMessage,
+      );
+    } else if (followingUserIds.contains(userId)) {
+      return unfollowUser(
+        userId: userId,
+        successLogMessage: unfollowSuccessLogMessage,
       );
     } else if (followerUserIds.contains(userId) &&
         !followingUserIds.contains(userId) &&
