@@ -46,7 +46,7 @@ class _PeamanTimelineHeaderState
   @override
   Widget build(BuildContext context) {
     final userFuture = ref.watch(
-      providerOfPeamanUserByIdFuture(widget.userId),
+      providerOfSingleUserByIdFuture(widget.userId),
     );
     final userName = userFuture.maybeWhen(
       data: (data) => data.when(

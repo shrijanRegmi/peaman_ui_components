@@ -12,9 +12,11 @@ class PeamanProfileFeeds extends ConsumerStatefulWidget {
 class _PeamanProfileFeedsState extends ConsumerState<PeamanProfileFeeds> {
   @override
   Widget build(BuildContext context) {
-    return const PeamanFeedsList(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+    return ScrollConfiguration(
+      behavior: PeamanNoGlowScrollConfiguration(),
+      child: const PeamanFeedsList(
+        physics: AlwaysScrollableScrollPhysics(),
+      ),
     );
   }
 }

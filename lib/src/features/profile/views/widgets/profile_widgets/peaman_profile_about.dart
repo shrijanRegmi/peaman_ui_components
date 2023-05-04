@@ -23,7 +23,7 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
             icon: Icon(
               Icons.person_rounded,
               color: PeamanColors.primary,
-              size: 20.w,
+              size: 18.w,
             ),
             padding: EdgeInsets.all(10.w),
           ),
@@ -35,7 +35,7 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
             icon: Icon(
               Icons.calendar_today_rounded,
               color: PeamanColors.primary,
-              size: 16.w,
+              size: 14.w,
             ),
             padding: EdgeInsets.all(12.5.w),
           ),
@@ -47,7 +47,7 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
             icon: Icon(
               Icons.flag_rounded,
               color: PeamanColors.primary,
-              size: 20.w,
+              size: 18.w,
             ),
             padding: EdgeInsets.all(10.w),
           ),
@@ -59,7 +59,7 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
             icon: Icon(
               Icons.language_rounded,
               color: PeamanColors.primary,
-              size: 20.w,
+              size: 18.w,
             ),
             padding: EdgeInsets.all(10.w),
           ),
@@ -78,6 +78,7 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
   }) {
     return ListTile(
       leading: icon,
+      minLeadingWidth: 10.w,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

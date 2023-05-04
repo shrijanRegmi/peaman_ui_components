@@ -27,9 +27,21 @@ class PeamanProfileScreen extends ConsumerStatefulWidget {
 
 class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.invalidate(
+          providerOfSingleUserByIdFuture(widget.userId),
+        );
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final userFuture = ref.watch(
-      providerOfPeamanUserByIdFuture(widget.userId),
+      providerOfSingleUserByIdFuture(widget.userId),
     );
     return Scaffold(
       appBar: PeamanProfileScreenHeader(
@@ -51,6 +63,25 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
   }
 
   Widget _dataBuilder(final PeamanUser user) {
+    return DefaultTabController(
+      length: 2,
+      child: ScrollConfiguration(
+        behavior: PeamanNoGlowScrollConfiguration(),
+        child: NestedScrollView(
+          headerSliverBuilder: (context, _) {
+            return [
+              SliverToBoxAdapter(
+                child: _headerBuilder(user),
+              )
+            ];
+          },
+          body: const PeamanProfileCategoryBody(),
+        ),
+      ),
+    );
+  }
+
+  Widget _headerBuilder(final PeamanUser user) {
     return Column(
       children: [
         SizedBox(
@@ -68,9 +99,7 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
         SizedBox(
           height: 15.h,
         ),
-        const Expanded(
-          child: PeamanProfileCategory(),
-        ),
+        const PeamanProfileCategoryHeader()
       ],
     );
   }

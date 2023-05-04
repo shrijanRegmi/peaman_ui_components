@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanProfileCategoryHeader extends ConsumerStatefulWidget {
-  final TabController controller;
-
   const PeamanProfileCategoryHeader({
     super.key,
-    required this.controller,
   });
 
   @override
@@ -19,7 +16,6 @@ class _PeamanProfileCategoryHeaderState
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      controller: widget.controller,
       indicatorColor: context.theme.colorScheme.primary,
       labelColor: PeamanColors.primary,
       unselectedLabelColor: PeamanColors.extraLightGrey,
