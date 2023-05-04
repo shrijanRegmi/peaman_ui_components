@@ -18,6 +18,8 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
     this.emptyBuilder,
     this.loadingBuilder,
@@ -37,6 +39,8 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.listBuilderByFeeds,
     this.itemBuilder,
     this.emptyBuilder,
@@ -57,6 +61,8 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
     this.emptyBuilder,
     this.loadingBuilder,
@@ -76,6 +82,8 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
     this.emptyBuilder,
     this.loadingBuilder,
@@ -104,6 +112,9 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
   final EdgeInsets? firstItemPadding;
   final EdgeInsets? itemPadding;
   final EdgeInsets? lastItemPadding;
+
+  final bool shrinkWrap;
+  final ScrollPhysics physics;
 
   final Widget Function(
     BuildContext,
@@ -225,7 +236,8 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
     return widget.listBuilderByFeeds?.call(context, ref, feeds) ??
         ListView.separated(
           itemCount: feeds.length,
-          physics: const BouncingScrollPhysics(),
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
           itemBuilder: (context, index) {
             final feed = feeds[index];
             return PeamanFeedsListItem.byFeed(
@@ -253,7 +265,8 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
     return widget.listBuilderByFeedIds?.call(context, ref, feedIds) ??
         ListView.separated(
           itemCount: feedIds.length,
-          physics: const BouncingScrollPhysics(),
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
           itemBuilder: (context, index) {
             final feedId = feedIds[index];
             return PeamanFeedsListItem.byFeedId(

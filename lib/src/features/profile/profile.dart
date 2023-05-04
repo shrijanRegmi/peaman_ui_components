@@ -14,6 +14,11 @@ export 'views/widgets/profile_widgets/peaman_profile_overview.dart';
 export 'views/widgets/profile_widgets/peaman_profile_basic_details_overview.dart';
 export 'views/widgets/profile_widgets/peaman_profile_count_details_overview.dart';
 export 'views/widgets/profile_widgets/peaman_profile_actions.dart';
+export 'views/widgets/profile_widgets/peaman_profile_category.dart';
+export 'views/widgets/profile_widgets/peaman_profile_category_header.dart';
+export 'views/widgets/profile_widgets/peaman_profile_category_body.dart';
+export 'views/widgets/profile_widgets/peaman_profile_feeds.dart';
+export 'views/widgets/profile_widgets/peaman_profile_about.dart';
 
 export 'models/peaman_delete_profile_trigger_model.dart';
 

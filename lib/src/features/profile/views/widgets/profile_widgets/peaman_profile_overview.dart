@@ -18,7 +18,7 @@ class PeamanProfileOverview extends ConsumerWidget {
           user: user,
         ),
         SizedBox(
-          height: 35.h,
+          height: 20.h,
         ),
         PeamanProfileCountDetailsOverview(
           user: user,

@@ -60,10 +60,16 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
           user: user,
         ),
         SizedBox(
-          height: 30.h,
+          height: 20.h,
         ),
         PeamanProfileActions(
           user: user,
+        ),
+        SizedBox(
+          height: 15.h,
+        ),
+        const Expanded(
+          child: PeamanProfileCategory(),
         ),
       ],
     );
