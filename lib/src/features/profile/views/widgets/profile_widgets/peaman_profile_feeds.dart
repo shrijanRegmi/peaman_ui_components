@@ -13,30 +13,53 @@ class PeamanProfileFeeds extends ConsumerStatefulWidget {
   const PeamanProfileFeeds.all({
     super.key,
     required this.user,
+    this.listWidgetBuilder,
+    this.listBuilder,
   }) : type = _Type.all;
 
   const PeamanProfileFeeds.image({
     super.key,
     required this.user,
+    this.listWidgetBuilder,
+    this.listBuilder,
   }) : type = _Type.image;
 
   const PeamanProfileFeeds.video({
     super.key,
     required this.user,
+    this.listWidgetBuilder,
+    this.listBuilder,
   }) : type = _Type.video;
 
   const PeamanProfileFeeds.youtube({
     super.key,
     required this.user,
+    this.listWidgetBuilder,
+    this.listBuilder,
   }) : type = _Type.youtube;
 
   const PeamanProfileFeeds.poll({
     super.key,
     required this.user,
+    this.listWidgetBuilder,
+    this.listBuilder,
   }) : type = _Type.poll;
 
-  final PeamanUser user;
   final _Type type;
+
+  final PeamanUser user;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? listWidgetBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    List<PeamanFeed>,
+  )? listBuilder;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -48,10 +71,12 @@ class _PeamanProfileFeedsState extends ConsumerState<PeamanProfileFeeds> {
   Widget build(BuildContext context) {
     return ScrollConfiguration(
       behavior: PeamanNoGlowScrollConfiguration(),
-      child: PeamanFeedsList.byFeedProivder(
-        physics: const AlwaysScrollableScrollPhysics(),
-        feedsProvider: (context, ref) =>
-            ref.watch(providerOfPeamanFeedsByOwnerId(widget.user.uid!)).when(
+      child: widget.listWidgetBuilder?.call(context, ref, widget.user) ??
+          PeamanFeedsList.byFeedProivder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            feedsProvider: (context, ref) => ref
+                .watch(providerOfPeamanFeedsByOwnerId(widget.user.uid!))
+                .when(
                   data: (data) {
                     final profileFeeds = ref
                         .watch(
@@ -66,7 +91,15 @@ class _PeamanProfileFeedsState extends ConsumerState<PeamanProfileFeeds> {
                   error: AsyncError.new,
                   loading: AsyncLoading.new,
                 ),
-      ),
+            listBuilderByFeeds: widget.listBuilder == null
+                ? null
+                : (context, ref, feeds) => widget.listBuilder!.call(
+                      context,
+                      ref,
+                      widget.user,
+                      feeds,
+                    ),
+          ),
     );
   }
 

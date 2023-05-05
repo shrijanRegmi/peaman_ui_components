@@ -7,9 +7,53 @@ class PeamanProfileActions extends ConsumerStatefulWidget {
   const PeamanProfileActions({
     super.key,
     required this.user,
+    this.followButtonBuilder,
+    this.messageButtonBuilder,
+    this.otherActionsButtonBuilder,
+    this.onPressedFollowButton,
+    this.onPressedMessageButton,
+    this.onPressedOtherActionsButton,
   });
 
   final PeamanUser user;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? followButtonBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? messageButtonBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? otherActionsButtonBuilder;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedFollowButton;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedMessageButton;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedOtherActionsButton;
 
   @override
   ConsumerState<PeamanProfileActions> createState() =>
@@ -19,78 +63,86 @@ class PeamanProfileActions extends ConsumerStatefulWidget {
 class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
   @override
   Widget build(BuildContext context) {
-    final appUserUid = ref.watch(
-      providerOfLoggedInUser.select((value) => value.uid),
-    );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PeamanButton.filled(
-          value: isBtnLoading ? null : btnText,
-          minWidth: 130,
-          borderRadius: 10.0,
-          isLoading: isBtnLoading,
-          loader: PeamanSpinner(
-            size: 14.w,
-            color: PeamanColors.white,
-          ),
-          onPressed: () =>
-              ref.watch(providerOfPeamanUser.notifier).performFollowAction(
-                    userId: widget.user.uid!,
-                    followSuccessLogMessage:
-                        'Follow request has been sent to ${widget.user.name}',
-                    unfollowSuccessLogMessage:
-                        '${widget.user.name} has been unfollowed',
-                    cancelfollowRequestSuccessLogMessage:
-                        'Follow request has been canceled',
-                    acceptFollowRequestSuccessLogMessage:
-                        'Follow request has been accepted',
-                    followBackSuccessLogMessage:
-                        '${widget.user.name} has been followed',
-                  ),
-        ),
-        SizedBox(
-          width: 6.w,
-        ),
-        PeamanButton.bordered(
-          value: 'Message',
-          borderRadius: 10.0,
-          icon: SvgPicture.asset(
-            'assets/svgs/outlined_send_message.svg',
-            package: 'peaman_ui_components',
-            color: context.isDarkMode
-                ? PeamanColors.white70
-                : context.theme.colorScheme.primary,
-            width: 14.w,
-          ),
-          onPressed: () => context.pushNamed(
-            PeamanChatConversationScreen.route,
-            arguments: PeamanChatConversationArgs.byUserIds(
-              userIds: [
-                widget.user.uid!,
-                appUserUid!,
-              ]..sort(),
-              chatType: PeamanChatType.oneToOne,
+        widget.followButtonBuilder?.call(
+              context,
+              ref,
+              widget.user,
+              _onPressedFollow,
+            ) ??
+            PeamanButton.filled(
+              value: isBtnLoading ? null : btnText,
+              minWidth: 130,
+              borderRadius: 10.0,
+              isLoading: isBtnLoading,
+              loader: PeamanSpinner(
+                size: 14.w,
+                color: PeamanColors.white,
+              ),
+              onPressed: () => widget.onPressedFollowButton == null
+                  ? _onPressedFollow()
+                  : widget.onPressedFollowButton?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedFollow,
+                    ),
+            ).pR(6.0),
+        widget.messageButtonBuilder?.call(
+              context,
+              ref,
+              widget.user,
+              _onPressedMessage,
+            ) ??
+            PeamanButton.bordered(
+              value: 'Message',
+              borderRadius: 10.0,
+              icon: SvgPicture.asset(
+                'assets/svgs/outlined_send_message.svg',
+                package: 'peaman_ui_components',
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : context.theme.colorScheme.primary,
+                width: 14.w,
+              ),
+              onPressed: () => widget.onPressedMessageButton == null
+                  ? _onPressedMessage()
+                  : widget.onPressedMessageButton?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedMessage,
+                    ),
+            ).pR(5.0),
+        widget.otherActionsButtonBuilder?.call(
+              context,
+              ref,
+              widget.user,
+              _onPressedMessage,
+            ) ??
+            PeamanButton.filled(
+              minWidth: 0.0,
+              borderRadius: 10.0,
+              padding: EdgeInsets.symmetric(horizontal: 6.w),
+              color: PeamanColors.extraLightGrey.withOpacity(0.16),
+              splashColor: PeamanColors.transparent,
+              icon: Icon(
+                Icons.arrow_drop_down_rounded,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : context.theme.colorScheme.primary,
+              ),
+              onPressed: () => widget.onPressedOtherActionsButton == null
+                  ? _onPressedOtherActions()
+                  : widget.onPressedOtherActionsButton?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedOtherActions,
+                    ),
             ),
-          ),
-        ),
-        SizedBox(
-          width: 5.w,
-        ),
-        PeamanButton.filled(
-          minWidth: 0.0,
-          borderRadius: 10.0,
-          padding: EdgeInsets.symmetric(horizontal: 6.w),
-          color: PeamanColors.extraLightGrey.withOpacity(0.16),
-          splashColor: PeamanColors.transparent,
-          icon: Icon(
-            Icons.arrow_drop_down_rounded,
-            color: context.isDarkMode
-                ? PeamanColors.white70
-                : context.theme.colorScheme.primary,
-          ),
-          onPressed: () {},
-        ),
       ],
     );
   }
@@ -147,4 +199,36 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
         isLoadingAcceptFollowRequest ||
         isLoadingFollowBackUser;
   }
+
+  void _onPressedFollow() {
+    ref.watch(providerOfPeamanUser.notifier).performFollowAction(
+          userId: widget.user.uid!,
+          followSuccessLogMessage:
+              'Follow request has been sent to ${widget.user.name}',
+          unfollowSuccessLogMessage: '${widget.user.name} has been unfollowed',
+          cancelfollowRequestSuccessLogMessage:
+              'Follow request has been canceled',
+          acceptFollowRequestSuccessLogMessage:
+              'Follow request has been accepted',
+          followBackSuccessLogMessage: '${widget.user.name} has been followed',
+        );
+  }
+
+  void _onPressedMessage() {
+    final uid = ref.read(
+      providerOfLoggedInUser.select((value) => value.uid),
+    );
+    context.pushNamed(
+      PeamanChatConversationScreen.route,
+      arguments: PeamanChatConversationArgs.byUserIds(
+        userIds: [
+          widget.user.uid!,
+          uid!,
+        ]..sort(),
+        chatType: PeamanChatType.oneToOne,
+      ),
+    );
+  }
+
+  void _onPressedOtherActions() {}
 }

@@ -6,40 +6,56 @@ class PeamanProfileBasicDetailsOverview extends ConsumerWidget {
   const PeamanProfileBasicDetailsOverview({
     super.key,
     required this.user,
+    this.avatarBuilder,
+    this.nameBuilder,
+    this.bioBuilder,
   });
 
   final PeamanUser user;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? avatarBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? nameBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? bioBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Column(
         children: [
-          PeamanAvatarBuilder.network(
-            user.photo,
-            size: 100.w,
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          PeamanText.subtitle1(
-            user.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          PeamanText.body1(
-            user.bio,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: PeamanColors.greyDark,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          avatarBuilder?.call(context, ref, user) ??
+              PeamanAvatarBuilder.network(
+                user.photo,
+                size: 100.w,
+              ).pB(10),
+          nameBuilder?.call(context, ref, user) ??
+              PeamanText.subtitle1(
+                user.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ).pB(5),
+          bioBuilder?.call(context, ref, user) ??
+              PeamanText.body1(
+                user.bio,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: PeamanColors.greyDark,
+                ),
+                textAlign: TextAlign.center,
+              ),
         ],
       ),
     ).pX(20.0);

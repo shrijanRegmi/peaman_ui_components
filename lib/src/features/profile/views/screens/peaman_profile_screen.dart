@@ -14,11 +14,57 @@ class PeamanProfileScreen extends ConsumerStatefulWidget {
   const PeamanProfileScreen({
     super.key,
     required this.userId,
+    this.headerBuilder,
+    this.overviewBuilder,
+    this.actionsBuilder,
+    this.categoryHeaderBuilder,
+    this.categoryBodyBuilder,
+    this.loadingBuilder,
+    this.errorBuilder,
+    this.tabsLength = 6,
   });
 
   static const route = '/peaman_profile_screen';
 
   final String userId;
+
+  final PreferredSizeWidget Function(
+    BuildContext,
+    WidgetRef,
+    String,
+  )? headerBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? overviewBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? actionsBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? categoryHeaderBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? categoryBodyBuilder;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? loadingBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanError,
+  )? errorBuilder;
+
+  final int tabsLength;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -48,27 +94,26 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
       providerOfSingleUserByIdFuture(widget.userId),
     );
     return Scaffold(
-      appBar: PeamanProfileScreenHeader(
-        userId: widget.userId,
-      ),
+      appBar: widget.headerBuilder?.call(context, ref, widget.userId) ??
+          PeamanProfileScreenHeader(
+            userId: widget.userId,
+          ),
       body: userFuture.when(
         data: (data) => data.when(
           _dataBuilder,
-          (failure) => PeamanErrorBuilder(
-            subTitle: failure.message,
-          ),
+          _errorBuilder,
         ),
-        error: (e, _) => PeamanErrorBuilder(
-          subTitle: e.toString(),
+        error: (e, _) => _errorBuilder(
+          PeamanError(message: e.toString()),
         ),
-        loading: () => const PeamanSpinner(),
+        loading: _loadingBuilder,
       ),
     );
   }
 
   Widget _dataBuilder(final PeamanUser user) {
     return DefaultTabController(
-      length: 6,
+      length: widget.tabsLength,
       child: ScrollConfiguration(
         behavior: PeamanNoGlowScrollConfiguration(),
         child: NestedScrollView(
@@ -79,9 +124,10 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
               )
             ];
           },
-          body: PeamanProfileCategoryBody(
-            user: user,
-          ),
+          body: widget.categoryBodyBuilder?.call(context, ref, user) ??
+              PeamanProfileCategoryBody(
+                user: user,
+              ),
         ),
       ),
     );
@@ -93,22 +139,32 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
         SizedBox(
           height: 10.h,
         ),
-        PeamanProfileOverview(
-          user: user,
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-        if (widget.userId != _uid)
-          PeamanProfileActions(
-            user: user,
-          ),
-        if (widget.userId != _uid)
-          SizedBox(
-            height: 15.h,
-          ),
-        const PeamanProfileCategoryHeader()
+        widget.overviewBuilder?.call(context, ref, user) ??
+            PeamanProfileOverview(
+              user: user,
+            ).pB(20),
+        widget.categoryBodyBuilder?.call(context, ref, user) ??
+            (widget.userId != _uid
+                ? PeamanProfileActions(
+                    user: user,
+                  ).pB(15)
+                : const SizedBox()),
+        widget.categoryHeaderBuilder?.call(context, ref, user) ??
+            PeamanProfileCategoryHeader(
+              user: user,
+            )
       ],
     );
+  }
+
+  Widget _loadingBuilder() {
+    return widget.loadingBuilder?.call(context, ref) ?? const PeamanSpinner();
+  }
+
+  Widget _errorBuilder(final PeamanError error) {
+    return widget.errorBuilder?.call(context, ref, error) ??
+        PeamanErrorBuilder(
+          subTitle: error.message,
+        );
   }
 }

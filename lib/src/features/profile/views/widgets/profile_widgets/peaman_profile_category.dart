@@ -19,7 +19,9 @@ class _PeamanProfileCategoryState extends ConsumerState<PeamanProfileCategory> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const PeamanProfileCategoryHeader(),
+        PeamanProfileCategoryHeader(
+          user: widget.user,
+        ),
         PeamanProfileCategoryBody(
           user: widget.user,
         ),

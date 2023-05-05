@@ -2,38 +2,142 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanProfileCountDetailsOverview extends ConsumerWidget {
+class PeamanProfileCountDetailsOverview extends ConsumerStatefulWidget {
   const PeamanProfileCountDetailsOverview({
     super.key,
     required this.user,
+    this.postsCountBuilder,
+    this.followersCountBuilder,
+    this.followingsCountBuilder,
+    this.reactionsCountBuilder,
+    this.onPressedPostsCount,
+    this.onPressedFollowersCount,
+    this.onPressedFollowingsCount,
+    this.onPressedReactionsCount,
+    this.dividerBuilder,
   });
 
   final PeamanUser user;
 
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? postsCountBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? followersCountBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? followingsCountBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? reactionsCountBuilder;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+  )? dividerBuilder;
+
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedPostsCount;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedFollowersCount;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedFollowingsCount;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Function(),
+  )? onPressedReactionsCount;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PeamanProfileCountDetailsOverview> createState() =>
+      _PeamanProfileCountDetailsOverviewState();
+}
+
+class _PeamanProfileCountDetailsOverviewState
+    extends ConsumerState<PeamanProfileCountDetailsOverview> {
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _itemBuilder(
-          title: 'Posts',
-          count: user.feedsCount,
-        ),
+        widget.postsCountBuilder?.call(context, ref, widget.user) ??
+            _itemBuilder(
+              title: 'Posts',
+              count: widget.user.feedsCount,
+              onPressed: () => widget.onPressedPostsCount == null
+                  ? _onPressedPostsCount()
+                  : widget.onPressedPostsCount?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedPostsCount,
+                    ),
+            ),
         _dividerBuilder(),
-        _itemBuilder(
-          title: 'Followers',
-          count: user.followersCount,
-        ),
+        widget.postsCountBuilder?.call(context, ref, widget.user) ??
+            _itemBuilder(
+              title: 'Followers',
+              count: widget.user.followersCount,
+              onPressed: () => widget.onPressedFollowersCount == null
+                  ? _onPressedFollowersCount()
+                  : widget.onPressedFollowersCount?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedFollowersCount,
+                    ),
+            ),
         _dividerBuilder(),
-        _itemBuilder(
-          title: 'Followings',
-          count: user.followingCount,
-        ),
+        widget.postsCountBuilder?.call(context, ref, widget.user) ??
+            _itemBuilder(
+              title: 'Followings',
+              count: widget.user.followingCount,
+              onPressed: () => widget.onPressedFollowingsCount == null
+                  ? _onPressedFollowingsCount()
+                  : widget.onPressedFollowingsCount?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedFollowingsCount,
+                    ),
+            ),
         _dividerBuilder(),
-        _itemBuilder(
-          title: 'Reactions',
-          count: user.reactionsReceivedFromFeedsCount,
-        ),
+        widget.postsCountBuilder?.call(context, ref, widget.user) ??
+            _itemBuilder(
+              title: 'Reactions',
+              count: widget.user.reactionsReceivedFromFeedsCount,
+              onPressed: () => widget.onPressedReactionsCount == null
+                  ? _onPressedReactionsCount()
+                  : widget.onPressedReactionsCount?.call(
+                      context,
+                      ref,
+                      widget.user,
+                      _onPressedReactionsCount,
+                    ),
+            ),
       ],
     );
   }
@@ -63,12 +167,18 @@ class PeamanProfileCountDetailsOverview extends ConsumerWidget {
   }
 
   Widget _dividerBuilder() {
-    return Container(
-      width: 1.w,
-      height: 30.h,
-      decoration: BoxDecoration(
-        color: PeamanColors.extraLightGrey.withOpacity(0.2),
-      ),
-    );
+    return widget.dividerBuilder?.call(context, ref, widget.user) ??
+        Container(
+          width: 1.w,
+          height: 30.h,
+          decoration: BoxDecoration(
+            color: PeamanColors.extraLightGrey.withOpacity(0.2),
+          ),
+        );
   }
+
+  void _onPressedPostsCount() {}
+  void _onPressedFollowersCount() {}
+  void _onPressedFollowingsCount() {}
+  void _onPressedReactionsCount() {}
 }
