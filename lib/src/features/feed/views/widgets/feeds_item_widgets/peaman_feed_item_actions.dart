@@ -24,21 +24,25 @@ class PeamanFeedItemActions extends ConsumerStatefulWidget {
     BuildContext,
     WidgetRef,
     PeamanFeed,
+    Function(),
   )? commentBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
     PeamanFeed,
+    Function(),
   )? reactBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
     PeamanFeed,
+    Function(),
   )? saveBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
     PeamanFeed,
+    Function(),
   )? shareBuilder;
 
   final List<Widget> Function(
@@ -136,89 +140,109 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
   }
 
   Widget _commentBuilder() {
-    return (widget.commentBuilder?.call(context, ref, widget.feed) ??
-            _actionButtonBuilder(
-              svgPath: 'assets/svgs/outlined_comment.svg',
-              count: widget.feed.commentsCount,
-            ))
-        .onPressed(() {
-      if (widget.onPressedComment != null) {
-        widget.onPressedComment?.call(
+    return widget.commentBuilder?.call(
           context,
           ref,
           widget.feed,
           _onPressedComment,
+        ) ??
+        _actionButtonBuilder(
+          svgPath: 'assets/svgs/outlined_comment.svg',
+          count: widget.feed.commentsCount,
+          onPressed: () {
+            if (widget.onPressedComment != null) {
+              widget.onPressedComment?.call(
+                context,
+                ref,
+                widget.feed,
+                _onPressedComment,
+              );
+            } else {
+              _onPressedComment();
+            }
+          },
         );
-      } else {
-        _onPressedComment();
-      }
-    });
   }
 
   Widget _reactBuilder() {
-    return (widget.reactBuilder?.call(context, ref, widget.feed) ??
-            _actionButtonBuilder(
-              svgPath: 'assets/svgs/outlined_love.svg',
-              activeColor: PeamanColors.red80,
-              count: widget.feed.reactionsCount,
-              isActive: widget.feed.isReacted,
-            ))
-        .onPressed(() {
-      if (widget.onPressedReact != null) {
-        widget.onPressedReact?.call(
+    return widget.reactBuilder?.call(
           context,
           ref,
           widget.feed,
           _onPressedReact,
+        ) ??
+        _actionButtonBuilder(
+          svgPath: 'assets/svgs/outlined_love.svg',
+          activeColor: PeamanColors.red80,
+          count: widget.feed.reactionsCount,
+          isActive: widget.feed.isReacted,
+          onPressed: () {
+            if (widget.onPressedReact != null) {
+              widget.onPressedReact?.call(
+                context,
+                ref,
+                widget.feed,
+                _onPressedReact,
+              );
+            } else {
+              _onPressedReact();
+            }
+          },
         );
-      } else {
-        _onPressedReact();
-      }
-    });
   }
 
   Widget _saveBuilder() {
-    return (widget.saveBuilder?.call(context, ref, widget.feed) ??
-            _actionButtonBuilder(
-              svgPath: 'assets/svgs/outlined_bookmark.svg',
-              count: widget.feed.savesCount,
-              activeColor: PeamanColors.secondary,
-              isActive: widget.feed.isSaved,
-              size: 18,
-            ))
-        .onPressed(() {
-      if (widget.onPressedSave != null) {
-        widget.onPressedSave?.call(
+    return widget.saveBuilder?.call(
           context,
           ref,
           widget.feed,
           _onPressedSave,
+        ) ??
+        _actionButtonBuilder(
+          svgPath: 'assets/svgs/outlined_bookmark.svg',
+          count: widget.feed.savesCount,
+          activeColor: PeamanColors.secondary,
+          isActive: widget.feed.isSaved,
+          size: 18,
+          onPressed: () {
+            if (widget.onPressedSave != null) {
+              widget.onPressedSave?.call(
+                context,
+                ref,
+                widget.feed,
+                _onPressedSave,
+              );
+            } else {
+              _onPressedSave();
+            }
+          },
         );
-      } else {
-        _onPressedSave();
-      }
-    });
   }
 
   Widget _shareBuilder() {
-    return (widget.shareBuilder?.call(context, ref, widget.feed) ??
-            _actionButtonBuilder(
-              svgPath: 'assets/svgs/outlined_send_message.svg',
-              count: widget.feed.sharesCount,
-              size: 15,
-            ))
-        .onPressed(() {
-      if (widget.onPressedShare != null) {
-        widget.onPressedShare?.call(
+    return widget.shareBuilder?.call(
           context,
           ref,
           widget.feed,
           _onPressedShare,
+        ) ??
+        _actionButtonBuilder(
+          svgPath: 'assets/svgs/outlined_send_message.svg',
+          count: widget.feed.sharesCount,
+          size: 15,
+          onPressed: () {
+            if (widget.onPressedShare != null) {
+              widget.onPressedShare?.call(
+                context,
+                ref,
+                widget.feed,
+                _onPressedShare,
+              );
+            } else {
+              _onPressedShare();
+            }
+          },
         );
-      } else {
-        _onPressedShare();
-      }
-    });
   }
 
   void _onPressedComment() {}

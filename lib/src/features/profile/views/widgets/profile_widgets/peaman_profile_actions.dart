@@ -10,6 +10,7 @@ class PeamanProfileActions extends ConsumerStatefulWidget {
     this.followButtonBuilder,
     this.messageButtonBuilder,
     this.otherActionsButtonBuilder,
+    this.actionWidgetsBuilder,
     this.onPressedFollowButton,
     this.onPressedMessageButton,
     this.onPressedOtherActionsButton,
@@ -35,6 +36,15 @@ class PeamanProfileActions extends ConsumerStatefulWidget {
     PeamanUser,
     Function(),
   )? otherActionsButtonBuilder;
+
+  final List<Widget> Function(
+    BuildContext,
+    WidgetRef,
+    PeamanUser,
+    Widget followButtonBuilder,
+    Widget messageButtonBuilder,
+    Widget otherActionsButtonBuilder,
+  )? actionWidgetsBuilder;
 
   final Widget Function(
     BuildContext,
@@ -65,86 +75,106 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        widget.followButtonBuilder?.call(
-              context,
-              ref,
-              widget.user,
-              _onPressedFollow,
-            ) ??
-            PeamanButton.filled(
-              value: isBtnLoading ? null : btnText,
-              minWidth: 130,
-              borderRadius: 10.0,
-              isLoading: isBtnLoading,
-              loader: PeamanSpinner(
-                size: 14.w,
-                color: PeamanColors.white,
-              ),
-              onPressed: () => widget.onPressedFollowButton == null
-                  ? _onPressedFollow()
-                  : widget.onPressedFollowButton?.call(
-                      context,
-                      ref,
-                      widget.user,
-                      _onPressedFollow,
-                    ),
-            ).pR(6.0),
-        widget.messageButtonBuilder?.call(
-              context,
-              ref,
-              widget.user,
-              _onPressedMessage,
-            ) ??
-            PeamanButton.bordered(
-              value: 'Message',
-              borderRadius: 10.0,
-              icon: SvgPicture.asset(
-                'assets/svgs/outlined_send_message.svg',
-                package: 'peaman_ui_components',
-                color: context.isDarkMode
-                    ? PeamanColors.white70
-                    : context.theme.colorScheme.primary,
-                width: 14.w,
-              ),
-              onPressed: () => widget.onPressedMessageButton == null
-                  ? _onPressedMessage()
-                  : widget.onPressedMessageButton?.call(
-                      context,
-                      ref,
-                      widget.user,
-                      _onPressedMessage,
-                    ),
-            ).pR(5.0),
-        widget.otherActionsButtonBuilder?.call(
-              context,
-              ref,
-              widget.user,
-              _onPressedMessage,
-            ) ??
-            PeamanButton.filled(
-              minWidth: 0.0,
-              borderRadius: 10.0,
-              padding: EdgeInsets.symmetric(horizontal: 6.w),
-              color: PeamanColors.extraLightGrey.withOpacity(0.16),
-              splashColor: PeamanColors.transparent,
-              icon: Icon(
-                Icons.arrow_drop_down_rounded,
-                color: context.isDarkMode
-                    ? PeamanColors.white70
-                    : context.theme.colorScheme.primary,
-              ),
-              onPressed: () => widget.onPressedOtherActionsButton == null
-                  ? _onPressedOtherActions()
-                  : widget.onPressedOtherActionsButton?.call(
-                      context,
-                      ref,
-                      widget.user,
-                      _onPressedOtherActions,
-                    ),
-            ),
-      ],
+      children: widget.actionWidgetsBuilder?.call(
+            context,
+            ref,
+            widget.user,
+            _followButtonBuilder(),
+            _messageButtonBuilder(),
+            _otherActionsBuilder(),
+          ) ??
+          [
+            _followButtonBuilder().pR(6.0),
+            _messageButtonBuilder().pR(5.0),
+            _otherActionsBuilder(),
+          ],
     );
+  }
+
+  Widget _followButtonBuilder() {
+    return widget.followButtonBuilder?.call(
+          context,
+          ref,
+          widget.user,
+          _onPressedFollow,
+        ) ??
+        PeamanButton.filled(
+          value: isBtnLoading ? null : btnText,
+          minWidth: 130,
+          borderRadius: 10.0,
+          isLoading: isBtnLoading,
+          loader: PeamanSpinner(
+            size: 14.w,
+            color: PeamanColors.white,
+          ),
+          onPressed: () => widget.onPressedFollowButton == null
+              ? _onPressedFollow()
+              : widget.onPressedFollowButton?.call(
+                  context,
+                  ref,
+                  widget.user,
+                  _onPressedFollow,
+                ),
+        );
+  }
+
+  Widget _messageButtonBuilder() {
+    return widget.messageButtonBuilder?.call(
+          context,
+          ref,
+          widget.user,
+          _onPressedMessage,
+        ) ??
+        PeamanButton.bordered(
+          value: 'Message',
+          borderRadius: 10.0,
+          icon: SvgPicture.asset(
+            'assets/svgs/outlined_send_message.svg',
+            package: 'peaman_ui_components',
+            color: context.isDarkMode
+                ? PeamanColors.white70
+                : context.theme.colorScheme.primary,
+            width: 14.w,
+          ),
+          onPressed: () => widget.onPressedMessageButton == null
+              ? _onPressedMessage()
+              : widget.onPressedMessageButton?.call(
+                  context,
+                  ref,
+                  widget.user,
+                  _onPressedMessage,
+                ),
+        );
+  }
+
+  Widget _otherActionsBuilder() {
+    return widget.otherActionsButtonBuilder?.call(
+          context,
+          ref,
+          widget.user,
+          _onPressedMessage,
+        ) ??
+        PeamanButton.filled(
+          minWidth: 0.0,
+          borderRadius: 10.0,
+          padding: EdgeInsets.symmetric(horizontal: 6.w),
+          color: PeamanColors.extraLightGrey.withOpacity(0.16),
+          splashColor: PeamanColors.transparent,
+          icon: Icon(
+            Icons.arrow_drop_down_rounded,
+            color: context.isDarkMode
+                ? PeamanColors.white70
+                : context.theme.colorScheme.primary,
+          ),
+          onPressed: () => widget.onPressedOtherActionsButton == null
+              ? _onPressedOtherActions()
+              : widget.onPressedOtherActionsButton?.call(
+                  context,
+                  ref,
+                  widget.user,
+                  _onPressedOtherActions,
+                ),
+        );
   }
 
   String get btnText {
