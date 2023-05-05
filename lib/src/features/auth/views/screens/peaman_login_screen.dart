@@ -131,9 +131,6 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
   Widget _buttonBuilder() {
     return PeamanButton.filled(
       value: 'Sign In',
-      minWidth: double.infinity,
-      padding: const EdgeInsets.all(18.0),
-      borderRadius: 15.0,
       isLoading: state.signInWithEmailPasswordState.maybeWhen(
         loading: () => true,
         orElse: () => false,

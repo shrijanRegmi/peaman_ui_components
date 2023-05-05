@@ -18,7 +18,7 @@ class PeamanButton extends StatelessWidget {
 
   final Widget? icon;
   final double? minWidth;
-  final double borderRadius;
+  final double? borderRadius;
   final EdgeInsets? padding;
   final double elevation;
   final bool isLoading;
@@ -33,7 +33,7 @@ class PeamanButton extends StatelessWidget {
     this.splashColor,
     this.icon,
     this.minWidth,
-    this.borderRadius = 5.0,
+    this.borderRadius,
     this.padding,
     this.elevation = 0.0,
     this.isLoading = false,
@@ -50,7 +50,7 @@ class PeamanButton extends StatelessWidget {
     this.splashColor,
     this.icon,
     this.minWidth,
-    this.borderRadius = 5.0,
+    this.borderRadius,
     this.padding,
     this.elevation = 0.0,
     this.isLoading = false,
@@ -73,75 +73,21 @@ class PeamanButton extends StatelessWidget {
   }
 
   Widget _filledBuilder(final BuildContext context) {
-    final theme = context.theme;
-    final thisColor = color ?? theme.colorScheme.primary;
-
-    return MaterialButton(
-      onPressed: onPressed,
-      color: thisColor,
-      minWidth: minWidth?.w,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius.r),
-      ),
+    final elevatedButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: color,
+      minimumSize: minWidth == null ? null : Size.fromWidth(minWidth!),
+      shape: borderRadius == null
+          ? null
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius!.r),
+            ),
       elevation: elevation,
       padding: padding,
-      disabledColor: theme.disabledColor,
-      splashColor: splashColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null) icon ?? Container(),
-          if (icon != null && value != null)
-            const SizedBox(
-              width: 10.0,
-            ),
-          if (value != null)
-            Text(
-              '$value',
-              style: valueStyle ??
-                  const TextStyle(
-                    color: Colors.white,
-                  ),
-            ),
-          if (isLoading && value != null)
-            const SizedBox(
-              width: 20.0,
-            ),
-          if (isLoading)
-            loader ??
-                const PeamanSpinner(
-                  size: 20.0,
-                  color: PeamanColors.white,
-                )
-        ],
-      ),
     );
-  }
 
-  Widget _borderedBuilder(final BuildContext context) {
-    final theme = context.theme;
-    final thisBorderSide = borderSide ??
-        BorderSide(
-          color: context.isDarkMode
-              ? PeamanColors.white70
-              : theme.colorScheme.primary,
-          width: context.isDarkMode ? 0.5 : 1.0,
-        );
-
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: onPressed,
-      minWidth: minWidth?.w,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius.r),
-        side: thisBorderSide,
-      ),
-      elevation: elevation,
-      padding: padding,
-      highlightColor: Colors.transparent,
-      focusColor: thisBorderSide.color.withOpacity(0.2),
-      hoverColor: thisBorderSide.color.withOpacity(0.2),
-      splashColor: splashColor ?? thisBorderSide.color.withOpacity(0.2),
-      disabledColor: theme.disabledColor,
+      style: elevatedButtonStyle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -153,10 +99,7 @@ class PeamanButton extends StatelessWidget {
           if (value != null)
             Text(
               '$value',
-              style: valueStyle ??
-                  TextStyle(
-                    color: thisBorderSide.color,
-                  ),
+              style: valueStyle,
             ),
           if (isLoading && value != null)
             const SizedBox(
@@ -165,7 +108,58 @@ class PeamanButton extends StatelessWidget {
           if (isLoading)
             loader ??
                 PeamanSpinner(
-                  color: thisBorderSide.color,
+                  size: 15.h,
+                  color: PeamanColors.white,
+                )
+        ],
+      ),
+    );
+  }
+
+  Widget _borderedBuilder(final BuildContext context) {
+    final outlinedButtonStyle = OutlinedButton.styleFrom(
+      minimumSize: minWidth == null ? null : Size.fromWidth(minWidth!),
+      side: borderSide,
+      shape: borderRadius == null
+          ? null
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius!.r),
+            ),
+      elevation: elevation,
+      padding: padding,
+    );
+
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: outlinedButtonStyle,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null) icon ?? Container(),
+          if (icon != null && value != null)
+            const SizedBox(
+              width: 10.0,
+            ),
+          if (value != null)
+            Text(
+              '$value',
+              style: valueStyle,
+            ),
+          if (isLoading && value != null)
+            const SizedBox(
+              width: 20.0,
+            ),
+          if (isLoading)
+            loader ??
+                PeamanSpinner(
+                  size: 15.h,
+                  color: outlinedButtonStyle.side?.resolve(
+                    const <MaterialState>{
+                      MaterialState.pressed,
+                      MaterialState.hovered,
+                      MaterialState.focused,
+                    },
+                  )?.color,
                 ),
         ],
       ),

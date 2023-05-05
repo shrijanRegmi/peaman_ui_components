@@ -56,6 +56,32 @@ class PeamanTheme {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: PeamanColors.primary,
+          padding: const EdgeInsets.all(18.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          textStyle: TextStyle(
+            fontFamily: _defaultTheme.textTheme.labelLarge?.fontFamily,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.all(18.0),
+          side: const BorderSide(
+            color: PeamanColors.primary,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          textStyle: TextStyle(
+            fontFamily: _defaultTheme.textTheme.labelLarge?.fontFamily,
+          ),
+        ),
+      ),
     );
   }
 
