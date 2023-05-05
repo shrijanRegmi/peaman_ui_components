@@ -130,6 +130,39 @@ class _PeamanChatConversationScreenState
     final receiverIds =
         _chatUserIdsWrapper.values.where((element) => element != uid).toList();
 
+    final chatTitle = usersFuture.maybeWhen(
+      data: (data) {
+        return data.when(
+          (success) =>
+              success.isEmpty || !_chatUserIdsWrapper.values.contains(_uid)
+                  ? 'Unknown Conversation'
+                  : ref.watch(
+                      providerOfSinglePeamanChatFromChatsStream(_chatId).select(
+                        (value) => (value ?? const PeamanChat()).titleExt(
+                          success.first.name ?? '',
+                          activeUids: _chatUserIdsWrapper.values,
+                        ),
+                      ),
+                    ),
+          (failure) => 'Unknown',
+        );
+      },
+      loading: () => 'Loading...',
+      orElse: () => 'Unknown',
+    );
+
+    final isVerified = usersFuture.maybeWhen(
+      data: (data) => data.when(
+        (success) {
+          return widget.chatType == PeamanChatType.oneToOne &&
+              success.isNotEmpty &&
+              success.first.isVerified;
+        },
+        (failure) => false,
+      ),
+      orElse: () => false,
+    );
+
     return WillPopScope(
       onWillPop: () async {
         ref.read(providerOfPeamanChat.notifier)
@@ -140,38 +173,29 @@ class _PeamanChatConversationScreenState
       child: Scaffold(
         key: _scaffoldKey,
         appBar: PeamanAppbar(
-          titleText: usersFuture.maybeWhen(
-            data: (data) {
-              return data.when(
-                (success) => success.isEmpty ||
-                        !_chatUserIdsWrapper.values.contains(_uid)
-                    ? 'Unknown Conversation'
-                    : ref.watch(
-                        providerOfSinglePeamanChatFromChatsStream(_chatId)
-                            .select(
-                          (value) => (value ?? const PeamanChat()).titleExt(
-                            success.first.name ?? '',
-                            activeUids: _chatUserIdsWrapper.values,
-                          ),
-                        ),
-                      ),
-                (failure) => 'Unknown',
-              );
-            },
-            loading: () => 'Loading...',
-            orElse: () => 'Unknown',
-          ),
-          onPressedTitle: (def) {
-            if (_chatType == PeamanChatType.oneToOne &&
-                _chatUserIdsWrapper.values.isNotEmpty) {
-              context.pushNamed(
-                PeamanProfileScreen.route,
-                arguments: PeamanProfileScreenArgs(
-                  userId: _chatUserIdsWrapper.values.first,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PeamanText.subtitle2(
+                chatTitle,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            }
-          },
+                onPressed: () {
+                  if (_chatType == PeamanChatType.oneToOne &&
+                      _chatUserIdsWrapper.values.isNotEmpty) {
+                    context.pushNamed(
+                      PeamanProfileScreen.route,
+                      arguments: PeamanProfileScreenArgs(
+                        userId: _chatUserIdsWrapper.values.first,
+                      ),
+                    );
+                  }
+                },
+              ),
+              if (isVerified) const PeamanVerifiedBadge().pL(2.0)
+            ],
+          ),
           onPressedLeading: (def) {
             ref.read(providerOfPeamanChat.notifier)
               ..setTypingStatus(chatId: _chatId, typedValue: '')

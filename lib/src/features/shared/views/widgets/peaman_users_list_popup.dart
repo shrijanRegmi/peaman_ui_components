@@ -371,11 +371,16 @@ class _PeamanUsersListBottomsheetState
         );
       },
       nameBuilder: widget.nameBuilder ??
-          (context, ref, user) => PeamanText.subtitle2(
-                user.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+          (context, ref, user) => Row(
+                children: [
+                  PeamanText.subtitle2(
+                    user.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (user.isVerified) const PeamanVerifiedBadge().pL(2.0)
+                ],
               ),
       captionBuilder: widget.captionBuilder ??
           (context, ref, user) => PeamanText.caption(user.bio),
@@ -444,11 +449,16 @@ class _PeamanUsersListBottomsheetState
         );
       },
       nameBuilder: widget.nameBuilder ??
-          (context, ref, user) => PeamanText.subtitle2(
-                user.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+          (context, ref, user) => Row(
+                children: [
+                  PeamanText.subtitle2(
+                    user.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (user.isVerified) const PeamanVerifiedBadge().pL(2.0)
+                ],
               ),
       captionBuilder: (context, ref, user) =>
           widget.captionBuilder?.call(context, ref, user) ??

@@ -106,28 +106,35 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
                   children: [
                     Row(
                       children: [
-                        Flexible(
-                          child: widget.nameBuilder?.call(context, ref, user) ??
-                              PeamanText.body1(
-                                '${user.name} ',
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onPressed: () => context.pushNamed(
-                                  PeamanProfileScreen.route,
-                                  arguments: PeamanProfileScreenArgs(
-                                    userId: user.uid!,
+                        widget.nameBuilder?.call(context, ref, user) ??
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: PeamanText.body1(
+                                    '${user.name}',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    onPressed: () => context.pushNamed(
+                                      PeamanProfileScreen.route,
+                                      arguments: PeamanProfileScreenArgs(
+                                        userId: user.uid!,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                        ),
+                                if (user.isVerified)
+                                  const PeamanVerifiedBadge().pL(2.0)
+                              ],
+                            ),
                         Flexible(
                           child: Container(
                             child: widget.userNameBuilder
                                     ?.call(context, ref, user) ??
                                 PeamanText.body1(
-                                  '@${user.userName}',
+                                  ' @${user.userName}',
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     color: PeamanColors.grey,

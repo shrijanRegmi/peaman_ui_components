@@ -152,11 +152,17 @@ class _PeamanUsersListItemState extends ConsumerState<PeamanUsersListItem> {
                       Row(
                         children: [
                           widget.nameBuilder?.call(context, ref, user) ??
-                              PeamanText.subtitle1(
-                                user.name,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              Row(
+                                children: [
+                                  PeamanText.subtitle1(
+                                    user.name,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  if (user.isVerified)
+                                    const PeamanVerifiedBadge().pL(2.0)
+                                ],
                               ),
                           const SizedBox(
                             width: 5.0,

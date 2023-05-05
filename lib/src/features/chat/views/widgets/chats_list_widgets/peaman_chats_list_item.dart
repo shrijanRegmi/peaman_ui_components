@@ -326,15 +326,23 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
               width: avatars.length >= 3 ? 10.0 : 5.0,
             ),
             widget.titleBuilder?.call(context, ref, widget.chat) ??
-                PeamanText.body2(
-                  users.isEmpty || !_chat.activeUserIds.contains(_uid)
-                      ? 'Unknown Conversation'
-                      : _chat.titleExt(users.first.name ?? ''),
-                  style: TextStyle(
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.bold,
-                    color: PeamanColors.grey,
-                  ),
+                Row(
+                  children: [
+                    PeamanText.body2(
+                      users.isEmpty || !_chat.activeUserIds.contains(_uid)
+                          ? 'Unknown Conversation'
+                          : _chat.titleExt(users.first.name ?? ''),
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.bold,
+                        color: PeamanColors.grey,
+                      ),
+                    ),
+                    if (_chat.type == PeamanChatType.oneToOne &&
+                        users.isNotEmpty &&
+                        users.first.isVerified)
+                      const PeamanVerifiedBadge().pL(2.0)
+                  ],
                 ),
           ],
         ),

@@ -135,12 +135,20 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
           SizedBox(
             height: _chatType == PeamanChatType.group ? 35.h : 10.h,
           ),
-          PeamanText.subtitle2(
-            _getHeaderTitle(),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PeamanText.subtitle2(
+                _getHeaderTitle(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              if (_chatType == PeamanChatType.oneToOne &&
+                  (_getFirstChatUser()?.isVerified == true))
+                const PeamanVerifiedBadge().pL(2.0)
+            ],
           ),
           if (_getHeaderBody() != null)
             PeamanText.body2(
@@ -642,11 +650,16 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               (element) => _chatUserIdsWrapper.values.contains(element.uid),
             )
             .toList(),
-        nameBuilder: (context, ref, user) => PeamanText.subtitle2(
-          user.uid == _uid ? 'You' : user.name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        nameBuilder: (context, ref, user) => Row(
+          children: [
+            PeamanText.subtitle2(
+              user.uid == _uid ? 'You' : user.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (user.isVerified) const PeamanVerifiedBadge().pL(2.0)
+          ],
         ),
         captionBuilder: (context, ref, user) {
           final addedBy = _chatAddedBysWrapper.values.firstWhere(

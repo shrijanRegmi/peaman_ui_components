@@ -47,15 +47,20 @@ class PeamanCreateFeedHeader extends ConsumerWidget {
               Row(
                 children: [
                   nameBuilder?.call(context, ref, appUser) ??
-                      PeamanText.body1(
-                        '${appUser.name} ',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          PeamanText.body1(
+                            '${appUser.name}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const PeamanVerifiedBadge().pL(2.0)
+                        ],
                       ),
                   userNameBuilder?.call(context, ref, appUser) ??
                       PeamanText.body1(
-                        '@${appUser.userName}',
+                        ' @${appUser.userName}',
                         style: const TextStyle(
                           color: PeamanColors.grey,
                         ),

@@ -5,7 +5,7 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanVerifiedBadge extends ConsumerWidget {
   const PeamanVerifiedBadge({
     super.key,
-    this.size = 16.0,
+    this.size = 14.0,
   });
 
   final double size;
