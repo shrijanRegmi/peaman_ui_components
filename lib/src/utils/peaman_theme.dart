@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanTheme {
@@ -121,6 +120,33 @@ class PeamanTheme {
         foregroundColor: PeamanColors.white70,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: PeamanColors.primaryDark,
+          padding: const EdgeInsets.all(18.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          textStyle: TextStyle(
+            fontFamily: _defaultTheme.textTheme.labelLarge?.fontFamily,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.all(18.0),
+          side: const BorderSide(
+            color: PeamanColors.white70,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          foregroundColor: PeamanColors.white70,
+          textStyle: TextStyle(
+            fontFamily: _defaultTheme.textTheme.labelLarge?.fontFamily,
+          ),
         ),
       ),
     );
