@@ -189,7 +189,7 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
       case PeamanUserRelationshipStatus.cancelFollowRequest:
         return 'Cancel Request';
       case PeamanUserRelationshipStatus.acceptFollowRequest:
-        return 'Accept';
+        return 'Accept Request';
       case PeamanUserRelationshipStatus.followBack:
         return 'Follow Back';
       default:
@@ -260,5 +260,10 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
     );
   }
 
-  void _onPressedOtherActions() {}
+  void _onPressedOtherActions() {
+    showPeamanProfileMenuBottomsheet(
+      context: context,
+      userId: widget.user.uid!,
+    );
+  }
 }

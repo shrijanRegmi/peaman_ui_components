@@ -485,6 +485,7 @@ class _PeamanChatMessagesListItemState
     return widget.senderInfoBuilder?.call(context, ref, sender!) ??
         PeamanAvatarBuilder.network(
           sender?.photo,
+          userId: sender?.uid,
           size: 35.0,
           opacity: _chatUserIdsWrapper.values.contains(sender?.uid) ? 1.0 : 0.5,
           overlayWidget: _chatUserIdsWrapper.values.contains(sender?.uid)

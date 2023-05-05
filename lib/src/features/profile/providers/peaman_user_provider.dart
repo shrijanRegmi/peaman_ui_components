@@ -186,6 +186,8 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
   PeamanUser get _appUser => _ref.read(providerOfLoggedInUser);
   PeamanInfoProvider get _logProvider =>
       _ref.read(providerOfPeamanInfo.notifier);
+  PeamanFeedProvider get _feedProvider =>
+      _ref.read(providerOfPeamanFeed.notifier);
 
   Future<void> blockUser({
     required final String friendId,
@@ -213,18 +215,20 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               uid: _appUser.uid!,
               friendId: friendId,
             );
-            state = result.when(
+            result.when(
               (success) {
                 if (successLogMessage != null) {
                   _logProvider.logSuccess(successLogMessage);
                 }
-                return state.copyWith(
-                  unblockUserState: UnblockUserState.success(success),
+                state = state.copyWith(
+                  blockUserState: BlockUserState.success(success),
                 );
+
+                _feedProvider.removeFromFeedsByOwnerId(friendId);
               },
               (failure) {
                 _logProvider.logError(failure.message);
-                return state.copyWith(
+                state = state.copyWith(
                   blockUserState: BlockUserState.error(failure),
                 );
               },
@@ -381,18 +385,19 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               uid: _appUser.uid!,
               friendId: userId,
             );
-            state = result.when(
+            result.when(
               (success) {
                 if (successLogMessage != null) {
                   _logProvider.logSuccess(successLogMessage);
                 }
-                return state.copyWith(
+                state = state.copyWith(
                   unfollowUserState: UnfollowUserState.success(success),
                 );
+                _feedProvider.removeFromFeedsByOwnerId(userId);
               },
               (failure) {
                 _logProvider.logError(failure.message);
-                return state.copyWith(
+                state = state.copyWith(
                   unfollowUserState: UnfollowUserState.error(failure),
                 );
               },
@@ -494,18 +499,18 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               uid: _appUser.uid!,
               friendId: userId,
             );
-            state = result.when(
+            result.when(
               (success) {
                 if (successLogMessage != null) {
                   _logProvider.logSuccess(successLogMessage);
                 }
-                return state.copyWith(
+                state = state.copyWith(
                   acceptFollowState: AcceptFollowState.success(success),
                 );
               },
               (failure) {
                 _logProvider.logError(failure.message);
-                return state.copyWith(
+                state = state.copyWith(
                   acceptFollowState: AcceptFollowState.error(failure),
                 );
               },
@@ -552,18 +557,19 @@ class PeamanUserProvider extends StateNotifier<PeamanUserProviderState> {
               uid: _appUser.uid!,
               friendId: userId,
             );
-            state = result.when(
+            result.when(
               (success) {
                 if (successLogMessage != null) {
                   _logProvider.logSuccess(successLogMessage);
                 }
-                return state.copyWith(
+                state = state.copyWith(
                   followBackState: FollowBackState.success(success),
                 );
+                _feedProvider.addProfileFeedsToTimelineFeeds();
               },
               (failure) {
                 _logProvider.logError(failure.message);
-                return state.copyWith(
+                state = state.copyWith(
                   followBackState: FollowBackState.error(failure),
                 );
               },

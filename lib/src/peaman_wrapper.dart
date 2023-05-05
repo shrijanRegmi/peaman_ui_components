@@ -43,6 +43,18 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
   }
 
   bool _isInitialLockOpen() {
+    final isFollowersLoading =
+        ref.watch(providerOfPeamanFollowersStream).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
+    final isFollowingsLoading =
+        ref.watch(providerOfPeamanFollowingsStream).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
     final isBlockedUsersLoading =
         ref.watch(providerOfPeamanBlockedUsersStream).maybeWhen(
               loading: () => true,
@@ -76,7 +88,9 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
               orElse: () => false,
             );
 
-    return !isBlockedUsersLoading &&
+    return !isFollowersLoading &&
+        !isFollowingsLoading &&
+        !isBlockedUsersLoading &&
         !isBlockedByUsersLoading &&
         isLocalNotificationInitialised &&
         !isUserHiddenFeedsLoading &&

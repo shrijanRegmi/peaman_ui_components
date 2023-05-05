@@ -92,6 +92,7 @@ class _PeamanFeedItemHeaderState extends ConsumerState<PeamanFeedItemHeader> {
               widget.avatarBuilder?.call(context, ref, user) ??
                   PeamanAvatarBuilder.network(
                     user.photo,
+                    userId: user.uid,
                     onPressed: () => context.pushNamed(
                       PeamanProfileScreen.route,
                       arguments: PeamanProfileScreenArgs(

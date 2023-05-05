@@ -38,6 +38,7 @@ class PeamanProfileBasicDetailsOverview extends ConsumerWidget {
               PeamanAvatarBuilder.network(
                 user.photo,
                 size: 100.w,
+                userId: user.uid,
               ).pB(10),
           nameBuilder?.call(context, ref, user) ??
               PeamanText.subtitle1(

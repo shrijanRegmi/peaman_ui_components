@@ -126,6 +126,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 )
               : PeamanAvatarBuilder.multiNetwork(
                   avatars,
+                  userId: _chatType == PeamanChatType.group
+                      ? null
+                      : _getFirstChatUser()?.uid,
                   size: _chatType == PeamanChatType.group ? 80.0 : 100.0,
                   spreadFactor: 2.5,
                 ),

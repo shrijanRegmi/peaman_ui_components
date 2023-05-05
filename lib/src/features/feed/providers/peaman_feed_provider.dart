@@ -37,9 +37,11 @@ final providerOfPeamanFeedsByOwnerId =
       .then(
         (value) => value.when(
           (success) async {
-            final updatedFeeds = await ref
-                .read(providerOfPeamanFeed.notifier)
-                .addStatusToFeeds(feeds: success);
+            final updatedFeeds =
+                await ref.read(providerOfPeamanFeed.notifier).addStatusToFeeds(
+                      feeds: success,
+                      forceShowFeedsFromNonFollowings: true,
+                    );
 
             ref
                 .read(providerOfPeamanFeed.notifier)
@@ -679,17 +681,51 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
 
   Future<List<PeamanFeed>> addStatusToFeeds({
     required List<PeamanFeed> feeds,
+    final bool forceShowFeedsFromNonFollowings = false,
   }) async {
-    final hiddenFeedsRef = _ref.read(providerOfPeamanUserHiddenFeeds);
+    final hiddenFeedsStream = _ref.read(
+      providerOfPeamanUserHiddenFeeds,
+    );
+    final blockedUsersStream = _ref.read(
+      providerOfPeamanBlockedUsersStream,
+    );
+    final blockedByUsersStream = _ref.read(
+      providerOfPeamanBlockedByUsersStream,
+    );
+    final followingUsersStream = _ref.read(
+      providerOfPeamanFollowingsStream,
+    );
 
-    final hiddenFeedIds = hiddenFeedsRef.maybeWhen(
+    final hiddenFeedIds = hiddenFeedsStream.maybeWhen(
       data: (hiddenFeeds) => hiddenFeeds
           .where((element) => element.id != null)
           .map((e) => e.id!)
           .toList(),
       orElse: () => <String>[],
     );
+    final blockedUserIds = blockedUsersStream.maybeWhen(
+      data: (data) => data
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList(),
+      orElse: () => <String>[],
+    );
+    final blockedByUserIds = blockedByUsersStream.maybeWhen(
+      data: (data) => data
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList(),
+      orElse: () => <String>[],
+    );
+    final followingUserIds = followingUsersStream.maybeWhen(
+      data: (data) => data
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList(),
+      orElse: () => <String>[],
+    );
 
+    // filter out hidden feeds
     feeds = feeds
         .where(
           (element) => !hiddenFeedIds.contains(
@@ -697,6 +733,22 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
           ),
         )
         .toList();
+
+    // filter out feeds from blocked users
+    feeds = feeds
+        .where((element) =>
+            !blockedUserIds.contains(element.ownerId) &&
+            !blockedByUserIds.contains(element.ownerId))
+        .toList();
+
+    // filter out feeds from non-followings
+    if (!forceShowFeedsFromNonFollowings) {
+      feeds = feeds
+          .where((element) => element.ownerId == _appUser.uid
+              ? true
+              : followingUserIds.contains(element.ownerId))
+          .toList();
+    }
 
     final futures = <Future<PeamanFeed?>>[];
 
@@ -866,6 +918,28 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
             (element) => element.id != feedId,
           )
           .toList(),
+    );
+  }
+
+  void removeFromFeedsByOwnerId(final String ownerId) {
+    state = state.copyWith(
+      timelineFeeds: state.timelineFeeds
+          .where(
+            (element) => element.ownerId != ownerId,
+          )
+          .toList(),
+      profileFeeds: state.profileFeeds
+          .where(
+            (element) => element.ownerId != ownerId,
+          )
+          .toList(),
+    );
+  }
+
+  void addProfileFeedsToTimelineFeeds() {
+    state = state.copyWith(
+      timelineFeeds: [...state.profileFeeds, ...state.timelineFeeds]
+        ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!)),
     );
   }
 }

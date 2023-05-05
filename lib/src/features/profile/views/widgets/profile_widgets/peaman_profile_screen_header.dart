@@ -45,6 +45,9 @@ class _PeamanTimelineHeaderState
     extends ConsumerState<PeamanProfileScreenHeader> {
   @override
   Widget build(BuildContext context) {
+    final uid = ref.watch(
+      providerOfLoggedInUser.select((value) => value.uid!),
+    );
     final userFuture = ref.watch(
       providerOfSingleUserByIdFuture(widget.userId),
     );
@@ -91,18 +94,25 @@ class _PeamanTimelineHeaderState
       actions: widget.actions.isNotEmpty
           ? widget.actions
           : [
-              Center(
-                child: PeamanRoundIconButton(
-                  padding: EdgeInsets.all(7.w),
-                  onPressed: () => showPeamanProfileMenuBottomsheet(
-                    context: context,
-                    userId: widget.userId,
-                  ),
-                  icon: Icon(
-                    Icons.more_horiz_rounded,
-                    size: 16.w,
-                  ),
-                ).pR(10.0),
+              Opacity(
+                opacity: widget.userId == uid ? 1.0 : 0.0,
+                child: Center(
+                  child: PeamanRoundIconButton(
+                    padding: EdgeInsets.all(7.w),
+                    onPressed: () {
+                      if (widget.userId == uid) {
+                        showPeamanProfileMenuBottomsheet(
+                          context: context,
+                          userId: widget.userId,
+                        );
+                      }
+                    },
+                    icon: Icon(
+                      Icons.more_horiz_rounded,
+                      size: 16.w,
+                    ),
+                  ).pR(10.0),
+                ),
               ),
             ],
     );

@@ -13,30 +13,11 @@ enum _Type {
   letter,
 }
 
-class PeamanAvatarBuilder extends StatefulWidget {
-  final _Type _type;
-
-  final List<String?> imgUrls;
-  final String? imgUrl;
-  final File? file;
-  final String? assetPath;
-  final String? letter;
-
-  final double size;
-  final Color? color;
-  final TextStyle? letterStyle;
-  final String? heroTag;
-  final Widget? overlayWidget;
-  final Border? border;
-  final String? package;
-  final double spreadFactor;
-  final double opacity;
-  final bool isSelected;
-  final Function()? onPressed;
-
+class PeamanAvatarBuilder extends ConsumerStatefulWidget {
   const PeamanAvatarBuilder.network(
     this.imgUrl, {
     super.key,
+    this.userId,
     this.size = 45.0,
     this.opacity = 1.0,
     this.color,
@@ -57,6 +38,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.multiNetwork(
     this.imgUrls, {
     super.key,
+    this.userId,
     this.size = 45.0,
     this.opacity = 1.0,
     this.color,
@@ -77,6 +59,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.file(
     this.file, {
     super.key,
+    this.userId,
     this.size = 45.0,
     this.opacity = 1.0,
     this.color,
@@ -97,6 +80,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.asset(
     this.assetPath, {
     super.key,
+    this.userId,
     this.size = 45.0,
     this.opacity = 1.0,
     this.package,
@@ -117,6 +101,7 @@ class PeamanAvatarBuilder extends StatefulWidget {
   const PeamanAvatarBuilder.letter(
     this.letter, {
     super.key,
+    this.userId,
     this.letterStyle,
     this.size = 45.0,
     this.opacity = 1.0,
@@ -134,13 +119,64 @@ class PeamanAvatarBuilder extends StatefulWidget {
         spreadFactor = 1.0,
         _type = _Type.letter;
 
+  final _Type _type;
+
+  final List<String?> imgUrls;
+  final String? imgUrl;
+  final File? file;
+  final String? assetPath;
+  final String? letter;
+  final String? userId;
+
+  final double size;
+  final Color? color;
+  final TextStyle? letterStyle;
+  final String? heroTag;
+  final Widget? overlayWidget;
+  final Border? border;
+  final String? package;
+  final double spreadFactor;
+  final double opacity;
+  final bool isSelected;
+  final Function()? onPressed;
+
   @override
-  State<PeamanAvatarBuilder> createState() => _PeamanAvatarBuilderState();
+  ConsumerState<PeamanAvatarBuilder> createState() =>
+      _PeamanAvatarBuilderState();
 }
 
-class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
+class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
   @override
   Widget build(BuildContext context) {
+    final blockedUsersStream = ref.watch(
+      providerOfPeamanBlockedUsersStream,
+    );
+    final blockedByUsersStream = ref.watch(
+      providerOfPeamanBlockedByUsersStream,
+    );
+    final blockedUserIds = blockedUsersStream.maybeWhen(
+      data: (data) => data
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList(),
+      orElse: () => <String>[],
+    );
+    final blockedByUserIds = blockedByUsersStream.maybeWhen(
+      data: (data) => data
+          .where((element) => element.uid != null)
+          .map((e) => e.uid!)
+          .toList(),
+      orElse: () => <String>[],
+    );
+
+    if (blockedUserIds.contains(widget.userId) ||
+        blockedByUserIds.contains(widget.userId)) {
+      return _assetBuilder(
+        assetPath: 'assets/images/avatar_unknown.png',
+        package: 'peaman_ui_components',
+      );
+    }
+
     switch (widget._type) {
       case _Type.network:
         return _networkBuilder();
@@ -237,7 +273,10 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
     );
   }
 
-  Widget _assetBuilder() {
+  Widget _assetBuilder({
+    final String? assetPath,
+    final String? package,
+  }) {
     return _baseBuilder(
       Container(
         width: widget.size,
@@ -247,8 +286,8 @@ class _PeamanAvatarBuilderState extends State<PeamanAvatarBuilder> {
           shape: BoxShape.circle,
           image: DecorationImage(
             image: AssetImage(
-              widget.assetPath!,
-              package: widget.package,
+              assetPath ?? widget.assetPath!,
+              package: package ?? widget.package,
             ),
             fit: BoxFit.cover,
           ),
