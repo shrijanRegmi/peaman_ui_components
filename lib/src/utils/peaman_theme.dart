@@ -48,6 +48,32 @@ class PeamanTheme {
         fillColor: PeamanColors.white,
         prefixIconColor: PeamanColors.primary,
         suffixIconColor: PeamanColors.primary,
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: PeamanColors.white,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: PeamanColors.white,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: PeamanColors.white,
+          ),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 18.0,
+        ),
+        hintStyle: const TextStyle(
+          fontSize: 14.0,
+        ),
       ),
       floatingActionButtonTheme:
           _defaultTheme.floatingActionButtonTheme.copyWith(
@@ -110,16 +136,42 @@ class PeamanTheme {
       progressIndicatorTheme: _defaultTheme.progressIndicatorTheme.copyWith(
         color: PeamanColors.grey,
       ),
-      inputDecorationTheme: _defaultTheme.inputDecorationTheme.copyWith(
-        fillColor: PeamanColors.containerBgDark,
-        prefixIconColor: PeamanColors.grey,
-        suffixIconColor: PeamanColors.black,
-      ),
       floatingActionButtonTheme:
           _defaultTheme.floatingActionButtonTheme.copyWith(
         foregroundColor: PeamanColors.white70,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      inputDecorationTheme: _defaultTheme.inputDecorationTheme.copyWith(
+        fillColor: PeamanColors.containerBgDark,
+        prefixIconColor: PeamanColors.grey,
+        suffixIconColor: PeamanColors.black,
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: PeamanColors.containerBgDark,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: PeamanColors.containerBgDark,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: PeamanColors.containerBgDark,
+          ),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 18.0,
+        ),
+        hintStyle: const TextStyle(
+          fontSize: 14.0,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
