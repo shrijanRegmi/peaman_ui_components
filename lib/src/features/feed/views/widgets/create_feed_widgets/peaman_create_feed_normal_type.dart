@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanCreateFeedNormalType extends ConsumerStatefulWidget {
@@ -72,8 +70,27 @@ class _PeamanCreateFeedNormalTypeState
                 fontSize: 16.sp,
               ),
               textCapitalization: TextCapitalization.sentences,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: PeamanColors.transparent,
+                  ),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: PeamanColors.transparent,
+                  ),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: PeamanColors.transparent,
+                  ),
+                ),
+                contentPadding: const EdgeInsets.all(0.0),
+                hintStyle: TextStyle(
+                  fontSize: 16.sp,
+                ),
+                filled: false,
                 hintText: 'What do you want to talk about?',
               ),
             ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanProfileActions extends ConsumerStatefulWidget {
@@ -85,7 +83,7 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
           ) ??
           [
             _followButtonBuilder().pR(6.0),
-            _messageButtonBuilder().pR(5.0),
+            _messageButtonBuilder().pR(6.0),
             _otherActionsBuilder(),
           ],
     );
@@ -100,8 +98,9 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
         ) ??
         PeamanButton.filled(
           value: isBtnLoading ? null : btnText,
-          minWidth: 130,
           borderRadius: 10.0,
+          width: 130.0,
+          padding: const EdgeInsets.all(0.0),
           isLoading: isBtnLoading,
           loader: PeamanSpinner(
             size: 14.w,
@@ -127,7 +126,9 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
         ) ??
         PeamanButton.bordered(
           value: 'Message',
+          width: 100.0,
           borderRadius: 10.0,
+          padding: const EdgeInsets.all(0.0),
           icon: SvgPicture.asset(
             'assets/svgs/outlined_send_message.svg',
             package: 'peaman_ui_components',
@@ -155,8 +156,8 @@ class _PeamanProfileActionsState extends ConsumerState<PeamanProfileActions> {
           _onPressedMessage,
         ) ??
         PeamanButton.filled(
-          minWidth: 0.0,
           borderRadius: 10.0,
+          width: 40.0,
           padding: EdgeInsets.symmetric(horizontal: 6.w),
           color: PeamanColors.extraLightGrey.withOpacity(0.16),
           splashColor: PeamanColors.transparent,

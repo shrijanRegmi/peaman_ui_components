@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanProfileAbout extends ConsumerStatefulWidget {
@@ -27,9 +26,13 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
           icon: PeamanRoundIconButton(
             icon: Icon(
               Icons.person_rounded,
-              color: PeamanColors.primary,
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : context.theme.colorScheme.primary,
               size: 18.w,
             ),
+            bgColor:
+                context.isDarkMode ? context.theme.colorScheme.primary : null,
             padding: EdgeInsets.all(10.w),
           ),
           title: 'Gender',
@@ -39,9 +42,13 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
           icon: PeamanRoundIconButton(
             icon: Icon(
               Icons.calendar_today_rounded,
-              color: PeamanColors.primary,
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : context.theme.colorScheme.primary,
               size: 14.w,
             ),
+            bgColor:
+                context.isDarkMode ? context.theme.colorScheme.primary : null,
             padding: EdgeInsets.all(12.5.w),
           ),
           title: 'Date of Birth',
@@ -51,9 +58,13 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
           icon: PeamanRoundIconButton(
             icon: Icon(
               Icons.flag_rounded,
-              color: PeamanColors.primary,
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : context.theme.colorScheme.primary,
               size: 18.w,
             ),
+            bgColor:
+                context.isDarkMode ? context.theme.colorScheme.primary : null,
             padding: EdgeInsets.all(10.w),
           ),
           title: 'Country',
@@ -63,9 +74,13 @@ class _PeamanProfileAboutState extends ConsumerState<PeamanProfileAbout> {
           icon: PeamanRoundIconButton(
             icon: Icon(
               Icons.language_rounded,
-              color: PeamanColors.primary,
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : context.theme.colorScheme.primary,
               size: 18.w,
             ),
+            bgColor:
+                context.isDarkMode ? context.theme.colorScheme.primary : null,
             padding: EdgeInsets.all(10.w),
           ),
           title: 'Languages',

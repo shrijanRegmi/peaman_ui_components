@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanConfirmationDialog extends ConsumerWidget {
@@ -51,11 +50,13 @@ class PeamanConfirmationDialog extends ConsumerWidget {
               Expanded(
                 child: PeamanButton.bordered(
                   value: 'Cancel',
+                  borderRadius: 11.0,
                   borderSide: BorderSide(
                     color: context.isDarkMode
                         ? PeamanColors.lightGrey
                         : context.theme.colorScheme.primary,
                   ),
+                  padding: const EdgeInsets.all(0.0),
                   onPressed: () => context.pop(),
                 ),
               ),
@@ -63,6 +64,8 @@ class PeamanConfirmationDialog extends ConsumerWidget {
               Expanded(
                 child: PeamanButton.filled(
                   value: 'Confirm',
+                  padding: const EdgeInsets.all(0.0),
+                  borderRadius: 11.0,
                   onPressed: () {
                     context.pop();
                     onConfirm(context, ref);

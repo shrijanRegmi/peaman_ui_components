@@ -172,7 +172,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             leading: PeamanRoundIconButton(
               icon: Icon(
                 Icons.edit_rounded,
-                color: PeamanColors.white,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : PeamanColors.white,
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
@@ -196,7 +198,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             leading: PeamanRoundIconButton(
               icon: Icon(
                 Icons.groups_rounded,
-                color: PeamanColors.white,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : PeamanColors.white,
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
@@ -217,7 +221,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
           leading: PeamanRoundIconButton(
             icon: Icon(
               Icons.image_rounded,
-              color: PeamanColors.white,
+              color: context.isDarkMode
+                  ? PeamanColors.white70
+                  : PeamanColors.white,
               size: 12.w,
             ),
             padding: EdgeInsets.all(7.w),
@@ -246,7 +252,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             leading: PeamanRoundIconButton(
               icon: Icon(
                 Icons.group_add_rounded,
-                color: PeamanColors.white,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : PeamanColors.white,
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
@@ -268,7 +276,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             leading: PeamanRoundIconButton(
               icon: Icon(
                 Icons.group,
-                color: PeamanColors.white,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : PeamanColors.white,
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
@@ -290,7 +300,9 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             leading: PeamanRoundIconButton(
               icon: Icon(
                 Icons.email_rounded,
-                color: PeamanColors.white,
+                color: context.isDarkMode
+                    ? PeamanColors.white70
+                    : PeamanColors.white,
                 size: 12.w,
               ),
               padding: EdgeInsets.all(7.w),
@@ -412,7 +424,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             icon: Icon(
               Icons.group_add_rounded,
               color: context.isDarkMode
-                  ? PeamanColors.white
+                  ? PeamanColors.white70
                   : PeamanColors.primary,
               size: 16.w,
             ),
@@ -427,7 +439,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
             icon: Icon(
               Icons.logout_rounded,
               color: context.isDarkMode
-                  ? PeamanColors.white
+                  ? PeamanColors.white70
                   : PeamanColors.primary,
               size: 16.w,
             ),

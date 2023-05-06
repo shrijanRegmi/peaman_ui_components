@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -17,7 +16,7 @@ class PeamanButton extends StatelessWidget {
   final BorderSide? borderSide;
 
   final Widget? icon;
-  final double? minWidth;
+  final double? width;
   final double? borderRadius;
   final EdgeInsets? padding;
   final double elevation;
@@ -32,7 +31,7 @@ class PeamanButton extends StatelessWidget {
     this.color,
     this.splashColor,
     this.icon,
-    this.minWidth,
+    this.width,
     this.borderRadius,
     this.padding,
     this.elevation = 0.0,
@@ -49,7 +48,7 @@ class PeamanButton extends StatelessWidget {
     this.borderSide,
     this.splashColor,
     this.icon,
-    this.minWidth,
+    this.width,
     this.borderRadius,
     this.padding,
     this.elevation = 0.0,
@@ -75,7 +74,6 @@ class PeamanButton extends StatelessWidget {
   Widget _filledBuilder(final BuildContext context) {
     final elevatedButtonStyle = ElevatedButton.styleFrom(
       backgroundColor: color,
-      minimumSize: minWidth == null ? null : Size.fromWidth(minWidth!),
       shape: borderRadius == null
           ? null
           : RoundedRectangleBorder(
@@ -85,40 +83,42 @@ class PeamanButton extends StatelessWidget {
       padding: padding,
     );
 
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: elevatedButtonStyle,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null) icon ?? Container(),
-          if (icon != null && value != null)
-            const SizedBox(
-              width: 10.0,
-            ),
-          if (value != null)
-            Text(
-              '$value',
-              style: valueStyle,
-            ),
-          if (isLoading && value != null)
-            const SizedBox(
-              width: 20.0,
-            ),
-          if (isLoading)
-            loader ??
-                PeamanSpinner(
-                  size: 15.h,
-                  color: PeamanColors.white,
-                )
-        ],
+    return SizedBox(
+      width: width?.w,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: elevatedButtonStyle,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) icon ?? Container(),
+            if (icon != null && value != null)
+              const SizedBox(
+                width: 10.0,
+              ),
+            if (value != null)
+              Text(
+                '$value',
+                style: valueStyle,
+              ),
+            if (isLoading && value != null)
+              const SizedBox(
+                width: 20.0,
+              ),
+            if (isLoading)
+              loader ??
+                  PeamanSpinner(
+                    size: 15.h,
+                    color: PeamanColors.white,
+                  )
+          ],
+        ),
       ),
     );
   }
 
   Widget _borderedBuilder(final BuildContext context) {
     final outlinedButtonStyle = OutlinedButton.styleFrom(
-      minimumSize: minWidth == null ? null : Size.fromWidth(minWidth!),
       side: borderSide,
       shape: borderRadius == null
           ? null
@@ -129,39 +129,42 @@ class PeamanButton extends StatelessWidget {
       padding: padding,
     );
 
-    return OutlinedButton(
-      onPressed: onPressed,
-      style: outlinedButtonStyle,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null) icon ?? Container(),
-          if (icon != null && value != null)
-            const SizedBox(
-              width: 10.0,
-            ),
-          if (value != null)
-            Text(
-              '$value',
-              style: valueStyle,
-            ),
-          if (isLoading && value != null)
-            const SizedBox(
-              width: 20.0,
-            ),
-          if (isLoading)
-            loader ??
-                PeamanSpinner(
-                  size: 15.h,
-                  color: outlinedButtonStyle.side?.resolve(
-                    const <MaterialState>{
-                      MaterialState.pressed,
-                      MaterialState.hovered,
-                      MaterialState.focused,
-                    },
-                  )?.color,
-                ),
-        ],
+    return SizedBox(
+      width: width?.w,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: outlinedButtonStyle,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) icon ?? Container(),
+            if (icon != null && value != null)
+              const SizedBox(
+                width: 10.0,
+              ),
+            if (value != null)
+              Text(
+                '$value',
+                style: valueStyle,
+              ),
+            if (isLoading && value != null)
+              const SizedBox(
+                width: 20.0,
+              ),
+            if (isLoading)
+              loader ??
+                  PeamanSpinner(
+                    size: 15.h,
+                    color: outlinedButtonStyle.side?.resolve(
+                      const <MaterialState>{
+                        MaterialState.pressed,
+                        MaterialState.hovered,
+                        MaterialState.focused,
+                      },
+                    )?.color,
+                  ),
+          ],
+        ),
       ),
     );
   }
