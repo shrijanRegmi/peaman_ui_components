@@ -109,7 +109,7 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
           hintText: 'Password',
           password: true,
           requiredPadding: false,
-          controller: _emailController,
+          controller: _passwordController,
         ),
       ],
     );
