@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -7,9 +6,6 @@ part 'peaman_auth_provider_state.freezed.dart';
 @freezed
 class PeamanAuthProviderState with _$PeamanAuthProviderState {
   const factory PeamanAuthProviderState({
-    required final TextEditingController emailController,
-    required final TextEditingController passwordController,
-    required final TextEditingController confirmPasswordController,
     @Default(SignInWithEmailPasswordState.initial())
         final SignInWithEmailPasswordState signInWithEmailPasswordState,
     @Default(SignUpWithEmailPasswordState.initial())

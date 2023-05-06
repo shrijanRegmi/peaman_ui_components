@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 final providerOfPeamanAuth =
@@ -93,11 +92,7 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
   PeamanAuthProvider(final Ref ref)
       : _ref = ref,
         super(
-          PeamanAuthProviderState(
-            emailController: TextEditingController(),
-            passwordController: TextEditingController(),
-            confirmPasswordController: TextEditingController(),
-          ),
+          const PeamanAuthProviderState(),
         );
 
   final Ref _ref;
@@ -106,17 +101,19 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
   PeamanInfoProvider get _errorProvider =>
       _ref.read(providerOfPeamanInfo.notifier);
 
-  Future<void> signInWithEmailAndPassword() async {
-    if (state.emailController.text.trim().isEmpty ||
-        state.passwordController.text.trim().isEmpty) return;
+  Future<void> signInWithEmailAndPassword({
+    required final String email,
+    required final String password,
+  }) async {
+    if (email.trim().isEmpty || password.trim().isEmpty) return;
 
     state = state.copyWith(
       signInWithEmailPasswordState:
           const SignInWithEmailPasswordState.loading(),
     );
     final result = await _authRepository.signInWithEmailAndPassword(
-      email: state.emailController.text.trim(),
-      password: state.passwordController.text.trim(),
+      email: email.trim(),
+      password: password.trim(),
     );
     state = result.when(
       (success) => state.copyWith(
@@ -133,22 +130,39 @@ class PeamanAuthProvider extends StateNotifier<PeamanAuthProviderState> {
     );
   }
 
-  Future<void> signUpWithEmailAndPassword() async {
-    if (state.emailController.text.trim().isEmpty ||
-        state.passwordController.text.trim().isEmpty ||
-        state.confirmPasswordController.text.trim().isEmpty) return;
+  Future<void> signUpWithEmailAndPassword({
+    required final String email,
+    required final String password,
+    required final String confirmPassword,
+    final PeamanUser? user,
+  }) async {
+    if (email.trim().isEmpty ||
+        password.trim().isEmpty ||
+        confirmPassword.trim().isEmpty) return;
 
-    final user = PeamanUser(
-      email: state.emailController.text.trim(),
-    );
+    if (confirmPassword.trim() != password.trim()) {
+      state = state.copyWith(
+        signUpWithEmailPasswordState: const SignUpWithEmailPasswordState.error(
+          PeamanError(
+            message: 'Your password and confirm password does not match',
+          ),
+        ),
+      );
+      return;
+    }
+
+    final thisUser = user?.copyWith(email: email.trim()) ??
+        PeamanUser(
+          email: email.trim(),
+        );
     state = state.copyWith(
       signUpWithEmailPasswordState:
           const SignUpWithEmailPasswordState.loading(),
     );
     final result = await _authRepository.signUpWithEmailAndPassword(
-      user: user,
-      email: state.emailController.text.trim(),
-      password: state.passwordController.text.trim(),
+      user: thisUser,
+      email: email.trim(),
+      password: password.trim(),
     );
     state = result.when(
       (success) => state.copyWith(

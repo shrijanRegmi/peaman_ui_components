@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanSignUpScreen extends StatefulHookConsumerWidget {
@@ -15,6 +13,10 @@ class PeamanSignUpScreen extends StatefulHookConsumerWidget {
 class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
   PeamanAuthProviderState get state => ref.watch(providerOfPeamanAuth);
   PeamanAuthProvider get notifier => ref.read(providerOfPeamanAuth.notifier);
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +93,6 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
         const PeamanText.subtitle1(
           "Thanks, we are glad to\nhave you onboard",
           textAlign: TextAlign.center,
-          // ignore: prefer_const_constructors
           style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -106,7 +107,7 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
         PeamanInput(
           hintText: 'Email address',
           requiredPadding: false,
-          controller: state.emailController,
+          controller: _emailController,
         ),
         const SizedBox(
           height: 15.0,
@@ -115,7 +116,7 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
           hintText: 'Password',
           password: true,
           requiredPadding: false,
-          controller: state.passwordController,
+          controller: _passwordController,
         ),
         const SizedBox(
           height: 15.0,
@@ -124,7 +125,7 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
           hintText: 'Confirm Password',
           password: true,
           requiredPadding: false,
-          controller: state.confirmPasswordController,
+          controller: _confirmPasswordController,
         ),
       ],
     );
@@ -142,7 +143,11 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
       ),
       onPressed: () {
         context.unfocus();
-        notifier.signUpWithEmailAndPassword();
+        notifier.signUpWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+          confirmPassword: _confirmPasswordController.text.trim(),
+        );
       },
     );
   }

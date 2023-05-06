@@ -14,6 +14,9 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
   PeamanAuthProviderState get state => ref.watch(providerOfPeamanAuth);
   PeamanAuthProvider get notifier => ref.read(providerOfPeamanAuth.notifier);
 
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +100,7 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
         PeamanInput(
           hintText: 'Email address',
           requiredPadding: false,
-          controller: state.emailController,
+          controller: _emailController,
         ),
         const SizedBox(
           height: 15.0,
@@ -106,7 +109,7 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
           hintText: 'Password',
           password: true,
           requiredPadding: false,
-          controller: state.passwordController,
+          controller: _emailController,
         ),
       ],
     );
@@ -135,7 +138,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
       ),
       onPressed: () {
         context.unfocus();
-        notifier.signInWithEmailAndPassword();
+        notifier.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
       },
     );
   }

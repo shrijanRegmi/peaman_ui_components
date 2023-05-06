@@ -16,12 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PeamanAuthProviderState {
-  TextEditingController get emailController =>
-      throw _privateConstructorUsedError;
-  TextEditingController get passwordController =>
-      throw _privateConstructorUsedError;
-  TextEditingController get confirmPasswordController =>
-      throw _privateConstructorUsedError;
   SignInWithEmailPasswordState get signInWithEmailPasswordState =>
       throw _privateConstructorUsedError;
   SignUpWithEmailPasswordState get signUpWithEmailPasswordState =>
@@ -44,10 +38,7 @@ abstract class $PeamanAuthProviderStateCopyWith<$Res> {
       _$PeamanAuthProviderStateCopyWithImpl<$Res, PeamanAuthProviderState>;
   @useResult
   $Res call(
-      {TextEditingController emailController,
-      TextEditingController passwordController,
-      TextEditingController confirmPasswordController,
-      SignInWithEmailPasswordState signInWithEmailPasswordState,
+      {SignInWithEmailPasswordState signInWithEmailPasswordState,
       SignUpWithEmailPasswordState signUpWithEmailPasswordState,
       SignInWithGoogleState signInWithGoogleState,
       SignInWithFacebookState signInWithFacebookState,
@@ -74,9 +65,6 @@ class _$PeamanAuthProviderStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? emailController = null,
-    Object? passwordController = null,
-    Object? confirmPasswordController = null,
     Object? signInWithEmailPasswordState = null,
     Object? signUpWithEmailPasswordState = null,
     Object? signInWithGoogleState = null,
@@ -84,18 +72,6 @@ class _$PeamanAuthProviderStateCopyWithImpl<$Res,
     Object? signOutState = null,
   }) {
     return _then(_value.copyWith(
-      emailController: null == emailController
-          ? _value.emailController
-          : emailController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
-      passwordController: null == passwordController
-          ? _value.passwordController
-          : passwordController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
-      confirmPasswordController: null == confirmPasswordController
-          ? _value.confirmPasswordController
-          : confirmPasswordController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
       signInWithEmailPasswordState: null == signInWithEmailPasswordState
           ? _value.signInWithEmailPasswordState
           : signInWithEmailPasswordState // ignore: cast_nullable_to_non_nullable
@@ -175,10 +151,7 @@ abstract class _$$_PeamanAuthProviderStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {TextEditingController emailController,
-      TextEditingController passwordController,
-      TextEditingController confirmPasswordController,
-      SignInWithEmailPasswordState signInWithEmailPasswordState,
+      {SignInWithEmailPasswordState signInWithEmailPasswordState,
       SignUpWithEmailPasswordState signUpWithEmailPasswordState,
       SignInWithGoogleState signInWithGoogleState,
       SignInWithFacebookState signInWithFacebookState,
@@ -208,9 +181,6 @@ class __$$_PeamanAuthProviderStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? emailController = null,
-    Object? passwordController = null,
-    Object? confirmPasswordController = null,
     Object? signInWithEmailPasswordState = null,
     Object? signUpWithEmailPasswordState = null,
     Object? signInWithGoogleState = null,
@@ -218,18 +188,6 @@ class __$$_PeamanAuthProviderStateCopyWithImpl<$Res>
     Object? signOutState = null,
   }) {
     return _then(_$_PeamanAuthProviderState(
-      emailController: null == emailController
-          ? _value.emailController
-          : emailController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
-      passwordController: null == passwordController
-          ? _value.passwordController
-          : passwordController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
-      confirmPasswordController: null == confirmPasswordController
-          ? _value.confirmPasswordController
-          : confirmPasswordController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
       signInWithEmailPasswordState: null == signInWithEmailPasswordState
           ? _value.signInWithEmailPasswordState
           : signInWithEmailPasswordState // ignore: cast_nullable_to_non_nullable
@@ -258,10 +216,7 @@ class __$$_PeamanAuthProviderStateCopyWithImpl<$Res>
 
 class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
   const _$_PeamanAuthProviderState(
-      {required this.emailController,
-      required this.passwordController,
-      required this.confirmPasswordController,
-      this.signInWithEmailPasswordState =
+      {this.signInWithEmailPasswordState =
           const SignInWithEmailPasswordState.initial(),
       this.signUpWithEmailPasswordState =
           const SignUpWithEmailPasswordState.initial(),
@@ -269,12 +224,6 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
       this.signInWithFacebookState = const SignInWithFacebookState.initial(),
       this.signOutState = const SignOutState.initial()});
 
-  @override
-  final TextEditingController emailController;
-  @override
-  final TextEditingController passwordController;
-  @override
-  final TextEditingController confirmPasswordController;
   @override
   @JsonKey()
   final SignInWithEmailPasswordState signInWithEmailPasswordState;
@@ -293,7 +242,7 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
 
   @override
   String toString() {
-    return 'PeamanAuthProviderState(emailController: $emailController, passwordController: $passwordController, confirmPasswordController: $confirmPasswordController, signInWithEmailPasswordState: $signInWithEmailPasswordState, signUpWithEmailPasswordState: $signUpWithEmailPasswordState, signInWithGoogleState: $signInWithGoogleState, signInWithFacebookState: $signInWithFacebookState, signOutState: $signOutState)';
+    return 'PeamanAuthProviderState(signInWithEmailPasswordState: $signInWithEmailPasswordState, signUpWithEmailPasswordState: $signUpWithEmailPasswordState, signInWithGoogleState: $signInWithGoogleState, signInWithFacebookState: $signInWithFacebookState, signOutState: $signOutState)';
   }
 
   @override
@@ -301,13 +250,6 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PeamanAuthProviderState &&
-            (identical(other.emailController, emailController) ||
-                other.emailController == emailController) &&
-            (identical(other.passwordController, passwordController) ||
-                other.passwordController == passwordController) &&
-            (identical(other.confirmPasswordController,
-                    confirmPasswordController) ||
-                other.confirmPasswordController == confirmPasswordController) &&
             (identical(other.signInWithEmailPasswordState,
                     signInWithEmailPasswordState) ||
                 other.signInWithEmailPasswordState ==
@@ -328,9 +270,6 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      emailController,
-      passwordController,
-      confirmPasswordController,
       signInWithEmailPasswordState,
       signUpWithEmailPasswordState,
       signInWithGoogleState,
@@ -348,21 +287,12 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
 
 abstract class _PeamanAuthProviderState implements PeamanAuthProviderState {
   const factory _PeamanAuthProviderState(
-      {required final TextEditingController emailController,
-      required final TextEditingController passwordController,
-      required final TextEditingController confirmPasswordController,
-      final SignInWithEmailPasswordState signInWithEmailPasswordState,
+      {final SignInWithEmailPasswordState signInWithEmailPasswordState,
       final SignUpWithEmailPasswordState signUpWithEmailPasswordState,
       final SignInWithGoogleState signInWithGoogleState,
       final SignInWithFacebookState signInWithFacebookState,
       final SignOutState signOutState}) = _$_PeamanAuthProviderState;
 
-  @override
-  TextEditingController get emailController;
-  @override
-  TextEditingController get passwordController;
-  @override
-  TextEditingController get confirmPasswordController;
   @override
   SignInWithEmailPasswordState get signInWithEmailPasswordState;
   @override
