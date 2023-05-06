@@ -156,9 +156,11 @@ class _PInputState extends State<PeamanInput> {
                             border: InputBorder.none,
                             hintText: widget.hintText,
                             counterText: '',
-                            hintStyle: const TextStyle(
-                              color: Color(0xff888888),
-                            ),
+                            hintStyle:
+                                context.theme.inputDecorationTheme.hintStyle ??
+                                    const TextStyle(
+                                      color: Color(0xff888888),
+                                    ),
                           ),
                         ),
                       ),
