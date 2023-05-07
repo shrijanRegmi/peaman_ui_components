@@ -10,6 +10,32 @@ class PeamanRouter {
           const PeamanWrapper(),
         );
 
+      // <---------------- SHARED START ---------------->
+
+      case PeamanViewPicturesScreen.route:
+        final arguments = settings.arguments as PeamanViewPicturesArgs;
+        return buildRoute(
+          settings,
+          PeamanViewPicturesScreen(
+            pictures: arguments.pictures,
+            activeIndex: arguments.activeIndex,
+            downloadable: arguments.downloadable,
+          ),
+        );
+
+      case PeamanViewMediasScreen.route:
+        final arguments = settings.arguments as PeamanViewMediasScreenArgs;
+
+        return buildRoute(
+          settings,
+          PeamanViewMediasScreen(
+            urls: arguments.urls,
+            index: arguments.index,
+          ),
+        );
+
+      // <---------------- SHARED END ---------------->
+
       // <---------------- AUTH START ---------------->
 
       case PeamanLoginScreen.route:
@@ -65,17 +91,6 @@ class PeamanRouter {
           PeamanUsersSearchScreen(
             searchUsersGlobally: arguments?.searchUsersGlobally ?? false,
             onPressedUser: arguments?.onPressedUser,
-          ),
-        );
-
-      case PeamanViewPicturesScreen.route:
-        final arguments = settings.arguments as PeamanViewPicturesArgs;
-        return buildRoute(
-          settings,
-          PeamanViewPicturesScreen(
-            pictures: arguments.pictures,
-            activeIndex: arguments.activeIndex,
-            downloadable: arguments.downloadable,
           ),
         );
 

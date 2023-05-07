@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanFeedItemBodyNormalType extends ConsumerStatefulWidget {
@@ -63,32 +61,42 @@ class _PeamanFeedItemBodyNormalTypeState
         file.type == PeamanFileType.video ? file.thumbnailUrl : file.url;
 
     return widget.coverImageBuilder?.call(context, ref, widget.feed) ??
-        Container(
-          width: double.infinity,
-          height: (ScreenUtil().screenWidth - 40.0),
-          decoration: BoxDecoration(
-            color: PeamanColors.extraLightGrey,
-            borderRadius: BorderRadius.circular(10.r),
-            image: url == null
-                ? null
-                : DecorationImage(
-                    image: CachedNetworkImageProvider(url),
-                    fit: BoxFit.cover,
+        Hero(
+          tag: '$url',
+          child: Container(
+            width: double.infinity,
+            height: (ScreenUtil().screenWidth - 40.0),
+            decoration: BoxDecoration(
+              color: PeamanColors.extraLightGrey,
+              borderRadius: BorderRadius.circular(10.r),
+              image: url == null
+                  ? null
+                  : DecorationImage(
+                      image: CachedNetworkImageProvider(url),
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            padding: EdgeInsets.all(10.w),
+            child: file.type == PeamanFileType.video
+                ? Align(
+                    alignment: Alignment.topLeft,
+                    child: Icon(
+                      Icons.play_arrow_rounded,
+                      color: context.isDarkMode
+                          ? PeamanColors.white70
+                          : PeamanColors.white,
+                    ),
+                  )
+                : null,
+          ).pB(5.0).onPressed(
+                () => context.pushNamed(
+                  PeamanViewMediasScreen.route,
+                  arguments: PeamanViewMediasScreenArgs(
+                    urls: widget.feed.files,
                   ),
-          ),
-          padding: EdgeInsets.all(10.w),
-          child: file.type == PeamanFileType.video
-              ? Align(
-                  alignment: Alignment.topLeft,
-                  child: Icon(
-                    Icons.play_arrow_rounded,
-                    color: context.isDarkMode
-                        ? PeamanColors.white70
-                        : PeamanColors.white,
-                  ),
-                )
-              : null,
-        ).pB(5.0);
+                ),
+              ),
+        );
   }
 
   Widget _otherImagesGridBuilder() {
@@ -116,41 +124,29 @@ class _PeamanFeedItemBodyNormalTypeState
             final url = file.type == PeamanFileType.video
                 ? file.thumbnailUrl
                 : file.url;
-            return Container(
-              decoration: BoxDecoration(
-                color: PeamanColors.extraLightGrey,
-                borderRadius: BorderRadius.circular(10.r),
-                image: url == null
-                    ? null
-                    : DecorationImage(
-                        image: CachedNetworkImageProvider(url),
-                        fit: BoxFit.cover,
-                        colorFilter: !isMoreImagesAvailable
-                            ? null
-                            : ColorFilter.mode(
-                                PeamanColors.black87.withOpacity(0.3),
-                                BlendMode.darken,
-                              ),
-                      ),
-              ),
-              padding: EdgeInsets.all(7.w),
-              child: !isMoreImagesAvailable
-                  ? file.type == PeamanFileType.video
-                      ? Align(
-                          alignment: Alignment.topLeft,
-                          child: Icon(
-                            Icons.play_arrow_rounded,
-                            size: 16.w,
-                            color: context.isDarkMode
-                                ? PeamanColors.white70
-                                : PeamanColors.white,
-                          ),
-                        )
-                      : null
-                  : Stack(
-                      children: [
-                        if (file.type == PeamanFileType.video)
-                          Align(
+            return Hero(
+              tag: '$url',
+              child: Container(
+                decoration: BoxDecoration(
+                  color: PeamanColors.extraLightGrey,
+                  borderRadius: BorderRadius.circular(10.r),
+                  image: url == null
+                      ? null
+                      : DecorationImage(
+                          image: CachedNetworkImageProvider(url),
+                          fit: BoxFit.cover,
+                          colorFilter: !isMoreImagesAvailable
+                              ? null
+                              : ColorFilter.mode(
+                                  PeamanColors.black87.withOpacity(0.3),
+                                  BlendMode.darken,
+                                ),
+                        ),
+                ),
+                padding: EdgeInsets.all(7.w),
+                child: !isMoreImagesAvailable
+                    ? file.type == PeamanFileType.video
+                        ? Align(
                             alignment: Alignment.topLeft,
                             child: Icon(
                               Icons.play_arrow_rounded,
@@ -159,25 +155,49 @@ class _PeamanFeedItemBodyNormalTypeState
                                   ? PeamanColors.white70
                                   : PeamanColors.white,
                             ),
-                          ),
-                        Positioned.fill(
-                          child: Center(
-                            child: PeamanText.body2(
-                              '+${(_mediaFiles.length - trimmedMediaFiles.length)}',
-                              style: const TextStyle(
-                                color: PeamanColors.white,
+                          )
+                        : null
+                    : Stack(
+                        children: [
+                          if (file.type == PeamanFileType.video)
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Icon(
+                                Icons.play_arrow_rounded,
+                                size: 16.w,
+                                color: context.isDarkMode
+                                    ? PeamanColors.white70
+                                    : PeamanColors.white,
+                              ),
+                            ),
+                          Positioned.fill(
+                            child: Center(
+                              child: PeamanText.body2(
+                                '+${(_mediaFiles.length - trimmedMediaFiles.length)}',
+                                style: const TextStyle(
+                                  color: PeamanColors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-            ).onPressed(
-              () {
-                if (isMoreImagesAvailable) {
-                  setState(() => _showAllImages = true);
-                }
-              },
+                        ],
+                      ),
+              ).onPressed(
+                () {
+                  if (isMoreImagesAvailable) {
+                    setState(() => _showAllImages = true);
+                  } else {
+                    context.pushNamed(
+                      PeamanViewMediasScreen.route,
+                      arguments: PeamanViewMediasScreenArgs(
+                        urls: widget.feed.files,
+                        index: widget.feed.files
+                            .indexWhere((element) => element.url == url),
+                      ),
+                    );
+                  }
+                },
+              ),
             );
           },
         ).pB(10.0);

@@ -8,6 +8,7 @@ export 'providers/peaman_metadata_provider.dart';
 
 export 'views/screens/peaman_users_search_screen.dart';
 export 'views/screens/peaman_view_pictures_screen.dart';
+export 'views/screens/peaman_view_medias_screen.dart';
 
 export 'views/widgets/peaman_appbar.dart';
 export 'views/widgets/peaman_text.dart';
