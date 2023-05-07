@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanCreateFeedYouTubeType extends ConsumerStatefulWidget {
@@ -44,8 +43,27 @@ class PeamanCreateFeedYouTubeTypeState
             fontSize: 16.sp,
           ),
           onChanged: (val) {},
-          decoration: const InputDecoration(
-            border: InputBorder.none,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: PeamanColors.transparent,
+              ),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: PeamanColors.transparent,
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: PeamanColors.transparent,
+              ),
+            ),
+            contentPadding: const EdgeInsets.all(0.0),
+            hintStyle: TextStyle(
+              fontSize: 16.sp,
+            ),
+            filled: false,
             hintText: 'What do you want to share from YouTube?',
           ),
         );
