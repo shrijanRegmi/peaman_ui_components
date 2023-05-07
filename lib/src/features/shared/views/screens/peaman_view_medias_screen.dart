@@ -52,47 +52,47 @@ class _PeamanViewMediasScreenState
     return Scaffold(
       backgroundColor: PeamanColors.black,
       body: SafeArea(
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PhotoViewGallery.builder(
-              scrollPhysics: const BouncingScrollPhysics(),
-              pageController: pageController,
-              itemCount: urls.length,
-              builder: (context, index) {
-                final url = urls[index];
+            _backButtonBuilder().pad(10),
+            SizedBox(
+              height: 10.h,
+            ),
+            Expanded(
+              child: PhotoViewGallery.builder(
+                scrollPhysics: const BouncingScrollPhysics(),
+                pageController: pageController,
+                itemCount: urls.length,
+                builder: (context, index) {
+                  final url = urls[index];
 
-                return PhotoViewGalleryPageOptions(
-                  imageProvider: CachedNetworkImageProvider(
-                    url.url!,
-                  ),
-                  initialScale: PhotoViewComputedScale.contained,
-                  maxScale: PhotoViewComputedScale.covered,
-                  minScale: PhotoViewComputedScale.contained,
-                  heroAttributes: PhotoViewHeroAttributes(tag: url.url!),
-                );
-              },
-              loadingBuilder: (context, event) {
-                return const PeamanSpinner(
-                  color: PeamanColors.white,
-                );
-              },
-              onPageChanged: (val) => setState(() => _activeIndex = val),
-            ).onPressed(
-              () => setState(
-                () => _isActionButtonsVisible = !_isActionButtonsVisible,
+                  return PhotoViewGalleryPageOptions(
+                    imageProvider: CachedNetworkImageProvider(
+                      url.url!,
+                    ),
+                    initialScale: PhotoViewComputedScale.contained,
+                    maxScale: PhotoViewComputedScale.covered,
+                    minScale: PhotoViewComputedScale.contained,
+                    heroAttributes: PhotoViewHeroAttributes(tag: url.url!),
+                  );
+                },
+                loadingBuilder: (context, event) {
+                  return const PeamanSpinner(
+                    color: PeamanColors.white,
+                  );
+                },
+                onPageChanged: (val) => setState(() => _activeIndex = val),
+              ).onPressed(
+                () => setState(
+                  () => _isActionButtonsVisible = !_isActionButtonsVisible,
+                ),
               ),
             ),
-            Positioned(
-              top: 10.h,
-              left: 10.h,
-              child: _backButtonBuilder(),
+            SizedBox(
+              height: 10.h,
             ),
-            Positioned(
-              bottom: 10.h,
-              left: 10.h,
-              right: 10.h,
-              child: _otherMediasBuilder(pageController),
-            ),
+            _otherMediasBuilder(pageController).pL(10),
           ],
         ),
       ),
