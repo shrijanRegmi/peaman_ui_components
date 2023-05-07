@@ -89,24 +89,62 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _headerBuilder(),
+      body: _bodyBuilder(),
+    );
+  }
+
+  PreferredSizeWidget _headerBuilder() {
+    if (widget.headerBuilder != null) {
+      return widget.headerBuilder!.call(context, ref, widget.userId);
+    }
+
+    if (widget.userId == _uid) {
+      return PeamanProfileScreenHeader(
+        user: ref.watch(providerOfLoggedInUser),
+      );
+    }
+
     final userFuture = ref.watch(
       providerOfSingleUserByIdFuture(widget.userId),
     );
-    return Scaffold(
-      appBar: widget.headerBuilder?.call(context, ref, widget.userId) ??
-          PeamanProfileScreenHeader(
-            userId: widget.userId,
-          ),
-      body: userFuture.when(
-        data: (data) => data.when(
-          _dataBuilder,
-          _errorBuilder,
+    return userFuture.when(
+      data: (data) => data.when(
+        (success) => PeamanProfileScreenHeader(
+          user: success,
         ),
-        error: (e, _) => _errorBuilder(
-          PeamanError(message: e.toString()),
+        (failure) => const PeamanProfileScreenHeader(
+          user: PeamanUser(),
         ),
-        loading: _loadingBuilder,
       ),
+      error: (e, _) => const PeamanProfileScreenHeader(
+        user: PeamanUser(),
+      ),
+      loading: () => const PeamanProfileScreenHeader(
+        user: PeamanUser(),
+      ),
+    );
+  }
+
+  Widget _bodyBuilder() {
+    if (widget.userId == _uid) {
+      final appUser = ref.watch(providerOfLoggedInUser);
+      return _dataBuilder(appUser);
+    }
+
+    final userFuture = ref.watch(
+      providerOfSingleUserByIdFuture(widget.userId),
+    );
+    return userFuture.when(
+      data: (data) => data.when(
+        _dataBuilder,
+        _errorBuilder,
+      ),
+      error: (e, _) => _errorBuilder(
+        PeamanError(message: e.toString()),
+      ),
+      loading: _loadingBuilder,
     );
   }
 
@@ -119,7 +157,7 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
           headerSliverBuilder: (context, _) {
             return [
               SliverToBoxAdapter(
-                child: _headerBuilder(user),
+                child: _topDetailsBuilder(user),
               )
             ];
           },
@@ -132,7 +170,7 @@ class _PeamanProfileScreenState extends ConsumerState<PeamanProfileScreen> {
     );
   }
 
-  Widget _headerBuilder(final PeamanUser user) {
+  Widget _topDetailsBuilder(final PeamanUser user) {
     return Column(
       children: [
         SizedBox(

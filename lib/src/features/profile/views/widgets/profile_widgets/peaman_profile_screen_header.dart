@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanProfileScreenHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
   const PeamanProfileScreenHeader({
     super.key,
-    required this.userId,
+    required this.user,
     this.titleText,
     this.title,
     this.backgroundColor,
@@ -20,7 +19,7 @@ class PeamanProfileScreenHeader extends ConsumerStatefulWidget
     this.actions = const [],
   });
 
-  final String userId;
+  final PeamanUser user;
   final String? titleText;
   final Widget? title;
   final Color? backgroundColor;
@@ -48,23 +47,6 @@ class _PeamanTimelineHeaderState
     final uid = ref.watch(
       providerOfLoggedInUser.select((value) => value.uid!),
     );
-    final userFuture = ref.watch(
-      providerOfSingleUserByIdFuture(widget.userId),
-    );
-    final userName = userFuture.maybeWhen(
-      data: (data) => data.when(
-        (success) => '@${success.userName}',
-        (failure) => '',
-      ),
-      orElse: () => '',
-    );
-    final isVerified = userFuture.maybeWhen(
-      data: (data) => data.when(
-        (success) => success.isVerified,
-        (failure) => false,
-      ),
-      orElse: () => false,
-    );
 
     return PeamanAppbar(
       titleText: widget.titleText,
@@ -72,15 +54,13 @@ class _PeamanTimelineHeaderState
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (!userFuture.isLoading)
-                PeamanText.subtitle2(
-                  userName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+              PeamanText.subtitle2(
+                '@${widget.user.userName}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-              if (!userFuture.isLoading && isVerified)
-                const PeamanVerifiedBadge().pL(4.0),
+              ),
+              if (widget.user.isVerified) const PeamanVerifiedBadge().pL(4.0),
             ],
           ),
       backgroundColor:
@@ -95,18 +75,11 @@ class _PeamanTimelineHeaderState
           ? widget.actions
           : [
               Opacity(
-                opacity: widget.userId == uid ? 1.0 : 0.0,
+                opacity: 0.0,
                 child: Center(
                   child: PeamanRoundIconButton(
                     padding: EdgeInsets.all(7.w),
-                    onPressed: () {
-                      if (widget.userId == uid) {
-                        showPeamanProfileMenuBottomsheet(
-                          context: context,
-                          userId: widget.userId,
-                        );
-                      }
-                    },
+                    onPressed: () {},
                     icon: Icon(
                       Icons.more_horiz_rounded,
                       size: 16.w,

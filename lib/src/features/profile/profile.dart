@@ -19,6 +19,7 @@ export 'views/widgets/profile_widgets/peaman_profile_category_header.dart';
 export 'views/widgets/profile_widgets/peaman_profile_category_body.dart';
 export 'views/widgets/profile_widgets/peaman_profile_feeds.dart';
 export 'views/widgets/profile_widgets/peaman_profile_about.dart';
+export 'views/widgets/profile_widgets/peaman_profile_about_item.dart';
 
 export 'models/peaman_delete_profile_trigger_model.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanInputPopup extends ConsumerStatefulWidget {
@@ -87,7 +86,7 @@ class _PeamanInputPopupState extends ConsumerState<PeamanInputPopup> {
             mainAxisSize: MainAxisSize.min,
             children: [
               _headerBuilder().pX(20).pT(20).pB(15),
-              _inputBuilder(),
+              _inputBuilder().pX(20),
               SizedBox(
                 height: 10.h,
               ),

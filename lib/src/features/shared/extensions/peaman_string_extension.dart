@@ -6,4 +6,9 @@ extension StringExt on String {
     return thisValue.startsWith(searchValue.substring(0, 1)) &&
         thisValue.contains(searchValue.toUpperCase());
   }
+
+  String get capitalizeFirstLetter {
+    if (isEmpty) return '';
+    return '${substring(0, 1).toUpperCase()}${substring(1).toLowerCase()}';
+  }
 }
