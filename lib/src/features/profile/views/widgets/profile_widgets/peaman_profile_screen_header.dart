@@ -92,7 +92,13 @@ class _PeamanTimelineHeaderState
                     padding: EdgeInsets.all(7.w),
                     onPressed: () {
                       if (widget.user.uid == uid) {
-                        ref.watch(providerOfPeamanAuth.notifier).signOut();
+                        showPeamanConfirmationDialog(
+                          context: context,
+                          title: 'Are you sure you want to sign out?',
+                          onConfirm: (context, ref) {
+                            ref.watch(providerOfPeamanAuth.notifier).signOut();
+                          },
+                        );
                       }
                     },
                     icon: Icon(
