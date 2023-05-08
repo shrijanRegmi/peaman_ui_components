@@ -75,13 +75,17 @@ class _PeamanTimelineHeaderState
           ? widget.actions
           : [
               Opacity(
-                opacity: 0.0,
+                opacity: widget.user.uid == uid ? 1.0 : 0.0,
                 child: Center(
                   child: PeamanRoundIconButton(
                     padding: EdgeInsets.all(7.w),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (widget.user.uid == uid) {
+                        ref.watch(providerOfPeamanAuth.notifier).signOut();
+                      }
+                    },
                     icon: Icon(
-                      Icons.more_horiz_rounded,
+                      Icons.logout_rounded,
                       size: 16.w,
                     ),
                   ).pR(10.0),
