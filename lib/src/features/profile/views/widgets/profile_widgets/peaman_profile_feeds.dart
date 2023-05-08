@@ -72,7 +72,7 @@ class _PeamanProfileFeedsState extends ConsumerState<PeamanProfileFeeds> {
     return ScrollConfiguration(
       behavior: PeamanNoGlowScrollConfiguration(),
       child: widget.listWidgetBuilder?.call(context, ref, widget.user) ??
-          PeamanFeedsList.byFeedProivder(
+          PeamanFeedsList.byFeedsProvider(
             physics: const AlwaysScrollableScrollPhysics(),
             feedsProvider: (context, ref) => ref
                 .watch(providerOfPeamanFeedsByOwnerId(widget.user.uid!))

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -43,7 +42,7 @@ class PeamanFeedsListItem extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
-  })  : type = _Type.byFeedId,
+  })  : type = _Type.byFeedProvider,
         feed = const PeamanFeed(),
         feedId = '',
         assert(

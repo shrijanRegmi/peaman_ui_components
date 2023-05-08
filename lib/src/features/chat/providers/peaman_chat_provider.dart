@@ -109,6 +109,13 @@ final providerOfPeamanChatFilesStream =
       );
 });
 
+final providerOfPeamanSingleChatByIdStream =
+    StreamProvider.family<PeamanChat, String>((ref, chatId) {
+  return ref
+      .watch(providerOfPeamanChatRepository)
+      .getSingleChatStream(chatId: chatId);
+});
+
 class PeamanChatProvider extends StateNotifier<PeamanChatProviderState> {
   PeamanChatProvider(final Ref ref)
       : _ref = ref,

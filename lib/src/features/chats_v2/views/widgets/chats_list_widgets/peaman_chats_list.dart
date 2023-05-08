@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:peaman/peaman.dart';
+
+import '../../../../auth/auth.dart';
+import '../../../../chat/providers/peaman_chat_provider.dart';
+import '../../../../shared/shared.dart';
+import 'peaman_chats_list_item.dart';
 
 enum _Type {
   normal,
-  byFeeds,
-  byFeedIds,
-  byFeedsProvider,
+  byChats,
+  byChatIds,
+  byChatsProvider,
 }
 
-typedef _FeedsProvider
-    = AsyncValue<PeamanEither<List<PeamanFeed>, PeamanError>>;
+typedef _ChatsProvider = AsyncValue<List<PeamanChat>>;
 
-class PeamanFeedsList extends ConsumerStatefulWidget {
-  const PeamanFeedsList({
+class PeamanChatsList extends ConsumerStatefulWidget {
+  const PeamanChatsList({
     super.key,
-    this.listBuilderByFeeds,
+    this.listBuilderByChats,
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
@@ -28,36 +33,15 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.bodyBuilder,
     this.actionsBuilder,
   })  : type = _Type.normal,
-        feeds = const [],
-        feedIds = const [],
-        feedsProvider = null,
-        listBuilderByFeedIds = null;
+        chats = const [],
+        chatIds = const [],
+        chatsProvider = null,
+        listBuilderByChatIds = null;
 
-  const PeamanFeedsList.byFeeds({
+  const PeamanChatsList.byChats({
     super.key,
-    required this.feeds,
-    this.firstItemPadding,
-    this.itemPadding,
-    this.lastItemPadding,
-    this.shrinkWrap = false,
-    this.physics = const BouncingScrollPhysics(),
-    this.listBuilderByFeeds,
-    this.itemBuilder,
-    this.emptyBuilder,
-    this.loadingBuilder,
-    this.errorBuilder,
-    this.headerBuilder,
-    this.bodyBuilder,
-    this.actionsBuilder,
-  })  : type = _Type.byFeeds,
-        feedIds = const [],
-        feedsProvider = null,
-        listBuilderByFeedIds = null;
-
-  const PeamanFeedsList.byFeedIds({
-    super.key,
-    required this.feedIds,
-    this.listBuilderByFeedIds,
+    required this.chats,
+    this.listBuilderByChats,
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
@@ -70,15 +54,15 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
-  })  : type = _Type.byFeedIds,
-        feeds = const [],
-        feedsProvider = null,
-        listBuilderByFeeds = null;
+  })  : type = _Type.byChats,
+        chatIds = const [],
+        chatsProvider = null,
+        listBuilderByChatIds = null;
 
-  const PeamanFeedsList.byFeedsProvider({
+  const PeamanChatsList.byChatIds({
     super.key,
-    required this.feedsProvider,
-    this.listBuilderByFeeds,
+    required this.chatIds,
+    this.listBuilderByChatIds,
     this.firstItemPadding,
     this.itemPadding,
     this.lastItemPadding,
@@ -91,23 +75,44 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
-  })  : type = _Type.byFeedsProvider,
-        feeds = const [],
-        feedIds = const [],
-        listBuilderByFeedIds = null,
+  })  : type = _Type.byChatIds,
+        chats = const [],
+        chatsProvider = null,
+        listBuilderByChats = null;
+
+  const PeamanChatsList.byChatsProvider({
+    super.key,
+    required this.chatsProvider,
+    this.listBuilderByChats,
+    this.firstItemPadding,
+    this.itemPadding,
+    this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
+    this.itemBuilder,
+    this.emptyBuilder,
+    this.loadingBuilder,
+    this.errorBuilder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
+  })  : type = _Type.byChatsProvider,
+        chats = const [],
+        chatIds = const [],
+        listBuilderByChatIds = null,
         assert(
-          feedsProvider != null,
-          'feedsProvider cannot be null',
+          chatsProvider != null,
+          'chatsProvider cannot be null',
         );
 
   final _Type type;
 
-  final List<PeamanFeed> feeds;
-  final List<String> feedIds;
-  final _FeedsProvider Function(
+  final List<PeamanChat> chats;
+  final List<String> chatIds;
+  final _ChatsProvider Function(
     BuildContext,
     WidgetRef,
-  )? feedsProvider;
+  )? chatsProvider;
 
   final EdgeInsets? firstItemPadding;
   final EdgeInsets? itemPadding;
@@ -119,17 +124,17 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
   final Widget Function(
     BuildContext,
     WidgetRef,
-    List<PeamanFeed>,
-  )? listBuilderByFeeds;
+    List<PeamanChat>,
+  )? listBuilderByChats;
   final Widget Function(
     BuildContext,
     WidgetRef,
     List<String>,
-  )? listBuilderByFeedIds;
+  )? listBuilderByChatIds;
   final Widget Function(
     BuildContext,
     WidgetRef,
-    PeamanFeed,
+    PeamanChat,
   )? itemBuilder;
   final Widget Function(
     BuildContext,
@@ -148,55 +153,54 @@ class PeamanFeedsList extends ConsumerStatefulWidget {
   final Widget Function(
     BuildContext,
     WidgetRef,
-    PeamanFeed,
+    PeamanChat,
   )? headerBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
-    PeamanFeed,
+    PeamanChat,
   )? bodyBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
-    PeamanFeed,
+    PeamanChat,
   )? actionsBuilder;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PeamanFeedsListState();
+      _PeamanChatsListState();
 }
 
-class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
+class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
   @override
   Widget build(BuildContext context) {
     switch (widget.type) {
       case _Type.normal:
         return _normalTypeListBuilder();
-      case _Type.byFeeds:
-        return _byFeedsTypeListBuilder();
-      case _Type.byFeedIds:
-        return _byFeedIdsTypeListBuilder();
-      case _Type.byFeedsProvider:
-        return _byFeedProviderTypeListBuilder();
+      case _Type.byChats:
+        return _byChatsTypeListBuilder();
+      case _Type.byChatIds:
+        return _byChatIdsTypeListBuilder();
+      case _Type.byChatsProvider:
+        return _byChatProviderTypeListBuilder();
       default:
         return const SizedBox();
     }
   }
 
   Widget _normalTypeListBuilder() {
-    final feedsFuture = ref.watch(providerOfPeamanTimelineFeedsFuture);
-    return feedsFuture.when(
+    final chatsProvider = ref.watch(providerOfPeamanUserChatsStream);
+    return chatsProvider.when(
       data: (data) {
-        return data.when(
-          (success) {
-            final timelineFeeds = ref.watch(
-              providerOfPeamanFeed.select((value) => value.timelineFeeds),
-            );
-            if (timelineFeeds.isEmpty) return _emptyBuilder();
-            return _feedsListBuilder(timelineFeeds);
-          },
-          _errorBuilder,
+        final uid = ref.watch(
+          providerOfLoggedInUser.select((value) => value.uid),
         );
+
+        var chats = data
+            .where((element) => !element.hiddenToUserIds.contains(uid))
+            .toList();
+        if (chats.isEmpty) return _emptyBuilder();
+        return _chatsListBuilder(chats);
       },
       error: (e, _) => _errorBuilder(
         PeamanError(message: e.toString()),
@@ -205,26 +209,18 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
     );
   }
 
-  Widget _byFeedsTypeListBuilder() {
-    return _feedsListBuilder(widget.feeds);
+  Widget _byChatsTypeListBuilder() {
+    return _chatsListBuilder(widget.chats);
   }
 
-  Widget _byFeedIdsTypeListBuilder() {
-    return _feedIdsListBuilder(widget.feedIds);
+  Widget _byChatIdsTypeListBuilder() {
+    return _chatIdsListBuilder(widget.chatIds);
   }
 
-  Widget _byFeedProviderTypeListBuilder() {
-    final feedsFuture = widget.feedsProvider?.call(context, ref);
-    return feedsFuture!.when(
-      data: (data) {
-        return data.when(
-          (success) {
-            if (success.isEmpty) return _emptyBuilder();
-            return _feedsListBuilder(success);
-          },
-          _errorBuilder,
-        );
-      },
+  Widget _byChatProviderTypeListBuilder() {
+    final chatsProvider = widget.chatsProvider?.call(context, ref);
+    return chatsProvider!.when(
+      data: _chatsListBuilder,
       error: (e, _) => _errorBuilder(
         PeamanError(message: e.toString()),
       ),
@@ -232,19 +228,19 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
     );
   }
 
-  Widget _feedsListBuilder(final List<PeamanFeed> feeds) {
-    return widget.listBuilderByFeeds?.call(context, ref, feeds) ??
+  Widget _chatsListBuilder(final List<PeamanChat> chats) {
+    return widget.listBuilderByChats?.call(context, ref, chats) ??
         ListView.separated(
-          itemCount: feeds.length,
+          itemCount: chats.length,
           shrinkWrap: widget.shrinkWrap,
           physics: widget.physics,
           itemBuilder: (context, index) {
-            final feed = feeds[index];
-            return PeamanFeedsListItem.byFeed(
-              feed: feed,
+            final chat = chats[index];
+            return PeamanChatsListItem.byChat(
+              chat: chat,
               padding: index == 0
                   ? widget.firstItemPadding
-                  : index == (feeds.length - 1)
+                  : index == (chats.length - 1)
                       ? widget.lastItemPadding
                       : widget.itemPadding,
               builder: widget.itemBuilder,
@@ -261,19 +257,19 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
         );
   }
 
-  Widget _feedIdsListBuilder(final List<String> feedIds) {
-    return widget.listBuilderByFeedIds?.call(context, ref, feedIds) ??
+  Widget _chatIdsListBuilder(final List<String> chatIds) {
+    return widget.listBuilderByChatIds?.call(context, ref, chatIds) ??
         ListView.separated(
-          itemCount: feedIds.length,
+          itemCount: chatIds.length,
           shrinkWrap: widget.shrinkWrap,
           physics: widget.physics,
           itemBuilder: (context, index) {
-            final feedId = feedIds[index];
-            return PeamanFeedsListItem.byFeedId(
-              feedId: feedId,
+            final chatId = chatIds[index];
+            return PeamanChatsListItem.byChatId(
+              chatId: chatId,
               padding: index == 0
                   ? widget.firstItemPadding
-                  : index == (feedIds.length - 1)
+                  : index == (chatIds.length - 1)
                       ? widget.lastItemPadding
                       : widget.itemPadding,
               builder: widget.itemBuilder,
@@ -293,7 +289,9 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
   Widget _emptyBuilder() {
     return widget.emptyBuilder?.call(context, ref) ??
         const PeamanEmptyBuilder(
-          title: 'No feeds found',
+          title: "No chats found!",
+          subTitle:
+              "You haven't started conversation with anyone. Try searching people and start connecting.",
         );
   }
 
@@ -303,6 +301,8 @@ class _PeamanFeedsListState extends ConsumerState<PeamanFeedsList> {
 
   Widget _errorBuilder(final PeamanError error) {
     return widget.errorBuilder?.call(context, ref, error) ??
-        PeamanErrorBuilder(subTitle: error.message);
+        Center(
+          child: PeamanText.subtitle1(error.message),
+        );
   }
 }

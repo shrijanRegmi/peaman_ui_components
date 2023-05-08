@@ -56,9 +56,6 @@ class _PeamanViewMediasScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _backButtonBuilder().pad(10),
-            SizedBox(
-              height: 10.h,
-            ),
             Expanded(
               child: PhotoViewGallery.builder(
                 scrollPhysics: const BouncingScrollPhysics(),
@@ -93,6 +90,9 @@ class _PeamanViewMediasScreenState
               height: 10.h,
             ),
             _otherMediasBuilder(pageController).pL(10),
+            SizedBox(
+              height: 10.h,
+            ),
           ],
         ),
       ),
