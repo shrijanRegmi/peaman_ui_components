@@ -23,8 +23,13 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
       appBar: PeamanChatListScreenHeader(
         searchUsersGlobally: widget.searchUsersGlobally,
       ),
-      body: const PeamanChatsList(
-        lastItemPadding: EdgeInsets.only(bottom: 100.0),
+      body: PeamanChatsList(
+        lastItemPadding: EdgeInsets.only(
+          top: 15.w,
+          bottom: 100.w,
+          left: 20.w,
+          right: 20.w,
+        ),
       ),
       floatingActionButton: const PeamanChatInitiatorButton(),
     );

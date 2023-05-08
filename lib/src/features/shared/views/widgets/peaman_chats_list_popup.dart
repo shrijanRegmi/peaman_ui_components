@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -231,41 +230,41 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
       firstItemPadding: widget.firstItemPadding,
       lastItemPadding: widget.lastItemPadding,
       itemBuilder: widget.itemBuilder,
-      avatarBuilder: widget.avatarBuilder,
-      titleBuilder: widget.titleBuilder,
-      bodyBuilder: widget.bodyBuilder,
-      dateBuilder: widget.dateBuilder,
-      counterBuilder: widget.counterBuilder,
-      actionWidgetsBuilder: widget.actionWidgetsBuilder,
-      listBuilder: widget.listBuilder,
+      // avatarBuilder: widget.avatarBuilder,
+      // titleBuilder: widget.titleBuilder,
+      // bodyBuilder: widget.bodyBuilder,
+      // dateBuilder: widget.dateBuilder,
+      // counterBuilder: widget.counterBuilder,
+      // actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      // listBuilder: widget.listBuilder,
       loadingBuilder: widget.loadingBuilder,
       emptyBuilder: widget.emptyBuilder,
       errorBuilder: widget.errorBuilder,
-      filterBuilder: widget.filterBuilder,
-      onPressedChat: widget.onPressedChat,
-      onLongPressedChat: widget.onLongPressedChat,
+      // filterBuilder: widget.filterBuilder,
+      // onPressedChat: widget.onPressedChat,
+      // onLongPressedChat: widget.onLongPressedChat,
     );
   }
 
   Widget _byChatsBuilder() {
     return PeamanChatsList.byChats(
-      chats: widget.chats,
+      chats: widget.chats!,
       firstItemPadding: widget.firstItemPadding,
       lastItemPadding: widget.lastItemPadding,
       itemBuilder: widget.itemBuilder,
-      avatarBuilder: widget.avatarBuilder,
-      titleBuilder: widget.titleBuilder,
-      bodyBuilder: widget.bodyBuilder,
-      dateBuilder: widget.dateBuilder,
-      counterBuilder: widget.counterBuilder,
-      actionWidgetsBuilder: widget.actionWidgetsBuilder,
-      listBuilder: widget.listBuilder,
+      // avatarBuilder: widget.avatarBuilder,
+      // titleBuilder: widget.titleBuilder,
+      // bodyBuilder: widget.bodyBuilder,
+      // dateBuilder: widget.dateBuilder,
+      // counterBuilder: widget.counterBuilder,
+      // actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      // listBuilder: widget.listBuilder,
       loadingBuilder: widget.loadingBuilder,
       emptyBuilder: widget.emptyBuilder,
       errorBuilder: widget.errorBuilder,
-      filterBuilder: widget.filterBuilder,
-      onPressedChat: widget.onPressedChat,
-      onLongPressedChat: widget.onLongPressedChat,
+      // filterBuilder: widget.filterBuilder,
+      // onPressedChat: widget.onPressedChat,
+      // onLongPressedChat: widget.onLongPressedChat,
     );
   }
 
@@ -275,19 +274,19 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
       firstItemPadding: widget.firstItemPadding,
       lastItemPadding: widget.lastItemPadding,
       itemBuilder: widget.itemBuilder,
-      avatarBuilder: widget.avatarBuilder,
-      titleBuilder: widget.titleBuilder,
-      bodyBuilder: widget.bodyBuilder,
-      dateBuilder: widget.dateBuilder,
-      counterBuilder: widget.counterBuilder,
-      actionWidgetsBuilder: widget.actionWidgetsBuilder,
-      listBuilder: widget.listBuilder,
+      // avatarBuilder: widget.avatarBuilder,
+      // titleBuilder: widget.titleBuilder,
+      // bodyBuilder: widget.bodyBuilder,
+      // dateBuilder: widget.dateBuilder,
+      // counterBuilder: widget.counterBuilder,
+      // actionWidgetsBuilder: widget.actionWidgetsBuilder,
+      // listBuilder: widget.listBuilder,
       loadingBuilder: widget.loadingBuilder,
       emptyBuilder: widget.emptyBuilder,
       errorBuilder: widget.errorBuilder,
-      filterBuilder: widget.filterBuilder,
-      onPressedChat: widget.onPressedChat,
-      onLongPressedChat: widget.onLongPressedChat,
+      // filterBuilder: widget.filterBuilder,
+      // onPressedChat: widget.onPressedChat,
+      // onLongPressedChat: widget.onLongPressedChat,
     );
   }
 }

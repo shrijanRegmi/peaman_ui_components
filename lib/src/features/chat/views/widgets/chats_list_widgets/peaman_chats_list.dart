@@ -1,93 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:peaman/peaman.dart';
+
+import '../../../../auth/auth.dart';
+import '../../../../chat/providers/peaman_chat_provider.dart';
+import '../../../../shared/shared.dart';
+import 'peaman_chats_list_item.dart';
 
 enum _Type {
   normal,
   byChats,
+  byChatIds,
   byChatsProvider,
 }
+
+typedef _ChatsProvider = AsyncValue<List<PeamanChat>>;
 
 class PeamanChatsList extends ConsumerStatefulWidget {
   const PeamanChatsList({
     super.key,
-    this.controller,
-    this.firstItemPadding = const EdgeInsets.all(0.0),
-    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.listBuilderByChats,
+    this.firstItemPadding,
+    this.itemPadding,
+    this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
-    this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
-    this.listBuilder,
-    this.loadingBuilder,
     this.emptyBuilder,
+    this.loadingBuilder,
     this.errorBuilder,
-    this.filterBuilder,
-    this.onPressedChat,
-    this.onLongPressedChat,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
   })  : type = _Type.normal,
-        chats = null,
-        chatsProvider = null;
+        chats = const [],
+        chatIds = const [],
+        chatsProvider = null,
+        listBuilderByChatIds = null;
 
   const PeamanChatsList.byChats({
     super.key,
     required this.chats,
-    this.controller,
-    this.firstItemPadding = const EdgeInsets.all(0.0),
-    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.listBuilderByChats,
+    this.firstItemPadding,
+    this.itemPadding,
+    this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
-    this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
-    this.listBuilder,
-    this.loadingBuilder,
     this.emptyBuilder,
+    this.loadingBuilder,
     this.errorBuilder,
-    this.filterBuilder,
-    this.onPressedChat,
-    this.onLongPressedChat,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
   })  : type = _Type.byChats,
+        chatIds = const [],
         chatsProvider = null,
-        assert(chats != null);
+        listBuilderByChatIds = null;
+
+  const PeamanChatsList.byChatIds({
+    super.key,
+    required this.chatIds,
+    this.listBuilderByChatIds,
+    this.firstItemPadding,
+    this.itemPadding,
+    this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
+    this.itemBuilder,
+    this.emptyBuilder,
+    this.loadingBuilder,
+    this.errorBuilder,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
+  })  : type = _Type.byChatIds,
+        chats = const [],
+        chatsProvider = null,
+        listBuilderByChats = null;
 
   const PeamanChatsList.byChatsProvider({
     super.key,
     required this.chatsProvider,
-    this.controller,
-    this.firstItemPadding = const EdgeInsets.all(0.0),
-    this.lastItemPadding = const EdgeInsets.all(0.0),
+    this.listBuilderByChats,
+    this.firstItemPadding,
+    this.itemPadding,
+    this.lastItemPadding,
+    this.shrinkWrap = false,
+    this.physics = const BouncingScrollPhysics(),
     this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
-    this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
-    this.listBuilder,
-    this.loadingBuilder,
     this.emptyBuilder,
+    this.loadingBuilder,
     this.errorBuilder,
-    this.filterBuilder,
-    this.onPressedChat,
-    this.onLongPressedChat,
+    this.headerBuilder,
+    this.bodyBuilder,
+    this.actionsBuilder,
   })  : type = _Type.byChatsProvider,
-        chats = null,
-        assert(chatsProvider != null);
+        chats = const [],
+        chatIds = const [],
+        listBuilderByChatIds = null,
+        assert(
+          chatsProvider != null,
+          'chatsProvider cannot be null',
+        );
 
   final _Type type;
 
-  final List<PeamanChat>? chats;
-  final AVPCS Function(BuildContext, WidgetRef)? chatsProvider;
+  final List<PeamanChat> chats;
+  final List<String> chatIds;
+  final _ChatsProvider Function(
+    BuildContext,
+    WidgetRef,
+  )? chatsProvider;
 
-  final ScrollController? controller;
-  final EdgeInsets firstItemPadding;
-  final EdgeInsets lastItemPadding;
+  final EdgeInsets? firstItemPadding;
+  final EdgeInsets? itemPadding;
+  final EdgeInsets? lastItemPadding;
 
+  final bool shrinkWrap;
+  final ScrollPhysics physics;
+
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<PeamanChat>,
+  )? listBuilderByChats;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+    List<String>,
+  )? listBuilderByChatIds;
   final Widget Function(
     BuildContext,
     WidgetRef,
@@ -96,38 +139,7 @@ class PeamanChatsList extends ConsumerStatefulWidget {
   final Widget Function(
     BuildContext,
     WidgetRef,
-    PeamanChat,
-  )? avatarBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? titleBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? bodyBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? dateBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? counterBuilder;
-  final List<Widget> Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? actionWidgetsBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    List<PeamanChat>,
-  )? listBuilder;
+  )? emptyBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
@@ -135,45 +147,53 @@ class PeamanChatsList extends ConsumerStatefulWidget {
   final Widget Function(
     BuildContext,
     WidgetRef,
-  )? emptyBuilder;
+    PeamanError,
+  )? errorBuilder;
+
   final Widget Function(
     BuildContext,
     WidgetRef,
-    PeamanError,
-  )? errorBuilder;
-  final List<PeamanChat> Function(
-    BuildContext,
-    WidgetRef,
-    List<PeamanChat>,
-  )? filterBuilder;
-  final Function(
+    PeamanChat,
+    List<PeamanUser>,
+  )? headerBuilder;
+  final Widget Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
-    Function(),
-  )? onPressedChat;
-  final Function(
+    List<PeamanUser>,
+  )? bodyBuilder;
+  final Widget Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
-    Function(),
-  )? onLongPressedChat;
+    List<PeamanUser>,
+  )? actionsBuilder;
 
   @override
-  ConsumerState<PeamanChatsList> createState() => _PeamanChatsListState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PeamanChatsListState();
 }
 
 class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
   @override
   Widget build(BuildContext context) {
-    if (widget.chats != null) {
-      if (widget.chats!.isEmpty) return _emptyBuilder();
-      return _dataBuilder(context, widget.chats!);
+    switch (widget.type) {
+      case _Type.normal:
+        return _normalTypeListBuilder();
+      case _Type.byChats:
+        return _byChatsTypeListBuilder();
+      case _Type.byChatIds:
+        return _byChatIdsTypeListBuilder();
+      case _Type.byChatsProvider:
+        return _byChatProviderTypeListBuilder();
+      default:
+        return const SizedBox();
     }
+  }
 
-    final chatsStream = widget.chatsProvider?.call(context, ref) ??
-        ref.watch(providerOfPeamanUserChatsStream);
-    return chatsStream!.when(
+  Widget _normalTypeListBuilder() {
+    final chatsProvider = ref.watch(providerOfPeamanUserChatsStream);
+    return chatsProvider.when(
       data: (data) {
         final uid = ref.watch(
           providerOfLoggedInUser.select((value) => value.uid),
@@ -182,57 +202,88 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
         var chats = data
             .where((element) => !element.hiddenToUserIds.contains(uid))
             .toList();
-        chats = widget.filterBuilder?.call(context, ref, chats) ?? chats;
         if (chats.isEmpty) return _emptyBuilder();
-        return _dataBuilder(context, chats);
+        return _chatsListBuilder(chats);
       },
-      error: (e, _) => _errorBuilder(PeamanError(message: e.toString())),
-      loading: () => _loadingBuilder(),
+      error: (e, _) => _errorBuilder(
+        PeamanError(message: e.toString()),
+      ),
+      loading: _loadingBuilder,
     );
   }
 
-  Widget _dataBuilder(
-    final BuildContext context,
-    final List<PeamanChat> chats,
-  ) {
-    return widget.listBuilder?.call(context, ref, chats) ??
-        ListView.builder(
+  Widget _byChatsTypeListBuilder() {
+    return _chatsListBuilder(widget.chats);
+  }
+
+  Widget _byChatIdsTypeListBuilder() {
+    return _chatIdsListBuilder(widget.chatIds);
+  }
+
+  Widget _byChatProviderTypeListBuilder() {
+    final chatsProvider = widget.chatsProvider?.call(context, ref);
+    return chatsProvider!.when(
+      data: _chatsListBuilder,
+      error: (e, _) => _errorBuilder(
+        PeamanError(message: e.toString()),
+      ),
+      loading: _loadingBuilder,
+    );
+  }
+
+  Widget _chatsListBuilder(final List<PeamanChat> chats) {
+    return widget.listBuilderByChats?.call(context, ref, chats) ??
+        ListView.separated(
           itemCount: chats.length,
-          controller: widget.controller,
-          physics: const BouncingScrollPhysics(),
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
           itemBuilder: (context, index) {
             final chat = chats[index];
-
-            final chatItemWidget = widget.itemBuilder
-                    ?.call(context, ref, chat) ??
-                PeamanChatsListItem(
-                  chat: chat,
-                  actionWidgetsBuilder: widget.actionWidgetsBuilder,
-                  avatarBuilder: widget.avatarBuilder,
-                  titleBuilder: widget.titleBuilder,
-                  bodyBuilder: widget.bodyBuilder,
-                  dateBuilder: widget.dateBuilder,
-                  counterBuilder: widget.counterBuilder,
-                  onPressed: (context, ref, chat, def) =>
-                      widget.onPressedChat.isNotNull
-                          ? widget.onPressedChat?.call(
-                              context,
-                              ref,
-                              chat,
-                              () => _gotoChatConvoScreen(context, chat),
-                            )
-                          : _gotoChatConvoScreen(context, chat),
-                  onLongPressed: (context, ref, chat, def) =>
-                      widget.onLongPressedChat?.call(context, ref, chat, def),
-                );
-
-            return Padding(
+            return PeamanChatsListItem.byChat(
+              chat: chat,
               padding: index == 0
                   ? widget.firstItemPadding
                   : index == (chats.length - 1)
                       ? widget.lastItemPadding
-                      : const EdgeInsets.only(top: 0.0),
-              child: chatItemWidget,
+                      : widget.itemPadding,
+              builder: widget.itemBuilder,
+              headerBuilder: widget.headerBuilder,
+              bodyBuilder: widget.bodyBuilder,
+              actionsBuilder: widget.actionsBuilder,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const Divider(
+              height: 0.0,
+            );
+          },
+        );
+  }
+
+  Widget _chatIdsListBuilder(final List<String> chatIds) {
+    return widget.listBuilderByChatIds?.call(context, ref, chatIds) ??
+        ListView.separated(
+          itemCount: chatIds.length,
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
+          itemBuilder: (context, index) {
+            final chatId = chatIds[index];
+            return PeamanChatsListItem.byChatId(
+              chatId: chatId,
+              padding: index == 0
+                  ? widget.firstItemPadding
+                  : index == (chatIds.length - 1)
+                      ? widget.lastItemPadding
+                      : widget.itemPadding,
+              builder: widget.itemBuilder,
+              headerBuilder: widget.headerBuilder,
+              bodyBuilder: widget.bodyBuilder,
+              actionsBuilder: widget.actionsBuilder,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const Divider(
+              height: 0.0,
             );
           },
         );
@@ -256,17 +307,5 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
         Center(
           child: PeamanText.subtitle1(error.message),
         );
-  }
-
-  void _gotoChatConvoScreen(
-    final BuildContext context,
-    final PeamanChat chat,
-  ) {
-    context.pushNamed(
-      PeamanChatConversationScreen.route,
-      arguments: PeamanChatConversationArgs.byChatId(
-        chatId: chat.id!,
-      ),
-    );
   }
 }

@@ -8,6 +8,8 @@ export 'views/screens/peaman_view_chat_medias_screen.dart';
 
 export 'views/widgets/chats_list_widgets/peaman_chats_list.dart';
 export 'views/widgets/chats_list_widgets/peaman_chats_list_item.dart';
+export 'views/widgets/chats_list_widgets/peaman_chat_item_header.dart';
+export 'views/widgets/chats_list_widgets/peaman_chat_item_body.dart';
 export 'views/widgets/chats_list_widgets/peaman_chat_archive_button.dart';
 export 'views/widgets/chats_list_widgets/peaman_chat_delete_button.dart';
 export 'views/widgets/chats_list_widgets/peaman_chat_initiator_button.dart';
