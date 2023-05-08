@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/chats_v2/views/widgets/chats_list_widgets/peaman_chat_item_header.dart';
+
+import 'peaman_chat_item_body.dart';
 
 enum _Type {
   byChat,
@@ -137,12 +140,9 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
           ),
       child: widget.builder?.call(context, ref, chat) ??
           Column(
-            children: const [
-              // if (widget.feed.type != PeamanFeedType.poll)
-              //   PeamanFeedItemHeader(feed: feed).pB(15),
-              // PeamanFeedItemBody(feed: feed).pB(20),
-              // if (widget.feed.type != PeamanFeedType.poll)
-              //   PeamanFeedItemActions(feed: feed).pB(10),
+            children: [
+              PeamanChatItemHeader(chat: chat),
+              PeamanChatItemBody(chat: chat),
             ],
           ),
     );
