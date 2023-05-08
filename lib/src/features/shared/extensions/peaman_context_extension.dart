@@ -8,6 +8,15 @@ extension ContextExt on BuildContext {
 
   Future<T?> pushNamed<T>(final String route, {final dynamic arguments}) =>
       Navigator.of(this).pushNamed<T>(route, arguments: arguments);
+  Future<T?> pushNamedAndRemoveUntil<T>(
+    final String route, {
+    final dynamic arguments,
+  }) =>
+      Navigator.of(this).pushNamedAndRemoveUntil<T>(
+        route,
+        (r) => route == r.settings.name,
+        arguments: arguments,
+      );
 
   void pop<T>({final T? argument}) => Navigator.of(this).pop(argument);
 }

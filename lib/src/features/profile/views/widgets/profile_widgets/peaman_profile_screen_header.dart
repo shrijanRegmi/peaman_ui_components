@@ -48,6 +48,17 @@ class _PeamanTimelineHeaderState
       providerOfLoggedInUser.select((value) => value.uid!),
     );
 
+    ref.listen(providerOfPeamanAuth, (previous, next) {
+      if (previous?.signOutState != next.signOutState) {
+        next.signOutState.maybeWhen(
+          success: (_) => context.pushNamedAndRemoveUntil(
+            PeamanWrapper.route,
+          ),
+          orElse: () {},
+        );
+      }
+    });
+
     return PeamanAppbar(
       titleText: widget.titleText,
       title: widget.title ??

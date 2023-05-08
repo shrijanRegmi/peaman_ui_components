@@ -24,7 +24,9 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
       if (next.signUpWithEmailPasswordState !=
           previous?.signUpWithEmailPasswordState) {
         next.signUpWithEmailPasswordState.maybeWhen(
-          success: (success) => context.pop(),
+          success: (success) => context.pushNamedAndRemoveUntil(
+            PeamanWrapper.route,
+          ),
           orElse: () {},
         );
       }
