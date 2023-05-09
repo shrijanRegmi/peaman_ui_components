@@ -36,18 +36,22 @@ class _PeamanChatsListScreenState extends ConsumerState<PeamanChatsListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PeamanChatListScreenHeader(
-        searchUsersGlobally: widget.searchUsersGlobally,
-      ),
-      body: PeamanChatsList(
-        lastItemPadding: EdgeInsets.only(
-          top: 15.w,
-          bottom: 100.w,
-          left: 20.w,
-          right: 20.w,
-        ),
-      ),
-      floatingActionButton: const PeamanChatInitiatorButton(),
+      appBar: widget.headerBuilder?.call(context, ref) ??
+          PeamanChatListScreenHeader(
+            searchUsersGlobally: widget.searchUsersGlobally,
+          ),
+      body: widget.listBuilder?.call(context, ref) ??
+          PeamanChatsList(
+            lastItemPadding: EdgeInsets.only(
+              top: 15.w,
+              bottom: 100.w,
+              left: 20.w,
+              right: 20.w,
+            ),
+          ),
+      floatingActionButton:
+          widget.floatingActionButtonBuilder?.call(context, ref) ??
+              const PeamanChatInitiatorButton(),
     );
   }
 }
