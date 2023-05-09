@@ -129,60 +129,63 @@ class _PeamanViewChatMediasFilesLinksScreenState
   }
 
   Widget _mediaTypeFilter() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        PeamanText.body2(
-          'Type'.toUpperCase(),
-          style: TextStyle(
-            color: PeamanColors.greyDark,
-            fontSize: 10.sp,
-            fontWeight: FontWeight.bold,
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          PeamanText.body2(
+            'Type'.toUpperCase(),
+            style: TextStyle(
+              color: PeamanColors.greyDark,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ).pL(20),
+          SizedBox(
+            height: 5.h,
           ),
-        ).pL(20),
-        SizedBox(
-          height: 5.h,
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 20.w,
-              ),
-              PeamanChip(
-                value: 'Photos',
-                groupId: widget.chatId,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              PeamanChip(
-                value: 'Videos',
-                groupId: widget.chatId,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              PeamanChip(
-                value: 'Links',
-                groupId: widget.chatId,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              PeamanChip(
-                value: 'Files',
-                groupId: widget.chatId,
-              ),
-              SizedBox(
-                width: 20.w,
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 20.w,
+                ),
+                PeamanChip(
+                  value: 'Photos',
+                  groupId: widget.chatId,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                PeamanChip(
+                  value: 'Videos',
+                  groupId: widget.chatId,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                PeamanChip(
+                  value: 'Links',
+                  groupId: widget.chatId,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                PeamanChip(
+                  value: 'Files',
+                  groupId: widget.chatId,
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

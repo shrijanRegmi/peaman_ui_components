@@ -66,7 +66,10 @@ class _PeamanChipState extends ConsumerState<PeamanChip> {
         ? PeamanButton.filled(
             value: widget.value,
             borderRadius: 100.r,
-            padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.symmetric(
+              vertical: 0.0,
+              horizontal: 18.w,
+            ),
             color: widget.activeColor ?? context.theme.colorScheme.primary,
             onPressed: () => notifier.deselectChip(
               value: widget.value,
@@ -76,7 +79,10 @@ class _PeamanChipState extends ConsumerState<PeamanChip> {
         : PeamanButton.bordered(
             value: widget.value,
             borderRadius: 100.r,
-            padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.symmetric(
+              vertical: 0.0,
+              horizontal: 18.w,
+            ),
             borderSide: BorderSide(
               color: widget.inActiveColor ?? context.theme.colorScheme.primary,
             ),
