@@ -7,9 +7,25 @@ class PeamanChatsListScreen extends ConsumerStatefulWidget {
   const PeamanChatsListScreen({
     super.key,
     this.searchUsersGlobally = false,
+    this.headerBuilder,
+    this.listBuilder,
+    this.floatingActionButtonBuilder,
   });
 
   static const route = '/peaman_chats_list_screen';
+
+  final PreferredSizeWidget Function(
+    BuildContext,
+    WidgetRef,
+  )? headerBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? listBuilder;
+  final Widget Function(
+    BuildContext,
+    WidgetRef,
+  )? floatingActionButtonBuilder;
 
   @override
   ConsumerState<PeamanChatsListScreen> createState() =>
