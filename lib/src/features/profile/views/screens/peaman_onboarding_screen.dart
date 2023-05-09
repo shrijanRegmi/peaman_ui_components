@@ -176,8 +176,6 @@ class _PeamanOnboardingScreenState
     );
     return PeamanButton.filled(
       value: 'Next',
-      padding: const EdgeInsets.all(18.0),
-      borderRadius: 15.0,
       isLoading: isLoading,
       onPressed: notifier.onPressedNextBtn,
     );

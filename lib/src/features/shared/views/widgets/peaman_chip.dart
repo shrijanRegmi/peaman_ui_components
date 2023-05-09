@@ -4,9 +4,9 @@ import 'package:peaman_ui_components/peaman_ui_components.dart';
 class PeamanChip extends ConsumerStatefulWidget {
   final String value;
   final String groupId;
-  final Color inActiveColor;
-  final Color activeColor;
-  final Color textColor;
+  final Color? inActiveColor;
+  final Color? activeColor;
+  final Color? textColor;
   final bool isActive;
 
   const PeamanChip({
@@ -14,9 +14,9 @@ class PeamanChip extends ConsumerStatefulWidget {
     required this.value,
     required this.groupId,
     this.isActive = false,
-    this.inActiveColor = PeamanColors.primary,
-    this.activeColor = PeamanColors.primary,
-    this.textColor = PeamanColors.primary,
+    this.inActiveColor,
+    this.activeColor,
+    this.textColor,
   });
 
   @override
@@ -65,8 +65,9 @@ class _PeamanChipState extends ConsumerState<PeamanChip> {
     return state[widget.groupId] == widget.value
         ? PeamanButton.filled(
             value: widget.value,
-            borderRadius: 100,
-            color: widget.activeColor,
+            borderRadius: 100.r,
+            padding: const EdgeInsets.all(0.0),
+            color: widget.activeColor ?? context.theme.colorScheme.primary,
             onPressed: () => notifier.deselectChip(
               value: widget.value,
               groupId: widget.groupId,
@@ -74,12 +75,13 @@ class _PeamanChipState extends ConsumerState<PeamanChip> {
           )
         : PeamanButton.bordered(
             value: widget.value,
-            borderRadius: 100,
+            borderRadius: 100.r,
+            padding: const EdgeInsets.all(0.0),
             borderSide: BorderSide(
-              color: widget.inActiveColor,
+              color: widget.inActiveColor ?? context.theme.colorScheme.primary,
             ),
             valueStyle: TextStyle(
-              color: widget.textColor,
+              color: widget.textColor ?? context.theme.colorScheme.primary,
             ),
             onPressed: () => notifier.selectChip(
               value: widget.value,
