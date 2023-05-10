@@ -50,11 +50,6 @@ class PeamanConfirmationDialog extends ConsumerWidget {
                 child: PeamanButton.bordered(
                   value: 'Cancel',
                   borderRadius: 11.0,
-                  borderSide: BorderSide(
-                    color: context.isDarkMode
-                        ? PeamanColors.lightGrey
-                        : context.theme.colorScheme.primary,
-                  ),
                   padding: const EdgeInsets.all(0.0),
                   onPressed: () => context.pop(),
                 ),
