@@ -107,6 +107,9 @@ class PeamanTheme {
           ),
         ),
       ),
+      bottomSheetTheme: _defaultTheme.bottomSheetTheme.copyWith(
+        backgroundColor: PeamanColors.cream,
+      ),
     );
   }
 
@@ -200,6 +203,9 @@ class PeamanTheme {
             fontFamily: _defaultTheme.textTheme.labelLarge?.fontFamily,
           ),
         ),
+      ),
+      bottomSheetTheme: _defaultTheme.bottomSheetTheme.copyWith(
+        backgroundColor: PeamanColors.containerBgDark,
       ),
     );
   }

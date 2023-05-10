@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 Future<T?> showPeamanNormalBottomsheet<T>({
@@ -10,7 +9,6 @@ Future<T?> showPeamanNormalBottomsheet<T>({
 }) {
   return showModalBottomSheet<T>(
     context: context,
-    backgroundColor: context.theme.scaffoldBackgroundColor,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
