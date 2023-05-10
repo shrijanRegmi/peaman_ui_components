@@ -91,57 +91,41 @@ class _PeamanCreateFeedScreenState
     });
 
     return Scaffold(
-      appBar: PeamanAppbar(
-        height: kToolbarHeight,
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        elevation: 0.0,
-        leadingWidth: 0.0,
-        leading: const SizedBox(),
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                PeamanRoundIconButton(
+      appBar: PeamanCreateFeedScreenHeader(
+        actions: [
+          if (_isClearDraftRequired)
+            Center(
+              child: Opacity(
+                opacity: 1.0,
+                child: PeamanRoundIconButton(
+                  padding: EdgeInsets.all(7.w),
+                  onPressed: _clearDraft,
                   icon: Icon(
-                    Icons.arrow_back_ios_rounded,
+                    Icons.refresh_rounded,
                     size: 16.w,
                   ),
-                  onPressed: context.pop,
-                ),
-                if (_isClearDraftRequired)
-                  PeamanRoundIconButton(
-                    icon: Icon(
-                      Icons.refresh_rounded,
-                      size: 16.w,
-                    ),
-                    onPressed: _clearDraft,
-                  ),
-              ],
+                ).pR(10.0),
+              ),
+            )
+        ],
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 5.h,
+            ),
+            const PeamanCreateFeedHeader(),
+            SizedBox(
+              height: 10.h,
+            ),
+            const PeamanCreateFeedBody().pX(10),
+            SizedBox(
+              height: 500.h,
             ),
           ],
-        ).pT(10.0),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 5.h,
-              ),
-              const PeamanCreateFeedHeader(),
-              SizedBox(
-                height: 10.h,
-              ),
-              const PeamanCreateFeedBody(),
-              SizedBox(
-                height: 50.h,
-              ),
-            ],
-          ).pad(10.0),
-        ),
+        ).pad(10.0),
       ),
       bottomNavigationBar: Padding(
         padding: MediaQuery.of(context).viewInsets,

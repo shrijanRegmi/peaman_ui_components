@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanChatListScreenHeader extends ConsumerStatefulWidget
+class PeamanCreateFeedScreenHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
-  const PeamanChatListScreenHeader({
+  const PeamanCreateFeedScreenHeader({
     super.key,
-    this.searchUsersGlobally = true,
     this.titleText,
     this.title,
     this.backgroundColor,
@@ -19,7 +18,6 @@ class PeamanChatListScreenHeader extends ConsumerStatefulWidget
     this.actions = const [],
   });
 
-  final bool searchUsersGlobally;
   final String? titleText;
   final Widget? title;
   final Color? backgroundColor;
@@ -33,22 +31,22 @@ class PeamanChatListScreenHeader extends ConsumerStatefulWidget
   final Function(Function())? onPressedLeading;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PeamanChatListScreenHeaderState();
+  Size get preferredSize => Size.fromHeight(height.h);
 
   @override
-  Size get preferredSize => Size.fromHeight(height.h);
+  ConsumerState<PeamanCreateFeedScreenHeader> createState() =>
+      _PeamanCreateFeedScreenHeaderState();
 }
 
-class _PeamanChatListScreenHeaderState
-    extends ConsumerState<PeamanChatListScreenHeader> {
+class _PeamanCreateFeedScreenHeaderState
+    extends ConsumerState<PeamanCreateFeedScreenHeader> {
   @override
   Widget build(BuildContext context) {
     return PeamanAppbar(
       titleText: widget.titleText,
       title: widget.title ??
           PeamanText.heading4(
-            'Chats',
+            'Create Post',
             style: GoogleFonts.caveat(),
           ),
       backgroundColor: widget.backgroundColor,
@@ -72,41 +70,19 @@ class _PeamanChatListScreenHeaderState
           ? widget.actions
           : [
               Center(
-                child: PeamanRoundIconButton(
-                  padding: EdgeInsets.all(7.w),
-                  onPressed: _gotoUsersSearchScreen,
-                  icon: SvgPicture.asset(
-                    'assets/svgs/outlined_search.svg',
-                    package: 'peaman_ui_components',
-                    color: context.isDarkMode
-                        ? PeamanColors.white70
-                        : PeamanColors.black,
-                    width: 16.w,
-                  ),
-                ).pR(10.0),
+                child: Opacity(
+                  opacity: 0.0,
+                  child: PeamanRoundIconButton(
+                    padding: EdgeInsets.all(7.w),
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.ac_unit_rounded,
+                      size: 16.w,
+                    ),
+                  ).pR(10.0),
+                ),
               ),
             ],
-    );
-  }
-
-  void _gotoUsersSearchScreen() {
-    context.pushNamed(
-      PeamanUsersSearchScreen.route,
-      arguments: PeamanUsersSearchArgs(
-        searchUsersGlobally: widget.searchUsersGlobally,
-        onPressedUser: (user) {
-          final appUser = ref.read(providerOfLoggedInUser);
-          context
-            ..pop()
-            ..pushNamed(
-              PeamanChatConversationScreen.route,
-              arguments: PeamanChatConversationArgs.byUserIds(
-                userIds: [user.uid!, appUser.uid!]..sort(),
-                chatType: PeamanChatType.oneToOne,
-              ),
-            );
-        },
-      ),
     );
   }
 }

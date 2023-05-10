@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanTimelineFeedsScreenHeader extends ConsumerStatefulWidget
@@ -14,7 +11,7 @@ class PeamanTimelineFeedsScreenHeader extends ConsumerStatefulWidget
     this.leading,
     this.leadingWidth,
     this.centerTitle = true,
-    this.elevation = 4.0,
+    this.elevation = 0.5,
     this.height = kToolbarHeight - 10,
     this.onPressedTitle,
     this.onPressedLeading,
@@ -61,7 +58,7 @@ class _PeamanTimelineHeaderState
       backgroundColor: widget.backgroundColor,
       onPressedTitle: widget.onPressedTitle,
       onPressedLeading: widget.onPressedLeading,
-      elevation: 0.5,
+      elevation: widget.elevation,
       leadingWidth: widget.leadingWidth,
       leading: widget.leading ??
           Center(

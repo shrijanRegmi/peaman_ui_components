@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanCreateFeedHeader extends ConsumerWidget {
@@ -55,7 +54,8 @@ class PeamanCreateFeedHeader extends ConsumerWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const PeamanVerifiedBadge().pL(2.0)
+                          if (appUser.isVerified)
+                            const PeamanVerifiedBadge().pL(2.0)
                         ],
                       ),
                   userNameBuilder?.call(context, ref, appUser) ??
