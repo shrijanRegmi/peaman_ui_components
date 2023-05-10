@@ -723,7 +723,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 element.activeUserIds.contains(_uid) &&
                 !element.activeUserIds.contains(firstChatUser.uid!))
             .toList(),
-        onPressedChat: (context, ref, chat, def) {
+        onPressedChat: (context, ref, chat, users, def) {
           showPeamanConfirmationDialog(
             context: context,
             title: PeamanCommonStrings.confirmationTitleAddToChat(
@@ -764,7 +764,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
                 element.activeUserIds.contains(firstChatUser.uid) &&
                 element.type == PeamanChatType.group)
             .toList(),
-        onPressedChat: (context, ref, chat, def) {
+        onPressedChat: (context, ref, chat, users, def) {
           context
             ..pop()
             ..pop()
@@ -894,7 +894,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       context: context,
       title: 'Are you sure you want to archive this chat?',
       description:
-          'This chat will not be shown in your chats list until you or ${firstChatUser?.name} sends a new message to this chat.',
+          'This chat will not be shown in your chats list until you or ${_chatType == PeamanChatType.group ? 'other members send' : '${firstChatUser?.name} sends'} a new message to this chat.',
       onConfirm: (context, ref) {
         const successLogMessage = 'The chat has been archived';
         ref.read(providerOfPeamanChat.notifier).archiveChat(
@@ -915,7 +915,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
       context: context,
       title: 'Are you sure you want to delete this chat?',
       description:
-          'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${_chatType == PeamanChatType.group ? 'others' : firstChatUser?.name} can still see the messages.',
+          'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${_chatType == PeamanChatType.group ? 'other members' : firstChatUser?.name} can still see the messages.',
       onConfirm: (context, ref) {
         const successLogMessage = 'The chat has been deleted';
         ref.read(providerOfPeamanChat.notifier).deleteChat(

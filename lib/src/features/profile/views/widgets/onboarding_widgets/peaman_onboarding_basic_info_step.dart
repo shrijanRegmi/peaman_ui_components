@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
@@ -37,7 +36,6 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
             height: 20.0,
           ),
           PeamanInput(
-            requiredPadding: false,
             controller: nameController,
             textCapitalization: TextCapitalization.words,
             title: 'Full Name',
@@ -46,7 +44,6 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
             height: 15.0,
           ),
           PeamanInput(
-            requiredPadding: false,
             controller: userNameController,
             title: 'Username',
           ),
@@ -54,7 +51,6 @@ class PeamanOnboardingBasicInfoStep extends StatelessWidget {
             height: 15.0,
           ),
           PeamanInput(
-            requiredPadding: false,
             initialValue: country,
             onPressed: onCountryPick,
             enabled: false,

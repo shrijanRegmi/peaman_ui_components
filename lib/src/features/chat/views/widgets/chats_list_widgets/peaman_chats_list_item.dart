@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -20,6 +21,8 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
     this.actionsBuilder,
     this.errorBuilder,
     this.loadingBuilder,
+    this.onPressed,
+    this.onLongPressed,
   })  : type = _Type.byChat,
         chatId = '',
         chatProvider = null;
@@ -34,6 +37,8 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
     this.actionsBuilder,
     this.errorBuilder,
     this.loadingBuilder,
+    this.onPressed,
+    this.onLongPressed,
   })  : type = _Type.byChatId,
         chat = const PeamanChat(),
         chatProvider = null;
@@ -48,6 +53,8 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
     this.actionsBuilder,
     this.errorBuilder,
     this.loadingBuilder,
+    this.onPressed,
+    this.onLongPressed,
   })  : type = _Type.byChatProvider,
         chat = const PeamanChat(),
         chatId = '',
@@ -84,7 +91,7 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
     PeamanChat,
     List<PeamanUser>,
   )? bodyBuilder;
-  final Widget Function(
+  final List<Widget> Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
@@ -100,6 +107,21 @@ class PeamanChatsListItem extends ConsumerStatefulWidget {
     BuildContext,
     WidgetRef,
   )? loadingBuilder;
+
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    List<PeamanUser>,
+    Function(),
+  )? onPressed;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    List<PeamanUser>,
+    Function(),
+  )? onLongPressed;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -166,30 +188,63 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
   Widget _chatBuilder(final PeamanChat chat, final List<PeamanUser> users) {
     if (chat.id.isNull) return const SizedBox();
 
-    return Padding(
-      padding: widget.padding ??
-          EdgeInsets.symmetric(
-            horizontal: 20.w,
-            vertical: 15.h,
-          ),
-      child: widget.builder?.call(context, ref, chat) ??
-          Column(
-            children: [
-              widget.headerBuilder?.call(context, ref, chat, users) ??
-                  PeamanChatItemHeader(
-                    chat: chat,
-                    users: users,
-                  ).pB(users.length > 1 ? 15.0 : 5.0),
-              widget.bodyBuilder?.call(context, ref, chat, users) ??
-                  PeamanChatItemBody(
-                    chat: chat,
-                    users: users,
-                  ),
+    return Slidable(
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        extentRatio: 0.4,
+        children: widget.actionsBuilder?.call(context, ref, chat, users) ??
+            [
+              Expanded(
+                child: PeamanChatArchiveButton(chat: chat),
+              ),
+              Expanded(
+                child: PeamanChatDeleteButton(chat: chat),
+              )
             ],
+      ),
+      child: Padding(
+        padding: widget.padding ??
+            EdgeInsets.symmetric(
+              horizontal: 20.w,
+              vertical: 15.h,
+            ),
+        child: widget.builder?.call(context, ref, chat) ??
+            Column(
+              children: [
+                widget.headerBuilder?.call(context, ref, chat, users) ??
+                    PeamanChatItemHeader(
+                      chat: chat,
+                      users: users,
+                    ).pB(users.length > 1 ? 15.0 : 5.0),
+                widget.bodyBuilder?.call(context, ref, chat, users) ??
+                    PeamanChatItemBody(
+                      chat: chat,
+                      users: users,
+                    ),
+              ],
+            ),
+      ),
+    )
+        .onPressed(
+          () => widget.onPressed != null
+              ? widget.onPressed?.call(
+                  context,
+                  ref,
+                  chat,
+                  users,
+                  () => _gotoChatConvoScreen(chat),
+                )
+              : _gotoChatConvoScreen(chat),
+        )
+        .onLongPressed(
+          () => widget.onLongPressed?.call(
+            context,
+            ref,
+            chat,
+            users,
+            () {},
           ),
-    ).onPressed(
-      () => _gotoChatConvoScreen(chat),
-    );
+        );
   }
 
   Widget _errorBuilder(final PeamanError error) {

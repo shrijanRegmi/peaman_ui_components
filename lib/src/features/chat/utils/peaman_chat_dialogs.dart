@@ -93,7 +93,7 @@ Future<T?> showPeamanChatUserInfoDialog<T>({
                     element.activeUserIds.contains(uid) &&
                     !element.activeUserIds.contains(user.uid!))
                 .toList(),
-            onPressedChat: (context, ref, chat, def) {
+            onPressedChat: (context, ref, chat, users, def) {
               showPeamanConfirmationDialog(
                 context: context,
                 title: PeamanCommonStrings.confirmationTitleAddToChat(

@@ -62,18 +62,21 @@ class _PeamanTimelineHeaderState
     return PeamanAppbar(
       titleText: widget.titleText,
       title: widget.title ??
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PeamanText.subtitle2(
-                '@${widget.user.userName}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              if (widget.user.isVerified) const PeamanVerifiedBadge().pL(4.0),
-            ],
-          ),
+          (widget.user.userName == null
+              ? const SizedBox()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PeamanText.subtitle2(
+                      '@${widget.user.userName}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if (widget.user.isVerified)
+                      const PeamanVerifiedBadge().pL(4.0),
+                  ],
+                )),
       backgroundColor:
           widget.backgroundColor ?? context.theme.scaffoldBackgroundColor,
       onPressedTitle: widget.onPressedTitle,

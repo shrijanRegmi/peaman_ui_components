@@ -17,7 +17,6 @@ class PeamanInputPopup extends ConsumerStatefulWidget {
     this.enabled = true,
     this.leading,
     this.trailing,
-    this.requiredPadding = true,
     this.height,
     this.password = false,
     this.textCapitalization = TextCapitalization.none,
@@ -40,7 +39,6 @@ class PeamanInputPopup extends ConsumerStatefulWidget {
   final bool enabled;
   final Widget? leading;
   final Widget? trailing;
-  final bool requiredPadding;
   final double? height;
   final bool password;
   final TextCapitalization textCapitalization;
@@ -134,7 +132,6 @@ class _PeamanInputPopupState extends ConsumerState<PeamanInputPopup> {
       enabled: widget.enabled,
       leading: widget.leading,
       trailing: widget.trailing,
-      requiredPadding: widget.requiredPadding,
       height: widget.height,
       password: widget.password,
       textCapitalization: widget.textCapitalization,
@@ -151,6 +148,7 @@ class _PeamanInputPopupState extends ConsumerState<PeamanInputPopup> {
         Expanded(
           child: PeamanButton.bordered(
             value: 'Cancel',
+            padding: EdgeInsets.all(10.w),
             borderSide: BorderSide(
               color: context.isDarkMode
                   ? PeamanColors.lightGrey
@@ -163,6 +161,7 @@ class _PeamanInputPopupState extends ConsumerState<PeamanInputPopup> {
         Expanded(
           child: PeamanButton.filled(
             value: 'Submit',
+            padding: EdgeInsets.all(10.w),
             onPressed: () {
               context.pop();
               widget.onPressedSubmit?.call(

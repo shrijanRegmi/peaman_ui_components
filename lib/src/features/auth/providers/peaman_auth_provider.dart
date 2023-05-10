@@ -84,6 +84,8 @@ final providerOfPeamanUsersByIdFuture = FutureProvider.family<
       return Failure(error);
     }
 
+    users = users..sort((a, b) => b.isVerified ? 1 : -1);
+
     return Success(users);
   },
 );

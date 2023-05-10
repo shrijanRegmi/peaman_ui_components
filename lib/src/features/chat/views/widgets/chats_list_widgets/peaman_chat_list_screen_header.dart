@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatListScreenHeader extends ConsumerStatefulWidget
@@ -68,7 +65,7 @@ class _PeamanChatListScreenHeaderState
                 Icons.arrow_back_rounded,
                 size: 16.w,
               ),
-            ).pR(10.0),
+            ),
           ),
       centerTitle: widget.centerTitle,
       actions: widget.actions.isNotEmpty

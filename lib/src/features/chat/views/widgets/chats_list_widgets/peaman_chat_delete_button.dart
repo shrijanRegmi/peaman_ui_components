@@ -1,28 +1,24 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatDeleteButton extends ConsumerWidget {
-  final String chatId;
+  final PeamanChat chat;
   final Function()? onPressed;
   const PeamanChatDeleteButton({
     super.key,
-    required this.chatId,
+    required this.chat,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final chat = ref.watch(
-      providerOfSinglePeamanChatFromChatsStream(chatId),
-    );
-    if (chat.isNull) return const SizedBox();
+    if (chat.id.isNull) return const SizedBox();
 
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIdsWrapper),
+      providerOfPeamanChatUsersFuture(chat.userIdsWrapper),
     );
 
     final user = usersFuture.maybeWhen(
@@ -57,11 +53,11 @@ class PeamanChatDeleteButton extends ConsumerWidget {
           context: context,
           title: 'Are you sure you want to delete this chat?',
           description:
-              'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${user?.name} can still see the messages.',
+              'This will result in deleting the chat from your end only and losing all the messages corresponding to this chat. However, ${chat.type == PeamanChatType.group ? 'other members' : user?.name} can still see the messages.',
           onConfirm: (context, ref) {
             const successLogMessage = 'Successfully deleted chat';
             ref.read(providerOfPeamanChat.notifier).deleteChat(
-                  chatId: chatId,
+                  chatId: chat.id!,
                   successLogMessage: successLogMessage,
                 );
           },

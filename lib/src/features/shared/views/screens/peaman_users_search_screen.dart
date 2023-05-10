@@ -62,13 +62,18 @@ class _PeamanUsersSearchScreenState
   ) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(top: 15.0),
+        padding: EdgeInsets.only(
+          top: 15.h,
+          left: 10.w,
+          right: 10.w,
+        ),
         child: PeamanInput(
           hintText: 'Search...',
           height: 40.0,
+          contentPadding: const EdgeInsets.all(0.0),
           autoFocus: true,
           controller: searchController,
-          trailing: _cancelBuilder(searchController),
+          trailing: _cancelBuilder(searchController).pR(12),
           leading: Icon(
             Icons.search_rounded,
             color: PeamanColors.grey.withOpacity(0.8),
@@ -93,7 +98,7 @@ class _PeamanUsersSearchScreenState
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(5.r),
           color: context.theme.brightness == Brightness.light
               ? PeamanColors.cream
               : PeamanColors.black,
@@ -103,6 +108,7 @@ class _PeamanUsersSearchScreenState
           horizontal: 6.0,
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: const [
             SizedBox(
               width: 2.0,

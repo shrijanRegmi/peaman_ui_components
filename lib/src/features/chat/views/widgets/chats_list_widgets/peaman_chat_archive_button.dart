@@ -1,34 +1,30 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanChatArchiveButton extends ConsumerWidget {
-  final String chatId;
+  final PeamanChat chat;
   final Function()? onPressed;
   const PeamanChatArchiveButton({
     super.key,
-    required this.chatId,
+    required this.chat,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final chat = ref.watch(
-      providerOfSinglePeamanChatFromChatsStream(chatId),
-    );
-    if (chat.isNull) return const SizedBox();
+    if (chat.id.isNull) return const SizedBox();
 
     final usersFuture = ref.watch(
-      providerOfPeamanChatUsersFuture(chat!.userIdsWrapper),
+      providerOfPeamanChatUsersFuture(chat.userIdsWrapper),
     );
 
     final user = usersFuture.maybeWhen(
       data: (data) {
         return data.when(
-          (success) => success.first,
+          (success) => success.isNotEmpty ? success.first : null,
           (failure) => null,
         );
       },
@@ -53,11 +49,11 @@ class PeamanChatArchiveButton extends ConsumerWidget {
           context: context,
           title: 'Are you sure you want to archive this chat?',
           description:
-              'This chat will not be shown in your chats list until you or ${user?.name} sends a new message to this chat.',
+              'This chat will not be shown in your chats list until you or ${chat.type == PeamanChatType.group ? 'other members send' : '${user?.name} sends'} a new message to this chat.',
           onConfirm: (context, ref) {
             const successLogMessage = 'Successfully archived chat';
             ref.read(providerOfPeamanChat.notifier).archiveChat(
-                  chatId: chatId,
+                  chatId: chat.id!,
                   successLogMessage: successLogMessage,
                 );
           },

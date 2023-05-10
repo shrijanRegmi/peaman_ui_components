@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -20,6 +19,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.searchType = PeamanSearchType.none,
     this.selectionType = PeamanSelectionType.single,
     this.physics = const BouncingScrollPhysics(),
+    this.includeCurrentUser = false,
     this.expandOnKeyboard = true,
     this.filterBuilder,
     this.searchFilterBuilder,
@@ -52,6 +52,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.selectionType = PeamanSelectionType.single,
     this.physics = const BouncingScrollPhysics(),
     this.expandOnKeyboard = true,
+    this.includeCurrentUser = false,
     this.filterBuilder,
     this.searchFilterBuilder,
     this.itemBuilder,
@@ -83,6 +84,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
     this.searchType = PeamanSearchType.none,
     this.selectionType = PeamanSelectionType.single,
     this.expandOnKeyboard = true,
+    this.includeCurrentUser = false,
     this.filterBuilder,
     this.searchFilterBuilder,
     this.itemBuilder,
@@ -115,6 +117,7 @@ class PeamanUsersListPopup extends ConsumerStatefulWidget {
   final bool expandOnKeyboard;
   final Axis scrollDirection;
   final ScrollPhysics physics;
+  final bool includeCurrentUser;
 
   final EdgeInsets? firstItemPadding;
   final EdgeInsets? lastItemPadding;
@@ -571,7 +574,6 @@ class _PeamanUsersListBottomsheetState
               PeamanInput(
                 hintText: 'Search...',
                 height: 40.0,
-                requiredPadding: false,
                 controller: controller,
                 onChanged: (_) => debounce(),
               ),

@@ -32,6 +32,8 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
   })  : type = _Type.normal,
         chats = const [],
         chatIds = const [],
@@ -54,6 +56,8 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
   })  : type = _Type.byChats,
         chatIds = const [],
         chatsProvider = null,
@@ -75,6 +79,8 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
   })  : type = _Type.byChatIds,
         chats = const [],
         chatsProvider = null,
@@ -96,6 +102,8 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     this.headerBuilder,
     this.bodyBuilder,
     this.actionsBuilder,
+    this.onPressedChat,
+    this.onLongPressedChat,
   })  : type = _Type.byChatsProvider,
         chats = const [],
         chatIds = const [],
@@ -162,12 +170,27 @@ class PeamanChatsList extends ConsumerStatefulWidget {
     PeamanChat,
     List<PeamanUser>,
   )? bodyBuilder;
-  final Widget Function(
+  final List<Widget> Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
     List<PeamanUser>,
   )? actionsBuilder;
+
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    List<PeamanUser>,
+    Function(),
+  )? onPressedChat;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanChat,
+    List<PeamanUser>,
+    Function(),
+  )? onLongPressedChat;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -250,6 +273,8 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
               headerBuilder: widget.headerBuilder,
               bodyBuilder: widget.bodyBuilder,
               actionsBuilder: widget.actionsBuilder,
+              onPressed: widget.onPressedChat,
+              onLongPressed: widget.onLongPressedChat,
             );
           },
           separatorBuilder: (context, index) {
@@ -279,6 +304,8 @@ class _PeamanChatsListState extends ConsumerState<PeamanChatsList> {
               headerBuilder: widget.headerBuilder,
               bodyBuilder: widget.bodyBuilder,
               actionsBuilder: widget.actionsBuilder,
+              onPressed: widget.onPressedChat,
+              onLongPressed: widget.onLongPressedChat,
             );
           },
           separatorBuilder: (context, index) {

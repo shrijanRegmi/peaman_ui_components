@@ -16,12 +16,9 @@ class PeamanChatsListPopup extends ConsumerStatefulWidget {
     this.firstItemPadding = const EdgeInsets.all(0.0),
     this.lastItemPadding = const EdgeInsets.all(0.0),
     this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
+    this.headerBuilder,
     this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
+    this.actionsBuilder,
     this.listBuilder,
     this.loadingBuilder,
     this.emptyBuilder,
@@ -41,12 +38,9 @@ class PeamanChatsListPopup extends ConsumerStatefulWidget {
     this.firstItemPadding = const EdgeInsets.all(0.0),
     this.lastItemPadding = const EdgeInsets.all(0.0),
     this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
+    this.headerBuilder,
     this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
+    this.actionsBuilder,
     this.listBuilder,
     this.loadingBuilder,
     this.emptyBuilder,
@@ -66,12 +60,9 @@ class PeamanChatsListPopup extends ConsumerStatefulWidget {
     this.firstItemPadding = const EdgeInsets.all(0.0),
     this.lastItemPadding = const EdgeInsets.all(0.0),
     this.itemBuilder,
-    this.avatarBuilder,
-    this.titleBuilder,
+    this.headerBuilder,
     this.bodyBuilder,
-    this.dateBuilder,
-    this.counterBuilder,
-    this.actionWidgetsBuilder,
+    this.actionsBuilder,
     this.listBuilder,
     this.loadingBuilder,
     this.emptyBuilder,
@@ -102,32 +93,20 @@ class PeamanChatsListPopup extends ConsumerStatefulWidget {
     BuildContext,
     WidgetRef,
     PeamanChat,
-  )? avatarBuilder;
+    List<PeamanUser>,
+  )? headerBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
-  )? titleBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
+    List<PeamanUser>,
   )? bodyBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? dateBuilder;
-  final Widget Function(
-    BuildContext,
-    WidgetRef,
-    PeamanChat,
-  )? counterBuilder;
   final List<Widget> Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
-  )? actionWidgetsBuilder;
+    List<PeamanUser>,
+  )? actionsBuilder;
   final Widget Function(
     BuildContext,
     WidgetRef,
@@ -155,12 +134,14 @@ class PeamanChatsListPopup extends ConsumerStatefulWidget {
     BuildContext,
     WidgetRef,
     PeamanChat,
+    List<PeamanUser>,
     Function(),
   )? onPressedChat;
   final Function(
     BuildContext,
     WidgetRef,
     PeamanChat,
+    List<PeamanUser>,
     Function(),
   )? onLongPressedChat;
 
@@ -274,19 +255,15 @@ class _PeamanChatsListPopupState extends ConsumerState<PeamanChatsListPopup> {
       firstItemPadding: widget.firstItemPadding,
       lastItemPadding: widget.lastItemPadding,
       itemBuilder: widget.itemBuilder,
-      // avatarBuilder: widget.avatarBuilder,
-      // titleBuilder: widget.titleBuilder,
-      // bodyBuilder: widget.bodyBuilder,
-      // dateBuilder: widget.dateBuilder,
-      // counterBuilder: widget.counterBuilder,
-      // actionWidgetsBuilder: widget.actionWidgetsBuilder,
-      // listBuilder: widget.listBuilder,
+      headerBuilder: widget.headerBuilder,
+      bodyBuilder: widget.bodyBuilder,
+      actionsBuilder: widget.actionsBuilder,
+      listBuilderByChats: widget.listBuilder,
       loadingBuilder: widget.loadingBuilder,
       emptyBuilder: widget.emptyBuilder,
       errorBuilder: widget.errorBuilder,
-      // filterBuilder: widget.filterBuilder,
-      // onPressedChat: widget.onPressedChat,
-      // onLongPressedChat: widget.onLongPressedChat,
+      onPressedChat: widget.onPressedChat,
+      onLongPressedChat: widget.onLongPressedChat,
     );
   }
 }

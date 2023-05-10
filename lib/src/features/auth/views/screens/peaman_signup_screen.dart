@@ -108,7 +108,6 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
       children: [
         PeamanInput(
           hintText: 'Email address',
-          requiredPadding: false,
           controller: _emailController,
         ),
         const SizedBox(
@@ -117,7 +116,6 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
         PeamanInput(
           hintText: 'Password',
           password: true,
-          requiredPadding: false,
           controller: _passwordController,
         ),
         const SizedBox(
@@ -126,7 +124,6 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
         PeamanInput(
           hintText: 'Confirm Password',
           password: true,
-          requiredPadding: false,
           controller: _confirmPasswordController,
         ),
       ],

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanCreateFeedPollType extends ConsumerStatefulWidget {
@@ -83,7 +82,6 @@ class _PeamanCreateFeedPollTypeState
                 ),
                 PeamanInput(
                   hintText: 'Not more than 100 words',
-                  requiredPadding: false,
                   limit: 100,
                   controller: selectedPollQuestionController,
                   textCapitalization: TextCapitalization.sentences,
@@ -123,7 +121,6 @@ class _PeamanCreateFeedPollTypeState
 
     return PeamanInput(
       hintText: 'Option${index + 1}',
-      requiredPadding: false,
       initialValue: option.option,
       limit: 50,
       textCapitalization: TextCapitalization.sentences,

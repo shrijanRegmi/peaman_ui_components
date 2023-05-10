@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanOnboardingDetailsInfoStep extends StatelessWidget {
@@ -25,7 +24,6 @@ class PeamanOnboardingDetailsInfoStep extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           PeamanInput(
-            requiredPadding: false,
             title: 'Birthday',
             hintText: 'Select Your Birthday',
             enabled: false,
@@ -42,7 +40,6 @@ class PeamanOnboardingDetailsInfoStep extends StatelessWidget {
             height: 15.0,
           ),
           PeamanInput(
-            requiredPadding: false,
             title: 'Gender',
             hintText: 'Select Your Gender',
             enabled: false,
@@ -68,7 +65,6 @@ class PeamanOnboardingDetailsInfoStep extends StatelessWidget {
             height: 15.0,
           ),
           PeamanInput(
-            requiredPadding: false,
             title: 'Short Bio',
             hintText: 'About yourself',
             controller: bioController,

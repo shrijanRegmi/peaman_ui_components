@@ -3,29 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanInput extends StatefulWidget {
-  final TextEditingController? controller;
-  final bool autoFocus;
-  final String hintText;
-  final Function()? onPressed;
-  final Function(String)? onFormSubmitted;
-  final Function(String)? onChanged;
-  final bool enabled;
-  final Widget? leading;
-  final Widget? trailing;
-  final bool requiredPadding;
-  final double? height;
-  final bool password;
-  final TextCapitalization textCapitalization;
-  final String? title;
-  final String? initialValue;
-  final TextInputType textInputType;
-  final int limit;
-  final List<TextInputFormatter> inputFormatters;
-
   const PeamanInput({
     Key? key,
     this.controller,
     this.autoFocus = false,
+    this.contentPadding,
     this.hintText = '',
     this.onPressed,
     this.onFormSubmitted,
@@ -33,7 +15,6 @@ class PeamanInput extends StatefulWidget {
     this.enabled = true,
     this.leading,
     this.trailing,
-    this.requiredPadding = true,
     this.height,
     this.password = false,
     this.textCapitalization = TextCapitalization.none,
@@ -43,6 +24,25 @@ class PeamanInput extends StatefulWidget {
     this.limit = 5000,
     this.inputFormatters = const [],
   }) : super(key: key);
+
+  final TextEditingController? controller;
+  final bool autoFocus;
+  final String hintText;
+  final EdgeInsets? contentPadding;
+  final Function()? onPressed;
+  final Function(String)? onFormSubmitted;
+  final Function(String)? onChanged;
+  final bool enabled;
+  final Widget? leading;
+  final Widget? trailing;
+  final double? height;
+  final bool password;
+  final TextCapitalization textCapitalization;
+  final String? title;
+  final String? initialValue;
+  final TextInputType textInputType;
+  final int limit;
+  final List<TextInputFormatter> inputFormatters;
 
   @override
   State<PeamanInput> createState() => _PInputState();
@@ -126,27 +126,34 @@ class _PInputState extends State<PeamanInput> {
             decoration: InputDecoration(
               hintText: widget.hintText,
               counterText: '',
+              contentPadding: widget.contentPadding ??
+                  context.theme.inputDecorationTheme.contentPadding,
               prefixIcon: widget.leading,
-              suffixIcon: widget.trailing ??
-                  (widget.password
-                      ? IconButton(
-                          icon: Icon(
-                            !_passwordVisible
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                          iconSize: 22.0,
-                          splashColor: PeamanColors.transparent,
-                          splashRadius: 1.0,
-                          color: context
-                              .theme.inputDecorationTheme.suffixIconColor,
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        )
-                      : const SizedBox()),
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  widget.trailing ??
+                      (widget.password
+                          ? IconButton(
+                              icon: Icon(
+                                !_passwordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              iconSize: 22.0,
+                              splashColor: PeamanColors.transparent,
+                              splashRadius: 1.0,
+                              color: context
+                                  .theme.inputDecorationTheme.suffixIconColor,
+                              onPressed: () {
+                                setState(() {
+                                  _passwordVisible = !_passwordVisible;
+                                });
+                              },
+                            )
+                          : const SizedBox()),
+                ],
+              ),
             ),
           ),
         ),
