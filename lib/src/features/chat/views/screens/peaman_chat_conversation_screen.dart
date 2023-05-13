@@ -154,7 +154,7 @@ class _PeamanChatConversationScreenState
     final isVerified = usersFuture.maybeWhen(
       data: (data) => data.when(
         (success) {
-          return widget.chatType == PeamanChatType.oneToOne &&
+          return _chatType == PeamanChatType.oneToOne &&
               success.isNotEmpty &&
               success.first.isVerified;
         },

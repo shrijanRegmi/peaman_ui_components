@@ -424,7 +424,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               Icons.group_add_rounded,
               color: context.isDarkMode
                   ? PeamanColors.white70
-                  : PeamanColors.primary,
+                  : context.theme.colorScheme.primary,
               size: 16.w,
             ),
             padding: EdgeInsets.all(9.w),
@@ -439,7 +439,7 @@ class _PeamanChatInfoDrawerState extends ConsumerState<PeamanChatInfoDrawer> {
               Icons.logout_rounded,
               color: context.isDarkMode
                   ? PeamanColors.white70
-                  : PeamanColors.primary,
+                  : context.theme.colorScheme.primary,
               size: 16.w,
             ),
             padding: EdgeInsets.all(9.w),
