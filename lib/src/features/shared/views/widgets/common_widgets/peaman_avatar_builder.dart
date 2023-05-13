@@ -340,8 +340,9 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
     final bool border = true,
   }) {
     return Container(
-      width: size.w,
-      height: size.h,
+      width: (size + 2).w,
+      height: (size + 2).h,
+      padding: EdgeInsets.all(2.w),
       decoration: BoxDecoration(
         color: PeamanColors.extraLightGrey2,
         shape: BoxShape.circle,
