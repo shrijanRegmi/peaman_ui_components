@@ -63,6 +63,8 @@ class _PeamanCreateFeedPollTypeState
         widget.questionController ?? pollQuestionController;
     final selectedOptions = widget.options ?? pollOptions;
 
+    print('Shrijan : ${selectedOptions.map((e) => e.option)}');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -103,45 +105,25 @@ class _PeamanCreateFeedPollTypeState
                   height: 15.h,
                 ),
                 for (var i = 0; i < selectedOptions.length; i++)
-                  _optionItemBuilder(
-                    index: i,
+                  PeamanPollOptionInput(
                     option: selectedOptions[i],
+                    index: i,
+                    length: selectedOptions.length,
+                    onPressed: (context, ref) => _createNewPollOptionNode(i),
+                    onSubmit: (context, ref, controller, def) =>
+                        _savePollOption(i, controller.text.trim()),
+                    onPressedClear: (context, ref, controller, def) {
+                      if (controller.text.trim().isNotEmpty) {
+                        def();
+                      } else {
+                        _removeAPollOptionNode(i);
+                      }
+                    },
                   ),
               ],
             ),
       ],
     );
-  }
-
-  Widget _optionItemBuilder({
-    required final PeamanPollOption option,
-    required final int index,
-  }) {
-    final selectedOptions = widget.options ?? pollOptions;
-
-    return PeamanInput(
-      hintText: 'Option${index + 1}',
-      initialValue: option.option,
-      limit: 50,
-      textCapitalization: TextCapitalization.sentences,
-      trailing:
-          selectedOptions.length > 2 || (option.option?.isNotEmpty ?? false)
-              ? IconButton(
-                  splashRadius: 20.r,
-                  onPressed: () => _removeValueFromPollOption(
-                    index: index,
-                    option: option,
-                  ),
-                  icon: const Icon(Icons.close),
-                )
-              : null,
-      onPressed: () => _createNewPollOptionNode(index),
-      onChanged: (val) => _addValueToPollOption(
-        index: index,
-        value: val,
-        option: option,
-      ),
-    ).pB(10);
   }
 
   void _createNewPollOptionNode(final int index) {
@@ -156,35 +138,17 @@ class _PeamanCreateFeedPollTypeState
     }
   }
 
-  void _addValueToPollOption({
-    required final int index,
-    required final String value,
-    required final PeamanPollOption option,
-  }) {
-    if (option.option?.isEmpty ?? true) {
-      _createFeedProvider.addValueToPollOption(index, value);
-    } else {
-      if (!(_debounceTimer?.isActive ?? false)) {
-        _debounceTimer = Timer(const Duration(milliseconds: 800), () {
-          _createFeedProvider.addValueToPollOption(index, value);
-        });
-      } else {
-        _debounceTimer?.cancel();
-      }
-    }
+  void _removeAPollOptionNode(final int index) {
+    final selectedOptions = widget.options ?? pollOptions;
+    _createFeedProvider.removeFromPollOptions(
+      selectedOptions[index],
+    );
   }
 
-  void _removeValueFromPollOption({
-    required final int index,
-    required final PeamanPollOption option,
-  }) {
-    _debounceTimer?.cancel();
-    final selectedOptions = widget.options ?? pollOptions;
-
-    if (selectedOptions.length > 2 && (option.option?.isEmpty ?? true)) {
-      _createFeedProvider.removeFromPollOptions(option);
-    } else if (option.option?.isNotEmpty ?? false) {
-      _createFeedProvider.removeValueFromPollOption(index);
-    }
+  void _savePollOption(
+    final int index,
+    final String value,
+  ) {
+    _createFeedProvider.addValueToPollOption(index, value);
   }
 }

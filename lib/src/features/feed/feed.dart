@@ -22,6 +22,7 @@ export 'views/widgets/create_feed_widgets/peaman_create_feed_actions.dart';
 export 'views/widgets/create_feed_widgets/peaman_create_feed_normal_type.dart';
 export 'views/widgets/create_feed_widgets/peaman_create_feed_youtube_type.dart';
 export 'views/widgets/create_feed_widgets/peaman_create_feed_poll_type.dart';
+export 'views/widgets/create_feed_widgets/peaman_poll_options_input_item.dart';
 
 export 'views/widgets/feed_share_widgets/peaman_feed_share_popup.dart';
 

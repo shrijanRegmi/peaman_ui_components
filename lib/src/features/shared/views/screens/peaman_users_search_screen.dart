@@ -31,10 +31,12 @@ class PeamanUsersSearchScreen extends StatefulHookConsumerWidget {
 
 class _PeamanUsersSearchScreenState
     extends ConsumerState<PeamanUsersSearchScreen> {
+  final TAG = 'users_search';
+
   PeamanDebounceProviderState get debounceState =>
-      ref.watch(providerOfPeamanDebounce);
+      ref.watch(providerOfPeamanDebounce(TAG));
   PeamanDebounceProvider get debounceNotifier =>
-      ref.read(providerOfPeamanDebounce.notifier);
+      ref.read(providerOfPeamanDebounce(TAG).notifier);
 
   @override
   Widget build(BuildContext context) {

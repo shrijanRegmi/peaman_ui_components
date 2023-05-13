@@ -16,6 +16,8 @@ class PeamanFeedProviderState with _$PeamanFeedProviderState {
     @Default(SaveFeedState.initial()) final SaveFeedState saveFeedState,
     @Default(UnsaveFeedState.initial()) final UnsaveFeedState unsaveFeedState,
     @Default(ShareFeedState.initial()) final ShareFeedState shareFeedState,
+    @Default(ChoosePollOptionState.initial())
+        final ChoosePollOptionState choosePollOptionState,
     @Default(SetFeedVisibilityState.initial())
         final SetFeedVisibilityState setFeedVisibilityState,
     @Default(CreateReactionState.initial())
@@ -125,6 +127,18 @@ class ShareFeedState with _$ShareFeedState {
   const factory ShareFeedState.error(
     final PeamanError error,
   ) = _ShareFeedStateFailure;
+}
+
+@freezed
+class ChoosePollOptionState with _$ChoosePollOptionState {
+  const factory ChoosePollOptionState.initial() = _ChoosePollOptionStateInitial;
+  const factory ChoosePollOptionState.loading() = _ChoosePollOptionStateLoading;
+  const factory ChoosePollOptionState.success(
+    final bool result,
+  ) = _ChoosePollOptionStateSuccess;
+  const factory ChoosePollOptionState.error(
+    final PeamanError error,
+  ) = _ChoosePollOptionStateFailure;
 }
 
 @freezed

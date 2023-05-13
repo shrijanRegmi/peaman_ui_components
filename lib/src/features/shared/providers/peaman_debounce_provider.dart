@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:peaman_ui_components/src/features/shared/providers/states/peaman_debounce_provider_state.dart';
 
-final providerOfPeamanDebounce = StateNotifierProvider.autoDispose<
-    PeamanDebounceProvider, PeamanDebounceProviderState>((ref) {
+final providerOfPeamanDebounce = StateNotifierProvider.family
+    .autoDispose<PeamanDebounceProvider, PeamanDebounceProviderState, String>(
+        (ref, id) {
   return PeamanDebounceProvider();
 });
 

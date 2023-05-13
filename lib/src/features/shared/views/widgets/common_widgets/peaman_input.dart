@@ -129,31 +129,26 @@ class _PInputState extends State<PeamanInput> {
               contentPadding: widget.contentPadding ??
                   context.theme.inputDecorationTheme.contentPadding,
               prefixIcon: widget.leading,
-              suffixIcon: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  widget.trailing ??
-                      (widget.password
-                          ? IconButton(
-                              icon: Icon(
-                                !_passwordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                              ),
-                              iconSize: 22.0,
-                              splashColor: PeamanColors.transparent,
-                              splashRadius: 1.0,
-                              color: context
-                                  .theme.inputDecorationTheme.suffixIconColor,
-                              onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
-                              },
-                            )
-                          : const SizedBox()),
-                ],
-              ),
+              suffixIcon: widget.trailing ??
+                  (widget.password
+                      ? IconButton(
+                          icon: Icon(
+                            !_passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          iconSize: 22.0,
+                          splashColor: PeamanColors.transparent,
+                          splashRadius: 1.0,
+                          color: context
+                              .theme.inputDecorationTheme.suffixIconColor,
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        )
+                      : null),
             ),
           ),
         ),

@@ -42,9 +42,13 @@ class PeamanSearchBuilder<T> extends StatefulHookConsumerWidget {
 class _PeamanSearchBuilderState<T>
     extends ConsumerState<PeamanSearchBuilder<T>> {
   final _controller = TextEditingController();
-  PeamanDebounceProviderState get _state => ref.watch(providerOfPeamanDebounce);
+  final TAG = 'search_builder';
+
+  PeamanDebounceProviderState get _state => ref.watch(
+        providerOfPeamanDebounce(TAG),
+      );
   PeamanDebounceProvider get _notifier =>
-      ref.watch(providerOfPeamanDebounce.notifier);
+      ref.watch(providerOfPeamanDebounce(TAG).notifier);
   String get _uid =>
       ref.watch(providerOfLoggedInUser.select((value) => value.uid!));
 

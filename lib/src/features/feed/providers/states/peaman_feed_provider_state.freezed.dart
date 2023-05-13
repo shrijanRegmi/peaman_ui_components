@@ -26,6 +26,8 @@ mixin _$PeamanFeedProviderState {
   SaveFeedState get saveFeedState => throw _privateConstructorUsedError;
   UnsaveFeedState get unsaveFeedState => throw _privateConstructorUsedError;
   ShareFeedState get shareFeedState => throw _privateConstructorUsedError;
+  ChoosePollOptionState get choosePollOptionState =>
+      throw _privateConstructorUsedError;
   SetFeedVisibilityState get setFeedVisibilityState =>
       throw _privateConstructorUsedError;
   CreateReactionState get createReactionState =>
@@ -61,6 +63,7 @@ abstract class $PeamanFeedProviderStateCopyWith<$Res> {
       SaveFeedState saveFeedState,
       UnsaveFeedState unsaveFeedState,
       ShareFeedState shareFeedState,
+      ChoosePollOptionState choosePollOptionState,
       SetFeedVisibilityState setFeedVisibilityState,
       CreateReactionState createReactionState,
       DeleteReactionState deleteReactionState,
@@ -76,6 +79,7 @@ abstract class $PeamanFeedProviderStateCopyWith<$Res> {
   $SaveFeedStateCopyWith<$Res> get saveFeedState;
   $UnsaveFeedStateCopyWith<$Res> get unsaveFeedState;
   $ShareFeedStateCopyWith<$Res> get shareFeedState;
+  $ChoosePollOptionStateCopyWith<$Res> get choosePollOptionState;
   $SetFeedVisibilityStateCopyWith<$Res> get setFeedVisibilityState;
   $CreateReactionStateCopyWith<$Res> get createReactionState;
   $DeleteReactionStateCopyWith<$Res> get deleteReactionState;
@@ -108,6 +112,7 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
     Object? saveFeedState = null,
     Object? unsaveFeedState = null,
     Object? shareFeedState = null,
+    Object? choosePollOptionState = null,
     Object? setFeedVisibilityState = null,
     Object? createReactionState = null,
     Object? deleteReactionState = null,
@@ -156,6 +161,10 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
           ? _value.shareFeedState
           : shareFeedState // ignore: cast_nullable_to_non_nullable
               as ShareFeedState,
+      choosePollOptionState: null == choosePollOptionState
+          ? _value.choosePollOptionState
+          : choosePollOptionState // ignore: cast_nullable_to_non_nullable
+              as ChoosePollOptionState,
       setFeedVisibilityState: null == setFeedVisibilityState
           ? _value.setFeedVisibilityState
           : setFeedVisibilityState // ignore: cast_nullable_to_non_nullable
@@ -249,6 +258,15 @@ class _$PeamanFeedProviderStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $ChoosePollOptionStateCopyWith<$Res> get choosePollOptionState {
+    return $ChoosePollOptionStateCopyWith<$Res>(_value.choosePollOptionState,
+        (value) {
+      return _then(_value.copyWith(choosePollOptionState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $SetFeedVisibilityStateCopyWith<$Res> get setFeedVisibilityState {
     return $SetFeedVisibilityStateCopyWith<$Res>(_value.setFeedVisibilityState,
         (value) {
@@ -321,6 +339,7 @@ abstract class _$$_PeamanFeedProviderStateCopyWith<$Res>
       SaveFeedState saveFeedState,
       UnsaveFeedState unsaveFeedState,
       ShareFeedState shareFeedState,
+      ChoosePollOptionState choosePollOptionState,
       SetFeedVisibilityState setFeedVisibilityState,
       CreateReactionState createReactionState,
       DeleteReactionState deleteReactionState,
@@ -344,6 +363,8 @@ abstract class _$$_PeamanFeedProviderStateCopyWith<$Res>
   $UnsaveFeedStateCopyWith<$Res> get unsaveFeedState;
   @override
   $ShareFeedStateCopyWith<$Res> get shareFeedState;
+  @override
+  $ChoosePollOptionStateCopyWith<$Res> get choosePollOptionState;
   @override
   $SetFeedVisibilityStateCopyWith<$Res> get setFeedVisibilityState;
   @override
@@ -380,6 +401,7 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
     Object? saveFeedState = null,
     Object? unsaveFeedState = null,
     Object? shareFeedState = null,
+    Object? choosePollOptionState = null,
     Object? setFeedVisibilityState = null,
     Object? createReactionState = null,
     Object? deleteReactionState = null,
@@ -428,6 +450,10 @@ class __$$_PeamanFeedProviderStateCopyWithImpl<$Res>
           ? _value.shareFeedState
           : shareFeedState // ignore: cast_nullable_to_non_nullable
               as ShareFeedState,
+      choosePollOptionState: null == choosePollOptionState
+          ? _value.choosePollOptionState
+          : choosePollOptionState // ignore: cast_nullable_to_non_nullable
+              as ChoosePollOptionState,
       setFeedVisibilityState: null == setFeedVisibilityState
           ? _value.setFeedVisibilityState
           : setFeedVisibilityState // ignore: cast_nullable_to_non_nullable
@@ -470,6 +496,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
       this.saveFeedState = const SaveFeedState.initial(),
       this.unsaveFeedState = const UnsaveFeedState.initial(),
       this.shareFeedState = const ShareFeedState.initial(),
+      this.choosePollOptionState = const ChoosePollOptionState.initial(),
       this.setFeedVisibilityState = const SetFeedVisibilityState.initial(),
       this.createReactionState = const CreateReactionState.initial(),
       this.deleteReactionState = const DeleteReactionState.initial(),
@@ -523,6 +550,9 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
   final ShareFeedState shareFeedState;
   @override
   @JsonKey()
+  final ChoosePollOptionState choosePollOptionState;
+  @override
+  @JsonKey()
   final SetFeedVisibilityState setFeedVisibilityState;
   @override
   @JsonKey()
@@ -542,7 +572,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
 
   @override
   String toString() {
-    return 'PeamanFeedProviderState(timelineFeeds: $timelineFeeds, profileFeeds: $profileFeeds, createFeedState: $createFeedState, updateFeedState: $updateFeedState, deleteFeedState: $deleteFeedState, hideFeedState: $hideFeedState, showFeedState: $showFeedState, saveFeedState: $saveFeedState, unsaveFeedState: $unsaveFeedState, shareFeedState: $shareFeedState, setFeedVisibilityState: $setFeedVisibilityState, createReactionState: $createReactionState, deleteReactionState: $deleteReactionState, createCommentState: $createCommentState, updateCommentState: $updateCommentState, deleteCommentState: $deleteCommentState)';
+    return 'PeamanFeedProviderState(timelineFeeds: $timelineFeeds, profileFeeds: $profileFeeds, createFeedState: $createFeedState, updateFeedState: $updateFeedState, deleteFeedState: $deleteFeedState, hideFeedState: $hideFeedState, showFeedState: $showFeedState, saveFeedState: $saveFeedState, unsaveFeedState: $unsaveFeedState, shareFeedState: $shareFeedState, choosePollOptionState: $choosePollOptionState, setFeedVisibilityState: $setFeedVisibilityState, createReactionState: $createReactionState, deleteReactionState: $deleteReactionState, createCommentState: $createCommentState, updateCommentState: $updateCommentState, deleteCommentState: $deleteCommentState)';
   }
 
   @override
@@ -570,6 +600,8 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
                 other.unsaveFeedState == unsaveFeedState) &&
             (identical(other.shareFeedState, shareFeedState) ||
                 other.shareFeedState == shareFeedState) &&
+            (identical(other.choosePollOptionState, choosePollOptionState) ||
+                other.choosePollOptionState == choosePollOptionState) &&
             (identical(other.setFeedVisibilityState, setFeedVisibilityState) ||
                 other.setFeedVisibilityState == setFeedVisibilityState) &&
             (identical(other.createReactionState, createReactionState) ||
@@ -597,6 +629,7 @@ class _$_PeamanFeedProviderState implements _PeamanFeedProviderState {
       saveFeedState,
       unsaveFeedState,
       shareFeedState,
+      choosePollOptionState,
       setFeedVisibilityState,
       createReactionState,
       deleteReactionState,
@@ -625,6 +658,7 @@ abstract class _PeamanFeedProviderState implements PeamanFeedProviderState {
           final SaveFeedState saveFeedState,
           final UnsaveFeedState unsaveFeedState,
           final ShareFeedState shareFeedState,
+          final ChoosePollOptionState choosePollOptionState,
           final SetFeedVisibilityState setFeedVisibilityState,
           final CreateReactionState createReactionState,
           final DeleteReactionState deleteReactionState,
@@ -653,6 +687,8 @@ abstract class _PeamanFeedProviderState implements PeamanFeedProviderState {
   UnsaveFeedState get unsaveFeedState;
   @override
   ShareFeedState get shareFeedState;
+  @override
+  ChoosePollOptionState get choosePollOptionState;
   @override
   SetFeedVisibilityState get setFeedVisibilityState;
   @override
@@ -5519,6 +5555,627 @@ abstract class _ShareFeedStateFailure implements ShareFeedState {
   @JsonKey(ignore: true)
   _$$_ShareFeedStateFailureCopyWith<_$_ShareFeedStateFailure> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ChoosePollOptionState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChoosePollOptionStateInitial value) initial,
+    required TResult Function(_ChoosePollOptionStateLoading value) loading,
+    required TResult Function(_ChoosePollOptionStateSuccess value) success,
+    required TResult Function(_ChoosePollOptionStateFailure value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult? Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult? Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult? Function(_ChoosePollOptionStateFailure value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult Function(_ChoosePollOptionStateFailure value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChoosePollOptionStateCopyWith<$Res> {
+  factory $ChoosePollOptionStateCopyWith(ChoosePollOptionState value,
+          $Res Function(ChoosePollOptionState) then) =
+      _$ChoosePollOptionStateCopyWithImpl<$Res, ChoosePollOptionState>;
+}
+
+/// @nodoc
+class _$ChoosePollOptionStateCopyWithImpl<$Res,
+        $Val extends ChoosePollOptionState>
+    implements $ChoosePollOptionStateCopyWith<$Res> {
+  _$ChoosePollOptionStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_ChoosePollOptionStateInitialCopyWith<$Res> {
+  factory _$$_ChoosePollOptionStateInitialCopyWith(
+          _$_ChoosePollOptionStateInitial value,
+          $Res Function(_$_ChoosePollOptionStateInitial) then) =
+      __$$_ChoosePollOptionStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ChoosePollOptionStateInitialCopyWithImpl<$Res>
+    extends _$ChoosePollOptionStateCopyWithImpl<$Res,
+        _$_ChoosePollOptionStateInitial>
+    implements _$$_ChoosePollOptionStateInitialCopyWith<$Res> {
+  __$$_ChoosePollOptionStateInitialCopyWithImpl(
+      _$_ChoosePollOptionStateInitial _value,
+      $Res Function(_$_ChoosePollOptionStateInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ChoosePollOptionStateInitial implements _ChoosePollOptionStateInitial {
+  const _$_ChoosePollOptionStateInitial();
+
+  @override
+  String toString() {
+    return 'ChoosePollOptionState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChoosePollOptionStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChoosePollOptionStateInitial value) initial,
+    required TResult Function(_ChoosePollOptionStateLoading value) loading,
+    required TResult Function(_ChoosePollOptionStateSuccess value) success,
+    required TResult Function(_ChoosePollOptionStateFailure value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult? Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult? Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult? Function(_ChoosePollOptionStateFailure value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult Function(_ChoosePollOptionStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChoosePollOptionStateInitial implements ChoosePollOptionState {
+  const factory _ChoosePollOptionStateInitial() =
+      _$_ChoosePollOptionStateInitial;
+}
+
+/// @nodoc
+abstract class _$$_ChoosePollOptionStateLoadingCopyWith<$Res> {
+  factory _$$_ChoosePollOptionStateLoadingCopyWith(
+          _$_ChoosePollOptionStateLoading value,
+          $Res Function(_$_ChoosePollOptionStateLoading) then) =
+      __$$_ChoosePollOptionStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ChoosePollOptionStateLoadingCopyWithImpl<$Res>
+    extends _$ChoosePollOptionStateCopyWithImpl<$Res,
+        _$_ChoosePollOptionStateLoading>
+    implements _$$_ChoosePollOptionStateLoadingCopyWith<$Res> {
+  __$$_ChoosePollOptionStateLoadingCopyWithImpl(
+      _$_ChoosePollOptionStateLoading _value,
+      $Res Function(_$_ChoosePollOptionStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ChoosePollOptionStateLoading implements _ChoosePollOptionStateLoading {
+  const _$_ChoosePollOptionStateLoading();
+
+  @override
+  String toString() {
+    return 'ChoosePollOptionState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChoosePollOptionStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChoosePollOptionStateInitial value) initial,
+    required TResult Function(_ChoosePollOptionStateLoading value) loading,
+    required TResult Function(_ChoosePollOptionStateSuccess value) success,
+    required TResult Function(_ChoosePollOptionStateFailure value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult? Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult? Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult? Function(_ChoosePollOptionStateFailure value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult Function(_ChoosePollOptionStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChoosePollOptionStateLoading implements ChoosePollOptionState {
+  const factory _ChoosePollOptionStateLoading() =
+      _$_ChoosePollOptionStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_ChoosePollOptionStateSuccessCopyWith<$Res> {
+  factory _$$_ChoosePollOptionStateSuccessCopyWith(
+          _$_ChoosePollOptionStateSuccess value,
+          $Res Function(_$_ChoosePollOptionStateSuccess) then) =
+      __$$_ChoosePollOptionStateSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool result});
+}
+
+/// @nodoc
+class __$$_ChoosePollOptionStateSuccessCopyWithImpl<$Res>
+    extends _$ChoosePollOptionStateCopyWithImpl<$Res,
+        _$_ChoosePollOptionStateSuccess>
+    implements _$$_ChoosePollOptionStateSuccessCopyWith<$Res> {
+  __$$_ChoosePollOptionStateSuccessCopyWithImpl(
+      _$_ChoosePollOptionStateSuccess _value,
+      $Res Function(_$_ChoosePollOptionStateSuccess) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$_ChoosePollOptionStateSuccess(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChoosePollOptionStateSuccess implements _ChoosePollOptionStateSuccess {
+  const _$_ChoosePollOptionStateSuccess(this.result);
+
+  @override
+  final bool result;
+
+  @override
+  String toString() {
+    return 'ChoosePollOptionState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChoosePollOptionStateSuccess &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChoosePollOptionStateSuccessCopyWith<_$_ChoosePollOptionStateSuccess>
+      get copyWith => __$$_ChoosePollOptionStateSuccessCopyWithImpl<
+          _$_ChoosePollOptionStateSuccess>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChoosePollOptionStateInitial value) initial,
+    required TResult Function(_ChoosePollOptionStateLoading value) loading,
+    required TResult Function(_ChoosePollOptionStateSuccess value) success,
+    required TResult Function(_ChoosePollOptionStateFailure value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult? Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult? Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult? Function(_ChoosePollOptionStateFailure value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult Function(_ChoosePollOptionStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChoosePollOptionStateSuccess implements ChoosePollOptionState {
+  const factory _ChoosePollOptionStateSuccess(final bool result) =
+      _$_ChoosePollOptionStateSuccess;
+
+  bool get result;
+  @JsonKey(ignore: true)
+  _$$_ChoosePollOptionStateSuccessCopyWith<_$_ChoosePollOptionStateSuccess>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChoosePollOptionStateFailureCopyWith<$Res> {
+  factory _$$_ChoosePollOptionStateFailureCopyWith(
+          _$_ChoosePollOptionStateFailure value,
+          $Res Function(_$_ChoosePollOptionStateFailure) then) =
+      __$$_ChoosePollOptionStateFailureCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$_ChoosePollOptionStateFailureCopyWithImpl<$Res>
+    extends _$ChoosePollOptionStateCopyWithImpl<$Res,
+        _$_ChoosePollOptionStateFailure>
+    implements _$$_ChoosePollOptionStateFailureCopyWith<$Res> {
+  __$$_ChoosePollOptionStateFailureCopyWithImpl(
+      _$_ChoosePollOptionStateFailure _value,
+      $Res Function(_$_ChoosePollOptionStateFailure) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$_ChoosePollOptionStateFailure(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_ChoosePollOptionStateFailure implements _ChoosePollOptionStateFailure {
+  const _$_ChoosePollOptionStateFailure(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'ChoosePollOptionState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChoosePollOptionStateFailure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChoosePollOptionStateFailureCopyWith<_$_ChoosePollOptionStateFailure>
+      get copyWith => __$$_ChoosePollOptionStateFailureCopyWithImpl<
+          _$_ChoosePollOptionStateFailure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(bool result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChoosePollOptionStateInitial value) initial,
+    required TResult Function(_ChoosePollOptionStateLoading value) loading,
+    required TResult Function(_ChoosePollOptionStateSuccess value) success,
+    required TResult Function(_ChoosePollOptionStateFailure value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult? Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult? Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult? Function(_ChoosePollOptionStateFailure value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChoosePollOptionStateInitial value)? initial,
+    TResult Function(_ChoosePollOptionStateLoading value)? loading,
+    TResult Function(_ChoosePollOptionStateSuccess value)? success,
+    TResult Function(_ChoosePollOptionStateFailure value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChoosePollOptionStateFailure implements ChoosePollOptionState {
+  const factory _ChoosePollOptionStateFailure(final PeamanError error) =
+      _$_ChoosePollOptionStateFailure;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$_ChoosePollOptionStateFailureCopyWith<_$_ChoosePollOptionStateFailure>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

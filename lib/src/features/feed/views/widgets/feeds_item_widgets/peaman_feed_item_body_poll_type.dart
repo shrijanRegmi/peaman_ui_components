@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 class PeamanFeedItemBodyPollType extends ConsumerStatefulWidget {
@@ -80,7 +79,6 @@ class _PeamanFeedItemBodyPollTypeState
                         PeamanPollOptionsItem(
                           feed: widget.feed,
                           option: widget.feed.pollOptions[i],
-                          onPressedOption: (f, o) {},
                         ).pB(
                           i == (widget.feed.pollOptions.length - 1) ? 5.0 : 20,
                         )

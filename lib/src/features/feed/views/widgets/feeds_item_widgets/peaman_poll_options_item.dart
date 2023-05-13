@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-class PeamanPollOptionsItem extends HookConsumerWidget {
+class PeamanPollOptionsItem extends ConsumerStatefulWidget {
   final PeamanFeed feed;
   final PeamanPollOption option;
-  final Function(PeamanFeed, PeamanPollOption)? onPressedOption;
+  final Function(
+    BuildContext,
+    WidgetRef,
+    PeamanFeed,
+    PeamanPollOption,
+    Function(),
+  )? onPressedOption;
 
   const PeamanPollOptionsItem({
     super.key,
@@ -15,10 +20,18 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PeamanPollOptionsItem> createState() =>
+      _PeamanPollOptionsItemState();
+}
+
+class _PeamanPollOptionsItemState extends ConsumerState<PeamanPollOptionsItem> {
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
     var totalPopularity = 0;
-    final popularity = option.popularity;
-    for (var element in feed.pollOptions) {
+    final popularity = widget.option.popularity;
+    for (var element in widget.feed.pollOptions) {
       totalPopularity += element.popularity;
     }
 
@@ -43,13 +56,14 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
                 children: [
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    width:
-                        portion == 0 || feed.appUserSelectedPollOptionId == null
-                            ? 0.0
-                            : portion / 100 * availableWidth,
+                    width: portion == 0 ||
+                            widget.feed.appUserSelectedPollOptionId == null
+                        ? 0.0
+                        : portion / 100 * availableWidth,
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      color: feed.appUserSelectedPollOptionId == option.id
+                      color: widget.feed.appUserSelectedPollOptionId ==
+                              widget.option.id
                           ? PeamanColors.lightGrey.withOpacity(0.9)
                           : PeamanColors.extraLightGrey,
                       borderRadius: BorderRadius.only(
@@ -72,9 +86,9 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
         Positioned.fill(
           child: Center(
             child: PeamanText.body2(
-              (option.option?.length ?? 0) > 25
-                  ? '${option.option?.substring(0, 25) ?? ''}\n${option.option?.substring(25) ?? ''}'
-                  : option.option,
+              (widget.option.option?.length ?? 0) > 25
+                  ? '${widget.option.option?.substring(0, 25) ?? ''}\n${widget.option.option?.substring(25) ?? ''}'
+                  : widget.option.option,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -82,7 +96,7 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
             ),
           ),
         ),
-        if (feed.appUserSelectedPollOptionId != null)
+        if (widget.feed.appUserSelectedPollOptionId != null)
           Positioned.fill(
             child: Row(
               children: [
@@ -100,6 +114,26 @@ class PeamanPollOptionsItem extends HookConsumerWidget {
             ),
           ),
       ],
-    ).onPressed(() => onPressedOption?.call(feed, option));
+    ).onPressed(() {
+      if (widget.onPressedOption != null) {
+        widget.onPressedOption?.call(
+          context,
+          ref,
+          widget.feed,
+          widget.option,
+          _onPressedOption,
+        );
+      } else {
+        _onPressedOption();
+      }
+    });
+  }
+
+  void _onPressedOption() {
+    ref.read(providerOfPeamanFeed.notifier).choosePollOption(
+          feedId: widget.feed.id!,
+          options: widget.feed.pollOptions,
+          optionId: widget.option.id!,
+        );
   }
 }

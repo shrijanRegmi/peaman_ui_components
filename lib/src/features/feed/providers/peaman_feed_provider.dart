@@ -679,6 +679,52 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     );
   }
 
+  Future<void> choosePollOption({
+    required final String feedId,
+    required List<PeamanPollOption> options,
+    required final String optionId,
+    final String? successLogMessage,
+  }) async {
+    state = state.copyWith(
+      choosePollOptionState: const ChoosePollOptionState.loading(),
+    );
+    final result = await _feedRepository.choosePollOption(
+      feedId: feedId,
+      optionId: optionId,
+    );
+
+    result.when(
+      (success) {
+        if (successLogMessage != null) {
+          _logProvider.logSuccess(successLogMessage);
+        }
+        state = state.copyWith(
+          choosePollOptionState: ChoosePollOptionState.success(success),
+        );
+
+        final index = options.indexWhere((element) => element.id == optionId);
+        if (index == -1) return;
+        options = List<PeamanPollOption>.from(options)
+          ..[index] = options[index].copyWith(
+            popularity: options[index].popularity + 1,
+          );
+        updateToFeeds(
+          feedId: feedId,
+          feedData: {
+            'pollOptions': options.map((e) => e.toJson()).toList(),
+            'appUserSelectedPollOptionId': optionId,
+          },
+        );
+      },
+      (failure) {
+        _logProvider.logError(failure.message);
+        state = state.copyWith(
+          choosePollOptionState: ChoosePollOptionState.error(failure),
+        );
+      },
+    );
+  }
+
   Future<List<PeamanFeed>> addStatusToFeeds({
     required List<PeamanFeed> feeds,
     final bool forceShowFeedsFromNonFollowings = false,
