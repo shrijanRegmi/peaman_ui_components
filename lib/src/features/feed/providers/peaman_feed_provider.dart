@@ -704,6 +704,7 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     );
     final result = await _feedRepository.choosePollOption(
       feedId: feedId,
+      uid: _appUser.uid!,
       optionId: optionId,
     );
 
@@ -816,10 +817,15 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         feedId: feed.id!,
         uid: _appUser.uid!,
       );
+      final pollOptionFuture = _feedRepository.getSinglePollOptionChooser(
+        feedId: feed.id!,
+        uid: _appUser.uid!,
+      );
 
       final future = Future.wait<dynamic>([
         reactionFuture,
         saveFuture,
+        pollOptionFuture,
       ]).then((value) {
         if (value.first is PeamanEither<PeamanReaction, PeamanError>) {
           final reaction =
@@ -843,6 +849,21 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
               extraData: {
                 ...newFeed.extraData,
                 'isSaved'.toJsonKey: success.uid == _appUser.uid,
+              },
+            ),
+            (failure) => newFeed,
+          );
+        }
+        if (value.length >= 3 &&
+            value[2] is PeamanEither<PeamanSubUser, PeamanError>) {
+          final pollOptionChooser =
+              value[2] as PeamanEither<PeamanSubUser, PeamanError>;
+          newFeed = pollOptionChooser.when(
+            (success) => newFeed.copyWith(
+              extraData: {
+                ...newFeed.extraData,
+                'appUserSelectedPollOptionId'.toJsonKey:
+                    success.extraData['option_id'],
               },
             ),
             (failure) => newFeed,

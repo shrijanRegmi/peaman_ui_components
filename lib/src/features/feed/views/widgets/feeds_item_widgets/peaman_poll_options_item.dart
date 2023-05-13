@@ -64,8 +64,8 @@ class _PeamanPollOptionsItemState extends ConsumerState<PeamanPollOptionsItem> {
                     decoration: BoxDecoration(
                       color: widget.feed.appUserSelectedPollOptionId ==
                               widget.option.id
-                          ? PeamanColors.lightGrey.withOpacity(0.9)
-                          : PeamanColors.extraLightGrey,
+                          ? PeamanColors.lightGrey.withOpacity(0.7)
+                          : PeamanColors.extraLightGrey.withOpacity(0.3),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(14.r),
                         bottomLeft: Radius.circular(14.r),
