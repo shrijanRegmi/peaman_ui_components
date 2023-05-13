@@ -130,10 +130,12 @@ class _PeamanPollOptionsItemState extends ConsumerState<PeamanPollOptionsItem> {
   }
 
   void _onPressedOption() {
-    ref.read(providerOfPeamanFeed.notifier).choosePollOption(
-          feedId: widget.feed.id!,
-          options: widget.feed.pollOptions,
-          optionId: widget.option.id!,
-        );
+    if (widget.feed.appUserSelectedPollOptionId == null) {
+      ref.read(providerOfPeamanFeed.notifier).choosePollOption(
+            feedId: widget.feed.id!,
+            options: widget.feed.pollOptions,
+            optionId: widget.option.id!,
+          );
+    }
   }
 }
