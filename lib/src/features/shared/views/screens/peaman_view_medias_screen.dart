@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PeamanViewMediasScreenArgs {
-  final List<PeamanFileUrl> urls;
+  final List<PeamanFileUrlExtended> urls;
   final int index;
 
   const PeamanViewMediasScreenArgs({
@@ -15,7 +14,7 @@ class PeamanViewMediasScreenArgs {
 }
 
 class PeamanViewMediasScreen extends StatefulHookConsumerWidget {
-  final List<PeamanFileUrl> urls;
+  final List<PeamanFileUrlExtended> urls;
   final int index;
 
   const PeamanViewMediasScreen({
@@ -47,7 +46,6 @@ class _PeamanViewMediasScreenState
     final pageController = usePageController(
       initialPage: widget.index,
     );
-    final urls = widget.urls.where((element) => element.url != null).toList();
 
     return Scaffold(
       backgroundColor: PeamanColors.black,
@@ -57,33 +55,11 @@ class _PeamanViewMediasScreenState
           children: [
             _backButtonBuilder().pad(10),
             Expanded(
-              child: PhotoViewGallery.builder(
-                scrollPhysics: const BouncingScrollPhysics(),
+              child: PeamanViewMediasList(
+                urls: widget.urls,
+                index: widget.index,
                 pageController: pageController,
-                itemCount: urls.length,
-                builder: (context, index) {
-                  final url = urls[index];
-
-                  return PhotoViewGalleryPageOptions(
-                    imageProvider: CachedNetworkImageProvider(
-                      url.url!,
-                    ),
-                    initialScale: PhotoViewComputedScale.contained,
-                    maxScale: PhotoViewComputedScale.covered,
-                    minScale: PhotoViewComputedScale.contained,
-                    heroAttributes: PhotoViewHeroAttributes(tag: url.url!),
-                  );
-                },
-                loadingBuilder: (context, event) {
-                  return const PeamanSpinner(
-                    color: PeamanColors.white,
-                  );
-                },
                 onPageChanged: (val) => setState(() => _activeIndex = val),
-              ).onPressed(
-                () => setState(
-                  () => _isActionButtonsVisible = !_isActionButtonsVisible,
-                ),
               ),
             ),
             SizedBox(
@@ -94,6 +70,10 @@ class _PeamanViewMediasScreenState
               height: 10.h,
             ),
           ],
+        ).onPressed(
+          () => setState(
+            () => _isActionButtonsVisible = !_isActionButtonsVisible,
+          ),
         ),
       ),
     );
@@ -114,7 +94,7 @@ class _PeamanViewMediasScreenState
   }
 
   Widget _otherMediasBuilder(final PageController pageController) {
-    final urls = widget.urls.where((element) => element.url != null).toList();
+    final urls = widget.urls;
 
     return AnimatedOpacity(
       opacity: _isActionButtonsVisible ? 1.0 : 0.0,
@@ -127,9 +107,16 @@ class _PeamanViewMediasScreenState
           itemCount: urls.length,
           itemBuilder: (context, index) {
             final file = urls[index];
-            final url = file.type == PeamanFileType.video
+            var url = file.type == PeamanFileType.video
                 ? file.thumbnailUrl
                 : file.url;
+
+            final youtubeUrl = YoutubePlayer.convertUrlToId(file.url);
+            if (youtubeUrl != null) {
+              url = YoutubePlayer.getThumbnail(
+                videoId: youtubeUrl,
+              );
+            }
 
             return Container(
               width: 80.w,

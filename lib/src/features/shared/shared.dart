@@ -33,6 +33,12 @@ export 'views/widgets/common_widgets/peaman_search_builder.dart';
 export 'views/widgets/common_widgets/peaman_date_divider.dart';
 export 'views/widgets/common_widgets/peaman_popup_header.dart';
 export 'views/widgets/common_widgets/peaman_verified_badge.dart';
+export 'views/widgets/common_widgets/peaman_input_popup.dart';
+
+export 'views/widgets/view_medias_widgets/peaman_view_medias_list.dart';
+export 'views/widgets/view_medias_widgets/pemaan_view_medias_list_item.dart';
+export 'views/widgets/view_medias_widgets/peaman_view_image_media.dart';
+export 'views/widgets/view_medias_widgets/peaman_view_video_media.dart';
 
 export 'models/peaman_app_state_model.dart';
 export 'models/peaman_selectable_option_model.dart';

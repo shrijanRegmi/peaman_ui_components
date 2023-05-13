@@ -92,7 +92,16 @@ class _PeamanFeedItemBodyNormalTypeState
                 () => context.pushNamed(
                   PeamanViewMediasScreen.route,
                   arguments: PeamanViewMediasScreenArgs(
-                    urls: widget.feed.files,
+                    urls: widget.feed.files
+                        .map(
+                          (e) => PeamanFileUrlExtended(
+                            url: e.url!,
+                            thumbnailUrl: e.thumbnailUrl,
+                            type: e.type,
+                            isLocal: false,
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ),
@@ -190,9 +199,20 @@ class _PeamanFeedItemBodyNormalTypeState
                     context.pushNamed(
                       PeamanViewMediasScreen.route,
                       arguments: PeamanViewMediasScreenArgs(
-                        urls: widget.feed.files,
-                        index: widget.feed.files
-                            .indexWhere((element) => element.url == url),
+                        urls: widget.feed.files
+                            .map(
+                              (e) => PeamanFileUrlExtended(
+                                url: e.url!,
+                                thumbnailUrl: e.thumbnailUrl,
+                                type: e.type,
+                                isLocal: false,
+                              ),
+                            )
+                            .toList(),
+                        index: widget.feed.files.indexWhere(
+                          (element) =>
+                              element.url == url || element.thumbnailUrl == url,
+                        ),
                       ),
                     );
                   }
