@@ -149,11 +149,6 @@ class _PeamanInputPopupState extends ConsumerState<PeamanInputPopup> {
           child: PeamanButton.bordered(
             value: 'Cancel',
             padding: EdgeInsets.all(10.w),
-            borderSide: BorderSide(
-              color: context.isDarkMode
-                  ? PeamanColors.lightGrey
-                  : PeamanColors.primary,
-            ),
             onPressed: () => context.pop(),
           ),
         ),
