@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 enum _Type {
@@ -348,12 +346,13 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
         color: PeamanColors.extraLightGrey2,
         shape: BoxShape.circle,
         border: border
-            ? Border.all(
-                color: context.isDarkMode
-                    ? PeamanColors.white70
-                    : PeamanColors.white,
-                width: 1.5,
-              )
+            ? widget.border ??
+                Border.all(
+                  color: context.isDarkMode
+                      ? PeamanColors.white70
+                      : PeamanColors.white,
+                  width: 1.5,
+                )
             : null,
         image: imgUrl.isNull
             ? null
