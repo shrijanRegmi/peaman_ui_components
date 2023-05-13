@@ -685,6 +685,20 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
     required final String optionId,
     final String? successLogMessage,
   }) async {
+    final index = options.indexWhere((element) => element.id == optionId);
+    if (index == -1) return;
+    final newOptions = List<PeamanPollOption>.from(options)
+      ..[index] = options[index].copyWith(
+        popularity: options[index].popularity + 1,
+      );
+    updateToFeeds(
+      feedId: feedId,
+      feedData: {
+        'pollOptions': newOptions.map((e) => e.toJson()).toList(),
+        'appUserSelectedPollOptionId': optionId,
+      },
+    );
+
     state = state.copyWith(
       choosePollOptionState: const ChoosePollOptionState.loading(),
     );
@@ -701,25 +715,18 @@ class PeamanFeedProvider extends StateNotifier<PeamanFeedProviderState> {
         state = state.copyWith(
           choosePollOptionState: ChoosePollOptionState.success(success),
         );
-
-        final index = options.indexWhere((element) => element.id == optionId);
-        if (index == -1) return;
-        options = List<PeamanPollOption>.from(options)
-          ..[index] = options[index].copyWith(
-            popularity: options[index].popularity + 1,
-          );
-        updateToFeeds(
-          feedId: feedId,
-          feedData: {
-            'pollOptions': options.map((e) => e.toJson()).toList(),
-            'appUserSelectedPollOptionId': optionId,
-          },
-        );
       },
       (failure) {
         _logProvider.logError(failure.message);
         state = state.copyWith(
           choosePollOptionState: ChoosePollOptionState.error(failure),
+        );
+        updateToFeeds(
+          feedId: feedId,
+          feedData: {
+            'pollOptions': options.map((e) => e.toJson()).toList(),
+            'appUserSelectedPollOptionId': null,
+          },
         );
       },
     );

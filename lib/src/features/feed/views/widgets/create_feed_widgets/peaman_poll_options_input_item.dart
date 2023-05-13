@@ -60,7 +60,9 @@ class _PeamanPollOptionInputState extends ConsumerState<PeamanPollOptionInput> {
   @override
   void initState() {
     if (widget.option.option != null) {
-      _controller.text = widget.option.option!;
+      if (widget.option.option!.isNotEmpty) {
+        _controller.text = widget.option.option!;
+      }
     }
     super.initState();
   }
@@ -111,6 +113,7 @@ class _PeamanPollOptionInputState extends ConsumerState<PeamanPollOptionInput> {
 
     final color = state.maybeWhen(
       success: () => null,
+      initial: () => null,
       orElse: () => PeamanColors.grey,
     );
 
