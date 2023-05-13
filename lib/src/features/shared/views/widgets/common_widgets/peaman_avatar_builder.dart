@@ -32,6 +32,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
   final double opacity;
   final bool isSelected;
   final double borderGap;
+  final Color? borderGapColor;
   final Function()? onPressed;
 
   const PeamanAvatarBuilder.network(
@@ -45,6 +46,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.overlayWidget,
     this.border,
     this.borderGap = 0.0,
+    this.borderGapColor,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrls = const [],
@@ -67,6 +69,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.overlayWidget,
     this.border,
     this.borderGap = 0.0,
+    this.borderGapColor,
     this.isSelected = false,
     this.spreadFactor = 1.0,
     this.onPressed,
@@ -89,6 +92,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.overlayWidget,
     this.border,
     this.borderGap = 0.0,
+    this.borderGapColor,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
@@ -112,6 +116,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.overlayWidget,
     this.border,
     this.borderGap = 0.0,
+    this.borderGapColor,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
@@ -134,6 +139,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.overlayWidget,
     this.border,
     this.borderGap = 0.0,
+    this.borderGapColor,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
@@ -257,6 +263,7 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
                   ),
               ],
             ),
+      border: images.length <= 1 ? true : false,
     );
   }
 
@@ -319,7 +326,10 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
     );
   }
 
-  Widget _baseBuilder(Widget child) {
+  Widget _baseBuilder(
+    Widget child, {
+    final bool border = true,
+  }) {
     return Opacity(
       opacity: widget.opacity,
       child: Stack(
@@ -329,8 +339,9 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
             height: (widget.size + 2).h,
             padding: EdgeInsets.all(widget.borderGap.w),
             decoration: BoxDecoration(
+              color: widget.borderGapColor,
               shape: BoxShape.circle,
-              border: widget.border,
+              border: border ? widget.border : null,
             ),
             child: child,
           ).onPressed(widget.onPressed),
@@ -350,16 +361,9 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
       height: (size + 2).h,
       padding: EdgeInsets.all(widget.borderGap.w),
       decoration: BoxDecoration(
+        color: widget.borderGapColor,
         shape: BoxShape.circle,
-        border: border
-            ? widget.border ??
-                Border.all(
-                  color: context.isDarkMode
-                      ? PeamanColors.white70
-                      : PeamanColors.white,
-                  width: 1.5,
-                )
-            : null,
+        border: border ? widget.border : null,
       ),
       child: Container(
         decoration: BoxDecoration(

@@ -75,6 +75,12 @@ class _PeamanChatItemHeaderState extends ConsumerState<PeamanChatItemHeader> {
                     : PeamanAvatarBuilder.multiNetwork(
                         avatars,
                         size: 45.0,
+                        border: Border.all(
+                          color: context.isDarkMode
+                              ? PeamanColors.white70
+                              : PeamanColors.white,
+                          width: 1.5,
+                        ),
                         userId: widget.chat.type == PeamanChatType.group
                             ? null
                             : widget.users.isEmpty
