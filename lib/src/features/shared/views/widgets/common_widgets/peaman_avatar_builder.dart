@@ -12,6 +12,28 @@ enum _Type {
 }
 
 class PeamanAvatarBuilder extends ConsumerStatefulWidget {
+  final _Type _type;
+
+  final List<String?> imgUrls;
+  final String? imgUrl;
+  final File? file;
+  final String? assetPath;
+  final String? letter;
+  final String? userId;
+
+  final double size;
+  final Color? color;
+  final TextStyle? letterStyle;
+  final String? heroTag;
+  final Widget? overlayWidget;
+  final Border? border;
+  final String? package;
+  final double spreadFactor;
+  final double opacity;
+  final bool isSelected;
+  final double borderGap;
+  final Function()? onPressed;
+
   const PeamanAvatarBuilder.network(
     this.imgUrl, {
     super.key,
@@ -22,6 +44,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.borderGap = 0.0,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrls = const [],
@@ -43,6 +66,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.borderGap = 0.0,
     this.isSelected = false,
     this.spreadFactor = 1.0,
     this.onPressed,
@@ -64,6 +88,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.borderGap = 0.0,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
@@ -86,6 +111,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.borderGap = 0.0,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
@@ -107,6 +133,7 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.borderGap = 0.0,
     this.isSelected = false,
     this.onPressed,
   })  : imgUrl = null,
@@ -116,27 +143,6 @@ class PeamanAvatarBuilder extends ConsumerStatefulWidget {
         assetPath = null,
         spreadFactor = 1.0,
         _type = _Type.letter;
-
-  final _Type _type;
-
-  final List<String?> imgUrls;
-  final String? imgUrl;
-  final File? file;
-  final String? assetPath;
-  final String? letter;
-  final String? userId;
-
-  final double size;
-  final Color? color;
-  final TextStyle? letterStyle;
-  final String? heroTag;
-  final Widget? overlayWidget;
-  final Border? border;
-  final String? package;
-  final double spreadFactor;
-  final double opacity;
-  final bool isSelected;
-  final Function()? onPressed;
 
   @override
   ConsumerState<PeamanAvatarBuilder> createState() =>
@@ -321,7 +327,7 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
           Container(
             width: (widget.size + 2).w,
             height: (widget.size + 2).h,
-            padding: EdgeInsets.all(2.w),
+            padding: EdgeInsets.all(widget.borderGap.w),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: widget.border,
@@ -342,9 +348,8 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
     return Container(
       width: (size + 2).w,
       height: (size + 2).h,
-      padding: EdgeInsets.all(2.w),
+      padding: EdgeInsets.all(widget.borderGap.w),
       decoration: BoxDecoration(
-        color: PeamanColors.extraLightGrey2,
         shape: BoxShape.circle,
         border: border
             ? widget.border ??
@@ -355,12 +360,18 @@ class _PeamanAvatarBuilderState extends ConsumerState<PeamanAvatarBuilder> {
                   width: 1.5,
                 )
             : null,
-        image: imgUrl.isNull
-            ? null
-            : DecorationImage(
-                image: CachedNetworkImageProvider(imgUrl!),
-                fit: BoxFit.cover,
-              ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: PeamanColors.extraLightGrey2,
+          shape: BoxShape.circle,
+          image: imgUrl.isNull
+              ? null
+              : DecorationImage(
+                  image: CachedNetworkImageProvider(imgUrl!),
+                  fit: BoxFit.cover,
+                ),
+        ),
       ),
     );
   }
