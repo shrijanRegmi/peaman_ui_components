@@ -63,8 +63,6 @@ class _PeamanCreateFeedPollTypeState
         widget.questionController ?? pollQuestionController;
     final selectedOptions = widget.options ?? pollOptions;
 
-    print('Shrijan : ${selectedOptions.map((e) => e.option)}');
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
