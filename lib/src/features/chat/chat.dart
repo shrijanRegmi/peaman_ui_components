@@ -23,7 +23,12 @@ export 'views/widgets/chat_convo_widgets/peaman_chat_message_seen_indicator.dart
 export 'views/widgets/chat_convo_widgets/peaman_chat_message_input.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_cant_reply_builder.dart';
 export 'views/widgets/chat_convo_widgets/peaman_chat_info_drawer.dart';
+export 'views/widgets/chat_convo_widgets/peaman_chat_info_drawer_v2.dart';
 
+export 'views/widgets/chat_drawer_widgets/peaman_chat_info_drawer_header.dart';
+export 'views/widgets/chat_drawer_widgets/peaman_chat_info_drawer_actions_part1.dart';
+export 'views/widgets/chat_drawer_widgets/peaman_chat_info_drawer_actions_part2.dart';
+export 'views/widgets/chat_drawer_widgets/peaman_chat_info_drawer_group_chat_actions.dart';
 export 'views/widgets/chat_drawer_widgets/peaman_chat_files_list.dart';
 export 'views/widgets/chat_drawer_widgets/peaman_chat_files_list_item.dart';
 

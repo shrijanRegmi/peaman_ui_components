@@ -210,7 +210,7 @@ class _PeamanChatConversationScreenState
         ),
         endDrawer: _chatId.isEmpty || !_chatUserIdsWrapper.values.contains(_uid)
             ? null
-            : PeamanChatInfoDrawer(
+            : PeamanChatInfoDrawerV2(
                 chatId: _chatId,
               ),
         body: PeamanChatMessagesList(
