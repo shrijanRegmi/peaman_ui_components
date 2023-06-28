@@ -105,10 +105,8 @@ class _PeamanChatConversationScreenState
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 10), () {
-      if (mounted) {
-        ref.read(providerOfPeamanChat.notifier).readChat(chatId: _chatId);
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(providerOfPeamanChat.notifier).readChat(chatId: _chatId);
     });
   }
 
