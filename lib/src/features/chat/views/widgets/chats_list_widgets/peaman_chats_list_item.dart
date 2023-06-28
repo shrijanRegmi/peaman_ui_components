@@ -216,11 +216,13 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
                       chat: chat,
                       users: users,
                     ).pB(users.length > 1 ? 15.0 : 5.0),
-                widget.bodyBuilder?.call(context, ref, chat, users) ??
-                    PeamanChatItemBody(
-                      chat: chat,
-                      users: users,
-                    ),
+                IgnorePointer(
+                  child: widget.bodyBuilder?.call(context, ref, chat, users) ??
+                      PeamanChatItemBody(
+                        chat: chat,
+                        users: users,
+                      ),
+                ),
               ],
             ),
       ),
