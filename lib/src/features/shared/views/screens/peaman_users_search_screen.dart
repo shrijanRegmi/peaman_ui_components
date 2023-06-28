@@ -109,9 +109,9 @@ class _PeamanUsersSearchScreenState
           vertical: 4.0,
           horizontal: 6.0,
         ),
-        child: Row(
+        child: const Row(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             SizedBox(
               width: 2.0,
             ),

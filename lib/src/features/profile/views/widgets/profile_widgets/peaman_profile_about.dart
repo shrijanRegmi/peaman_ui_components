@@ -2,7 +2,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 import 'package:peaman_ui_components/src/features/shared/extensions/peaman_string_extension.dart';
-import '../../../../shared/views/widgets/common_widgets/peaman_input_popup.dart';
 
 class PeamanProfileAbout extends ConsumerStatefulWidget {
   const PeamanProfileAbout({

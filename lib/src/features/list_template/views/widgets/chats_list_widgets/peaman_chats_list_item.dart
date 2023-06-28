@@ -136,8 +136,8 @@ class _PeamanChatsListItemState extends ConsumerState<PeamanChatsListItem> {
             vertical: 15.h,
           ),
       child: widget.builder?.call(context, ref, chat) ??
-          Column(
-            children: const [
+          const Column(
+            children: [
               // if (widget.feed.type != PeamanFeedType.poll)
               //   PeamanFeedItemHeader(feed: feed).pB(15),
               // PeamanFeedItemBody(feed: feed).pB(20),

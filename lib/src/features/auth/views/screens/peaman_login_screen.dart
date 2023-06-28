@@ -114,9 +114,9 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
   }
 
   Widget _recoveryPasswordBuilder() {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: const [
+      children: [
         PeamanText.subtitle2(
           'Password Recovery?',
           style: TextStyle(
@@ -145,10 +145,10 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
   }
 
   Widget _otherOptionsTitleBuilder() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
-        children: const [
+        children: [
           Expanded(
             child: Divider(
               thickness: 1.0,

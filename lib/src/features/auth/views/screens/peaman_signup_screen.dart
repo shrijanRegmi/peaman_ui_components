@@ -149,10 +149,10 @@ class _PeamanSignUpScreenState extends ConsumerState<PeamanSignUpScreen> {
   }
 
   Widget _otherOptionsTitleBuilder() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
-        children: const [
+        children: [
           Expanded(
             child: Divider(
               thickness: 1.0,

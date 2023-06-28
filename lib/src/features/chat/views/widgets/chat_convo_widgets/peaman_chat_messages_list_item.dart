@@ -189,9 +189,9 @@ class _PeamanChatMessagesListItemState
             ),
           ),
         if (isTempMessage)
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
               PeamanSpinner(
                 size: 15.0,
                 strokeWidth: 1.0,

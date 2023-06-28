@@ -15,7 +15,7 @@ extension PeamanChatMessageExt on PeamanChatMessage {
 class PeamanChatMessageExtraData with _$PeamanChatMessageExtraData {
   const factory PeamanChatMessageExtraData({
     @Default(PeamanInfoMessageType.unknown)
-        final PeamanInfoMessageType infoType,
+    final PeamanInfoMessageType infoType,
   }) = _PeamanChatMessageExtraData;
 
   factory PeamanChatMessageExtraData.fromJson(Map<String, dynamic> json) =>
