@@ -5,6 +5,8 @@ homepage: https://peaman.web.app
 repository: https://github.com/shrijanRegmi/peaman_ui_components
 issue_tracker: https://github.com/shrijanRegmi/peaman_ui_components/issues
 
+publish_to: 'none'
+
 environment:
   sdk: ">=2.18.5 <3.0.0"
   flutter: ">=1.17.0"
@@ -13,7 +15,9 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter:
     sdk: flutter
-  peaman: ^0.0.4
+  peaman:
+    git:
+      url: https://github.com/shrijanRegmi/peaman.git
   flutter_svg: ^0.23.0+1
   provider: ^6.0.5
   linkfy_text: ^1.1.5
