@@ -10,6 +10,7 @@ class PeamanWrapper extends StatefulHookConsumerWidget {
     this.loginScreen,
     this.onboardingScreen,
     this.homeScreen,
+    this.skipOnboarding = false,
   });
 
   final Duration? falseLoadingDuration;
@@ -17,6 +18,7 @@ class PeamanWrapper extends StatefulHookConsumerWidget {
   final Widget? loginScreen;
   final Widget? onboardingScreen;
   final Widget? homeScreen;
+  final bool skipOnboarding;
 
   static const route = '/';
 
@@ -116,6 +118,9 @@ class _PeamanWrapperState extends ConsumerState<PeamanWrapper> {
           if (user.isOnboardingCompleted) {
             return widget.homeScreen ?? const PeamanTimelineFeedsScreen();
           } else {
+            if (widget.skipOnboarding) {
+              return widget.homeScreen ?? const PeamanTimelineFeedsScreen();
+            }
             return widget.onboardingScreen ?? const PeamanOnboardingScreen();
           }
         }
