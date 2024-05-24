@@ -6,16 +6,16 @@ part of 'peaman_message_extra_data_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PeamanChatMessageExtraData _$$_PeamanChatMessageExtraDataFromJson(
+_$PeamanChatMessageExtraDataImpl _$$PeamanChatMessageExtraDataImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PeamanChatMessageExtraData(
+    _$PeamanChatMessageExtraDataImpl(
       infoType: $enumDecodeNullable(
               _$PeamanInfoMessageTypeEnumMap, json['info_type']) ??
           PeamanInfoMessageType.unknown,
     );
 
-Map<String, dynamic> _$$_PeamanChatMessageExtraDataToJson(
-        _$_PeamanChatMessageExtraData instance) =>
+Map<String, dynamic> _$$PeamanChatMessageExtraDataImplToJson(
+        _$PeamanChatMessageExtraDataImpl instance) =>
     <String, dynamic>{
       'info_type': _$PeamanInfoMessageTypeEnumMap[instance.infoType]!,
     };

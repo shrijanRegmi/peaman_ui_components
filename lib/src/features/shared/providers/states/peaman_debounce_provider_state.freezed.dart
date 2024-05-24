@@ -12,7 +12,7 @@ part of 'peaman_debounce_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanDebounceProviderState {
@@ -93,29 +93,29 @@ class _$PeamanDebounceProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanDebounceProviderStateInitialCopyWith<$Res> {
-  factory _$$_PeamanDebounceProviderStateInitialCopyWith(
-          _$_PeamanDebounceProviderStateInitial value,
-          $Res Function(_$_PeamanDebounceProviderStateInitial) then) =
-      __$$_PeamanDebounceProviderStateInitialCopyWithImpl<$Res>;
+abstract class _$$PeamanDebounceProviderStateInitialImplCopyWith<$Res> {
+  factory _$$PeamanDebounceProviderStateInitialImplCopyWith(
+          _$PeamanDebounceProviderStateInitialImpl value,
+          $Res Function(_$PeamanDebounceProviderStateInitialImpl) then) =
+      __$$PeamanDebounceProviderStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PeamanDebounceProviderStateInitialCopyWithImpl<$Res>
+class __$$PeamanDebounceProviderStateInitialImplCopyWithImpl<$Res>
     extends _$PeamanDebounceProviderStateCopyWithImpl<$Res,
-        _$_PeamanDebounceProviderStateInitial>
-    implements _$$_PeamanDebounceProviderStateInitialCopyWith<$Res> {
-  __$$_PeamanDebounceProviderStateInitialCopyWithImpl(
-      _$_PeamanDebounceProviderStateInitial _value,
-      $Res Function(_$_PeamanDebounceProviderStateInitial) _then)
+        _$PeamanDebounceProviderStateInitialImpl>
+    implements _$$PeamanDebounceProviderStateInitialImplCopyWith<$Res> {
+  __$$PeamanDebounceProviderStateInitialImplCopyWithImpl(
+      _$PeamanDebounceProviderStateInitialImpl _value,
+      $Res Function(_$PeamanDebounceProviderStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_PeamanDebounceProviderStateInitial
+class _$PeamanDebounceProviderStateInitialImpl
     implements _PeamanDebounceProviderStateInitial {
-  const _$_PeamanDebounceProviderStateInitial();
+  const _$PeamanDebounceProviderStateInitialImpl();
 
   @override
   String toString() {
@@ -123,10 +123,10 @@ class _$_PeamanDebounceProviderStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanDebounceProviderStateInitial);
+            other is _$PeamanDebounceProviderStateInitialImpl);
   }
 
   @override
@@ -213,33 +213,33 @@ class _$_PeamanDebounceProviderStateInitial
 abstract class _PeamanDebounceProviderStateInitial
     implements PeamanDebounceProviderState {
   const factory _PeamanDebounceProviderStateInitial() =
-      _$_PeamanDebounceProviderStateInitial;
+      _$PeamanDebounceProviderStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_PeamanDebounceProviderStateLoadingCopyWith<$Res> {
-  factory _$$_PeamanDebounceProviderStateLoadingCopyWith(
-          _$_PeamanDebounceProviderStateLoading value,
-          $Res Function(_$_PeamanDebounceProviderStateLoading) then) =
-      __$$_PeamanDebounceProviderStateLoadingCopyWithImpl<$Res>;
+abstract class _$$PeamanDebounceProviderStateLoadingImplCopyWith<$Res> {
+  factory _$$PeamanDebounceProviderStateLoadingImplCopyWith(
+          _$PeamanDebounceProviderStateLoadingImpl value,
+          $Res Function(_$PeamanDebounceProviderStateLoadingImpl) then) =
+      __$$PeamanDebounceProviderStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PeamanDebounceProviderStateLoadingCopyWithImpl<$Res>
+class __$$PeamanDebounceProviderStateLoadingImplCopyWithImpl<$Res>
     extends _$PeamanDebounceProviderStateCopyWithImpl<$Res,
-        _$_PeamanDebounceProviderStateLoading>
-    implements _$$_PeamanDebounceProviderStateLoadingCopyWith<$Res> {
-  __$$_PeamanDebounceProviderStateLoadingCopyWithImpl(
-      _$_PeamanDebounceProviderStateLoading _value,
-      $Res Function(_$_PeamanDebounceProviderStateLoading) _then)
+        _$PeamanDebounceProviderStateLoadingImpl>
+    implements _$$PeamanDebounceProviderStateLoadingImplCopyWith<$Res> {
+  __$$PeamanDebounceProviderStateLoadingImplCopyWithImpl(
+      _$PeamanDebounceProviderStateLoadingImpl _value,
+      $Res Function(_$PeamanDebounceProviderStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_PeamanDebounceProviderStateLoading
+class _$PeamanDebounceProviderStateLoadingImpl
     implements _PeamanDebounceProviderStateLoading {
-  const _$_PeamanDebounceProviderStateLoading();
+  const _$PeamanDebounceProviderStateLoadingImpl();
 
   @override
   String toString() {
@@ -247,10 +247,10 @@ class _$_PeamanDebounceProviderStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanDebounceProviderStateLoading);
+            other is _$PeamanDebounceProviderStateLoadingImpl);
   }
 
   @override
@@ -337,33 +337,33 @@ class _$_PeamanDebounceProviderStateLoading
 abstract class _PeamanDebounceProviderStateLoading
     implements PeamanDebounceProviderState {
   const factory _PeamanDebounceProviderStateLoading() =
-      _$_PeamanDebounceProviderStateLoading;
+      _$PeamanDebounceProviderStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_PeamanDebounceProviderStateSuccessCopyWith<$Res> {
-  factory _$$_PeamanDebounceProviderStateSuccessCopyWith(
-          _$_PeamanDebounceProviderStateSuccess value,
-          $Res Function(_$_PeamanDebounceProviderStateSuccess) then) =
-      __$$_PeamanDebounceProviderStateSuccessCopyWithImpl<$Res>;
+abstract class _$$PeamanDebounceProviderStateSuccessImplCopyWith<$Res> {
+  factory _$$PeamanDebounceProviderStateSuccessImplCopyWith(
+          _$PeamanDebounceProviderStateSuccessImpl value,
+          $Res Function(_$PeamanDebounceProviderStateSuccessImpl) then) =
+      __$$PeamanDebounceProviderStateSuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PeamanDebounceProviderStateSuccessCopyWithImpl<$Res>
+class __$$PeamanDebounceProviderStateSuccessImplCopyWithImpl<$Res>
     extends _$PeamanDebounceProviderStateCopyWithImpl<$Res,
-        _$_PeamanDebounceProviderStateSuccess>
-    implements _$$_PeamanDebounceProviderStateSuccessCopyWith<$Res> {
-  __$$_PeamanDebounceProviderStateSuccessCopyWithImpl(
-      _$_PeamanDebounceProviderStateSuccess _value,
-      $Res Function(_$_PeamanDebounceProviderStateSuccess) _then)
+        _$PeamanDebounceProviderStateSuccessImpl>
+    implements _$$PeamanDebounceProviderStateSuccessImplCopyWith<$Res> {
+  __$$PeamanDebounceProviderStateSuccessImplCopyWithImpl(
+      _$PeamanDebounceProviderStateSuccessImpl _value,
+      $Res Function(_$PeamanDebounceProviderStateSuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_PeamanDebounceProviderStateSuccess
+class _$PeamanDebounceProviderStateSuccessImpl
     implements _PeamanDebounceProviderStateSuccess {
-  const _$_PeamanDebounceProviderStateSuccess();
+  const _$PeamanDebounceProviderStateSuccessImpl();
 
   @override
   String toString() {
@@ -371,10 +371,10 @@ class _$_PeamanDebounceProviderStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanDebounceProviderStateSuccess);
+            other is _$PeamanDebounceProviderStateSuccessImpl);
   }
 
   @override
@@ -461,33 +461,33 @@ class _$_PeamanDebounceProviderStateSuccess
 abstract class _PeamanDebounceProviderStateSuccess
     implements PeamanDebounceProviderState {
   const factory _PeamanDebounceProviderStateSuccess() =
-      _$_PeamanDebounceProviderStateSuccess;
+      _$PeamanDebounceProviderStateSuccessImpl;
 }
 
 /// @nodoc
-abstract class _$$_PeamanDebounceProviderStateErrorCopyWith<$Res> {
-  factory _$$_PeamanDebounceProviderStateErrorCopyWith(
-          _$_PeamanDebounceProviderStateError value,
-          $Res Function(_$_PeamanDebounceProviderStateError) then) =
-      __$$_PeamanDebounceProviderStateErrorCopyWithImpl<$Res>;
+abstract class _$$PeamanDebounceProviderStateErrorImplCopyWith<$Res> {
+  factory _$$PeamanDebounceProviderStateErrorImplCopyWith(
+          _$PeamanDebounceProviderStateErrorImpl value,
+          $Res Function(_$PeamanDebounceProviderStateErrorImpl) then) =
+      __$$PeamanDebounceProviderStateErrorImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PeamanDebounceProviderStateErrorCopyWithImpl<$Res>
+class __$$PeamanDebounceProviderStateErrorImplCopyWithImpl<$Res>
     extends _$PeamanDebounceProviderStateCopyWithImpl<$Res,
-        _$_PeamanDebounceProviderStateError>
-    implements _$$_PeamanDebounceProviderStateErrorCopyWith<$Res> {
-  __$$_PeamanDebounceProviderStateErrorCopyWithImpl(
-      _$_PeamanDebounceProviderStateError _value,
-      $Res Function(_$_PeamanDebounceProviderStateError) _then)
+        _$PeamanDebounceProviderStateErrorImpl>
+    implements _$$PeamanDebounceProviderStateErrorImplCopyWith<$Res> {
+  __$$PeamanDebounceProviderStateErrorImplCopyWithImpl(
+      _$PeamanDebounceProviderStateErrorImpl _value,
+      $Res Function(_$PeamanDebounceProviderStateErrorImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_PeamanDebounceProviderStateError
+class _$PeamanDebounceProviderStateErrorImpl
     implements _PeamanDebounceProviderStateError {
-  const _$_PeamanDebounceProviderStateError();
+  const _$PeamanDebounceProviderStateErrorImpl();
 
   @override
   String toString() {
@@ -495,10 +495,10 @@ class _$_PeamanDebounceProviderStateError
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanDebounceProviderStateError);
+            other is _$PeamanDebounceProviderStateErrorImpl);
   }
 
   @override
@@ -585,5 +585,5 @@ class _$_PeamanDebounceProviderStateError
 abstract class _PeamanDebounceProviderStateError
     implements PeamanDebounceProviderState {
   const factory _PeamanDebounceProviderStateError() =
-      _$_PeamanDebounceProviderStateError;
+      _$PeamanDebounceProviderStateErrorImpl;
 }

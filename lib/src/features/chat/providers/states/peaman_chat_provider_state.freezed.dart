@@ -12,7 +12,7 @@ part of 'peaman_chat_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanChatProviderState {
@@ -400,11 +400,12 @@ class _$PeamanChatProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
+abstract class _$$PeamanChatProviderStateImplCopyWith<$Res>
     implements $PeamanChatProviderStateCopyWith<$Res> {
-  factory _$$_PeamanChatProviderStateCopyWith(_$_PeamanChatProviderState value,
-          $Res Function(_$_PeamanChatProviderState) then) =
-      __$$_PeamanChatProviderStateCopyWithImpl<$Res>;
+  factory _$$PeamanChatProviderStateImplCopyWith(
+          _$PeamanChatProviderStateImpl value,
+          $Res Function(_$PeamanChatProviderStateImpl) then) =
+      __$$PeamanChatProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -472,12 +473,13 @@ abstract class _$$_PeamanChatProviderStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
+class __$$PeamanChatProviderStateImplCopyWithImpl<$Res>
     extends _$PeamanChatProviderStateCopyWithImpl<$Res,
-        _$_PeamanChatProviderState>
-    implements _$$_PeamanChatProviderStateCopyWith<$Res> {
-  __$$_PeamanChatProviderStateCopyWithImpl(_$_PeamanChatProviderState _value,
-      $Res Function(_$_PeamanChatProviderState) _then)
+        _$PeamanChatProviderStateImpl>
+    implements _$$PeamanChatProviderStateImplCopyWith<$Res> {
+  __$$PeamanChatProviderStateImplCopyWithImpl(
+      _$PeamanChatProviderStateImpl _value,
+      $Res Function(_$PeamanChatProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -506,7 +508,7 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
     Object? tempMessages = null,
     Object? messageToReply = freezed,
   }) {
-    return _then(_$_PeamanChatProviderState(
+    return _then(_$PeamanChatProviderStateImpl(
       messageController: null == messageController
           ? _value.messageController
           : messageController // ignore: cast_nullable_to_non_nullable
@@ -601,8 +603,8 @@ class __$$_PeamanChatProviderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanChatProviderState implements _PeamanChatProviderState {
-  const _$_PeamanChatProviderState(
+class _$PeamanChatProviderStateImpl implements _PeamanChatProviderState {
+  const _$PeamanChatProviderStateImpl(
       {required this.messageController,
       final List<PeamanFileUrlExtended> files = const <PeamanFileUrlExtended>[],
       this.sendMessageState = const SendMessageState.initial(),
@@ -712,10 +714,10 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanChatProviderState &&
+            other is _$PeamanChatProviderStateImpl &&
             (identical(other.messageController, messageController) ||
                 other.messageController == messageController) &&
             const DeepCollectionEquality().equals(other._files, _files) &&
@@ -792,10 +794,9 @@ class _$_PeamanChatProviderState implements _PeamanChatProviderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanChatProviderStateCopyWith<_$_PeamanChatProviderState>
-      get copyWith =>
-          __$$_PeamanChatProviderStateCopyWithImpl<_$_PeamanChatProviderState>(
-              this, _$identity);
+  _$$PeamanChatProviderStateImplCopyWith<_$PeamanChatProviderStateImpl>
+      get copyWith => __$$PeamanChatProviderStateImplCopyWithImpl<
+          _$PeamanChatProviderStateImpl>(this, _$identity);
 }
 
 abstract class _PeamanChatProviderState implements PeamanChatProviderState {
@@ -821,7 +822,7 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
       final RemoveChatMembersState removeChatMembersState,
       final SetTypingStatusState setTypingStatusState,
       final List<PeamanChatMessage> tempMessages,
-      final PeamanChatMessage? messageToReply}) = _$_PeamanChatProviderState;
+      final PeamanChatMessage? messageToReply}) = _$PeamanChatProviderStateImpl;
 
   @override
   TextEditingController get messageController;
@@ -869,7 +870,7 @@ abstract class _PeamanChatProviderState implements PeamanChatProviderState {
   PeamanChatMessage? get messageToReply;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanChatProviderStateCopyWith<_$_PeamanChatProviderState>
+  _$$PeamanChatProviderStateImplCopyWith<_$PeamanChatProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -946,25 +947,27 @@ class _$CreateChatStateCopyWithImpl<$Res, $Val extends CreateChatState>
 }
 
 /// @nodoc
-abstract class _$$_CreateChatStateInitialCopyWith<$Res> {
-  factory _$$_CreateChatStateInitialCopyWith(_$_CreateChatStateInitial value,
-          $Res Function(_$_CreateChatStateInitial) then) =
-      __$$_CreateChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$CreateChatStateInitialImplCopyWith<$Res> {
+  factory _$$CreateChatStateInitialImplCopyWith(
+          _$CreateChatStateInitialImpl value,
+          $Res Function(_$CreateChatStateInitialImpl) then) =
+      __$$CreateChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_CreateChatStateInitialCopyWithImpl<$Res>
-    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateInitial>
-    implements _$$_CreateChatStateInitialCopyWith<$Res> {
-  __$$_CreateChatStateInitialCopyWithImpl(_$_CreateChatStateInitial _value,
-      $Res Function(_$_CreateChatStateInitial) _then)
+class __$$CreateChatStateInitialImplCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$CreateChatStateInitialImpl>
+    implements _$$CreateChatStateInitialImplCopyWith<$Res> {
+  __$$CreateChatStateInitialImplCopyWithImpl(
+      _$CreateChatStateInitialImpl _value,
+      $Res Function(_$CreateChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_CreateChatStateInitial implements _CreateChatStateInitial {
-  const _$_CreateChatStateInitial();
+class _$CreateChatStateInitialImpl implements _CreateChatStateInitial {
+  const _$CreateChatStateInitialImpl();
 
   @override
   String toString() {
@@ -972,10 +975,10 @@ class _$_CreateChatStateInitial implements _CreateChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CreateChatStateInitial);
+            other is _$CreateChatStateInitialImpl);
   }
 
   @override
@@ -1057,29 +1060,31 @@ class _$_CreateChatStateInitial implements _CreateChatStateInitial {
 }
 
 abstract class _CreateChatStateInitial implements CreateChatState {
-  const factory _CreateChatStateInitial() = _$_CreateChatStateInitial;
+  const factory _CreateChatStateInitial() = _$CreateChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_CreateChatStateLoadingCopyWith<$Res> {
-  factory _$$_CreateChatStateLoadingCopyWith(_$_CreateChatStateLoading value,
-          $Res Function(_$_CreateChatStateLoading) then) =
-      __$$_CreateChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$CreateChatStateLoadingImplCopyWith<$Res> {
+  factory _$$CreateChatStateLoadingImplCopyWith(
+          _$CreateChatStateLoadingImpl value,
+          $Res Function(_$CreateChatStateLoadingImpl) then) =
+      __$$CreateChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_CreateChatStateLoadingCopyWithImpl<$Res>
-    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateLoading>
-    implements _$$_CreateChatStateLoadingCopyWith<$Res> {
-  __$$_CreateChatStateLoadingCopyWithImpl(_$_CreateChatStateLoading _value,
-      $Res Function(_$_CreateChatStateLoading) _then)
+class __$$CreateChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$CreateChatStateLoadingImpl>
+    implements _$$CreateChatStateLoadingImplCopyWith<$Res> {
+  __$$CreateChatStateLoadingImplCopyWithImpl(
+      _$CreateChatStateLoadingImpl _value,
+      $Res Function(_$CreateChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_CreateChatStateLoading implements _CreateChatStateLoading {
-  const _$_CreateChatStateLoading();
+class _$CreateChatStateLoadingImpl implements _CreateChatStateLoading {
+  const _$CreateChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -1087,10 +1092,10 @@ class _$_CreateChatStateLoading implements _CreateChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CreateChatStateLoading);
+            other is _$CreateChatStateLoadingImpl);
   }
 
   @override
@@ -1172,14 +1177,15 @@ class _$_CreateChatStateLoading implements _CreateChatStateLoading {
 }
 
 abstract class _CreateChatStateLoading implements CreateChatState {
-  const factory _CreateChatStateLoading() = _$_CreateChatStateLoading;
+  const factory _CreateChatStateLoading() = _$CreateChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_CreateChatStateSuccessCopyWith<$Res> {
-  factory _$$_CreateChatStateSuccessCopyWith(_$_CreateChatStateSuccess value,
-          $Res Function(_$_CreateChatStateSuccess) then) =
-      __$$_CreateChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$CreateChatStateSuccessImplCopyWith<$Res> {
+  factory _$$CreateChatStateSuccessImplCopyWith(
+          _$CreateChatStateSuccessImpl value,
+          $Res Function(_$CreateChatStateSuccessImpl) then) =
+      __$$CreateChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanChat result});
 
@@ -1187,11 +1193,12 @@ abstract class _$$_CreateChatStateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CreateChatStateSuccessCopyWithImpl<$Res>
-    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateSuccess>
-    implements _$$_CreateChatStateSuccessCopyWith<$Res> {
-  __$$_CreateChatStateSuccessCopyWithImpl(_$_CreateChatStateSuccess _value,
-      $Res Function(_$_CreateChatStateSuccess) _then)
+class __$$CreateChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$CreateChatStateSuccessImpl>
+    implements _$$CreateChatStateSuccessImplCopyWith<$Res> {
+  __$$CreateChatStateSuccessImplCopyWithImpl(
+      _$CreateChatStateSuccessImpl _value,
+      $Res Function(_$CreateChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1199,7 +1206,7 @@ class __$$_CreateChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_CreateChatStateSuccess(
+    return _then(_$CreateChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -1218,8 +1225,8 @@ class __$$_CreateChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CreateChatStateSuccess implements _CreateChatStateSuccess {
-  const _$_CreateChatStateSuccess(this.result);
+class _$CreateChatStateSuccessImpl implements _CreateChatStateSuccess {
+  const _$CreateChatStateSuccessImpl(this.result);
 
   @override
   final PeamanChat result;
@@ -1230,10 +1237,10 @@ class _$_CreateChatStateSuccess implements _CreateChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CreateChatStateSuccess &&
+            other is _$CreateChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -1243,9 +1250,9 @@ class _$_CreateChatStateSuccess implements _CreateChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CreateChatStateSuccessCopyWith<_$_CreateChatStateSuccess> get copyWith =>
-      __$$_CreateChatStateSuccessCopyWithImpl<_$_CreateChatStateSuccess>(
-          this, _$identity);
+  _$$CreateChatStateSuccessImplCopyWith<_$CreateChatStateSuccessImpl>
+      get copyWith => __$$CreateChatStateSuccessImplCopyWithImpl<
+          _$CreateChatStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1324,19 +1331,20 @@ class _$_CreateChatStateSuccess implements _CreateChatStateSuccess {
 
 abstract class _CreateChatStateSuccess implements CreateChatState {
   const factory _CreateChatStateSuccess(final PeamanChat result) =
-      _$_CreateChatStateSuccess;
+      _$CreateChatStateSuccessImpl;
 
   PeamanChat get result;
   @JsonKey(ignore: true)
-  _$$_CreateChatStateSuccessCopyWith<_$_CreateChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateChatStateSuccessImplCopyWith<_$CreateChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_CreateChatStateFailureCopyWith<$Res> {
-  factory _$$_CreateChatStateFailureCopyWith(_$_CreateChatStateFailure value,
-          $Res Function(_$_CreateChatStateFailure) then) =
-      __$$_CreateChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$CreateChatStateFailureImplCopyWith<$Res> {
+  factory _$$CreateChatStateFailureImplCopyWith(
+          _$CreateChatStateFailureImpl value,
+          $Res Function(_$CreateChatStateFailureImpl) then) =
+      __$$CreateChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -1344,11 +1352,12 @@ abstract class _$$_CreateChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CreateChatStateFailureCopyWithImpl<$Res>
-    extends _$CreateChatStateCopyWithImpl<$Res, _$_CreateChatStateFailure>
-    implements _$$_CreateChatStateFailureCopyWith<$Res> {
-  __$$_CreateChatStateFailureCopyWithImpl(_$_CreateChatStateFailure _value,
-      $Res Function(_$_CreateChatStateFailure) _then)
+class __$$CreateChatStateFailureImplCopyWithImpl<$Res>
+    extends _$CreateChatStateCopyWithImpl<$Res, _$CreateChatStateFailureImpl>
+    implements _$$CreateChatStateFailureImplCopyWith<$Res> {
+  __$$CreateChatStateFailureImplCopyWithImpl(
+      _$CreateChatStateFailureImpl _value,
+      $Res Function(_$CreateChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1356,7 +1365,7 @@ class __$$_CreateChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_CreateChatStateFailure(
+    return _then(_$CreateChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1375,8 +1384,8 @@ class __$$_CreateChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CreateChatStateFailure implements _CreateChatStateFailure {
-  const _$_CreateChatStateFailure(this.error);
+class _$CreateChatStateFailureImpl implements _CreateChatStateFailure {
+  const _$CreateChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -1387,10 +1396,10 @@ class _$_CreateChatStateFailure implements _CreateChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CreateChatStateFailure &&
+            other is _$CreateChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1400,9 +1409,9 @@ class _$_CreateChatStateFailure implements _CreateChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CreateChatStateFailureCopyWith<_$_CreateChatStateFailure> get copyWith =>
-      __$$_CreateChatStateFailureCopyWithImpl<_$_CreateChatStateFailure>(
-          this, _$identity);
+  _$$CreateChatStateFailureImplCopyWith<_$CreateChatStateFailureImpl>
+      get copyWith => __$$CreateChatStateFailureImplCopyWithImpl<
+          _$CreateChatStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1481,12 +1490,12 @@ class _$_CreateChatStateFailure implements _CreateChatStateFailure {
 
 abstract class _CreateChatStateFailure implements CreateChatState {
   const factory _CreateChatStateFailure(final PeamanError error) =
-      _$_CreateChatStateFailure;
+      _$CreateChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_CreateChatStateFailureCopyWith<_$_CreateChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateChatStateFailureImplCopyWith<_$CreateChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1562,25 +1571,27 @@ class _$SendMessageStateCopyWithImpl<$Res, $Val extends SendMessageState>
 }
 
 /// @nodoc
-abstract class _$$_SendMessageStateInitialCopyWith<$Res> {
-  factory _$$_SendMessageStateInitialCopyWith(_$_SendMessageStateInitial value,
-          $Res Function(_$_SendMessageStateInitial) then) =
-      __$$_SendMessageStateInitialCopyWithImpl<$Res>;
+abstract class _$$SendMessageStateInitialImplCopyWith<$Res> {
+  factory _$$SendMessageStateInitialImplCopyWith(
+          _$SendMessageStateInitialImpl value,
+          $Res Function(_$SendMessageStateInitialImpl) then) =
+      __$$SendMessageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendMessageStateInitialCopyWithImpl<$Res>
-    extends _$SendMessageStateCopyWithImpl<$Res, _$_SendMessageStateInitial>
-    implements _$$_SendMessageStateInitialCopyWith<$Res> {
-  __$$_SendMessageStateInitialCopyWithImpl(_$_SendMessageStateInitial _value,
-      $Res Function(_$_SendMessageStateInitial) _then)
+class __$$SendMessageStateInitialImplCopyWithImpl<$Res>
+    extends _$SendMessageStateCopyWithImpl<$Res, _$SendMessageStateInitialImpl>
+    implements _$$SendMessageStateInitialImplCopyWith<$Res> {
+  __$$SendMessageStateInitialImplCopyWithImpl(
+      _$SendMessageStateInitialImpl _value,
+      $Res Function(_$SendMessageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendMessageStateInitial implements _SendMessageStateInitial {
-  const _$_SendMessageStateInitial();
+class _$SendMessageStateInitialImpl implements _SendMessageStateInitial {
+  const _$SendMessageStateInitialImpl();
 
   @override
   String toString() {
@@ -1588,10 +1599,10 @@ class _$_SendMessageStateInitial implements _SendMessageStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendMessageStateInitial);
+            other is _$SendMessageStateInitialImpl);
   }
 
   @override
@@ -1673,29 +1684,31 @@ class _$_SendMessageStateInitial implements _SendMessageStateInitial {
 }
 
 abstract class _SendMessageStateInitial implements SendMessageState {
-  const factory _SendMessageStateInitial() = _$_SendMessageStateInitial;
+  const factory _SendMessageStateInitial() = _$SendMessageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SendMessageStateLoadingCopyWith<$Res> {
-  factory _$$_SendMessageStateLoadingCopyWith(_$_SendMessageStateLoading value,
-          $Res Function(_$_SendMessageStateLoading) then) =
-      __$$_SendMessageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SendMessageStateLoadingImplCopyWith<$Res> {
+  factory _$$SendMessageStateLoadingImplCopyWith(
+          _$SendMessageStateLoadingImpl value,
+          $Res Function(_$SendMessageStateLoadingImpl) then) =
+      __$$SendMessageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendMessageStateLoadingCopyWithImpl<$Res>
-    extends _$SendMessageStateCopyWithImpl<$Res, _$_SendMessageStateLoading>
-    implements _$$_SendMessageStateLoadingCopyWith<$Res> {
-  __$$_SendMessageStateLoadingCopyWithImpl(_$_SendMessageStateLoading _value,
-      $Res Function(_$_SendMessageStateLoading) _then)
+class __$$SendMessageStateLoadingImplCopyWithImpl<$Res>
+    extends _$SendMessageStateCopyWithImpl<$Res, _$SendMessageStateLoadingImpl>
+    implements _$$SendMessageStateLoadingImplCopyWith<$Res> {
+  __$$SendMessageStateLoadingImplCopyWithImpl(
+      _$SendMessageStateLoadingImpl _value,
+      $Res Function(_$SendMessageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendMessageStateLoading implements _SendMessageStateLoading {
-  const _$_SendMessageStateLoading();
+class _$SendMessageStateLoadingImpl implements _SendMessageStateLoading {
+  const _$SendMessageStateLoadingImpl();
 
   @override
   String toString() {
@@ -1703,10 +1716,10 @@ class _$_SendMessageStateLoading implements _SendMessageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendMessageStateLoading);
+            other is _$SendMessageStateLoadingImpl);
   }
 
   @override
@@ -1788,14 +1801,15 @@ class _$_SendMessageStateLoading implements _SendMessageStateLoading {
 }
 
 abstract class _SendMessageStateLoading implements SendMessageState {
-  const factory _SendMessageStateLoading() = _$_SendMessageStateLoading;
+  const factory _SendMessageStateLoading() = _$SendMessageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SendMessageStateSuccessCopyWith<$Res> {
-  factory _$$_SendMessageStateSuccessCopyWith(_$_SendMessageStateSuccess value,
-          $Res Function(_$_SendMessageStateSuccess) then) =
-      __$$_SendMessageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SendMessageStateSuccessImplCopyWith<$Res> {
+  factory _$$SendMessageStateSuccessImplCopyWith(
+          _$SendMessageStateSuccessImpl value,
+          $Res Function(_$SendMessageStateSuccessImpl) then) =
+      __$$SendMessageStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanChatMessage result});
 
@@ -1803,11 +1817,12 @@ abstract class _$$_SendMessageStateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SendMessageStateSuccessCopyWithImpl<$Res>
-    extends _$SendMessageStateCopyWithImpl<$Res, _$_SendMessageStateSuccess>
-    implements _$$_SendMessageStateSuccessCopyWith<$Res> {
-  __$$_SendMessageStateSuccessCopyWithImpl(_$_SendMessageStateSuccess _value,
-      $Res Function(_$_SendMessageStateSuccess) _then)
+class __$$SendMessageStateSuccessImplCopyWithImpl<$Res>
+    extends _$SendMessageStateCopyWithImpl<$Res, _$SendMessageStateSuccessImpl>
+    implements _$$SendMessageStateSuccessImplCopyWith<$Res> {
+  __$$SendMessageStateSuccessImplCopyWithImpl(
+      _$SendMessageStateSuccessImpl _value,
+      $Res Function(_$SendMessageStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1815,7 +1830,7 @@ class __$$_SendMessageStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SendMessageStateSuccess(
+    return _then(_$SendMessageStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -1834,8 +1849,8 @@ class __$$_SendMessageStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendMessageStateSuccess implements _SendMessageStateSuccess {
-  const _$_SendMessageStateSuccess(this.result);
+class _$SendMessageStateSuccessImpl implements _SendMessageStateSuccess {
+  const _$SendMessageStateSuccessImpl(this.result);
 
   @override
   final PeamanChatMessage result;
@@ -1846,10 +1861,10 @@ class _$_SendMessageStateSuccess implements _SendMessageStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendMessageStateSuccess &&
+            other is _$SendMessageStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -1859,10 +1874,9 @@ class _$_SendMessageStateSuccess implements _SendMessageStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendMessageStateSuccessCopyWith<_$_SendMessageStateSuccess>
-      get copyWith =>
-          __$$_SendMessageStateSuccessCopyWithImpl<_$_SendMessageStateSuccess>(
-              this, _$identity);
+  _$$SendMessageStateSuccessImplCopyWith<_$SendMessageStateSuccessImpl>
+      get copyWith => __$$SendMessageStateSuccessImplCopyWithImpl<
+          _$SendMessageStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1941,19 +1955,20 @@ class _$_SendMessageStateSuccess implements _SendMessageStateSuccess {
 
 abstract class _SendMessageStateSuccess implements SendMessageState {
   const factory _SendMessageStateSuccess(final PeamanChatMessage result) =
-      _$_SendMessageStateSuccess;
+      _$SendMessageStateSuccessImpl;
 
   PeamanChatMessage get result;
   @JsonKey(ignore: true)
-  _$$_SendMessageStateSuccessCopyWith<_$_SendMessageStateSuccess>
+  _$$SendMessageStateSuccessImplCopyWith<_$SendMessageStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SendMessageStateFailureCopyWith<$Res> {
-  factory _$$_SendMessageStateFailureCopyWith(_$_SendMessageStateFailure value,
-          $Res Function(_$_SendMessageStateFailure) then) =
-      __$$_SendMessageStateFailureCopyWithImpl<$Res>;
+abstract class _$$SendMessageStateFailureImplCopyWith<$Res> {
+  factory _$$SendMessageStateFailureImplCopyWith(
+          _$SendMessageStateFailureImpl value,
+          $Res Function(_$SendMessageStateFailureImpl) then) =
+      __$$SendMessageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -1961,11 +1976,12 @@ abstract class _$$_SendMessageStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SendMessageStateFailureCopyWithImpl<$Res>
-    extends _$SendMessageStateCopyWithImpl<$Res, _$_SendMessageStateFailure>
-    implements _$$_SendMessageStateFailureCopyWith<$Res> {
-  __$$_SendMessageStateFailureCopyWithImpl(_$_SendMessageStateFailure _value,
-      $Res Function(_$_SendMessageStateFailure) _then)
+class __$$SendMessageStateFailureImplCopyWithImpl<$Res>
+    extends _$SendMessageStateCopyWithImpl<$Res, _$SendMessageStateFailureImpl>
+    implements _$$SendMessageStateFailureImplCopyWith<$Res> {
+  __$$SendMessageStateFailureImplCopyWithImpl(
+      _$SendMessageStateFailureImpl _value,
+      $Res Function(_$SendMessageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1973,7 +1989,7 @@ class __$$_SendMessageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SendMessageStateFailure(
+    return _then(_$SendMessageStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1992,8 +2008,8 @@ class __$$_SendMessageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendMessageStateFailure implements _SendMessageStateFailure {
-  const _$_SendMessageStateFailure(this.error);
+class _$SendMessageStateFailureImpl implements _SendMessageStateFailure {
+  const _$SendMessageStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -2004,10 +2020,10 @@ class _$_SendMessageStateFailure implements _SendMessageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendMessageStateFailure &&
+            other is _$SendMessageStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -2017,10 +2033,9 @@ class _$_SendMessageStateFailure implements _SendMessageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendMessageStateFailureCopyWith<_$_SendMessageStateFailure>
-      get copyWith =>
-          __$$_SendMessageStateFailureCopyWithImpl<_$_SendMessageStateFailure>(
-              this, _$identity);
+  _$$SendMessageStateFailureImplCopyWith<_$SendMessageStateFailureImpl>
+      get copyWith => __$$SendMessageStateFailureImplCopyWithImpl<
+          _$SendMessageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2099,11 +2114,11 @@ class _$_SendMessageStateFailure implements _SendMessageStateFailure {
 
 abstract class _SendMessageStateFailure implements SendMessageState {
   const factory _SendMessageStateFailure(final PeamanError error) =
-      _$_SendMessageStateFailure;
+      _$SendMessageStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SendMessageStateFailureCopyWith<_$_SendMessageStateFailure>
+  _$$SendMessageStateFailureImplCopyWith<_$SendMessageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2181,28 +2196,29 @@ class _$SendInfoMessageStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SendInfoMessageStateInitialCopyWith<$Res> {
-  factory _$$_SendInfoMessageStateInitialCopyWith(
-          _$_SendInfoMessageStateInitial value,
-          $Res Function(_$_SendInfoMessageStateInitial) then) =
-      __$$_SendInfoMessageStateInitialCopyWithImpl<$Res>;
+abstract class _$$SendInfoMessageStateInitialImplCopyWith<$Res> {
+  factory _$$SendInfoMessageStateInitialImplCopyWith(
+          _$SendInfoMessageStateInitialImpl value,
+          $Res Function(_$SendInfoMessageStateInitialImpl) then) =
+      __$$SendInfoMessageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendInfoMessageStateInitialCopyWithImpl<$Res>
+class __$$SendInfoMessageStateInitialImplCopyWithImpl<$Res>
     extends _$SendInfoMessageStateCopyWithImpl<$Res,
-        _$_SendInfoMessageStateInitial>
-    implements _$$_SendInfoMessageStateInitialCopyWith<$Res> {
-  __$$_SendInfoMessageStateInitialCopyWithImpl(
-      _$_SendInfoMessageStateInitial _value,
-      $Res Function(_$_SendInfoMessageStateInitial) _then)
+        _$SendInfoMessageStateInitialImpl>
+    implements _$$SendInfoMessageStateInitialImplCopyWith<$Res> {
+  __$$SendInfoMessageStateInitialImplCopyWithImpl(
+      _$SendInfoMessageStateInitialImpl _value,
+      $Res Function(_$SendInfoMessageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendInfoMessageStateInitial implements _SendInfoMessageStateInitial {
-  const _$_SendInfoMessageStateInitial();
+class _$SendInfoMessageStateInitialImpl
+    implements _SendInfoMessageStateInitial {
+  const _$SendInfoMessageStateInitialImpl();
 
   @override
   String toString() {
@@ -2210,10 +2226,10 @@ class _$_SendInfoMessageStateInitial implements _SendInfoMessageStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendInfoMessageStateInitial);
+            other is _$SendInfoMessageStateInitialImpl);
   }
 
   @override
@@ -2295,32 +2311,34 @@ class _$_SendInfoMessageStateInitial implements _SendInfoMessageStateInitial {
 }
 
 abstract class _SendInfoMessageStateInitial implements SendInfoMessageState {
-  const factory _SendInfoMessageStateInitial() = _$_SendInfoMessageStateInitial;
+  const factory _SendInfoMessageStateInitial() =
+      _$SendInfoMessageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SendInfoMessageStateLoadingCopyWith<$Res> {
-  factory _$$_SendInfoMessageStateLoadingCopyWith(
-          _$_SendInfoMessageStateLoading value,
-          $Res Function(_$_SendInfoMessageStateLoading) then) =
-      __$$_SendInfoMessageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SendInfoMessageStateLoadingImplCopyWith<$Res> {
+  factory _$$SendInfoMessageStateLoadingImplCopyWith(
+          _$SendInfoMessageStateLoadingImpl value,
+          $Res Function(_$SendInfoMessageStateLoadingImpl) then) =
+      __$$SendInfoMessageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendInfoMessageStateLoadingCopyWithImpl<$Res>
+class __$$SendInfoMessageStateLoadingImplCopyWithImpl<$Res>
     extends _$SendInfoMessageStateCopyWithImpl<$Res,
-        _$_SendInfoMessageStateLoading>
-    implements _$$_SendInfoMessageStateLoadingCopyWith<$Res> {
-  __$$_SendInfoMessageStateLoadingCopyWithImpl(
-      _$_SendInfoMessageStateLoading _value,
-      $Res Function(_$_SendInfoMessageStateLoading) _then)
+        _$SendInfoMessageStateLoadingImpl>
+    implements _$$SendInfoMessageStateLoadingImplCopyWith<$Res> {
+  __$$SendInfoMessageStateLoadingImplCopyWithImpl(
+      _$SendInfoMessageStateLoadingImpl _value,
+      $Res Function(_$SendInfoMessageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendInfoMessageStateLoading implements _SendInfoMessageStateLoading {
-  const _$_SendInfoMessageStateLoading();
+class _$SendInfoMessageStateLoadingImpl
+    implements _SendInfoMessageStateLoading {
+  const _$SendInfoMessageStateLoadingImpl();
 
   @override
   String toString() {
@@ -2328,10 +2346,10 @@ class _$_SendInfoMessageStateLoading implements _SendInfoMessageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendInfoMessageStateLoading);
+            other is _$SendInfoMessageStateLoadingImpl);
   }
 
   @override
@@ -2413,15 +2431,16 @@ class _$_SendInfoMessageStateLoading implements _SendInfoMessageStateLoading {
 }
 
 abstract class _SendInfoMessageStateLoading implements SendInfoMessageState {
-  const factory _SendInfoMessageStateLoading() = _$_SendInfoMessageStateLoading;
+  const factory _SendInfoMessageStateLoading() =
+      _$SendInfoMessageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SendInfoMessageStateSuccessCopyWith<$Res> {
-  factory _$$_SendInfoMessageStateSuccessCopyWith(
-          _$_SendInfoMessageStateSuccess value,
-          $Res Function(_$_SendInfoMessageStateSuccess) then) =
-      __$$_SendInfoMessageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SendInfoMessageStateSuccessImplCopyWith<$Res> {
+  factory _$$SendInfoMessageStateSuccessImplCopyWith(
+          _$SendInfoMessageStateSuccessImpl value,
+          $Res Function(_$SendInfoMessageStateSuccessImpl) then) =
+      __$$SendInfoMessageStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanChatMessage result});
 
@@ -2429,13 +2448,13 @@ abstract class _$$_SendInfoMessageStateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SendInfoMessageStateSuccessCopyWithImpl<$Res>
+class __$$SendInfoMessageStateSuccessImplCopyWithImpl<$Res>
     extends _$SendInfoMessageStateCopyWithImpl<$Res,
-        _$_SendInfoMessageStateSuccess>
-    implements _$$_SendInfoMessageStateSuccessCopyWith<$Res> {
-  __$$_SendInfoMessageStateSuccessCopyWithImpl(
-      _$_SendInfoMessageStateSuccess _value,
-      $Res Function(_$_SendInfoMessageStateSuccess) _then)
+        _$SendInfoMessageStateSuccessImpl>
+    implements _$$SendInfoMessageStateSuccessImplCopyWith<$Res> {
+  __$$SendInfoMessageStateSuccessImplCopyWithImpl(
+      _$SendInfoMessageStateSuccessImpl _value,
+      $Res Function(_$SendInfoMessageStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2443,7 +2462,7 @@ class __$$_SendInfoMessageStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SendInfoMessageStateSuccess(
+    return _then(_$SendInfoMessageStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -2462,8 +2481,9 @@ class __$$_SendInfoMessageStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendInfoMessageStateSuccess implements _SendInfoMessageStateSuccess {
-  const _$_SendInfoMessageStateSuccess(this.result);
+class _$SendInfoMessageStateSuccessImpl
+    implements _SendInfoMessageStateSuccess {
+  const _$SendInfoMessageStateSuccessImpl(this.result);
 
   @override
   final PeamanChatMessage result;
@@ -2474,10 +2494,10 @@ class _$_SendInfoMessageStateSuccess implements _SendInfoMessageStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendInfoMessageStateSuccess &&
+            other is _$SendInfoMessageStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -2487,9 +2507,9 @@ class _$_SendInfoMessageStateSuccess implements _SendInfoMessageStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendInfoMessageStateSuccessCopyWith<_$_SendInfoMessageStateSuccess>
-      get copyWith => __$$_SendInfoMessageStateSuccessCopyWithImpl<
-          _$_SendInfoMessageStateSuccess>(this, _$identity);
+  _$$SendInfoMessageStateSuccessImplCopyWith<_$SendInfoMessageStateSuccessImpl>
+      get copyWith => __$$SendInfoMessageStateSuccessImplCopyWithImpl<
+          _$SendInfoMessageStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2568,20 +2588,20 @@ class _$_SendInfoMessageStateSuccess implements _SendInfoMessageStateSuccess {
 
 abstract class _SendInfoMessageStateSuccess implements SendInfoMessageState {
   const factory _SendInfoMessageStateSuccess(final PeamanChatMessage result) =
-      _$_SendInfoMessageStateSuccess;
+      _$SendInfoMessageStateSuccessImpl;
 
   PeamanChatMessage get result;
   @JsonKey(ignore: true)
-  _$$_SendInfoMessageStateSuccessCopyWith<_$_SendInfoMessageStateSuccess>
+  _$$SendInfoMessageStateSuccessImplCopyWith<_$SendInfoMessageStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SendInfoMessageStateFailureCopyWith<$Res> {
-  factory _$$_SendInfoMessageStateFailureCopyWith(
-          _$_SendInfoMessageStateFailure value,
-          $Res Function(_$_SendInfoMessageStateFailure) then) =
-      __$$_SendInfoMessageStateFailureCopyWithImpl<$Res>;
+abstract class _$$SendInfoMessageStateFailureImplCopyWith<$Res> {
+  factory _$$SendInfoMessageStateFailureImplCopyWith(
+          _$SendInfoMessageStateFailureImpl value,
+          $Res Function(_$SendInfoMessageStateFailureImpl) then) =
+      __$$SendInfoMessageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -2589,13 +2609,13 @@ abstract class _$$_SendInfoMessageStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SendInfoMessageStateFailureCopyWithImpl<$Res>
+class __$$SendInfoMessageStateFailureImplCopyWithImpl<$Res>
     extends _$SendInfoMessageStateCopyWithImpl<$Res,
-        _$_SendInfoMessageStateFailure>
-    implements _$$_SendInfoMessageStateFailureCopyWith<$Res> {
-  __$$_SendInfoMessageStateFailureCopyWithImpl(
-      _$_SendInfoMessageStateFailure _value,
-      $Res Function(_$_SendInfoMessageStateFailure) _then)
+        _$SendInfoMessageStateFailureImpl>
+    implements _$$SendInfoMessageStateFailureImplCopyWith<$Res> {
+  __$$SendInfoMessageStateFailureImplCopyWithImpl(
+      _$SendInfoMessageStateFailureImpl _value,
+      $Res Function(_$SendInfoMessageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2603,7 +2623,7 @@ class __$$_SendInfoMessageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SendInfoMessageStateFailure(
+    return _then(_$SendInfoMessageStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -2622,8 +2642,9 @@ class __$$_SendInfoMessageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendInfoMessageStateFailure implements _SendInfoMessageStateFailure {
-  const _$_SendInfoMessageStateFailure(this.error);
+class _$SendInfoMessageStateFailureImpl
+    implements _SendInfoMessageStateFailure {
+  const _$SendInfoMessageStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -2634,10 +2655,10 @@ class _$_SendInfoMessageStateFailure implements _SendInfoMessageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendInfoMessageStateFailure &&
+            other is _$SendInfoMessageStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -2647,9 +2668,9 @@ class _$_SendInfoMessageStateFailure implements _SendInfoMessageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendInfoMessageStateFailureCopyWith<_$_SendInfoMessageStateFailure>
-      get copyWith => __$$_SendInfoMessageStateFailureCopyWithImpl<
-          _$_SendInfoMessageStateFailure>(this, _$identity);
+  _$$SendInfoMessageStateFailureImplCopyWith<_$SendInfoMessageStateFailureImpl>
+      get copyWith => __$$SendInfoMessageStateFailureImplCopyWithImpl<
+          _$SendInfoMessageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2728,11 +2749,11 @@ class _$_SendInfoMessageStateFailure implements _SendInfoMessageStateFailure {
 
 abstract class _SendInfoMessageStateFailure implements SendInfoMessageState {
   const factory _SendInfoMessageStateFailure(final PeamanError error) =
-      _$_SendInfoMessageStateFailure;
+      _$SendInfoMessageStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SendInfoMessageStateFailureCopyWith<_$_SendInfoMessageStateFailure>
+  _$$SendInfoMessageStateFailureImplCopyWith<_$SendInfoMessageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2810,29 +2831,29 @@ class _$SendFeedShareMessageStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SendFeedShareMessageStateInitialCopyWith<$Res> {
-  factory _$$_SendFeedShareMessageStateInitialCopyWith(
-          _$_SendFeedShareMessageStateInitial value,
-          $Res Function(_$_SendFeedShareMessageStateInitial) then) =
-      __$$_SendFeedShareMessageStateInitialCopyWithImpl<$Res>;
+abstract class _$$SendFeedShareMessageStateInitialImplCopyWith<$Res> {
+  factory _$$SendFeedShareMessageStateInitialImplCopyWith(
+          _$SendFeedShareMessageStateInitialImpl value,
+          $Res Function(_$SendFeedShareMessageStateInitialImpl) then) =
+      __$$SendFeedShareMessageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendFeedShareMessageStateInitialCopyWithImpl<$Res>
+class __$$SendFeedShareMessageStateInitialImplCopyWithImpl<$Res>
     extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
-        _$_SendFeedShareMessageStateInitial>
-    implements _$$_SendFeedShareMessageStateInitialCopyWith<$Res> {
-  __$$_SendFeedShareMessageStateInitialCopyWithImpl(
-      _$_SendFeedShareMessageStateInitial _value,
-      $Res Function(_$_SendFeedShareMessageStateInitial) _then)
+        _$SendFeedShareMessageStateInitialImpl>
+    implements _$$SendFeedShareMessageStateInitialImplCopyWith<$Res> {
+  __$$SendFeedShareMessageStateInitialImplCopyWithImpl(
+      _$SendFeedShareMessageStateInitialImpl _value,
+      $Res Function(_$SendFeedShareMessageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendFeedShareMessageStateInitial
+class _$SendFeedShareMessageStateInitialImpl
     implements _SendFeedShareMessageStateInitial {
-  const _$_SendFeedShareMessageStateInitial();
+  const _$SendFeedShareMessageStateInitialImpl();
 
   @override
   String toString() {
@@ -2840,10 +2861,10 @@ class _$_SendFeedShareMessageStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendFeedShareMessageStateInitial);
+            other is _$SendFeedShareMessageStateInitialImpl);
   }
 
   @override
@@ -2927,33 +2948,33 @@ class _$_SendFeedShareMessageStateInitial
 abstract class _SendFeedShareMessageStateInitial
     implements SendFeedShareMessageState {
   const factory _SendFeedShareMessageStateInitial() =
-      _$_SendFeedShareMessageStateInitial;
+      _$SendFeedShareMessageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SendFeedShareMessageStateLoadingCopyWith<$Res> {
-  factory _$$_SendFeedShareMessageStateLoadingCopyWith(
-          _$_SendFeedShareMessageStateLoading value,
-          $Res Function(_$_SendFeedShareMessageStateLoading) then) =
-      __$$_SendFeedShareMessageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SendFeedShareMessageStateLoadingImplCopyWith<$Res> {
+  factory _$$SendFeedShareMessageStateLoadingImplCopyWith(
+          _$SendFeedShareMessageStateLoadingImpl value,
+          $Res Function(_$SendFeedShareMessageStateLoadingImpl) then) =
+      __$$SendFeedShareMessageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SendFeedShareMessageStateLoadingCopyWithImpl<$Res>
+class __$$SendFeedShareMessageStateLoadingImplCopyWithImpl<$Res>
     extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
-        _$_SendFeedShareMessageStateLoading>
-    implements _$$_SendFeedShareMessageStateLoadingCopyWith<$Res> {
-  __$$_SendFeedShareMessageStateLoadingCopyWithImpl(
-      _$_SendFeedShareMessageStateLoading _value,
-      $Res Function(_$_SendFeedShareMessageStateLoading) _then)
+        _$SendFeedShareMessageStateLoadingImpl>
+    implements _$$SendFeedShareMessageStateLoadingImplCopyWith<$Res> {
+  __$$SendFeedShareMessageStateLoadingImplCopyWithImpl(
+      _$SendFeedShareMessageStateLoadingImpl _value,
+      $Res Function(_$SendFeedShareMessageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SendFeedShareMessageStateLoading
+class _$SendFeedShareMessageStateLoadingImpl
     implements _SendFeedShareMessageStateLoading {
-  const _$_SendFeedShareMessageStateLoading();
+  const _$SendFeedShareMessageStateLoadingImpl();
 
   @override
   String toString() {
@@ -2961,10 +2982,10 @@ class _$_SendFeedShareMessageStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendFeedShareMessageStateLoading);
+            other is _$SendFeedShareMessageStateLoadingImpl);
   }
 
   @override
@@ -3048,15 +3069,15 @@ class _$_SendFeedShareMessageStateLoading
 abstract class _SendFeedShareMessageStateLoading
     implements SendFeedShareMessageState {
   const factory _SendFeedShareMessageStateLoading() =
-      _$_SendFeedShareMessageStateLoading;
+      _$SendFeedShareMessageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SendFeedShareMessageStateSuccessCopyWith<$Res> {
-  factory _$$_SendFeedShareMessageStateSuccessCopyWith(
-          _$_SendFeedShareMessageStateSuccess value,
-          $Res Function(_$_SendFeedShareMessageStateSuccess) then) =
-      __$$_SendFeedShareMessageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SendFeedShareMessageStateSuccessImplCopyWith<$Res> {
+  factory _$$SendFeedShareMessageStateSuccessImplCopyWith(
+          _$SendFeedShareMessageStateSuccessImpl value,
+          $Res Function(_$SendFeedShareMessageStateSuccessImpl) then) =
+      __$$SendFeedShareMessageStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanChatMessage result});
 
@@ -3064,13 +3085,13 @@ abstract class _$$_SendFeedShareMessageStateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SendFeedShareMessageStateSuccessCopyWithImpl<$Res>
+class __$$SendFeedShareMessageStateSuccessImplCopyWithImpl<$Res>
     extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
-        _$_SendFeedShareMessageStateSuccess>
-    implements _$$_SendFeedShareMessageStateSuccessCopyWith<$Res> {
-  __$$_SendFeedShareMessageStateSuccessCopyWithImpl(
-      _$_SendFeedShareMessageStateSuccess _value,
-      $Res Function(_$_SendFeedShareMessageStateSuccess) _then)
+        _$SendFeedShareMessageStateSuccessImpl>
+    implements _$$SendFeedShareMessageStateSuccessImplCopyWith<$Res> {
+  __$$SendFeedShareMessageStateSuccessImplCopyWithImpl(
+      _$SendFeedShareMessageStateSuccessImpl _value,
+      $Res Function(_$SendFeedShareMessageStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3078,7 +3099,7 @@ class __$$_SendFeedShareMessageStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SendFeedShareMessageStateSuccess(
+    return _then(_$SendFeedShareMessageStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -3097,9 +3118,9 @@ class __$$_SendFeedShareMessageStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendFeedShareMessageStateSuccess
+class _$SendFeedShareMessageStateSuccessImpl
     implements _SendFeedShareMessageStateSuccess {
-  const _$_SendFeedShareMessageStateSuccess(this.result);
+  const _$SendFeedShareMessageStateSuccessImpl(this.result);
 
   @override
   final PeamanChatMessage result;
@@ -3110,10 +3131,10 @@ class _$_SendFeedShareMessageStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendFeedShareMessageStateSuccess &&
+            other is _$SendFeedShareMessageStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -3123,10 +3144,10 @@ class _$_SendFeedShareMessageStateSuccess
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendFeedShareMessageStateSuccessCopyWith<
-          _$_SendFeedShareMessageStateSuccess>
-      get copyWith => __$$_SendFeedShareMessageStateSuccessCopyWithImpl<
-          _$_SendFeedShareMessageStateSuccess>(this, _$identity);
+  _$$SendFeedShareMessageStateSuccessImplCopyWith<
+          _$SendFeedShareMessageStateSuccessImpl>
+      get copyWith => __$$SendFeedShareMessageStateSuccessImplCopyWithImpl<
+          _$SendFeedShareMessageStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3206,21 +3227,21 @@ class _$_SendFeedShareMessageStateSuccess
 abstract class _SendFeedShareMessageStateSuccess
     implements SendFeedShareMessageState {
   const factory _SendFeedShareMessageStateSuccess(
-      final PeamanChatMessage result) = _$_SendFeedShareMessageStateSuccess;
+      final PeamanChatMessage result) = _$SendFeedShareMessageStateSuccessImpl;
 
   PeamanChatMessage get result;
   @JsonKey(ignore: true)
-  _$$_SendFeedShareMessageStateSuccessCopyWith<
-          _$_SendFeedShareMessageStateSuccess>
+  _$$SendFeedShareMessageStateSuccessImplCopyWith<
+          _$SendFeedShareMessageStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SendFeedShareMessageStateFailureCopyWith<$Res> {
-  factory _$$_SendFeedShareMessageStateFailureCopyWith(
-          _$_SendFeedShareMessageStateFailure value,
-          $Res Function(_$_SendFeedShareMessageStateFailure) then) =
-      __$$_SendFeedShareMessageStateFailureCopyWithImpl<$Res>;
+abstract class _$$SendFeedShareMessageStateFailureImplCopyWith<$Res> {
+  factory _$$SendFeedShareMessageStateFailureImplCopyWith(
+          _$SendFeedShareMessageStateFailureImpl value,
+          $Res Function(_$SendFeedShareMessageStateFailureImpl) then) =
+      __$$SendFeedShareMessageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -3228,13 +3249,13 @@ abstract class _$$_SendFeedShareMessageStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SendFeedShareMessageStateFailureCopyWithImpl<$Res>
+class __$$SendFeedShareMessageStateFailureImplCopyWithImpl<$Res>
     extends _$SendFeedShareMessageStateCopyWithImpl<$Res,
-        _$_SendFeedShareMessageStateFailure>
-    implements _$$_SendFeedShareMessageStateFailureCopyWith<$Res> {
-  __$$_SendFeedShareMessageStateFailureCopyWithImpl(
-      _$_SendFeedShareMessageStateFailure _value,
-      $Res Function(_$_SendFeedShareMessageStateFailure) _then)
+        _$SendFeedShareMessageStateFailureImpl>
+    implements _$$SendFeedShareMessageStateFailureImplCopyWith<$Res> {
+  __$$SendFeedShareMessageStateFailureImplCopyWithImpl(
+      _$SendFeedShareMessageStateFailureImpl _value,
+      $Res Function(_$SendFeedShareMessageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3242,7 +3263,7 @@ class __$$_SendFeedShareMessageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SendFeedShareMessageStateFailure(
+    return _then(_$SendFeedShareMessageStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -3261,9 +3282,9 @@ class __$$_SendFeedShareMessageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendFeedShareMessageStateFailure
+class _$SendFeedShareMessageStateFailureImpl
     implements _SendFeedShareMessageStateFailure {
-  const _$_SendFeedShareMessageStateFailure(this.error);
+  const _$SendFeedShareMessageStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -3274,10 +3295,10 @@ class _$_SendFeedShareMessageStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendFeedShareMessageStateFailure &&
+            other is _$SendFeedShareMessageStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -3287,10 +3308,10 @@ class _$_SendFeedShareMessageStateFailure
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendFeedShareMessageStateFailureCopyWith<
-          _$_SendFeedShareMessageStateFailure>
-      get copyWith => __$$_SendFeedShareMessageStateFailureCopyWithImpl<
-          _$_SendFeedShareMessageStateFailure>(this, _$identity);
+  _$$SendFeedShareMessageStateFailureImplCopyWith<
+          _$SendFeedShareMessageStateFailureImpl>
+      get copyWith => __$$SendFeedShareMessageStateFailureImplCopyWithImpl<
+          _$SendFeedShareMessageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3370,12 +3391,12 @@ class _$_SendFeedShareMessageStateFailure
 abstract class _SendFeedShareMessageStateFailure
     implements SendFeedShareMessageState {
   const factory _SendFeedShareMessageStateFailure(final PeamanError error) =
-      _$_SendFeedShareMessageStateFailure;
+      _$SendFeedShareMessageStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SendFeedShareMessageStateFailureCopyWith<
-          _$_SendFeedShareMessageStateFailure>
+  _$$SendFeedShareMessageStateFailureImplCopyWith<
+          _$SendFeedShareMessageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -3452,27 +3473,28 @@ class _$UpdateMessageStateCopyWithImpl<$Res, $Val extends UpdateMessageState>
 }
 
 /// @nodoc
-abstract class _$$_UpdateMessageStateInitialCopyWith<$Res> {
-  factory _$$_UpdateMessageStateInitialCopyWith(
-          _$_UpdateMessageStateInitial value,
-          $Res Function(_$_UpdateMessageStateInitial) then) =
-      __$$_UpdateMessageStateInitialCopyWithImpl<$Res>;
+abstract class _$$UpdateMessageStateInitialImplCopyWith<$Res> {
+  factory _$$UpdateMessageStateInitialImplCopyWith(
+          _$UpdateMessageStateInitialImpl value,
+          $Res Function(_$UpdateMessageStateInitialImpl) then) =
+      __$$UpdateMessageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UpdateMessageStateInitialCopyWithImpl<$Res>
-    extends _$UpdateMessageStateCopyWithImpl<$Res, _$_UpdateMessageStateInitial>
-    implements _$$_UpdateMessageStateInitialCopyWith<$Res> {
-  __$$_UpdateMessageStateInitialCopyWithImpl(
-      _$_UpdateMessageStateInitial _value,
-      $Res Function(_$_UpdateMessageStateInitial) _then)
+class __$$UpdateMessageStateInitialImplCopyWithImpl<$Res>
+    extends _$UpdateMessageStateCopyWithImpl<$Res,
+        _$UpdateMessageStateInitialImpl>
+    implements _$$UpdateMessageStateInitialImplCopyWith<$Res> {
+  __$$UpdateMessageStateInitialImplCopyWithImpl(
+      _$UpdateMessageStateInitialImpl _value,
+      $Res Function(_$UpdateMessageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UpdateMessageStateInitial implements _UpdateMessageStateInitial {
-  const _$_UpdateMessageStateInitial();
+class _$UpdateMessageStateInitialImpl implements _UpdateMessageStateInitial {
+  const _$UpdateMessageStateInitialImpl();
 
   @override
   String toString() {
@@ -3480,10 +3502,10 @@ class _$_UpdateMessageStateInitial implements _UpdateMessageStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateMessageStateInitial);
+            other is _$UpdateMessageStateInitialImpl);
   }
 
   @override
@@ -3565,31 +3587,32 @@ class _$_UpdateMessageStateInitial implements _UpdateMessageStateInitial {
 }
 
 abstract class _UpdateMessageStateInitial implements UpdateMessageState {
-  const factory _UpdateMessageStateInitial() = _$_UpdateMessageStateInitial;
+  const factory _UpdateMessageStateInitial() = _$UpdateMessageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateMessageStateLoadingCopyWith<$Res> {
-  factory _$$_UpdateMessageStateLoadingCopyWith(
-          _$_UpdateMessageStateLoading value,
-          $Res Function(_$_UpdateMessageStateLoading) then) =
-      __$$_UpdateMessageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UpdateMessageStateLoadingImplCopyWith<$Res> {
+  factory _$$UpdateMessageStateLoadingImplCopyWith(
+          _$UpdateMessageStateLoadingImpl value,
+          $Res Function(_$UpdateMessageStateLoadingImpl) then) =
+      __$$UpdateMessageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UpdateMessageStateLoadingCopyWithImpl<$Res>
-    extends _$UpdateMessageStateCopyWithImpl<$Res, _$_UpdateMessageStateLoading>
-    implements _$$_UpdateMessageStateLoadingCopyWith<$Res> {
-  __$$_UpdateMessageStateLoadingCopyWithImpl(
-      _$_UpdateMessageStateLoading _value,
-      $Res Function(_$_UpdateMessageStateLoading) _then)
+class __$$UpdateMessageStateLoadingImplCopyWithImpl<$Res>
+    extends _$UpdateMessageStateCopyWithImpl<$Res,
+        _$UpdateMessageStateLoadingImpl>
+    implements _$$UpdateMessageStateLoadingImplCopyWith<$Res> {
+  __$$UpdateMessageStateLoadingImplCopyWithImpl(
+      _$UpdateMessageStateLoadingImpl _value,
+      $Res Function(_$UpdateMessageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UpdateMessageStateLoading implements _UpdateMessageStateLoading {
-  const _$_UpdateMessageStateLoading();
+class _$UpdateMessageStateLoadingImpl implements _UpdateMessageStateLoading {
+  const _$UpdateMessageStateLoadingImpl();
 
   @override
   String toString() {
@@ -3597,10 +3620,10 @@ class _$_UpdateMessageStateLoading implements _UpdateMessageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateMessageStateLoading);
+            other is _$UpdateMessageStateLoadingImpl);
   }
 
   @override
@@ -3682,26 +3705,27 @@ class _$_UpdateMessageStateLoading implements _UpdateMessageStateLoading {
 }
 
 abstract class _UpdateMessageStateLoading implements UpdateMessageState {
-  const factory _UpdateMessageStateLoading() = _$_UpdateMessageStateLoading;
+  const factory _UpdateMessageStateLoading() = _$UpdateMessageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateMessageStateSuccessCopyWith<$Res> {
-  factory _$$_UpdateMessageStateSuccessCopyWith(
-          _$_UpdateMessageStateSuccess value,
-          $Res Function(_$_UpdateMessageStateSuccess) then) =
-      __$$_UpdateMessageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UpdateMessageStateSuccessImplCopyWith<$Res> {
+  factory _$$UpdateMessageStateSuccessImplCopyWith(
+          _$UpdateMessageStateSuccessImpl value,
+          $Res Function(_$UpdateMessageStateSuccessImpl) then) =
+      __$$UpdateMessageStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UpdateMessageStateSuccessCopyWithImpl<$Res>
-    extends _$UpdateMessageStateCopyWithImpl<$Res, _$_UpdateMessageStateSuccess>
-    implements _$$_UpdateMessageStateSuccessCopyWith<$Res> {
-  __$$_UpdateMessageStateSuccessCopyWithImpl(
-      _$_UpdateMessageStateSuccess _value,
-      $Res Function(_$_UpdateMessageStateSuccess) _then)
+class __$$UpdateMessageStateSuccessImplCopyWithImpl<$Res>
+    extends _$UpdateMessageStateCopyWithImpl<$Res,
+        _$UpdateMessageStateSuccessImpl>
+    implements _$$UpdateMessageStateSuccessImplCopyWith<$Res> {
+  __$$UpdateMessageStateSuccessImplCopyWithImpl(
+      _$UpdateMessageStateSuccessImpl _value,
+      $Res Function(_$UpdateMessageStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3709,7 +3733,7 @@ class __$$_UpdateMessageStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UpdateMessageStateSuccess(
+    return _then(_$UpdateMessageStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -3720,8 +3744,8 @@ class __$$_UpdateMessageStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateMessageStateSuccess implements _UpdateMessageStateSuccess {
-  const _$_UpdateMessageStateSuccess(this.result);
+class _$UpdateMessageStateSuccessImpl implements _UpdateMessageStateSuccess {
+  const _$UpdateMessageStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -3732,10 +3756,10 @@ class _$_UpdateMessageStateSuccess implements _UpdateMessageStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateMessageStateSuccess &&
+            other is _$UpdateMessageStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -3745,9 +3769,9 @@ class _$_UpdateMessageStateSuccess implements _UpdateMessageStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateMessageStateSuccessCopyWith<_$_UpdateMessageStateSuccess>
-      get copyWith => __$$_UpdateMessageStateSuccessCopyWithImpl<
-          _$_UpdateMessageStateSuccess>(this, _$identity);
+  _$$UpdateMessageStateSuccessImplCopyWith<_$UpdateMessageStateSuccessImpl>
+      get copyWith => __$$UpdateMessageStateSuccessImplCopyWithImpl<
+          _$UpdateMessageStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3826,20 +3850,20 @@ class _$_UpdateMessageStateSuccess implements _UpdateMessageStateSuccess {
 
 abstract class _UpdateMessageStateSuccess implements UpdateMessageState {
   const factory _UpdateMessageStateSuccess(final bool result) =
-      _$_UpdateMessageStateSuccess;
+      _$UpdateMessageStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UpdateMessageStateSuccessCopyWith<_$_UpdateMessageStateSuccess>
+  _$$UpdateMessageStateSuccessImplCopyWith<_$UpdateMessageStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UpdateMessageStateFailureCopyWith<$Res> {
-  factory _$$_UpdateMessageStateFailureCopyWith(
-          _$_UpdateMessageStateFailure value,
-          $Res Function(_$_UpdateMessageStateFailure) then) =
-      __$$_UpdateMessageStateFailureCopyWithImpl<$Res>;
+abstract class _$$UpdateMessageStateFailureImplCopyWith<$Res> {
+  factory _$$UpdateMessageStateFailureImplCopyWith(
+          _$UpdateMessageStateFailureImpl value,
+          $Res Function(_$UpdateMessageStateFailureImpl) then) =
+      __$$UpdateMessageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -3847,12 +3871,13 @@ abstract class _$$_UpdateMessageStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UpdateMessageStateFailureCopyWithImpl<$Res>
-    extends _$UpdateMessageStateCopyWithImpl<$Res, _$_UpdateMessageStateFailure>
-    implements _$$_UpdateMessageStateFailureCopyWith<$Res> {
-  __$$_UpdateMessageStateFailureCopyWithImpl(
-      _$_UpdateMessageStateFailure _value,
-      $Res Function(_$_UpdateMessageStateFailure) _then)
+class __$$UpdateMessageStateFailureImplCopyWithImpl<$Res>
+    extends _$UpdateMessageStateCopyWithImpl<$Res,
+        _$UpdateMessageStateFailureImpl>
+    implements _$$UpdateMessageStateFailureImplCopyWith<$Res> {
+  __$$UpdateMessageStateFailureImplCopyWithImpl(
+      _$UpdateMessageStateFailureImpl _value,
+      $Res Function(_$UpdateMessageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3860,7 +3885,7 @@ class __$$_UpdateMessageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UpdateMessageStateFailure(
+    return _then(_$UpdateMessageStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -3879,8 +3904,8 @@ class __$$_UpdateMessageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateMessageStateFailure implements _UpdateMessageStateFailure {
-  const _$_UpdateMessageStateFailure(this.error);
+class _$UpdateMessageStateFailureImpl implements _UpdateMessageStateFailure {
+  const _$UpdateMessageStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -3891,10 +3916,10 @@ class _$_UpdateMessageStateFailure implements _UpdateMessageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateMessageStateFailure &&
+            other is _$UpdateMessageStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -3904,9 +3929,9 @@ class _$_UpdateMessageStateFailure implements _UpdateMessageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateMessageStateFailureCopyWith<_$_UpdateMessageStateFailure>
-      get copyWith => __$$_UpdateMessageStateFailureCopyWithImpl<
-          _$_UpdateMessageStateFailure>(this, _$identity);
+  _$$UpdateMessageStateFailureImplCopyWith<_$UpdateMessageStateFailureImpl>
+      get copyWith => __$$UpdateMessageStateFailureImplCopyWithImpl<
+          _$UpdateMessageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3985,11 +4010,11 @@ class _$_UpdateMessageStateFailure implements _UpdateMessageStateFailure {
 
 abstract class _UpdateMessageStateFailure implements UpdateMessageState {
   const factory _UpdateMessageStateFailure(final PeamanError error) =
-      _$_UpdateMessageStateFailure;
+      _$UpdateMessageStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UpdateMessageStateFailureCopyWith<_$_UpdateMessageStateFailure>
+  _$$UpdateMessageStateFailureImplCopyWith<_$UpdateMessageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -4066,27 +4091,28 @@ class _$DeleteMessageStateCopyWithImpl<$Res, $Val extends DeleteMessageState>
 }
 
 /// @nodoc
-abstract class _$$_DeleteMessageStateInitialCopyWith<$Res> {
-  factory _$$_DeleteMessageStateInitialCopyWith(
-          _$_DeleteMessageStateInitial value,
-          $Res Function(_$_DeleteMessageStateInitial) then) =
-      __$$_DeleteMessageStateInitialCopyWithImpl<$Res>;
+abstract class _$$DeleteMessageStateInitialImplCopyWith<$Res> {
+  factory _$$DeleteMessageStateInitialImplCopyWith(
+          _$DeleteMessageStateInitialImpl value,
+          $Res Function(_$DeleteMessageStateInitialImpl) then) =
+      __$$DeleteMessageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_DeleteMessageStateInitialCopyWithImpl<$Res>
-    extends _$DeleteMessageStateCopyWithImpl<$Res, _$_DeleteMessageStateInitial>
-    implements _$$_DeleteMessageStateInitialCopyWith<$Res> {
-  __$$_DeleteMessageStateInitialCopyWithImpl(
-      _$_DeleteMessageStateInitial _value,
-      $Res Function(_$_DeleteMessageStateInitial) _then)
+class __$$DeleteMessageStateInitialImplCopyWithImpl<$Res>
+    extends _$DeleteMessageStateCopyWithImpl<$Res,
+        _$DeleteMessageStateInitialImpl>
+    implements _$$DeleteMessageStateInitialImplCopyWith<$Res> {
+  __$$DeleteMessageStateInitialImplCopyWithImpl(
+      _$DeleteMessageStateInitialImpl _value,
+      $Res Function(_$DeleteMessageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_DeleteMessageStateInitial implements _DeleteMessageStateInitial {
-  const _$_DeleteMessageStateInitial();
+class _$DeleteMessageStateInitialImpl implements _DeleteMessageStateInitial {
+  const _$DeleteMessageStateInitialImpl();
 
   @override
   String toString() {
@@ -4094,10 +4120,10 @@ class _$_DeleteMessageStateInitial implements _DeleteMessageStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteMessageStateInitial);
+            other is _$DeleteMessageStateInitialImpl);
   }
 
   @override
@@ -4179,31 +4205,32 @@ class _$_DeleteMessageStateInitial implements _DeleteMessageStateInitial {
 }
 
 abstract class _DeleteMessageStateInitial implements DeleteMessageState {
-  const factory _DeleteMessageStateInitial() = _$_DeleteMessageStateInitial;
+  const factory _DeleteMessageStateInitial() = _$DeleteMessageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_DeleteMessageStateLoadingCopyWith<$Res> {
-  factory _$$_DeleteMessageStateLoadingCopyWith(
-          _$_DeleteMessageStateLoading value,
-          $Res Function(_$_DeleteMessageStateLoading) then) =
-      __$$_DeleteMessageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$DeleteMessageStateLoadingImplCopyWith<$Res> {
+  factory _$$DeleteMessageStateLoadingImplCopyWith(
+          _$DeleteMessageStateLoadingImpl value,
+          $Res Function(_$DeleteMessageStateLoadingImpl) then) =
+      __$$DeleteMessageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_DeleteMessageStateLoadingCopyWithImpl<$Res>
-    extends _$DeleteMessageStateCopyWithImpl<$Res, _$_DeleteMessageStateLoading>
-    implements _$$_DeleteMessageStateLoadingCopyWith<$Res> {
-  __$$_DeleteMessageStateLoadingCopyWithImpl(
-      _$_DeleteMessageStateLoading _value,
-      $Res Function(_$_DeleteMessageStateLoading) _then)
+class __$$DeleteMessageStateLoadingImplCopyWithImpl<$Res>
+    extends _$DeleteMessageStateCopyWithImpl<$Res,
+        _$DeleteMessageStateLoadingImpl>
+    implements _$$DeleteMessageStateLoadingImplCopyWith<$Res> {
+  __$$DeleteMessageStateLoadingImplCopyWithImpl(
+      _$DeleteMessageStateLoadingImpl _value,
+      $Res Function(_$DeleteMessageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_DeleteMessageStateLoading implements _DeleteMessageStateLoading {
-  const _$_DeleteMessageStateLoading();
+class _$DeleteMessageStateLoadingImpl implements _DeleteMessageStateLoading {
+  const _$DeleteMessageStateLoadingImpl();
 
   @override
   String toString() {
@@ -4211,10 +4238,10 @@ class _$_DeleteMessageStateLoading implements _DeleteMessageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteMessageStateLoading);
+            other is _$DeleteMessageStateLoadingImpl);
   }
 
   @override
@@ -4296,26 +4323,27 @@ class _$_DeleteMessageStateLoading implements _DeleteMessageStateLoading {
 }
 
 abstract class _DeleteMessageStateLoading implements DeleteMessageState {
-  const factory _DeleteMessageStateLoading() = _$_DeleteMessageStateLoading;
+  const factory _DeleteMessageStateLoading() = _$DeleteMessageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_DeleteMessageStateSuccessCopyWith<$Res> {
-  factory _$$_DeleteMessageStateSuccessCopyWith(
-          _$_DeleteMessageStateSuccess value,
-          $Res Function(_$_DeleteMessageStateSuccess) then) =
-      __$$_DeleteMessageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$DeleteMessageStateSuccessImplCopyWith<$Res> {
+  factory _$$DeleteMessageStateSuccessImplCopyWith(
+          _$DeleteMessageStateSuccessImpl value,
+          $Res Function(_$DeleteMessageStateSuccessImpl) then) =
+      __$$DeleteMessageStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_DeleteMessageStateSuccessCopyWithImpl<$Res>
-    extends _$DeleteMessageStateCopyWithImpl<$Res, _$_DeleteMessageStateSuccess>
-    implements _$$_DeleteMessageStateSuccessCopyWith<$Res> {
-  __$$_DeleteMessageStateSuccessCopyWithImpl(
-      _$_DeleteMessageStateSuccess _value,
-      $Res Function(_$_DeleteMessageStateSuccess) _then)
+class __$$DeleteMessageStateSuccessImplCopyWithImpl<$Res>
+    extends _$DeleteMessageStateCopyWithImpl<$Res,
+        _$DeleteMessageStateSuccessImpl>
+    implements _$$DeleteMessageStateSuccessImplCopyWith<$Res> {
+  __$$DeleteMessageStateSuccessImplCopyWithImpl(
+      _$DeleteMessageStateSuccessImpl _value,
+      $Res Function(_$DeleteMessageStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4323,7 +4351,7 @@ class __$$_DeleteMessageStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_DeleteMessageStateSuccess(
+    return _then(_$DeleteMessageStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -4334,8 +4362,8 @@ class __$$_DeleteMessageStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DeleteMessageStateSuccess implements _DeleteMessageStateSuccess {
-  const _$_DeleteMessageStateSuccess(this.result);
+class _$DeleteMessageStateSuccessImpl implements _DeleteMessageStateSuccess {
+  const _$DeleteMessageStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -4346,10 +4374,10 @@ class _$_DeleteMessageStateSuccess implements _DeleteMessageStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteMessageStateSuccess &&
+            other is _$DeleteMessageStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -4359,9 +4387,9 @@ class _$_DeleteMessageStateSuccess implements _DeleteMessageStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeleteMessageStateSuccessCopyWith<_$_DeleteMessageStateSuccess>
-      get copyWith => __$$_DeleteMessageStateSuccessCopyWithImpl<
-          _$_DeleteMessageStateSuccess>(this, _$identity);
+  _$$DeleteMessageStateSuccessImplCopyWith<_$DeleteMessageStateSuccessImpl>
+      get copyWith => __$$DeleteMessageStateSuccessImplCopyWithImpl<
+          _$DeleteMessageStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4440,20 +4468,20 @@ class _$_DeleteMessageStateSuccess implements _DeleteMessageStateSuccess {
 
 abstract class _DeleteMessageStateSuccess implements DeleteMessageState {
   const factory _DeleteMessageStateSuccess(final bool result) =
-      _$_DeleteMessageStateSuccess;
+      _$DeleteMessageStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_DeleteMessageStateSuccessCopyWith<_$_DeleteMessageStateSuccess>
+  _$$DeleteMessageStateSuccessImplCopyWith<_$DeleteMessageStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_DeleteMessageStateFailureCopyWith<$Res> {
-  factory _$$_DeleteMessageStateFailureCopyWith(
-          _$_DeleteMessageStateFailure value,
-          $Res Function(_$_DeleteMessageStateFailure) then) =
-      __$$_DeleteMessageStateFailureCopyWithImpl<$Res>;
+abstract class _$$DeleteMessageStateFailureImplCopyWith<$Res> {
+  factory _$$DeleteMessageStateFailureImplCopyWith(
+          _$DeleteMessageStateFailureImpl value,
+          $Res Function(_$DeleteMessageStateFailureImpl) then) =
+      __$$DeleteMessageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -4461,12 +4489,13 @@ abstract class _$$_DeleteMessageStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_DeleteMessageStateFailureCopyWithImpl<$Res>
-    extends _$DeleteMessageStateCopyWithImpl<$Res, _$_DeleteMessageStateFailure>
-    implements _$$_DeleteMessageStateFailureCopyWith<$Res> {
-  __$$_DeleteMessageStateFailureCopyWithImpl(
-      _$_DeleteMessageStateFailure _value,
-      $Res Function(_$_DeleteMessageStateFailure) _then)
+class __$$DeleteMessageStateFailureImplCopyWithImpl<$Res>
+    extends _$DeleteMessageStateCopyWithImpl<$Res,
+        _$DeleteMessageStateFailureImpl>
+    implements _$$DeleteMessageStateFailureImplCopyWith<$Res> {
+  __$$DeleteMessageStateFailureImplCopyWithImpl(
+      _$DeleteMessageStateFailureImpl _value,
+      $Res Function(_$DeleteMessageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4474,7 +4503,7 @@ class __$$_DeleteMessageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_DeleteMessageStateFailure(
+    return _then(_$DeleteMessageStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -4493,8 +4522,8 @@ class __$$_DeleteMessageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DeleteMessageStateFailure implements _DeleteMessageStateFailure {
-  const _$_DeleteMessageStateFailure(this.error);
+class _$DeleteMessageStateFailureImpl implements _DeleteMessageStateFailure {
+  const _$DeleteMessageStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -4505,10 +4534,10 @@ class _$_DeleteMessageStateFailure implements _DeleteMessageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteMessageStateFailure &&
+            other is _$DeleteMessageStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -4518,9 +4547,9 @@ class _$_DeleteMessageStateFailure implements _DeleteMessageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeleteMessageStateFailureCopyWith<_$_DeleteMessageStateFailure>
-      get copyWith => __$$_DeleteMessageStateFailureCopyWithImpl<
-          _$_DeleteMessageStateFailure>(this, _$identity);
+  _$$DeleteMessageStateFailureImplCopyWith<_$DeleteMessageStateFailureImpl>
+      get copyWith => __$$DeleteMessageStateFailureImplCopyWithImpl<
+          _$DeleteMessageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4599,11 +4628,11 @@ class _$_DeleteMessageStateFailure implements _DeleteMessageStateFailure {
 
 abstract class _DeleteMessageStateFailure implements DeleteMessageState {
   const factory _DeleteMessageStateFailure(final PeamanError error) =
-      _$_DeleteMessageStateFailure;
+      _$DeleteMessageStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_DeleteMessageStateFailureCopyWith<_$_DeleteMessageStateFailure>
+  _$$DeleteMessageStateFailureImplCopyWith<_$DeleteMessageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -4680,27 +4709,28 @@ class _$UnsendMessageStateCopyWithImpl<$Res, $Val extends UnsendMessageState>
 }
 
 /// @nodoc
-abstract class _$$_UnsendMessageStateInitialCopyWith<$Res> {
-  factory _$$_UnsendMessageStateInitialCopyWith(
-          _$_UnsendMessageStateInitial value,
-          $Res Function(_$_UnsendMessageStateInitial) then) =
-      __$$_UnsendMessageStateInitialCopyWithImpl<$Res>;
+abstract class _$$UnsendMessageStateInitialImplCopyWith<$Res> {
+  factory _$$UnsendMessageStateInitialImplCopyWith(
+          _$UnsendMessageStateInitialImpl value,
+          $Res Function(_$UnsendMessageStateInitialImpl) then) =
+      __$$UnsendMessageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnsendMessageStateInitialCopyWithImpl<$Res>
-    extends _$UnsendMessageStateCopyWithImpl<$Res, _$_UnsendMessageStateInitial>
-    implements _$$_UnsendMessageStateInitialCopyWith<$Res> {
-  __$$_UnsendMessageStateInitialCopyWithImpl(
-      _$_UnsendMessageStateInitial _value,
-      $Res Function(_$_UnsendMessageStateInitial) _then)
+class __$$UnsendMessageStateInitialImplCopyWithImpl<$Res>
+    extends _$UnsendMessageStateCopyWithImpl<$Res,
+        _$UnsendMessageStateInitialImpl>
+    implements _$$UnsendMessageStateInitialImplCopyWith<$Res> {
+  __$$UnsendMessageStateInitialImplCopyWithImpl(
+      _$UnsendMessageStateInitialImpl _value,
+      $Res Function(_$UnsendMessageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnsendMessageStateInitial implements _UnsendMessageStateInitial {
-  const _$_UnsendMessageStateInitial();
+class _$UnsendMessageStateInitialImpl implements _UnsendMessageStateInitial {
+  const _$UnsendMessageStateInitialImpl();
 
   @override
   String toString() {
@@ -4708,10 +4738,10 @@ class _$_UnsendMessageStateInitial implements _UnsendMessageStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnsendMessageStateInitial);
+            other is _$UnsendMessageStateInitialImpl);
   }
 
   @override
@@ -4793,31 +4823,32 @@ class _$_UnsendMessageStateInitial implements _UnsendMessageStateInitial {
 }
 
 abstract class _UnsendMessageStateInitial implements UnsendMessageState {
-  const factory _UnsendMessageStateInitial() = _$_UnsendMessageStateInitial;
+  const factory _UnsendMessageStateInitial() = _$UnsendMessageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnsendMessageStateLoadingCopyWith<$Res> {
-  factory _$$_UnsendMessageStateLoadingCopyWith(
-          _$_UnsendMessageStateLoading value,
-          $Res Function(_$_UnsendMessageStateLoading) then) =
-      __$$_UnsendMessageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UnsendMessageStateLoadingImplCopyWith<$Res> {
+  factory _$$UnsendMessageStateLoadingImplCopyWith(
+          _$UnsendMessageStateLoadingImpl value,
+          $Res Function(_$UnsendMessageStateLoadingImpl) then) =
+      __$$UnsendMessageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnsendMessageStateLoadingCopyWithImpl<$Res>
-    extends _$UnsendMessageStateCopyWithImpl<$Res, _$_UnsendMessageStateLoading>
-    implements _$$_UnsendMessageStateLoadingCopyWith<$Res> {
-  __$$_UnsendMessageStateLoadingCopyWithImpl(
-      _$_UnsendMessageStateLoading _value,
-      $Res Function(_$_UnsendMessageStateLoading) _then)
+class __$$UnsendMessageStateLoadingImplCopyWithImpl<$Res>
+    extends _$UnsendMessageStateCopyWithImpl<$Res,
+        _$UnsendMessageStateLoadingImpl>
+    implements _$$UnsendMessageStateLoadingImplCopyWith<$Res> {
+  __$$UnsendMessageStateLoadingImplCopyWithImpl(
+      _$UnsendMessageStateLoadingImpl _value,
+      $Res Function(_$UnsendMessageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnsendMessageStateLoading implements _UnsendMessageStateLoading {
-  const _$_UnsendMessageStateLoading();
+class _$UnsendMessageStateLoadingImpl implements _UnsendMessageStateLoading {
+  const _$UnsendMessageStateLoadingImpl();
 
   @override
   String toString() {
@@ -4825,10 +4856,10 @@ class _$_UnsendMessageStateLoading implements _UnsendMessageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnsendMessageStateLoading);
+            other is _$UnsendMessageStateLoadingImpl);
   }
 
   @override
@@ -4910,26 +4941,27 @@ class _$_UnsendMessageStateLoading implements _UnsendMessageStateLoading {
 }
 
 abstract class _UnsendMessageStateLoading implements UnsendMessageState {
-  const factory _UnsendMessageStateLoading() = _$_UnsendMessageStateLoading;
+  const factory _UnsendMessageStateLoading() = _$UnsendMessageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnsendMessageStateSuccessCopyWith<$Res> {
-  factory _$$_UnsendMessageStateSuccessCopyWith(
-          _$_UnsendMessageStateSuccess value,
-          $Res Function(_$_UnsendMessageStateSuccess) then) =
-      __$$_UnsendMessageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UnsendMessageStateSuccessImplCopyWith<$Res> {
+  factory _$$UnsendMessageStateSuccessImplCopyWith(
+          _$UnsendMessageStateSuccessImpl value,
+          $Res Function(_$UnsendMessageStateSuccessImpl) then) =
+      __$$UnsendMessageStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UnsendMessageStateSuccessCopyWithImpl<$Res>
-    extends _$UnsendMessageStateCopyWithImpl<$Res, _$_UnsendMessageStateSuccess>
-    implements _$$_UnsendMessageStateSuccessCopyWith<$Res> {
-  __$$_UnsendMessageStateSuccessCopyWithImpl(
-      _$_UnsendMessageStateSuccess _value,
-      $Res Function(_$_UnsendMessageStateSuccess) _then)
+class __$$UnsendMessageStateSuccessImplCopyWithImpl<$Res>
+    extends _$UnsendMessageStateCopyWithImpl<$Res,
+        _$UnsendMessageStateSuccessImpl>
+    implements _$$UnsendMessageStateSuccessImplCopyWith<$Res> {
+  __$$UnsendMessageStateSuccessImplCopyWithImpl(
+      _$UnsendMessageStateSuccessImpl _value,
+      $Res Function(_$UnsendMessageStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4937,7 +4969,7 @@ class __$$_UnsendMessageStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UnsendMessageStateSuccess(
+    return _then(_$UnsendMessageStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -4948,8 +4980,8 @@ class __$$_UnsendMessageStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnsendMessageStateSuccess implements _UnsendMessageStateSuccess {
-  const _$_UnsendMessageStateSuccess(this.result);
+class _$UnsendMessageStateSuccessImpl implements _UnsendMessageStateSuccess {
+  const _$UnsendMessageStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -4960,10 +4992,10 @@ class _$_UnsendMessageStateSuccess implements _UnsendMessageStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnsendMessageStateSuccess &&
+            other is _$UnsendMessageStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -4973,9 +5005,9 @@ class _$_UnsendMessageStateSuccess implements _UnsendMessageStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnsendMessageStateSuccessCopyWith<_$_UnsendMessageStateSuccess>
-      get copyWith => __$$_UnsendMessageStateSuccessCopyWithImpl<
-          _$_UnsendMessageStateSuccess>(this, _$identity);
+  _$$UnsendMessageStateSuccessImplCopyWith<_$UnsendMessageStateSuccessImpl>
+      get copyWith => __$$UnsendMessageStateSuccessImplCopyWithImpl<
+          _$UnsendMessageStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5054,20 +5086,20 @@ class _$_UnsendMessageStateSuccess implements _UnsendMessageStateSuccess {
 
 abstract class _UnsendMessageStateSuccess implements UnsendMessageState {
   const factory _UnsendMessageStateSuccess(final bool result) =
-      _$_UnsendMessageStateSuccess;
+      _$UnsendMessageStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UnsendMessageStateSuccessCopyWith<_$_UnsendMessageStateSuccess>
+  _$$UnsendMessageStateSuccessImplCopyWith<_$UnsendMessageStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnsendMessageStateFailureCopyWith<$Res> {
-  factory _$$_UnsendMessageStateFailureCopyWith(
-          _$_UnsendMessageStateFailure value,
-          $Res Function(_$_UnsendMessageStateFailure) then) =
-      __$$_UnsendMessageStateFailureCopyWithImpl<$Res>;
+abstract class _$$UnsendMessageStateFailureImplCopyWith<$Res> {
+  factory _$$UnsendMessageStateFailureImplCopyWith(
+          _$UnsendMessageStateFailureImpl value,
+          $Res Function(_$UnsendMessageStateFailureImpl) then) =
+      __$$UnsendMessageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -5075,12 +5107,13 @@ abstract class _$$_UnsendMessageStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UnsendMessageStateFailureCopyWithImpl<$Res>
-    extends _$UnsendMessageStateCopyWithImpl<$Res, _$_UnsendMessageStateFailure>
-    implements _$$_UnsendMessageStateFailureCopyWith<$Res> {
-  __$$_UnsendMessageStateFailureCopyWithImpl(
-      _$_UnsendMessageStateFailure _value,
-      $Res Function(_$_UnsendMessageStateFailure) _then)
+class __$$UnsendMessageStateFailureImplCopyWithImpl<$Res>
+    extends _$UnsendMessageStateCopyWithImpl<$Res,
+        _$UnsendMessageStateFailureImpl>
+    implements _$$UnsendMessageStateFailureImplCopyWith<$Res> {
+  __$$UnsendMessageStateFailureImplCopyWithImpl(
+      _$UnsendMessageStateFailureImpl _value,
+      $Res Function(_$UnsendMessageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5088,7 +5121,7 @@ class __$$_UnsendMessageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UnsendMessageStateFailure(
+    return _then(_$UnsendMessageStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -5107,8 +5140,8 @@ class __$$_UnsendMessageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnsendMessageStateFailure implements _UnsendMessageStateFailure {
-  const _$_UnsendMessageStateFailure(this.error);
+class _$UnsendMessageStateFailureImpl implements _UnsendMessageStateFailure {
+  const _$UnsendMessageStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -5119,10 +5152,10 @@ class _$_UnsendMessageStateFailure implements _UnsendMessageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnsendMessageStateFailure &&
+            other is _$UnsendMessageStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -5132,9 +5165,9 @@ class _$_UnsendMessageStateFailure implements _UnsendMessageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnsendMessageStateFailureCopyWith<_$_UnsendMessageStateFailure>
-      get copyWith => __$$_UnsendMessageStateFailureCopyWithImpl<
-          _$_UnsendMessageStateFailure>(this, _$identity);
+  _$$UnsendMessageStateFailureImplCopyWith<_$UnsendMessageStateFailureImpl>
+      get copyWith => __$$UnsendMessageStateFailureImplCopyWithImpl<
+          _$UnsendMessageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5213,11 +5246,11 @@ class _$_UnsendMessageStateFailure implements _UnsendMessageStateFailure {
 
 abstract class _UnsendMessageStateFailure implements UnsendMessageState {
   const factory _UnsendMessageStateFailure(final PeamanError error) =
-      _$_UnsendMessageStateFailure;
+      _$UnsendMessageStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UnsendMessageStateFailureCopyWith<_$_UnsendMessageStateFailure>
+  _$$UnsendMessageStateFailureImplCopyWith<_$UnsendMessageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -5294,25 +5327,25 @@ class _$ReadChatStateCopyWithImpl<$Res, $Val extends ReadChatState>
 }
 
 /// @nodoc
-abstract class _$$_ReadChatStateInitialCopyWith<$Res> {
-  factory _$$_ReadChatStateInitialCopyWith(_$_ReadChatStateInitial value,
-          $Res Function(_$_ReadChatStateInitial) then) =
-      __$$_ReadChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$ReadChatStateInitialImplCopyWith<$Res> {
+  factory _$$ReadChatStateInitialImplCopyWith(_$ReadChatStateInitialImpl value,
+          $Res Function(_$ReadChatStateInitialImpl) then) =
+      __$$ReadChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ReadChatStateInitialCopyWithImpl<$Res>
-    extends _$ReadChatStateCopyWithImpl<$Res, _$_ReadChatStateInitial>
-    implements _$$_ReadChatStateInitialCopyWith<$Res> {
-  __$$_ReadChatStateInitialCopyWithImpl(_$_ReadChatStateInitial _value,
-      $Res Function(_$_ReadChatStateInitial) _then)
+class __$$ReadChatStateInitialImplCopyWithImpl<$Res>
+    extends _$ReadChatStateCopyWithImpl<$Res, _$ReadChatStateInitialImpl>
+    implements _$$ReadChatStateInitialImplCopyWith<$Res> {
+  __$$ReadChatStateInitialImplCopyWithImpl(_$ReadChatStateInitialImpl _value,
+      $Res Function(_$ReadChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ReadChatStateInitial implements _ReadChatStateInitial {
-  const _$_ReadChatStateInitial();
+class _$ReadChatStateInitialImpl implements _ReadChatStateInitial {
+  const _$ReadChatStateInitialImpl();
 
   @override
   String toString() {
@@ -5320,9 +5353,10 @@ class _$_ReadChatStateInitial implements _ReadChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ReadChatStateInitial);
+        (other.runtimeType == runtimeType &&
+            other is _$ReadChatStateInitialImpl);
   }
 
   @override
@@ -5404,29 +5438,29 @@ class _$_ReadChatStateInitial implements _ReadChatStateInitial {
 }
 
 abstract class _ReadChatStateInitial implements ReadChatState {
-  const factory _ReadChatStateInitial() = _$_ReadChatStateInitial;
+  const factory _ReadChatStateInitial() = _$ReadChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_ReadChatStateLoadingCopyWith<$Res> {
-  factory _$$_ReadChatStateLoadingCopyWith(_$_ReadChatStateLoading value,
-          $Res Function(_$_ReadChatStateLoading) then) =
-      __$$_ReadChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$ReadChatStateLoadingImplCopyWith<$Res> {
+  factory _$$ReadChatStateLoadingImplCopyWith(_$ReadChatStateLoadingImpl value,
+          $Res Function(_$ReadChatStateLoadingImpl) then) =
+      __$$ReadChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ReadChatStateLoadingCopyWithImpl<$Res>
-    extends _$ReadChatStateCopyWithImpl<$Res, _$_ReadChatStateLoading>
-    implements _$$_ReadChatStateLoadingCopyWith<$Res> {
-  __$$_ReadChatStateLoadingCopyWithImpl(_$_ReadChatStateLoading _value,
-      $Res Function(_$_ReadChatStateLoading) _then)
+class __$$ReadChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$ReadChatStateCopyWithImpl<$Res, _$ReadChatStateLoadingImpl>
+    implements _$$ReadChatStateLoadingImplCopyWith<$Res> {
+  __$$ReadChatStateLoadingImplCopyWithImpl(_$ReadChatStateLoadingImpl _value,
+      $Res Function(_$ReadChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ReadChatStateLoading implements _ReadChatStateLoading {
-  const _$_ReadChatStateLoading();
+class _$ReadChatStateLoadingImpl implements _ReadChatStateLoading {
+  const _$ReadChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -5434,9 +5468,10 @@ class _$_ReadChatStateLoading implements _ReadChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ReadChatStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$ReadChatStateLoadingImpl);
   }
 
   @override
@@ -5518,24 +5553,24 @@ class _$_ReadChatStateLoading implements _ReadChatStateLoading {
 }
 
 abstract class _ReadChatStateLoading implements ReadChatState {
-  const factory _ReadChatStateLoading() = _$_ReadChatStateLoading;
+  const factory _ReadChatStateLoading() = _$ReadChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_ReadChatStateSuccessCopyWith<$Res> {
-  factory _$$_ReadChatStateSuccessCopyWith(_$_ReadChatStateSuccess value,
-          $Res Function(_$_ReadChatStateSuccess) then) =
-      __$$_ReadChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$ReadChatStateSuccessImplCopyWith<$Res> {
+  factory _$$ReadChatStateSuccessImplCopyWith(_$ReadChatStateSuccessImpl value,
+          $Res Function(_$ReadChatStateSuccessImpl) then) =
+      __$$ReadChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_ReadChatStateSuccessCopyWithImpl<$Res>
-    extends _$ReadChatStateCopyWithImpl<$Res, _$_ReadChatStateSuccess>
-    implements _$$_ReadChatStateSuccessCopyWith<$Res> {
-  __$$_ReadChatStateSuccessCopyWithImpl(_$_ReadChatStateSuccess _value,
-      $Res Function(_$_ReadChatStateSuccess) _then)
+class __$$ReadChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$ReadChatStateCopyWithImpl<$Res, _$ReadChatStateSuccessImpl>
+    implements _$$ReadChatStateSuccessImplCopyWith<$Res> {
+  __$$ReadChatStateSuccessImplCopyWithImpl(_$ReadChatStateSuccessImpl _value,
+      $Res Function(_$ReadChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5543,7 +5578,7 @@ class __$$_ReadChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_ReadChatStateSuccess(
+    return _then(_$ReadChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -5554,8 +5589,8 @@ class __$$_ReadChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReadChatStateSuccess implements _ReadChatStateSuccess {
-  const _$_ReadChatStateSuccess(this.result);
+class _$ReadChatStateSuccessImpl implements _ReadChatStateSuccess {
+  const _$ReadChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -5566,10 +5601,10 @@ class _$_ReadChatStateSuccess implements _ReadChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReadChatStateSuccess &&
+            other is _$ReadChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -5579,9 +5614,10 @@ class _$_ReadChatStateSuccess implements _ReadChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReadChatStateSuccessCopyWith<_$_ReadChatStateSuccess> get copyWith =>
-      __$$_ReadChatStateSuccessCopyWithImpl<_$_ReadChatStateSuccess>(
-          this, _$identity);
+  _$$ReadChatStateSuccessImplCopyWith<_$ReadChatStateSuccessImpl>
+      get copyWith =>
+          __$$ReadChatStateSuccessImplCopyWithImpl<_$ReadChatStateSuccessImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5660,19 +5696,19 @@ class _$_ReadChatStateSuccess implements _ReadChatStateSuccess {
 
 abstract class _ReadChatStateSuccess implements ReadChatState {
   const factory _ReadChatStateSuccess(final bool result) =
-      _$_ReadChatStateSuccess;
+      _$ReadChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_ReadChatStateSuccessCopyWith<_$_ReadChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ReadChatStateSuccessImplCopyWith<_$ReadChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReadChatStateFailureCopyWith<$Res> {
-  factory _$$_ReadChatStateFailureCopyWith(_$_ReadChatStateFailure value,
-          $Res Function(_$_ReadChatStateFailure) then) =
-      __$$_ReadChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$ReadChatStateFailureImplCopyWith<$Res> {
+  factory _$$ReadChatStateFailureImplCopyWith(_$ReadChatStateFailureImpl value,
+          $Res Function(_$ReadChatStateFailureImpl) then) =
+      __$$ReadChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -5680,11 +5716,11 @@ abstract class _$$_ReadChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReadChatStateFailureCopyWithImpl<$Res>
-    extends _$ReadChatStateCopyWithImpl<$Res, _$_ReadChatStateFailure>
-    implements _$$_ReadChatStateFailureCopyWith<$Res> {
-  __$$_ReadChatStateFailureCopyWithImpl(_$_ReadChatStateFailure _value,
-      $Res Function(_$_ReadChatStateFailure) _then)
+class __$$ReadChatStateFailureImplCopyWithImpl<$Res>
+    extends _$ReadChatStateCopyWithImpl<$Res, _$ReadChatStateFailureImpl>
+    implements _$$ReadChatStateFailureImplCopyWith<$Res> {
+  __$$ReadChatStateFailureImplCopyWithImpl(_$ReadChatStateFailureImpl _value,
+      $Res Function(_$ReadChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5692,7 +5728,7 @@ class __$$_ReadChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_ReadChatStateFailure(
+    return _then(_$ReadChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -5711,8 +5747,8 @@ class __$$_ReadChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReadChatStateFailure implements _ReadChatStateFailure {
-  const _$_ReadChatStateFailure(this.error);
+class _$ReadChatStateFailureImpl implements _ReadChatStateFailure {
+  const _$ReadChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -5723,10 +5759,10 @@ class _$_ReadChatStateFailure implements _ReadChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReadChatStateFailure &&
+            other is _$ReadChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -5736,9 +5772,10 @@ class _$_ReadChatStateFailure implements _ReadChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReadChatStateFailureCopyWith<_$_ReadChatStateFailure> get copyWith =>
-      __$$_ReadChatStateFailureCopyWithImpl<_$_ReadChatStateFailure>(
-          this, _$identity);
+  _$$ReadChatStateFailureImplCopyWith<_$ReadChatStateFailureImpl>
+      get copyWith =>
+          __$$ReadChatStateFailureImplCopyWithImpl<_$ReadChatStateFailureImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5817,12 +5854,12 @@ class _$_ReadChatStateFailure implements _ReadChatStateFailure {
 
 abstract class _ReadChatStateFailure implements ReadChatState {
   const factory _ReadChatStateFailure(final PeamanError error) =
-      _$_ReadChatStateFailure;
+      _$ReadChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_ReadChatStateFailureCopyWith<_$_ReadChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ReadChatStateFailureImplCopyWith<_$ReadChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -5898,25 +5935,27 @@ class _$UpdateChatStateCopyWithImpl<$Res, $Val extends UpdateChatState>
 }
 
 /// @nodoc
-abstract class _$$_UpdateChatStateInitialCopyWith<$Res> {
-  factory _$$_UpdateChatStateInitialCopyWith(_$_UpdateChatStateInitial value,
-          $Res Function(_$_UpdateChatStateInitial) then) =
-      __$$_UpdateChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$UpdateChatStateInitialImplCopyWith<$Res> {
+  factory _$$UpdateChatStateInitialImplCopyWith(
+          _$UpdateChatStateInitialImpl value,
+          $Res Function(_$UpdateChatStateInitialImpl) then) =
+      __$$UpdateChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UpdateChatStateInitialCopyWithImpl<$Res>
-    extends _$UpdateChatStateCopyWithImpl<$Res, _$_UpdateChatStateInitial>
-    implements _$$_UpdateChatStateInitialCopyWith<$Res> {
-  __$$_UpdateChatStateInitialCopyWithImpl(_$_UpdateChatStateInitial _value,
-      $Res Function(_$_UpdateChatStateInitial) _then)
+class __$$UpdateChatStateInitialImplCopyWithImpl<$Res>
+    extends _$UpdateChatStateCopyWithImpl<$Res, _$UpdateChatStateInitialImpl>
+    implements _$$UpdateChatStateInitialImplCopyWith<$Res> {
+  __$$UpdateChatStateInitialImplCopyWithImpl(
+      _$UpdateChatStateInitialImpl _value,
+      $Res Function(_$UpdateChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UpdateChatStateInitial implements _UpdateChatStateInitial {
-  const _$_UpdateChatStateInitial();
+class _$UpdateChatStateInitialImpl implements _UpdateChatStateInitial {
+  const _$UpdateChatStateInitialImpl();
 
   @override
   String toString() {
@@ -5924,10 +5963,10 @@ class _$_UpdateChatStateInitial implements _UpdateChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateChatStateInitial);
+            other is _$UpdateChatStateInitialImpl);
   }
 
   @override
@@ -6009,29 +6048,31 @@ class _$_UpdateChatStateInitial implements _UpdateChatStateInitial {
 }
 
 abstract class _UpdateChatStateInitial implements UpdateChatState {
-  const factory _UpdateChatStateInitial() = _$_UpdateChatStateInitial;
+  const factory _UpdateChatStateInitial() = _$UpdateChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateChatStateLoadingCopyWith<$Res> {
-  factory _$$_UpdateChatStateLoadingCopyWith(_$_UpdateChatStateLoading value,
-          $Res Function(_$_UpdateChatStateLoading) then) =
-      __$$_UpdateChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UpdateChatStateLoadingImplCopyWith<$Res> {
+  factory _$$UpdateChatStateLoadingImplCopyWith(
+          _$UpdateChatStateLoadingImpl value,
+          $Res Function(_$UpdateChatStateLoadingImpl) then) =
+      __$$UpdateChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UpdateChatStateLoadingCopyWithImpl<$Res>
-    extends _$UpdateChatStateCopyWithImpl<$Res, _$_UpdateChatStateLoading>
-    implements _$$_UpdateChatStateLoadingCopyWith<$Res> {
-  __$$_UpdateChatStateLoadingCopyWithImpl(_$_UpdateChatStateLoading _value,
-      $Res Function(_$_UpdateChatStateLoading) _then)
+class __$$UpdateChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$UpdateChatStateCopyWithImpl<$Res, _$UpdateChatStateLoadingImpl>
+    implements _$$UpdateChatStateLoadingImplCopyWith<$Res> {
+  __$$UpdateChatStateLoadingImplCopyWithImpl(
+      _$UpdateChatStateLoadingImpl _value,
+      $Res Function(_$UpdateChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UpdateChatStateLoading implements _UpdateChatStateLoading {
-  const _$_UpdateChatStateLoading();
+class _$UpdateChatStateLoadingImpl implements _UpdateChatStateLoading {
+  const _$UpdateChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -6039,10 +6080,10 @@ class _$_UpdateChatStateLoading implements _UpdateChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateChatStateLoading);
+            other is _$UpdateChatStateLoadingImpl);
   }
 
   @override
@@ -6124,24 +6165,26 @@ class _$_UpdateChatStateLoading implements _UpdateChatStateLoading {
 }
 
 abstract class _UpdateChatStateLoading implements UpdateChatState {
-  const factory _UpdateChatStateLoading() = _$_UpdateChatStateLoading;
+  const factory _UpdateChatStateLoading() = _$UpdateChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateChatStateSuccessCopyWith<$Res> {
-  factory _$$_UpdateChatStateSuccessCopyWith(_$_UpdateChatStateSuccess value,
-          $Res Function(_$_UpdateChatStateSuccess) then) =
-      __$$_UpdateChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UpdateChatStateSuccessImplCopyWith<$Res> {
+  factory _$$UpdateChatStateSuccessImplCopyWith(
+          _$UpdateChatStateSuccessImpl value,
+          $Res Function(_$UpdateChatStateSuccessImpl) then) =
+      __$$UpdateChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UpdateChatStateSuccessCopyWithImpl<$Res>
-    extends _$UpdateChatStateCopyWithImpl<$Res, _$_UpdateChatStateSuccess>
-    implements _$$_UpdateChatStateSuccessCopyWith<$Res> {
-  __$$_UpdateChatStateSuccessCopyWithImpl(_$_UpdateChatStateSuccess _value,
-      $Res Function(_$_UpdateChatStateSuccess) _then)
+class __$$UpdateChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$UpdateChatStateCopyWithImpl<$Res, _$UpdateChatStateSuccessImpl>
+    implements _$$UpdateChatStateSuccessImplCopyWith<$Res> {
+  __$$UpdateChatStateSuccessImplCopyWithImpl(
+      _$UpdateChatStateSuccessImpl _value,
+      $Res Function(_$UpdateChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6149,7 +6192,7 @@ class __$$_UpdateChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UpdateChatStateSuccess(
+    return _then(_$UpdateChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -6160,8 +6203,8 @@ class __$$_UpdateChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateChatStateSuccess implements _UpdateChatStateSuccess {
-  const _$_UpdateChatStateSuccess(this.result);
+class _$UpdateChatStateSuccessImpl implements _UpdateChatStateSuccess {
+  const _$UpdateChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -6172,10 +6215,10 @@ class _$_UpdateChatStateSuccess implements _UpdateChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateChatStateSuccess &&
+            other is _$UpdateChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -6185,9 +6228,9 @@ class _$_UpdateChatStateSuccess implements _UpdateChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateChatStateSuccessCopyWith<_$_UpdateChatStateSuccess> get copyWith =>
-      __$$_UpdateChatStateSuccessCopyWithImpl<_$_UpdateChatStateSuccess>(
-          this, _$identity);
+  _$$UpdateChatStateSuccessImplCopyWith<_$UpdateChatStateSuccessImpl>
+      get copyWith => __$$UpdateChatStateSuccessImplCopyWithImpl<
+          _$UpdateChatStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6266,19 +6309,20 @@ class _$_UpdateChatStateSuccess implements _UpdateChatStateSuccess {
 
 abstract class _UpdateChatStateSuccess implements UpdateChatState {
   const factory _UpdateChatStateSuccess(final bool result) =
-      _$_UpdateChatStateSuccess;
+      _$UpdateChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UpdateChatStateSuccessCopyWith<_$_UpdateChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UpdateChatStateSuccessImplCopyWith<_$UpdateChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UpdateChatStateFailureCopyWith<$Res> {
-  factory _$$_UpdateChatStateFailureCopyWith(_$_UpdateChatStateFailure value,
-          $Res Function(_$_UpdateChatStateFailure) then) =
-      __$$_UpdateChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$UpdateChatStateFailureImplCopyWith<$Res> {
+  factory _$$UpdateChatStateFailureImplCopyWith(
+          _$UpdateChatStateFailureImpl value,
+          $Res Function(_$UpdateChatStateFailureImpl) then) =
+      __$$UpdateChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -6286,11 +6330,12 @@ abstract class _$$_UpdateChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UpdateChatStateFailureCopyWithImpl<$Res>
-    extends _$UpdateChatStateCopyWithImpl<$Res, _$_UpdateChatStateFailure>
-    implements _$$_UpdateChatStateFailureCopyWith<$Res> {
-  __$$_UpdateChatStateFailureCopyWithImpl(_$_UpdateChatStateFailure _value,
-      $Res Function(_$_UpdateChatStateFailure) _then)
+class __$$UpdateChatStateFailureImplCopyWithImpl<$Res>
+    extends _$UpdateChatStateCopyWithImpl<$Res, _$UpdateChatStateFailureImpl>
+    implements _$$UpdateChatStateFailureImplCopyWith<$Res> {
+  __$$UpdateChatStateFailureImplCopyWithImpl(
+      _$UpdateChatStateFailureImpl _value,
+      $Res Function(_$UpdateChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6298,7 +6343,7 @@ class __$$_UpdateChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UpdateChatStateFailure(
+    return _then(_$UpdateChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -6317,8 +6362,8 @@ class __$$_UpdateChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateChatStateFailure implements _UpdateChatStateFailure {
-  const _$_UpdateChatStateFailure(this.error);
+class _$UpdateChatStateFailureImpl implements _UpdateChatStateFailure {
+  const _$UpdateChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -6329,10 +6374,10 @@ class _$_UpdateChatStateFailure implements _UpdateChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateChatStateFailure &&
+            other is _$UpdateChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -6342,9 +6387,9 @@ class _$_UpdateChatStateFailure implements _UpdateChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateChatStateFailureCopyWith<_$_UpdateChatStateFailure> get copyWith =>
-      __$$_UpdateChatStateFailureCopyWithImpl<_$_UpdateChatStateFailure>(
-          this, _$identity);
+  _$$UpdateChatStateFailureImplCopyWith<_$UpdateChatStateFailureImpl>
+      get copyWith => __$$UpdateChatStateFailureImplCopyWithImpl<
+          _$UpdateChatStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6423,12 +6468,12 @@ class _$_UpdateChatStateFailure implements _UpdateChatStateFailure {
 
 abstract class _UpdateChatStateFailure implements UpdateChatState {
   const factory _UpdateChatStateFailure(final PeamanError error) =
-      _$_UpdateChatStateFailure;
+      _$UpdateChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UpdateChatStateFailureCopyWith<_$_UpdateChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UpdateChatStateFailureImplCopyWith<_$UpdateChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -6504,25 +6549,27 @@ class _$DeleteChatStateCopyWithImpl<$Res, $Val extends DeleteChatState>
 }
 
 /// @nodoc
-abstract class _$$_DeleteChatStateInitialCopyWith<$Res> {
-  factory _$$_DeleteChatStateInitialCopyWith(_$_DeleteChatStateInitial value,
-          $Res Function(_$_DeleteChatStateInitial) then) =
-      __$$_DeleteChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$DeleteChatStateInitialImplCopyWith<$Res> {
+  factory _$$DeleteChatStateInitialImplCopyWith(
+          _$DeleteChatStateInitialImpl value,
+          $Res Function(_$DeleteChatStateInitialImpl) then) =
+      __$$DeleteChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_DeleteChatStateInitialCopyWithImpl<$Res>
-    extends _$DeleteChatStateCopyWithImpl<$Res, _$_DeleteChatStateInitial>
-    implements _$$_DeleteChatStateInitialCopyWith<$Res> {
-  __$$_DeleteChatStateInitialCopyWithImpl(_$_DeleteChatStateInitial _value,
-      $Res Function(_$_DeleteChatStateInitial) _then)
+class __$$DeleteChatStateInitialImplCopyWithImpl<$Res>
+    extends _$DeleteChatStateCopyWithImpl<$Res, _$DeleteChatStateInitialImpl>
+    implements _$$DeleteChatStateInitialImplCopyWith<$Res> {
+  __$$DeleteChatStateInitialImplCopyWithImpl(
+      _$DeleteChatStateInitialImpl _value,
+      $Res Function(_$DeleteChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_DeleteChatStateInitial implements _DeleteChatStateInitial {
-  const _$_DeleteChatStateInitial();
+class _$DeleteChatStateInitialImpl implements _DeleteChatStateInitial {
+  const _$DeleteChatStateInitialImpl();
 
   @override
   String toString() {
@@ -6530,10 +6577,10 @@ class _$_DeleteChatStateInitial implements _DeleteChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteChatStateInitial);
+            other is _$DeleteChatStateInitialImpl);
   }
 
   @override
@@ -6615,29 +6662,31 @@ class _$_DeleteChatStateInitial implements _DeleteChatStateInitial {
 }
 
 abstract class _DeleteChatStateInitial implements DeleteChatState {
-  const factory _DeleteChatStateInitial() = _$_DeleteChatStateInitial;
+  const factory _DeleteChatStateInitial() = _$DeleteChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_DeleteChatStateLoadingCopyWith<$Res> {
-  factory _$$_DeleteChatStateLoadingCopyWith(_$_DeleteChatStateLoading value,
-          $Res Function(_$_DeleteChatStateLoading) then) =
-      __$$_DeleteChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$DeleteChatStateLoadingImplCopyWith<$Res> {
+  factory _$$DeleteChatStateLoadingImplCopyWith(
+          _$DeleteChatStateLoadingImpl value,
+          $Res Function(_$DeleteChatStateLoadingImpl) then) =
+      __$$DeleteChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_DeleteChatStateLoadingCopyWithImpl<$Res>
-    extends _$DeleteChatStateCopyWithImpl<$Res, _$_DeleteChatStateLoading>
-    implements _$$_DeleteChatStateLoadingCopyWith<$Res> {
-  __$$_DeleteChatStateLoadingCopyWithImpl(_$_DeleteChatStateLoading _value,
-      $Res Function(_$_DeleteChatStateLoading) _then)
+class __$$DeleteChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$DeleteChatStateCopyWithImpl<$Res, _$DeleteChatStateLoadingImpl>
+    implements _$$DeleteChatStateLoadingImplCopyWith<$Res> {
+  __$$DeleteChatStateLoadingImplCopyWithImpl(
+      _$DeleteChatStateLoadingImpl _value,
+      $Res Function(_$DeleteChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_DeleteChatStateLoading implements _DeleteChatStateLoading {
-  const _$_DeleteChatStateLoading();
+class _$DeleteChatStateLoadingImpl implements _DeleteChatStateLoading {
+  const _$DeleteChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -6645,10 +6694,10 @@ class _$_DeleteChatStateLoading implements _DeleteChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteChatStateLoading);
+            other is _$DeleteChatStateLoadingImpl);
   }
 
   @override
@@ -6730,24 +6779,26 @@ class _$_DeleteChatStateLoading implements _DeleteChatStateLoading {
 }
 
 abstract class _DeleteChatStateLoading implements DeleteChatState {
-  const factory _DeleteChatStateLoading() = _$_DeleteChatStateLoading;
+  const factory _DeleteChatStateLoading() = _$DeleteChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_DeleteChatStateSuccessCopyWith<$Res> {
-  factory _$$_DeleteChatStateSuccessCopyWith(_$_DeleteChatStateSuccess value,
-          $Res Function(_$_DeleteChatStateSuccess) then) =
-      __$$_DeleteChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$DeleteChatStateSuccessImplCopyWith<$Res> {
+  factory _$$DeleteChatStateSuccessImplCopyWith(
+          _$DeleteChatStateSuccessImpl value,
+          $Res Function(_$DeleteChatStateSuccessImpl) then) =
+      __$$DeleteChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_DeleteChatStateSuccessCopyWithImpl<$Res>
-    extends _$DeleteChatStateCopyWithImpl<$Res, _$_DeleteChatStateSuccess>
-    implements _$$_DeleteChatStateSuccessCopyWith<$Res> {
-  __$$_DeleteChatStateSuccessCopyWithImpl(_$_DeleteChatStateSuccess _value,
-      $Res Function(_$_DeleteChatStateSuccess) _then)
+class __$$DeleteChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$DeleteChatStateCopyWithImpl<$Res, _$DeleteChatStateSuccessImpl>
+    implements _$$DeleteChatStateSuccessImplCopyWith<$Res> {
+  __$$DeleteChatStateSuccessImplCopyWithImpl(
+      _$DeleteChatStateSuccessImpl _value,
+      $Res Function(_$DeleteChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6755,7 +6806,7 @@ class __$$_DeleteChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_DeleteChatStateSuccess(
+    return _then(_$DeleteChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -6766,8 +6817,8 @@ class __$$_DeleteChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DeleteChatStateSuccess implements _DeleteChatStateSuccess {
-  const _$_DeleteChatStateSuccess(this.result);
+class _$DeleteChatStateSuccessImpl implements _DeleteChatStateSuccess {
+  const _$DeleteChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -6778,10 +6829,10 @@ class _$_DeleteChatStateSuccess implements _DeleteChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteChatStateSuccess &&
+            other is _$DeleteChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -6791,9 +6842,9 @@ class _$_DeleteChatStateSuccess implements _DeleteChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeleteChatStateSuccessCopyWith<_$_DeleteChatStateSuccess> get copyWith =>
-      __$$_DeleteChatStateSuccessCopyWithImpl<_$_DeleteChatStateSuccess>(
-          this, _$identity);
+  _$$DeleteChatStateSuccessImplCopyWith<_$DeleteChatStateSuccessImpl>
+      get copyWith => __$$DeleteChatStateSuccessImplCopyWithImpl<
+          _$DeleteChatStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6872,19 +6923,20 @@ class _$_DeleteChatStateSuccess implements _DeleteChatStateSuccess {
 
 abstract class _DeleteChatStateSuccess implements DeleteChatState {
   const factory _DeleteChatStateSuccess(final bool result) =
-      _$_DeleteChatStateSuccess;
+      _$DeleteChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_DeleteChatStateSuccessCopyWith<_$_DeleteChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DeleteChatStateSuccessImplCopyWith<_$DeleteChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_DeleteChatStateFailureCopyWith<$Res> {
-  factory _$$_DeleteChatStateFailureCopyWith(_$_DeleteChatStateFailure value,
-          $Res Function(_$_DeleteChatStateFailure) then) =
-      __$$_DeleteChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$DeleteChatStateFailureImplCopyWith<$Res> {
+  factory _$$DeleteChatStateFailureImplCopyWith(
+          _$DeleteChatStateFailureImpl value,
+          $Res Function(_$DeleteChatStateFailureImpl) then) =
+      __$$DeleteChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -6892,11 +6944,12 @@ abstract class _$$_DeleteChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_DeleteChatStateFailureCopyWithImpl<$Res>
-    extends _$DeleteChatStateCopyWithImpl<$Res, _$_DeleteChatStateFailure>
-    implements _$$_DeleteChatStateFailureCopyWith<$Res> {
-  __$$_DeleteChatStateFailureCopyWithImpl(_$_DeleteChatStateFailure _value,
-      $Res Function(_$_DeleteChatStateFailure) _then)
+class __$$DeleteChatStateFailureImplCopyWithImpl<$Res>
+    extends _$DeleteChatStateCopyWithImpl<$Res, _$DeleteChatStateFailureImpl>
+    implements _$$DeleteChatStateFailureImplCopyWith<$Res> {
+  __$$DeleteChatStateFailureImplCopyWithImpl(
+      _$DeleteChatStateFailureImpl _value,
+      $Res Function(_$DeleteChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6904,7 +6957,7 @@ class __$$_DeleteChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_DeleteChatStateFailure(
+    return _then(_$DeleteChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -6923,8 +6976,8 @@ class __$$_DeleteChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DeleteChatStateFailure implements _DeleteChatStateFailure {
-  const _$_DeleteChatStateFailure(this.error);
+class _$DeleteChatStateFailureImpl implements _DeleteChatStateFailure {
+  const _$DeleteChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -6935,10 +6988,10 @@ class _$_DeleteChatStateFailure implements _DeleteChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteChatStateFailure &&
+            other is _$DeleteChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -6948,9 +7001,9 @@ class _$_DeleteChatStateFailure implements _DeleteChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeleteChatStateFailureCopyWith<_$_DeleteChatStateFailure> get copyWith =>
-      __$$_DeleteChatStateFailureCopyWithImpl<_$_DeleteChatStateFailure>(
-          this, _$identity);
+  _$$DeleteChatStateFailureImplCopyWith<_$DeleteChatStateFailureImpl>
+      get copyWith => __$$DeleteChatStateFailureImplCopyWithImpl<
+          _$DeleteChatStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7029,12 +7082,12 @@ class _$_DeleteChatStateFailure implements _DeleteChatStateFailure {
 
 abstract class _DeleteChatStateFailure implements DeleteChatState {
   const factory _DeleteChatStateFailure(final PeamanError error) =
-      _$_DeleteChatStateFailure;
+      _$DeleteChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_DeleteChatStateFailureCopyWith<_$_DeleteChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DeleteChatStateFailureImplCopyWith<_$DeleteChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -7110,25 +7163,27 @@ class _$ArchiveChatStateCopyWithImpl<$Res, $Val extends ArchiveChatState>
 }
 
 /// @nodoc
-abstract class _$$_ArchiveChatStateInitialCopyWith<$Res> {
-  factory _$$_ArchiveChatStateInitialCopyWith(_$_ArchiveChatStateInitial value,
-          $Res Function(_$_ArchiveChatStateInitial) then) =
-      __$$_ArchiveChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$ArchiveChatStateInitialImplCopyWith<$Res> {
+  factory _$$ArchiveChatStateInitialImplCopyWith(
+          _$ArchiveChatStateInitialImpl value,
+          $Res Function(_$ArchiveChatStateInitialImpl) then) =
+      __$$ArchiveChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ArchiveChatStateInitialCopyWithImpl<$Res>
-    extends _$ArchiveChatStateCopyWithImpl<$Res, _$_ArchiveChatStateInitial>
-    implements _$$_ArchiveChatStateInitialCopyWith<$Res> {
-  __$$_ArchiveChatStateInitialCopyWithImpl(_$_ArchiveChatStateInitial _value,
-      $Res Function(_$_ArchiveChatStateInitial) _then)
+class __$$ArchiveChatStateInitialImplCopyWithImpl<$Res>
+    extends _$ArchiveChatStateCopyWithImpl<$Res, _$ArchiveChatStateInitialImpl>
+    implements _$$ArchiveChatStateInitialImplCopyWith<$Res> {
+  __$$ArchiveChatStateInitialImplCopyWithImpl(
+      _$ArchiveChatStateInitialImpl _value,
+      $Res Function(_$ArchiveChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ArchiveChatStateInitial implements _ArchiveChatStateInitial {
-  const _$_ArchiveChatStateInitial();
+class _$ArchiveChatStateInitialImpl implements _ArchiveChatStateInitial {
+  const _$ArchiveChatStateInitialImpl();
 
   @override
   String toString() {
@@ -7136,10 +7191,10 @@ class _$_ArchiveChatStateInitial implements _ArchiveChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ArchiveChatStateInitial);
+            other is _$ArchiveChatStateInitialImpl);
   }
 
   @override
@@ -7221,29 +7276,31 @@ class _$_ArchiveChatStateInitial implements _ArchiveChatStateInitial {
 }
 
 abstract class _ArchiveChatStateInitial implements ArchiveChatState {
-  const factory _ArchiveChatStateInitial() = _$_ArchiveChatStateInitial;
+  const factory _ArchiveChatStateInitial() = _$ArchiveChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_ArchiveChatStateLoadingCopyWith<$Res> {
-  factory _$$_ArchiveChatStateLoadingCopyWith(_$_ArchiveChatStateLoading value,
-          $Res Function(_$_ArchiveChatStateLoading) then) =
-      __$$_ArchiveChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$ArchiveChatStateLoadingImplCopyWith<$Res> {
+  factory _$$ArchiveChatStateLoadingImplCopyWith(
+          _$ArchiveChatStateLoadingImpl value,
+          $Res Function(_$ArchiveChatStateLoadingImpl) then) =
+      __$$ArchiveChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ArchiveChatStateLoadingCopyWithImpl<$Res>
-    extends _$ArchiveChatStateCopyWithImpl<$Res, _$_ArchiveChatStateLoading>
-    implements _$$_ArchiveChatStateLoadingCopyWith<$Res> {
-  __$$_ArchiveChatStateLoadingCopyWithImpl(_$_ArchiveChatStateLoading _value,
-      $Res Function(_$_ArchiveChatStateLoading) _then)
+class __$$ArchiveChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$ArchiveChatStateCopyWithImpl<$Res, _$ArchiveChatStateLoadingImpl>
+    implements _$$ArchiveChatStateLoadingImplCopyWith<$Res> {
+  __$$ArchiveChatStateLoadingImplCopyWithImpl(
+      _$ArchiveChatStateLoadingImpl _value,
+      $Res Function(_$ArchiveChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_ArchiveChatStateLoading implements _ArchiveChatStateLoading {
-  const _$_ArchiveChatStateLoading();
+class _$ArchiveChatStateLoadingImpl implements _ArchiveChatStateLoading {
+  const _$ArchiveChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -7251,10 +7308,10 @@ class _$_ArchiveChatStateLoading implements _ArchiveChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ArchiveChatStateLoading);
+            other is _$ArchiveChatStateLoadingImpl);
   }
 
   @override
@@ -7336,24 +7393,26 @@ class _$_ArchiveChatStateLoading implements _ArchiveChatStateLoading {
 }
 
 abstract class _ArchiveChatStateLoading implements ArchiveChatState {
-  const factory _ArchiveChatStateLoading() = _$_ArchiveChatStateLoading;
+  const factory _ArchiveChatStateLoading() = _$ArchiveChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_ArchiveChatStateSuccessCopyWith<$Res> {
-  factory _$$_ArchiveChatStateSuccessCopyWith(_$_ArchiveChatStateSuccess value,
-          $Res Function(_$_ArchiveChatStateSuccess) then) =
-      __$$_ArchiveChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$ArchiveChatStateSuccessImplCopyWith<$Res> {
+  factory _$$ArchiveChatStateSuccessImplCopyWith(
+          _$ArchiveChatStateSuccessImpl value,
+          $Res Function(_$ArchiveChatStateSuccessImpl) then) =
+      __$$ArchiveChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_ArchiveChatStateSuccessCopyWithImpl<$Res>
-    extends _$ArchiveChatStateCopyWithImpl<$Res, _$_ArchiveChatStateSuccess>
-    implements _$$_ArchiveChatStateSuccessCopyWith<$Res> {
-  __$$_ArchiveChatStateSuccessCopyWithImpl(_$_ArchiveChatStateSuccess _value,
-      $Res Function(_$_ArchiveChatStateSuccess) _then)
+class __$$ArchiveChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$ArchiveChatStateCopyWithImpl<$Res, _$ArchiveChatStateSuccessImpl>
+    implements _$$ArchiveChatStateSuccessImplCopyWith<$Res> {
+  __$$ArchiveChatStateSuccessImplCopyWithImpl(
+      _$ArchiveChatStateSuccessImpl _value,
+      $Res Function(_$ArchiveChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7361,7 +7420,7 @@ class __$$_ArchiveChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_ArchiveChatStateSuccess(
+    return _then(_$ArchiveChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -7372,8 +7431,8 @@ class __$$_ArchiveChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ArchiveChatStateSuccess implements _ArchiveChatStateSuccess {
-  const _$_ArchiveChatStateSuccess(this.result);
+class _$ArchiveChatStateSuccessImpl implements _ArchiveChatStateSuccess {
+  const _$ArchiveChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -7384,10 +7443,10 @@ class _$_ArchiveChatStateSuccess implements _ArchiveChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ArchiveChatStateSuccess &&
+            other is _$ArchiveChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -7397,10 +7456,9 @@ class _$_ArchiveChatStateSuccess implements _ArchiveChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ArchiveChatStateSuccessCopyWith<_$_ArchiveChatStateSuccess>
-      get copyWith =>
-          __$$_ArchiveChatStateSuccessCopyWithImpl<_$_ArchiveChatStateSuccess>(
-              this, _$identity);
+  _$$ArchiveChatStateSuccessImplCopyWith<_$ArchiveChatStateSuccessImpl>
+      get copyWith => __$$ArchiveChatStateSuccessImplCopyWithImpl<
+          _$ArchiveChatStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7479,19 +7537,20 @@ class _$_ArchiveChatStateSuccess implements _ArchiveChatStateSuccess {
 
 abstract class _ArchiveChatStateSuccess implements ArchiveChatState {
   const factory _ArchiveChatStateSuccess(final bool result) =
-      _$_ArchiveChatStateSuccess;
+      _$ArchiveChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_ArchiveChatStateSuccessCopyWith<_$_ArchiveChatStateSuccess>
+  _$$ArchiveChatStateSuccessImplCopyWith<_$ArchiveChatStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ArchiveChatStateFailureCopyWith<$Res> {
-  factory _$$_ArchiveChatStateFailureCopyWith(_$_ArchiveChatStateFailure value,
-          $Res Function(_$_ArchiveChatStateFailure) then) =
-      __$$_ArchiveChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$ArchiveChatStateFailureImplCopyWith<$Res> {
+  factory _$$ArchiveChatStateFailureImplCopyWith(
+          _$ArchiveChatStateFailureImpl value,
+          $Res Function(_$ArchiveChatStateFailureImpl) then) =
+      __$$ArchiveChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -7499,11 +7558,12 @@ abstract class _$$_ArchiveChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ArchiveChatStateFailureCopyWithImpl<$Res>
-    extends _$ArchiveChatStateCopyWithImpl<$Res, _$_ArchiveChatStateFailure>
-    implements _$$_ArchiveChatStateFailureCopyWith<$Res> {
-  __$$_ArchiveChatStateFailureCopyWithImpl(_$_ArchiveChatStateFailure _value,
-      $Res Function(_$_ArchiveChatStateFailure) _then)
+class __$$ArchiveChatStateFailureImplCopyWithImpl<$Res>
+    extends _$ArchiveChatStateCopyWithImpl<$Res, _$ArchiveChatStateFailureImpl>
+    implements _$$ArchiveChatStateFailureImplCopyWith<$Res> {
+  __$$ArchiveChatStateFailureImplCopyWithImpl(
+      _$ArchiveChatStateFailureImpl _value,
+      $Res Function(_$ArchiveChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7511,7 +7571,7 @@ class __$$_ArchiveChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_ArchiveChatStateFailure(
+    return _then(_$ArchiveChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -7530,8 +7590,8 @@ class __$$_ArchiveChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ArchiveChatStateFailure implements _ArchiveChatStateFailure {
-  const _$_ArchiveChatStateFailure(this.error);
+class _$ArchiveChatStateFailureImpl implements _ArchiveChatStateFailure {
+  const _$ArchiveChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -7542,10 +7602,10 @@ class _$_ArchiveChatStateFailure implements _ArchiveChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ArchiveChatStateFailure &&
+            other is _$ArchiveChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -7555,10 +7615,9 @@ class _$_ArchiveChatStateFailure implements _ArchiveChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ArchiveChatStateFailureCopyWith<_$_ArchiveChatStateFailure>
-      get copyWith =>
-          __$$_ArchiveChatStateFailureCopyWithImpl<_$_ArchiveChatStateFailure>(
-              this, _$identity);
+  _$$ArchiveChatStateFailureImplCopyWith<_$ArchiveChatStateFailureImpl>
+      get copyWith => __$$ArchiveChatStateFailureImplCopyWithImpl<
+          _$ArchiveChatStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7637,11 +7696,11 @@ class _$_ArchiveChatStateFailure implements _ArchiveChatStateFailure {
 
 abstract class _ArchiveChatStateFailure implements ArchiveChatState {
   const factory _ArchiveChatStateFailure(final PeamanError error) =
-      _$_ArchiveChatStateFailure;
+      _$ArchiveChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_ArchiveChatStateFailureCopyWith<_$_ArchiveChatStateFailure>
+  _$$ArchiveChatStateFailureImplCopyWith<_$ArchiveChatStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -7719,28 +7778,29 @@ class _$SetTypingStatusStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SetTypingStatusStateInitialCopyWith<$Res> {
-  factory _$$_SetTypingStatusStateInitialCopyWith(
-          _$_SetTypingStatusStateInitial value,
-          $Res Function(_$_SetTypingStatusStateInitial) then) =
-      __$$_SetTypingStatusStateInitialCopyWithImpl<$Res>;
+abstract class _$$SetTypingStatusStateInitialImplCopyWith<$Res> {
+  factory _$$SetTypingStatusStateInitialImplCopyWith(
+          _$SetTypingStatusStateInitialImpl value,
+          $Res Function(_$SetTypingStatusStateInitialImpl) then) =
+      __$$SetTypingStatusStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SetTypingStatusStateInitialCopyWithImpl<$Res>
+class __$$SetTypingStatusStateInitialImplCopyWithImpl<$Res>
     extends _$SetTypingStatusStateCopyWithImpl<$Res,
-        _$_SetTypingStatusStateInitial>
-    implements _$$_SetTypingStatusStateInitialCopyWith<$Res> {
-  __$$_SetTypingStatusStateInitialCopyWithImpl(
-      _$_SetTypingStatusStateInitial _value,
-      $Res Function(_$_SetTypingStatusStateInitial) _then)
+        _$SetTypingStatusStateInitialImpl>
+    implements _$$SetTypingStatusStateInitialImplCopyWith<$Res> {
+  __$$SetTypingStatusStateInitialImplCopyWithImpl(
+      _$SetTypingStatusStateInitialImpl _value,
+      $Res Function(_$SetTypingStatusStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SetTypingStatusStateInitial implements _SetTypingStatusStateInitial {
-  const _$_SetTypingStatusStateInitial();
+class _$SetTypingStatusStateInitialImpl
+    implements _SetTypingStatusStateInitial {
+  const _$SetTypingStatusStateInitialImpl();
 
   @override
   String toString() {
@@ -7748,10 +7808,10 @@ class _$_SetTypingStatusStateInitial implements _SetTypingStatusStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetTypingStatusStateInitial);
+            other is _$SetTypingStatusStateInitialImpl);
   }
 
   @override
@@ -7833,32 +7893,34 @@ class _$_SetTypingStatusStateInitial implements _SetTypingStatusStateInitial {
 }
 
 abstract class _SetTypingStatusStateInitial implements SetTypingStatusState {
-  const factory _SetTypingStatusStateInitial() = _$_SetTypingStatusStateInitial;
+  const factory _SetTypingStatusStateInitial() =
+      _$SetTypingStatusStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SetTypingStatusStateLoadingCopyWith<$Res> {
-  factory _$$_SetTypingStatusStateLoadingCopyWith(
-          _$_SetTypingStatusStateLoading value,
-          $Res Function(_$_SetTypingStatusStateLoading) then) =
-      __$$_SetTypingStatusStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SetTypingStatusStateLoadingImplCopyWith<$Res> {
+  factory _$$SetTypingStatusStateLoadingImplCopyWith(
+          _$SetTypingStatusStateLoadingImpl value,
+          $Res Function(_$SetTypingStatusStateLoadingImpl) then) =
+      __$$SetTypingStatusStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SetTypingStatusStateLoadingCopyWithImpl<$Res>
+class __$$SetTypingStatusStateLoadingImplCopyWithImpl<$Res>
     extends _$SetTypingStatusStateCopyWithImpl<$Res,
-        _$_SetTypingStatusStateLoading>
-    implements _$$_SetTypingStatusStateLoadingCopyWith<$Res> {
-  __$$_SetTypingStatusStateLoadingCopyWithImpl(
-      _$_SetTypingStatusStateLoading _value,
-      $Res Function(_$_SetTypingStatusStateLoading) _then)
+        _$SetTypingStatusStateLoadingImpl>
+    implements _$$SetTypingStatusStateLoadingImplCopyWith<$Res> {
+  __$$SetTypingStatusStateLoadingImplCopyWithImpl(
+      _$SetTypingStatusStateLoadingImpl _value,
+      $Res Function(_$SetTypingStatusStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SetTypingStatusStateLoading implements _SetTypingStatusStateLoading {
-  const _$_SetTypingStatusStateLoading();
+class _$SetTypingStatusStateLoadingImpl
+    implements _SetTypingStatusStateLoading {
+  const _$SetTypingStatusStateLoadingImpl();
 
   @override
   String toString() {
@@ -7866,10 +7928,10 @@ class _$_SetTypingStatusStateLoading implements _SetTypingStatusStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetTypingStatusStateLoading);
+            other is _$SetTypingStatusStateLoadingImpl);
   }
 
   @override
@@ -7951,27 +8013,28 @@ class _$_SetTypingStatusStateLoading implements _SetTypingStatusStateLoading {
 }
 
 abstract class _SetTypingStatusStateLoading implements SetTypingStatusState {
-  const factory _SetTypingStatusStateLoading() = _$_SetTypingStatusStateLoading;
+  const factory _SetTypingStatusStateLoading() =
+      _$SetTypingStatusStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SetTypingStatusStateSuccessCopyWith<$Res> {
-  factory _$$_SetTypingStatusStateSuccessCopyWith(
-          _$_SetTypingStatusStateSuccess value,
-          $Res Function(_$_SetTypingStatusStateSuccess) then) =
-      __$$_SetTypingStatusStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SetTypingStatusStateSuccessImplCopyWith<$Res> {
+  factory _$$SetTypingStatusStateSuccessImplCopyWith(
+          _$SetTypingStatusStateSuccessImpl value,
+          $Res Function(_$SetTypingStatusStateSuccessImpl) then) =
+      __$$SetTypingStatusStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_SetTypingStatusStateSuccessCopyWithImpl<$Res>
+class __$$SetTypingStatusStateSuccessImplCopyWithImpl<$Res>
     extends _$SetTypingStatusStateCopyWithImpl<$Res,
-        _$_SetTypingStatusStateSuccess>
-    implements _$$_SetTypingStatusStateSuccessCopyWith<$Res> {
-  __$$_SetTypingStatusStateSuccessCopyWithImpl(
-      _$_SetTypingStatusStateSuccess _value,
-      $Res Function(_$_SetTypingStatusStateSuccess) _then)
+        _$SetTypingStatusStateSuccessImpl>
+    implements _$$SetTypingStatusStateSuccessImplCopyWith<$Res> {
+  __$$SetTypingStatusStateSuccessImplCopyWithImpl(
+      _$SetTypingStatusStateSuccessImpl _value,
+      $Res Function(_$SetTypingStatusStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7979,7 +8042,7 @@ class __$$_SetTypingStatusStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SetTypingStatusStateSuccess(
+    return _then(_$SetTypingStatusStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -7990,8 +8053,9 @@ class __$$_SetTypingStatusStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SetTypingStatusStateSuccess implements _SetTypingStatusStateSuccess {
-  const _$_SetTypingStatusStateSuccess(this.result);
+class _$SetTypingStatusStateSuccessImpl
+    implements _SetTypingStatusStateSuccess {
+  const _$SetTypingStatusStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -8002,10 +8066,10 @@ class _$_SetTypingStatusStateSuccess implements _SetTypingStatusStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetTypingStatusStateSuccess &&
+            other is _$SetTypingStatusStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -8015,9 +8079,9 @@ class _$_SetTypingStatusStateSuccess implements _SetTypingStatusStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SetTypingStatusStateSuccessCopyWith<_$_SetTypingStatusStateSuccess>
-      get copyWith => __$$_SetTypingStatusStateSuccessCopyWithImpl<
-          _$_SetTypingStatusStateSuccess>(this, _$identity);
+  _$$SetTypingStatusStateSuccessImplCopyWith<_$SetTypingStatusStateSuccessImpl>
+      get copyWith => __$$SetTypingStatusStateSuccessImplCopyWithImpl<
+          _$SetTypingStatusStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8096,20 +8160,20 @@ class _$_SetTypingStatusStateSuccess implements _SetTypingStatusStateSuccess {
 
 abstract class _SetTypingStatusStateSuccess implements SetTypingStatusState {
   const factory _SetTypingStatusStateSuccess(final bool result) =
-      _$_SetTypingStatusStateSuccess;
+      _$SetTypingStatusStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_SetTypingStatusStateSuccessCopyWith<_$_SetTypingStatusStateSuccess>
+  _$$SetTypingStatusStateSuccessImplCopyWith<_$SetTypingStatusStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SetTypingStatusStateFailureCopyWith<$Res> {
-  factory _$$_SetTypingStatusStateFailureCopyWith(
-          _$_SetTypingStatusStateFailure value,
-          $Res Function(_$_SetTypingStatusStateFailure) then) =
-      __$$_SetTypingStatusStateFailureCopyWithImpl<$Res>;
+abstract class _$$SetTypingStatusStateFailureImplCopyWith<$Res> {
+  factory _$$SetTypingStatusStateFailureImplCopyWith(
+          _$SetTypingStatusStateFailureImpl value,
+          $Res Function(_$SetTypingStatusStateFailureImpl) then) =
+      __$$SetTypingStatusStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -8117,13 +8181,13 @@ abstract class _$$_SetTypingStatusStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SetTypingStatusStateFailureCopyWithImpl<$Res>
+class __$$SetTypingStatusStateFailureImplCopyWithImpl<$Res>
     extends _$SetTypingStatusStateCopyWithImpl<$Res,
-        _$_SetTypingStatusStateFailure>
-    implements _$$_SetTypingStatusStateFailureCopyWith<$Res> {
-  __$$_SetTypingStatusStateFailureCopyWithImpl(
-      _$_SetTypingStatusStateFailure _value,
-      $Res Function(_$_SetTypingStatusStateFailure) _then)
+        _$SetTypingStatusStateFailureImpl>
+    implements _$$SetTypingStatusStateFailureImplCopyWith<$Res> {
+  __$$SetTypingStatusStateFailureImplCopyWithImpl(
+      _$SetTypingStatusStateFailureImpl _value,
+      $Res Function(_$SetTypingStatusStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8131,7 +8195,7 @@ class __$$_SetTypingStatusStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SetTypingStatusStateFailure(
+    return _then(_$SetTypingStatusStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -8150,8 +8214,9 @@ class __$$_SetTypingStatusStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SetTypingStatusStateFailure implements _SetTypingStatusStateFailure {
-  const _$_SetTypingStatusStateFailure(this.error);
+class _$SetTypingStatusStateFailureImpl
+    implements _SetTypingStatusStateFailure {
+  const _$SetTypingStatusStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -8162,10 +8227,10 @@ class _$_SetTypingStatusStateFailure implements _SetTypingStatusStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetTypingStatusStateFailure &&
+            other is _$SetTypingStatusStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -8175,9 +8240,9 @@ class _$_SetTypingStatusStateFailure implements _SetTypingStatusStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SetTypingStatusStateFailureCopyWith<_$_SetTypingStatusStateFailure>
-      get copyWith => __$$_SetTypingStatusStateFailureCopyWithImpl<
-          _$_SetTypingStatusStateFailure>(this, _$identity);
+  _$$SetTypingStatusStateFailureImplCopyWith<_$SetTypingStatusStateFailureImpl>
+      get copyWith => __$$SetTypingStatusStateFailureImplCopyWithImpl<
+          _$SetTypingStatusStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8256,11 +8321,11 @@ class _$_SetTypingStatusStateFailure implements _SetTypingStatusStateFailure {
 
 abstract class _SetTypingStatusStateFailure implements SetTypingStatusState {
   const factory _SetTypingStatusStateFailure(final PeamanError error) =
-      _$_SetTypingStatusStateFailure;
+      _$SetTypingStatusStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SetTypingStatusStateFailureCopyWith<_$_SetTypingStatusStateFailure>
+  _$$SetTypingStatusStateFailureImplCopyWith<_$SetTypingStatusStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -8337,25 +8402,25 @@ class _$MuteChatStateCopyWithImpl<$Res, $Val extends MuteChatState>
 }
 
 /// @nodoc
-abstract class _$$_MuteChatStateInitialCopyWith<$Res> {
-  factory _$$_MuteChatStateInitialCopyWith(_$_MuteChatStateInitial value,
-          $Res Function(_$_MuteChatStateInitial) then) =
-      __$$_MuteChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$MuteChatStateInitialImplCopyWith<$Res> {
+  factory _$$MuteChatStateInitialImplCopyWith(_$MuteChatStateInitialImpl value,
+          $Res Function(_$MuteChatStateInitialImpl) then) =
+      __$$MuteChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_MuteChatStateInitialCopyWithImpl<$Res>
-    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateInitial>
-    implements _$$_MuteChatStateInitialCopyWith<$Res> {
-  __$$_MuteChatStateInitialCopyWithImpl(_$_MuteChatStateInitial _value,
-      $Res Function(_$_MuteChatStateInitial) _then)
+class __$$MuteChatStateInitialImplCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$MuteChatStateInitialImpl>
+    implements _$$MuteChatStateInitialImplCopyWith<$Res> {
+  __$$MuteChatStateInitialImplCopyWithImpl(_$MuteChatStateInitialImpl _value,
+      $Res Function(_$MuteChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_MuteChatStateInitial implements _MuteChatStateInitial {
-  const _$_MuteChatStateInitial();
+class _$MuteChatStateInitialImpl implements _MuteChatStateInitial {
+  const _$MuteChatStateInitialImpl();
 
   @override
   String toString() {
@@ -8363,9 +8428,10 @@ class _$_MuteChatStateInitial implements _MuteChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_MuteChatStateInitial);
+        (other.runtimeType == runtimeType &&
+            other is _$MuteChatStateInitialImpl);
   }
 
   @override
@@ -8447,29 +8513,29 @@ class _$_MuteChatStateInitial implements _MuteChatStateInitial {
 }
 
 abstract class _MuteChatStateInitial implements MuteChatState {
-  const factory _MuteChatStateInitial() = _$_MuteChatStateInitial;
+  const factory _MuteChatStateInitial() = _$MuteChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_MuteChatStateLoadingCopyWith<$Res> {
-  factory _$$_MuteChatStateLoadingCopyWith(_$_MuteChatStateLoading value,
-          $Res Function(_$_MuteChatStateLoading) then) =
-      __$$_MuteChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$MuteChatStateLoadingImplCopyWith<$Res> {
+  factory _$$MuteChatStateLoadingImplCopyWith(_$MuteChatStateLoadingImpl value,
+          $Res Function(_$MuteChatStateLoadingImpl) then) =
+      __$$MuteChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_MuteChatStateLoadingCopyWithImpl<$Res>
-    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateLoading>
-    implements _$$_MuteChatStateLoadingCopyWith<$Res> {
-  __$$_MuteChatStateLoadingCopyWithImpl(_$_MuteChatStateLoading _value,
-      $Res Function(_$_MuteChatStateLoading) _then)
+class __$$MuteChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$MuteChatStateLoadingImpl>
+    implements _$$MuteChatStateLoadingImplCopyWith<$Res> {
+  __$$MuteChatStateLoadingImplCopyWithImpl(_$MuteChatStateLoadingImpl _value,
+      $Res Function(_$MuteChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_MuteChatStateLoading implements _MuteChatStateLoading {
-  const _$_MuteChatStateLoading();
+class _$MuteChatStateLoadingImpl implements _MuteChatStateLoading {
+  const _$MuteChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -8477,9 +8543,10 @@ class _$_MuteChatStateLoading implements _MuteChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_MuteChatStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$MuteChatStateLoadingImpl);
   }
 
   @override
@@ -8561,24 +8628,24 @@ class _$_MuteChatStateLoading implements _MuteChatStateLoading {
 }
 
 abstract class _MuteChatStateLoading implements MuteChatState {
-  const factory _MuteChatStateLoading() = _$_MuteChatStateLoading;
+  const factory _MuteChatStateLoading() = _$MuteChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_MuteChatStateSuccessCopyWith<$Res> {
-  factory _$$_MuteChatStateSuccessCopyWith(_$_MuteChatStateSuccess value,
-          $Res Function(_$_MuteChatStateSuccess) then) =
-      __$$_MuteChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$MuteChatStateSuccessImplCopyWith<$Res> {
+  factory _$$MuteChatStateSuccessImplCopyWith(_$MuteChatStateSuccessImpl value,
+          $Res Function(_$MuteChatStateSuccessImpl) then) =
+      __$$MuteChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_MuteChatStateSuccessCopyWithImpl<$Res>
-    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateSuccess>
-    implements _$$_MuteChatStateSuccessCopyWith<$Res> {
-  __$$_MuteChatStateSuccessCopyWithImpl(_$_MuteChatStateSuccess _value,
-      $Res Function(_$_MuteChatStateSuccess) _then)
+class __$$MuteChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$MuteChatStateSuccessImpl>
+    implements _$$MuteChatStateSuccessImplCopyWith<$Res> {
+  __$$MuteChatStateSuccessImplCopyWithImpl(_$MuteChatStateSuccessImpl _value,
+      $Res Function(_$MuteChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8586,7 +8653,7 @@ class __$$_MuteChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_MuteChatStateSuccess(
+    return _then(_$MuteChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -8597,8 +8664,8 @@ class __$$_MuteChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MuteChatStateSuccess implements _MuteChatStateSuccess {
-  const _$_MuteChatStateSuccess(this.result);
+class _$MuteChatStateSuccessImpl implements _MuteChatStateSuccess {
+  const _$MuteChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -8609,10 +8676,10 @@ class _$_MuteChatStateSuccess implements _MuteChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MuteChatStateSuccess &&
+            other is _$MuteChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -8622,9 +8689,10 @@ class _$_MuteChatStateSuccess implements _MuteChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MuteChatStateSuccessCopyWith<_$_MuteChatStateSuccess> get copyWith =>
-      __$$_MuteChatStateSuccessCopyWithImpl<_$_MuteChatStateSuccess>(
-          this, _$identity);
+  _$$MuteChatStateSuccessImplCopyWith<_$MuteChatStateSuccessImpl>
+      get copyWith =>
+          __$$MuteChatStateSuccessImplCopyWithImpl<_$MuteChatStateSuccessImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8703,19 +8771,19 @@ class _$_MuteChatStateSuccess implements _MuteChatStateSuccess {
 
 abstract class _MuteChatStateSuccess implements MuteChatState {
   const factory _MuteChatStateSuccess(final bool result) =
-      _$_MuteChatStateSuccess;
+      _$MuteChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_MuteChatStateSuccessCopyWith<_$_MuteChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MuteChatStateSuccessImplCopyWith<_$MuteChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_MuteChatStateFailureCopyWith<$Res> {
-  factory _$$_MuteChatStateFailureCopyWith(_$_MuteChatStateFailure value,
-          $Res Function(_$_MuteChatStateFailure) then) =
-      __$$_MuteChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$MuteChatStateFailureImplCopyWith<$Res> {
+  factory _$$MuteChatStateFailureImplCopyWith(_$MuteChatStateFailureImpl value,
+          $Res Function(_$MuteChatStateFailureImpl) then) =
+      __$$MuteChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -8723,11 +8791,11 @@ abstract class _$$_MuteChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_MuteChatStateFailureCopyWithImpl<$Res>
-    extends _$MuteChatStateCopyWithImpl<$Res, _$_MuteChatStateFailure>
-    implements _$$_MuteChatStateFailureCopyWith<$Res> {
-  __$$_MuteChatStateFailureCopyWithImpl(_$_MuteChatStateFailure _value,
-      $Res Function(_$_MuteChatStateFailure) _then)
+class __$$MuteChatStateFailureImplCopyWithImpl<$Res>
+    extends _$MuteChatStateCopyWithImpl<$Res, _$MuteChatStateFailureImpl>
+    implements _$$MuteChatStateFailureImplCopyWith<$Res> {
+  __$$MuteChatStateFailureImplCopyWithImpl(_$MuteChatStateFailureImpl _value,
+      $Res Function(_$MuteChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8735,7 +8803,7 @@ class __$$_MuteChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_MuteChatStateFailure(
+    return _then(_$MuteChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -8754,8 +8822,8 @@ class __$$_MuteChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MuteChatStateFailure implements _MuteChatStateFailure {
-  const _$_MuteChatStateFailure(this.error);
+class _$MuteChatStateFailureImpl implements _MuteChatStateFailure {
+  const _$MuteChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -8766,10 +8834,10 @@ class _$_MuteChatStateFailure implements _MuteChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MuteChatStateFailure &&
+            other is _$MuteChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -8779,9 +8847,10 @@ class _$_MuteChatStateFailure implements _MuteChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MuteChatStateFailureCopyWith<_$_MuteChatStateFailure> get copyWith =>
-      __$$_MuteChatStateFailureCopyWithImpl<_$_MuteChatStateFailure>(
-          this, _$identity);
+  _$$MuteChatStateFailureImplCopyWith<_$MuteChatStateFailureImpl>
+      get copyWith =>
+          __$$MuteChatStateFailureImplCopyWithImpl<_$MuteChatStateFailureImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8860,12 +8929,12 @@ class _$_MuteChatStateFailure implements _MuteChatStateFailure {
 
 abstract class _MuteChatStateFailure implements MuteChatState {
   const factory _MuteChatStateFailure(final PeamanError error) =
-      _$_MuteChatStateFailure;
+      _$MuteChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_MuteChatStateFailureCopyWith<_$_MuteChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MuteChatStateFailureImplCopyWith<_$MuteChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -8941,25 +9010,27 @@ class _$UnmuteChatStateCopyWithImpl<$Res, $Val extends UnmuteChatState>
 }
 
 /// @nodoc
-abstract class _$$_UnmuteChatStateInitialCopyWith<$Res> {
-  factory _$$_UnmuteChatStateInitialCopyWith(_$_UnmuteChatStateInitial value,
-          $Res Function(_$_UnmuteChatStateInitial) then) =
-      __$$_UnmuteChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$UnmuteChatStateInitialImplCopyWith<$Res> {
+  factory _$$UnmuteChatStateInitialImplCopyWith(
+          _$UnmuteChatStateInitialImpl value,
+          $Res Function(_$UnmuteChatStateInitialImpl) then) =
+      __$$UnmuteChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnmuteChatStateInitialCopyWithImpl<$Res>
-    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateInitial>
-    implements _$$_UnmuteChatStateInitialCopyWith<$Res> {
-  __$$_UnmuteChatStateInitialCopyWithImpl(_$_UnmuteChatStateInitial _value,
-      $Res Function(_$_UnmuteChatStateInitial) _then)
+class __$$UnmuteChatStateInitialImplCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$UnmuteChatStateInitialImpl>
+    implements _$$UnmuteChatStateInitialImplCopyWith<$Res> {
+  __$$UnmuteChatStateInitialImplCopyWithImpl(
+      _$UnmuteChatStateInitialImpl _value,
+      $Res Function(_$UnmuteChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnmuteChatStateInitial implements _UnmuteChatStateInitial {
-  const _$_UnmuteChatStateInitial();
+class _$UnmuteChatStateInitialImpl implements _UnmuteChatStateInitial {
+  const _$UnmuteChatStateInitialImpl();
 
   @override
   String toString() {
@@ -8967,10 +9038,10 @@ class _$_UnmuteChatStateInitial implements _UnmuteChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnmuteChatStateInitial);
+            other is _$UnmuteChatStateInitialImpl);
   }
 
   @override
@@ -9052,29 +9123,31 @@ class _$_UnmuteChatStateInitial implements _UnmuteChatStateInitial {
 }
 
 abstract class _UnmuteChatStateInitial implements UnmuteChatState {
-  const factory _UnmuteChatStateInitial() = _$_UnmuteChatStateInitial;
+  const factory _UnmuteChatStateInitial() = _$UnmuteChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnmuteChatStateLoadingCopyWith<$Res> {
-  factory _$$_UnmuteChatStateLoadingCopyWith(_$_UnmuteChatStateLoading value,
-          $Res Function(_$_UnmuteChatStateLoading) then) =
-      __$$_UnmuteChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UnmuteChatStateLoadingImplCopyWith<$Res> {
+  factory _$$UnmuteChatStateLoadingImplCopyWith(
+          _$UnmuteChatStateLoadingImpl value,
+          $Res Function(_$UnmuteChatStateLoadingImpl) then) =
+      __$$UnmuteChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnmuteChatStateLoadingCopyWithImpl<$Res>
-    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateLoading>
-    implements _$$_UnmuteChatStateLoadingCopyWith<$Res> {
-  __$$_UnmuteChatStateLoadingCopyWithImpl(_$_UnmuteChatStateLoading _value,
-      $Res Function(_$_UnmuteChatStateLoading) _then)
+class __$$UnmuteChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$UnmuteChatStateLoadingImpl>
+    implements _$$UnmuteChatStateLoadingImplCopyWith<$Res> {
+  __$$UnmuteChatStateLoadingImplCopyWithImpl(
+      _$UnmuteChatStateLoadingImpl _value,
+      $Res Function(_$UnmuteChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnmuteChatStateLoading implements _UnmuteChatStateLoading {
-  const _$_UnmuteChatStateLoading();
+class _$UnmuteChatStateLoadingImpl implements _UnmuteChatStateLoading {
+  const _$UnmuteChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -9082,10 +9155,10 @@ class _$_UnmuteChatStateLoading implements _UnmuteChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnmuteChatStateLoading);
+            other is _$UnmuteChatStateLoadingImpl);
   }
 
   @override
@@ -9167,24 +9240,26 @@ class _$_UnmuteChatStateLoading implements _UnmuteChatStateLoading {
 }
 
 abstract class _UnmuteChatStateLoading implements UnmuteChatState {
-  const factory _UnmuteChatStateLoading() = _$_UnmuteChatStateLoading;
+  const factory _UnmuteChatStateLoading() = _$UnmuteChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnmuteChatStateSuccessCopyWith<$Res> {
-  factory _$$_UnmuteChatStateSuccessCopyWith(_$_UnmuteChatStateSuccess value,
-          $Res Function(_$_UnmuteChatStateSuccess) then) =
-      __$$_UnmuteChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UnmuteChatStateSuccessImplCopyWith<$Res> {
+  factory _$$UnmuteChatStateSuccessImplCopyWith(
+          _$UnmuteChatStateSuccessImpl value,
+          $Res Function(_$UnmuteChatStateSuccessImpl) then) =
+      __$$UnmuteChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UnmuteChatStateSuccessCopyWithImpl<$Res>
-    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateSuccess>
-    implements _$$_UnmuteChatStateSuccessCopyWith<$Res> {
-  __$$_UnmuteChatStateSuccessCopyWithImpl(_$_UnmuteChatStateSuccess _value,
-      $Res Function(_$_UnmuteChatStateSuccess) _then)
+class __$$UnmuteChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$UnmuteChatStateSuccessImpl>
+    implements _$$UnmuteChatStateSuccessImplCopyWith<$Res> {
+  __$$UnmuteChatStateSuccessImplCopyWithImpl(
+      _$UnmuteChatStateSuccessImpl _value,
+      $Res Function(_$UnmuteChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9192,7 +9267,7 @@ class __$$_UnmuteChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UnmuteChatStateSuccess(
+    return _then(_$UnmuteChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -9203,8 +9278,8 @@ class __$$_UnmuteChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnmuteChatStateSuccess implements _UnmuteChatStateSuccess {
-  const _$_UnmuteChatStateSuccess(this.result);
+class _$UnmuteChatStateSuccessImpl implements _UnmuteChatStateSuccess {
+  const _$UnmuteChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -9215,10 +9290,10 @@ class _$_UnmuteChatStateSuccess implements _UnmuteChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnmuteChatStateSuccess &&
+            other is _$UnmuteChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -9228,9 +9303,9 @@ class _$_UnmuteChatStateSuccess implements _UnmuteChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnmuteChatStateSuccessCopyWith<_$_UnmuteChatStateSuccess> get copyWith =>
-      __$$_UnmuteChatStateSuccessCopyWithImpl<_$_UnmuteChatStateSuccess>(
-          this, _$identity);
+  _$$UnmuteChatStateSuccessImplCopyWith<_$UnmuteChatStateSuccessImpl>
+      get copyWith => __$$UnmuteChatStateSuccessImplCopyWithImpl<
+          _$UnmuteChatStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9309,19 +9384,20 @@ class _$_UnmuteChatStateSuccess implements _UnmuteChatStateSuccess {
 
 abstract class _UnmuteChatStateSuccess implements UnmuteChatState {
   const factory _UnmuteChatStateSuccess(final bool result) =
-      _$_UnmuteChatStateSuccess;
+      _$UnmuteChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UnmuteChatStateSuccessCopyWith<_$_UnmuteChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UnmuteChatStateSuccessImplCopyWith<_$UnmuteChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnmuteChatStateFailureCopyWith<$Res> {
-  factory _$$_UnmuteChatStateFailureCopyWith(_$_UnmuteChatStateFailure value,
-          $Res Function(_$_UnmuteChatStateFailure) then) =
-      __$$_UnmuteChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$UnmuteChatStateFailureImplCopyWith<$Res> {
+  factory _$$UnmuteChatStateFailureImplCopyWith(
+          _$UnmuteChatStateFailureImpl value,
+          $Res Function(_$UnmuteChatStateFailureImpl) then) =
+      __$$UnmuteChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -9329,11 +9405,12 @@ abstract class _$$_UnmuteChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UnmuteChatStateFailureCopyWithImpl<$Res>
-    extends _$UnmuteChatStateCopyWithImpl<$Res, _$_UnmuteChatStateFailure>
-    implements _$$_UnmuteChatStateFailureCopyWith<$Res> {
-  __$$_UnmuteChatStateFailureCopyWithImpl(_$_UnmuteChatStateFailure _value,
-      $Res Function(_$_UnmuteChatStateFailure) _then)
+class __$$UnmuteChatStateFailureImplCopyWithImpl<$Res>
+    extends _$UnmuteChatStateCopyWithImpl<$Res, _$UnmuteChatStateFailureImpl>
+    implements _$$UnmuteChatStateFailureImplCopyWith<$Res> {
+  __$$UnmuteChatStateFailureImplCopyWithImpl(
+      _$UnmuteChatStateFailureImpl _value,
+      $Res Function(_$UnmuteChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9341,7 +9418,7 @@ class __$$_UnmuteChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UnmuteChatStateFailure(
+    return _then(_$UnmuteChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -9360,8 +9437,8 @@ class __$$_UnmuteChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnmuteChatStateFailure implements _UnmuteChatStateFailure {
-  const _$_UnmuteChatStateFailure(this.error);
+class _$UnmuteChatStateFailureImpl implements _UnmuteChatStateFailure {
+  const _$UnmuteChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -9372,10 +9449,10 @@ class _$_UnmuteChatStateFailure implements _UnmuteChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnmuteChatStateFailure &&
+            other is _$UnmuteChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -9385,9 +9462,9 @@ class _$_UnmuteChatStateFailure implements _UnmuteChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnmuteChatStateFailureCopyWith<_$_UnmuteChatStateFailure> get copyWith =>
-      __$$_UnmuteChatStateFailureCopyWithImpl<_$_UnmuteChatStateFailure>(
-          this, _$identity);
+  _$$UnmuteChatStateFailureImplCopyWith<_$UnmuteChatStateFailureImpl>
+      get copyWith => __$$UnmuteChatStateFailureImplCopyWithImpl<
+          _$UnmuteChatStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9466,12 +9543,12 @@ class _$_UnmuteChatStateFailure implements _UnmuteChatStateFailure {
 
 abstract class _UnmuteChatStateFailure implements UnmuteChatState {
   const factory _UnmuteChatStateFailure(final PeamanError error) =
-      _$_UnmuteChatStateFailure;
+      _$UnmuteChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UnmuteChatStateFailureCopyWith<_$_UnmuteChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UnmuteChatStateFailureImplCopyWith<_$UnmuteChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -9547,25 +9624,26 @@ class _$LeaveChatStateCopyWithImpl<$Res, $Val extends LeaveChatState>
 }
 
 /// @nodoc
-abstract class _$$_LeaveChatStateInitialCopyWith<$Res> {
-  factory _$$_LeaveChatStateInitialCopyWith(_$_LeaveChatStateInitial value,
-          $Res Function(_$_LeaveChatStateInitial) then) =
-      __$$_LeaveChatStateInitialCopyWithImpl<$Res>;
+abstract class _$$LeaveChatStateInitialImplCopyWith<$Res> {
+  factory _$$LeaveChatStateInitialImplCopyWith(
+          _$LeaveChatStateInitialImpl value,
+          $Res Function(_$LeaveChatStateInitialImpl) then) =
+      __$$LeaveChatStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LeaveChatStateInitialCopyWithImpl<$Res>
-    extends _$LeaveChatStateCopyWithImpl<$Res, _$_LeaveChatStateInitial>
-    implements _$$_LeaveChatStateInitialCopyWith<$Res> {
-  __$$_LeaveChatStateInitialCopyWithImpl(_$_LeaveChatStateInitial _value,
-      $Res Function(_$_LeaveChatStateInitial) _then)
+class __$$LeaveChatStateInitialImplCopyWithImpl<$Res>
+    extends _$LeaveChatStateCopyWithImpl<$Res, _$LeaveChatStateInitialImpl>
+    implements _$$LeaveChatStateInitialImplCopyWith<$Res> {
+  __$$LeaveChatStateInitialImplCopyWithImpl(_$LeaveChatStateInitialImpl _value,
+      $Res Function(_$LeaveChatStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LeaveChatStateInitial implements _LeaveChatStateInitial {
-  const _$_LeaveChatStateInitial();
+class _$LeaveChatStateInitialImpl implements _LeaveChatStateInitial {
+  const _$LeaveChatStateInitialImpl();
 
   @override
   String toString() {
@@ -9573,9 +9651,10 @@ class _$_LeaveChatStateInitial implements _LeaveChatStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LeaveChatStateInitial);
+        (other.runtimeType == runtimeType &&
+            other is _$LeaveChatStateInitialImpl);
   }
 
   @override
@@ -9657,29 +9736,30 @@ class _$_LeaveChatStateInitial implements _LeaveChatStateInitial {
 }
 
 abstract class _LeaveChatStateInitial implements LeaveChatState {
-  const factory _LeaveChatStateInitial() = _$_LeaveChatStateInitial;
+  const factory _LeaveChatStateInitial() = _$LeaveChatStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_LeaveChatStateLoadingCopyWith<$Res> {
-  factory _$$_LeaveChatStateLoadingCopyWith(_$_LeaveChatStateLoading value,
-          $Res Function(_$_LeaveChatStateLoading) then) =
-      __$$_LeaveChatStateLoadingCopyWithImpl<$Res>;
+abstract class _$$LeaveChatStateLoadingImplCopyWith<$Res> {
+  factory _$$LeaveChatStateLoadingImplCopyWith(
+          _$LeaveChatStateLoadingImpl value,
+          $Res Function(_$LeaveChatStateLoadingImpl) then) =
+      __$$LeaveChatStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LeaveChatStateLoadingCopyWithImpl<$Res>
-    extends _$LeaveChatStateCopyWithImpl<$Res, _$_LeaveChatStateLoading>
-    implements _$$_LeaveChatStateLoadingCopyWith<$Res> {
-  __$$_LeaveChatStateLoadingCopyWithImpl(_$_LeaveChatStateLoading _value,
-      $Res Function(_$_LeaveChatStateLoading) _then)
+class __$$LeaveChatStateLoadingImplCopyWithImpl<$Res>
+    extends _$LeaveChatStateCopyWithImpl<$Res, _$LeaveChatStateLoadingImpl>
+    implements _$$LeaveChatStateLoadingImplCopyWith<$Res> {
+  __$$LeaveChatStateLoadingImplCopyWithImpl(_$LeaveChatStateLoadingImpl _value,
+      $Res Function(_$LeaveChatStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_LeaveChatStateLoading implements _LeaveChatStateLoading {
-  const _$_LeaveChatStateLoading();
+class _$LeaveChatStateLoadingImpl implements _LeaveChatStateLoading {
+  const _$LeaveChatStateLoadingImpl();
 
   @override
   String toString() {
@@ -9687,9 +9767,10 @@ class _$_LeaveChatStateLoading implements _LeaveChatStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LeaveChatStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$LeaveChatStateLoadingImpl);
   }
 
   @override
@@ -9771,24 +9852,25 @@ class _$_LeaveChatStateLoading implements _LeaveChatStateLoading {
 }
 
 abstract class _LeaveChatStateLoading implements LeaveChatState {
-  const factory _LeaveChatStateLoading() = _$_LeaveChatStateLoading;
+  const factory _LeaveChatStateLoading() = _$LeaveChatStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_LeaveChatStateSuccessCopyWith<$Res> {
-  factory _$$_LeaveChatStateSuccessCopyWith(_$_LeaveChatStateSuccess value,
-          $Res Function(_$_LeaveChatStateSuccess) then) =
-      __$$_LeaveChatStateSuccessCopyWithImpl<$Res>;
+abstract class _$$LeaveChatStateSuccessImplCopyWith<$Res> {
+  factory _$$LeaveChatStateSuccessImplCopyWith(
+          _$LeaveChatStateSuccessImpl value,
+          $Res Function(_$LeaveChatStateSuccessImpl) then) =
+      __$$LeaveChatStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_LeaveChatStateSuccessCopyWithImpl<$Res>
-    extends _$LeaveChatStateCopyWithImpl<$Res, _$_LeaveChatStateSuccess>
-    implements _$$_LeaveChatStateSuccessCopyWith<$Res> {
-  __$$_LeaveChatStateSuccessCopyWithImpl(_$_LeaveChatStateSuccess _value,
-      $Res Function(_$_LeaveChatStateSuccess) _then)
+class __$$LeaveChatStateSuccessImplCopyWithImpl<$Res>
+    extends _$LeaveChatStateCopyWithImpl<$Res, _$LeaveChatStateSuccessImpl>
+    implements _$$LeaveChatStateSuccessImplCopyWith<$Res> {
+  __$$LeaveChatStateSuccessImplCopyWithImpl(_$LeaveChatStateSuccessImpl _value,
+      $Res Function(_$LeaveChatStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9796,7 +9878,7 @@ class __$$_LeaveChatStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_LeaveChatStateSuccess(
+    return _then(_$LeaveChatStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -9807,8 +9889,8 @@ class __$$_LeaveChatStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LeaveChatStateSuccess implements _LeaveChatStateSuccess {
-  const _$_LeaveChatStateSuccess(this.result);
+class _$LeaveChatStateSuccessImpl implements _LeaveChatStateSuccess {
+  const _$LeaveChatStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -9819,10 +9901,10 @@ class _$_LeaveChatStateSuccess implements _LeaveChatStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LeaveChatStateSuccess &&
+            other is _$LeaveChatStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -9832,9 +9914,9 @@ class _$_LeaveChatStateSuccess implements _LeaveChatStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LeaveChatStateSuccessCopyWith<_$_LeaveChatStateSuccess> get copyWith =>
-      __$$_LeaveChatStateSuccessCopyWithImpl<_$_LeaveChatStateSuccess>(
-          this, _$identity);
+  _$$LeaveChatStateSuccessImplCopyWith<_$LeaveChatStateSuccessImpl>
+      get copyWith => __$$LeaveChatStateSuccessImplCopyWithImpl<
+          _$LeaveChatStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -9913,19 +9995,20 @@ class _$_LeaveChatStateSuccess implements _LeaveChatStateSuccess {
 
 abstract class _LeaveChatStateSuccess implements LeaveChatState {
   const factory _LeaveChatStateSuccess(final bool result) =
-      _$_LeaveChatStateSuccess;
+      _$LeaveChatStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_LeaveChatStateSuccessCopyWith<_$_LeaveChatStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LeaveChatStateSuccessImplCopyWith<_$LeaveChatStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LeaveChatStateFailureCopyWith<$Res> {
-  factory _$$_LeaveChatStateFailureCopyWith(_$_LeaveChatStateFailure value,
-          $Res Function(_$_LeaveChatStateFailure) then) =
-      __$$_LeaveChatStateFailureCopyWithImpl<$Res>;
+abstract class _$$LeaveChatStateFailureImplCopyWith<$Res> {
+  factory _$$LeaveChatStateFailureImplCopyWith(
+          _$LeaveChatStateFailureImpl value,
+          $Res Function(_$LeaveChatStateFailureImpl) then) =
+      __$$LeaveChatStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -9933,11 +10016,11 @@ abstract class _$$_LeaveChatStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LeaveChatStateFailureCopyWithImpl<$Res>
-    extends _$LeaveChatStateCopyWithImpl<$Res, _$_LeaveChatStateFailure>
-    implements _$$_LeaveChatStateFailureCopyWith<$Res> {
-  __$$_LeaveChatStateFailureCopyWithImpl(_$_LeaveChatStateFailure _value,
-      $Res Function(_$_LeaveChatStateFailure) _then)
+class __$$LeaveChatStateFailureImplCopyWithImpl<$Res>
+    extends _$LeaveChatStateCopyWithImpl<$Res, _$LeaveChatStateFailureImpl>
+    implements _$$LeaveChatStateFailureImplCopyWith<$Res> {
+  __$$LeaveChatStateFailureImplCopyWithImpl(_$LeaveChatStateFailureImpl _value,
+      $Res Function(_$LeaveChatStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9945,7 +10028,7 @@ class __$$_LeaveChatStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_LeaveChatStateFailure(
+    return _then(_$LeaveChatStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -9964,8 +10047,8 @@ class __$$_LeaveChatStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LeaveChatStateFailure implements _LeaveChatStateFailure {
-  const _$_LeaveChatStateFailure(this.error);
+class _$LeaveChatStateFailureImpl implements _LeaveChatStateFailure {
+  const _$LeaveChatStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -9976,10 +10059,10 @@ class _$_LeaveChatStateFailure implements _LeaveChatStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LeaveChatStateFailure &&
+            other is _$LeaveChatStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -9989,9 +10072,9 @@ class _$_LeaveChatStateFailure implements _LeaveChatStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LeaveChatStateFailureCopyWith<_$_LeaveChatStateFailure> get copyWith =>
-      __$$_LeaveChatStateFailureCopyWithImpl<_$_LeaveChatStateFailure>(
-          this, _$identity);
+  _$$LeaveChatStateFailureImplCopyWith<_$LeaveChatStateFailureImpl>
+      get copyWith => __$$LeaveChatStateFailureImplCopyWithImpl<
+          _$LeaveChatStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10070,12 +10153,12 @@ class _$_LeaveChatStateFailure implements _LeaveChatStateFailure {
 
 abstract class _LeaveChatStateFailure implements LeaveChatState {
   const factory _LeaveChatStateFailure(final PeamanError error) =
-      _$_LeaveChatStateFailure;
+      _$LeaveChatStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_LeaveChatStateFailureCopyWith<_$_LeaveChatStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LeaveChatStateFailureImplCopyWith<_$LeaveChatStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -10151,26 +10234,28 @@ class _$SetChatTitleStateCopyWithImpl<$Res, $Val extends SetChatTitleState>
 }
 
 /// @nodoc
-abstract class _$$_SetChatTitleStateInitialCopyWith<$Res> {
-  factory _$$_SetChatTitleStateInitialCopyWith(
-          _$_SetChatTitleStateInitial value,
-          $Res Function(_$_SetChatTitleStateInitial) then) =
-      __$$_SetChatTitleStateInitialCopyWithImpl<$Res>;
+abstract class _$$SetChatTitleStateInitialImplCopyWith<$Res> {
+  factory _$$SetChatTitleStateInitialImplCopyWith(
+          _$SetChatTitleStateInitialImpl value,
+          $Res Function(_$SetChatTitleStateInitialImpl) then) =
+      __$$SetChatTitleStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SetChatTitleStateInitialCopyWithImpl<$Res>
-    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateInitial>
-    implements _$$_SetChatTitleStateInitialCopyWith<$Res> {
-  __$$_SetChatTitleStateInitialCopyWithImpl(_$_SetChatTitleStateInitial _value,
-      $Res Function(_$_SetChatTitleStateInitial) _then)
+class __$$SetChatTitleStateInitialImplCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res,
+        _$SetChatTitleStateInitialImpl>
+    implements _$$SetChatTitleStateInitialImplCopyWith<$Res> {
+  __$$SetChatTitleStateInitialImplCopyWithImpl(
+      _$SetChatTitleStateInitialImpl _value,
+      $Res Function(_$SetChatTitleStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SetChatTitleStateInitial implements _SetChatTitleStateInitial {
-  const _$_SetChatTitleStateInitial();
+class _$SetChatTitleStateInitialImpl implements _SetChatTitleStateInitial {
+  const _$SetChatTitleStateInitialImpl();
 
   @override
   String toString() {
@@ -10178,10 +10263,10 @@ class _$_SetChatTitleStateInitial implements _SetChatTitleStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetChatTitleStateInitial);
+            other is _$SetChatTitleStateInitialImpl);
   }
 
   @override
@@ -10263,30 +10348,32 @@ class _$_SetChatTitleStateInitial implements _SetChatTitleStateInitial {
 }
 
 abstract class _SetChatTitleStateInitial implements SetChatTitleState {
-  const factory _SetChatTitleStateInitial() = _$_SetChatTitleStateInitial;
+  const factory _SetChatTitleStateInitial() = _$SetChatTitleStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SetChatTitleStateLoadingCopyWith<$Res> {
-  factory _$$_SetChatTitleStateLoadingCopyWith(
-          _$_SetChatTitleStateLoading value,
-          $Res Function(_$_SetChatTitleStateLoading) then) =
-      __$$_SetChatTitleStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SetChatTitleStateLoadingImplCopyWith<$Res> {
+  factory _$$SetChatTitleStateLoadingImplCopyWith(
+          _$SetChatTitleStateLoadingImpl value,
+          $Res Function(_$SetChatTitleStateLoadingImpl) then) =
+      __$$SetChatTitleStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SetChatTitleStateLoadingCopyWithImpl<$Res>
-    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateLoading>
-    implements _$$_SetChatTitleStateLoadingCopyWith<$Res> {
-  __$$_SetChatTitleStateLoadingCopyWithImpl(_$_SetChatTitleStateLoading _value,
-      $Res Function(_$_SetChatTitleStateLoading) _then)
+class __$$SetChatTitleStateLoadingImplCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res,
+        _$SetChatTitleStateLoadingImpl>
+    implements _$$SetChatTitleStateLoadingImplCopyWith<$Res> {
+  __$$SetChatTitleStateLoadingImplCopyWithImpl(
+      _$SetChatTitleStateLoadingImpl _value,
+      $Res Function(_$SetChatTitleStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SetChatTitleStateLoading implements _SetChatTitleStateLoading {
-  const _$_SetChatTitleStateLoading();
+class _$SetChatTitleStateLoadingImpl implements _SetChatTitleStateLoading {
+  const _$SetChatTitleStateLoadingImpl();
 
   @override
   String toString() {
@@ -10294,10 +10381,10 @@ class _$_SetChatTitleStateLoading implements _SetChatTitleStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetChatTitleStateLoading);
+            other is _$SetChatTitleStateLoadingImpl);
   }
 
   @override
@@ -10379,25 +10466,27 @@ class _$_SetChatTitleStateLoading implements _SetChatTitleStateLoading {
 }
 
 abstract class _SetChatTitleStateLoading implements SetChatTitleState {
-  const factory _SetChatTitleStateLoading() = _$_SetChatTitleStateLoading;
+  const factory _SetChatTitleStateLoading() = _$SetChatTitleStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SetChatTitleStateSuccessCopyWith<$Res> {
-  factory _$$_SetChatTitleStateSuccessCopyWith(
-          _$_SetChatTitleStateSuccess value,
-          $Res Function(_$_SetChatTitleStateSuccess) then) =
-      __$$_SetChatTitleStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SetChatTitleStateSuccessImplCopyWith<$Res> {
+  factory _$$SetChatTitleStateSuccessImplCopyWith(
+          _$SetChatTitleStateSuccessImpl value,
+          $Res Function(_$SetChatTitleStateSuccessImpl) then) =
+      __$$SetChatTitleStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_SetChatTitleStateSuccessCopyWithImpl<$Res>
-    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateSuccess>
-    implements _$$_SetChatTitleStateSuccessCopyWith<$Res> {
-  __$$_SetChatTitleStateSuccessCopyWithImpl(_$_SetChatTitleStateSuccess _value,
-      $Res Function(_$_SetChatTitleStateSuccess) _then)
+class __$$SetChatTitleStateSuccessImplCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res,
+        _$SetChatTitleStateSuccessImpl>
+    implements _$$SetChatTitleStateSuccessImplCopyWith<$Res> {
+  __$$SetChatTitleStateSuccessImplCopyWithImpl(
+      _$SetChatTitleStateSuccessImpl _value,
+      $Res Function(_$SetChatTitleStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10405,7 +10494,7 @@ class __$$_SetChatTitleStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SetChatTitleStateSuccess(
+    return _then(_$SetChatTitleStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -10416,8 +10505,8 @@ class __$$_SetChatTitleStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SetChatTitleStateSuccess implements _SetChatTitleStateSuccess {
-  const _$_SetChatTitleStateSuccess(this.result);
+class _$SetChatTitleStateSuccessImpl implements _SetChatTitleStateSuccess {
+  const _$SetChatTitleStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -10428,10 +10517,10 @@ class _$_SetChatTitleStateSuccess implements _SetChatTitleStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetChatTitleStateSuccess &&
+            other is _$SetChatTitleStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -10441,9 +10530,9 @@ class _$_SetChatTitleStateSuccess implements _SetChatTitleStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SetChatTitleStateSuccessCopyWith<_$_SetChatTitleStateSuccess>
-      get copyWith => __$$_SetChatTitleStateSuccessCopyWithImpl<
-          _$_SetChatTitleStateSuccess>(this, _$identity);
+  _$$SetChatTitleStateSuccessImplCopyWith<_$SetChatTitleStateSuccessImpl>
+      get copyWith => __$$SetChatTitleStateSuccessImplCopyWithImpl<
+          _$SetChatTitleStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10522,20 +10611,20 @@ class _$_SetChatTitleStateSuccess implements _SetChatTitleStateSuccess {
 
 abstract class _SetChatTitleStateSuccess implements SetChatTitleState {
   const factory _SetChatTitleStateSuccess(final bool result) =
-      _$_SetChatTitleStateSuccess;
+      _$SetChatTitleStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_SetChatTitleStateSuccessCopyWith<_$_SetChatTitleStateSuccess>
+  _$$SetChatTitleStateSuccessImplCopyWith<_$SetChatTitleStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SetChatTitleStateFailureCopyWith<$Res> {
-  factory _$$_SetChatTitleStateFailureCopyWith(
-          _$_SetChatTitleStateFailure value,
-          $Res Function(_$_SetChatTitleStateFailure) then) =
-      __$$_SetChatTitleStateFailureCopyWithImpl<$Res>;
+abstract class _$$SetChatTitleStateFailureImplCopyWith<$Res> {
+  factory _$$SetChatTitleStateFailureImplCopyWith(
+          _$SetChatTitleStateFailureImpl value,
+          $Res Function(_$SetChatTitleStateFailureImpl) then) =
+      __$$SetChatTitleStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -10543,11 +10632,13 @@ abstract class _$$_SetChatTitleStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SetChatTitleStateFailureCopyWithImpl<$Res>
-    extends _$SetChatTitleStateCopyWithImpl<$Res, _$_SetChatTitleStateFailure>
-    implements _$$_SetChatTitleStateFailureCopyWith<$Res> {
-  __$$_SetChatTitleStateFailureCopyWithImpl(_$_SetChatTitleStateFailure _value,
-      $Res Function(_$_SetChatTitleStateFailure) _then)
+class __$$SetChatTitleStateFailureImplCopyWithImpl<$Res>
+    extends _$SetChatTitleStateCopyWithImpl<$Res,
+        _$SetChatTitleStateFailureImpl>
+    implements _$$SetChatTitleStateFailureImplCopyWith<$Res> {
+  __$$SetChatTitleStateFailureImplCopyWithImpl(
+      _$SetChatTitleStateFailureImpl _value,
+      $Res Function(_$SetChatTitleStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10555,7 +10646,7 @@ class __$$_SetChatTitleStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SetChatTitleStateFailure(
+    return _then(_$SetChatTitleStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -10574,8 +10665,8 @@ class __$$_SetChatTitleStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SetChatTitleStateFailure implements _SetChatTitleStateFailure {
-  const _$_SetChatTitleStateFailure(this.error);
+class _$SetChatTitleStateFailureImpl implements _SetChatTitleStateFailure {
+  const _$SetChatTitleStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -10586,10 +10677,10 @@ class _$_SetChatTitleStateFailure implements _SetChatTitleStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SetChatTitleStateFailure &&
+            other is _$SetChatTitleStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -10599,9 +10690,9 @@ class _$_SetChatTitleStateFailure implements _SetChatTitleStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SetChatTitleStateFailureCopyWith<_$_SetChatTitleStateFailure>
-      get copyWith => __$$_SetChatTitleStateFailureCopyWithImpl<
-          _$_SetChatTitleStateFailure>(this, _$identity);
+  _$$SetChatTitleStateFailureImplCopyWith<_$SetChatTitleStateFailureImpl>
+      get copyWith => __$$SetChatTitleStateFailureImplCopyWithImpl<
+          _$SetChatTitleStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -10680,11 +10771,11 @@ class _$_SetChatTitleStateFailure implements _SetChatTitleStateFailure {
 
 abstract class _SetChatTitleStateFailure implements SetChatTitleState {
   const factory _SetChatTitleStateFailure(final PeamanError error) =
-      _$_SetChatTitleStateFailure;
+      _$SetChatTitleStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SetChatTitleStateFailureCopyWith<_$_SetChatTitleStateFailure>
+  _$$SetChatTitleStateFailureImplCopyWith<_$SetChatTitleStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -10761,28 +10852,28 @@ class _$AddChatMembersStateCopyWithImpl<$Res, $Val extends AddChatMembersState>
 }
 
 /// @nodoc
-abstract class _$$_AddChatMembersStateInitialCopyWith<$Res> {
-  factory _$$_AddChatMembersStateInitialCopyWith(
-          _$_AddChatMembersStateInitial value,
-          $Res Function(_$_AddChatMembersStateInitial) then) =
-      __$$_AddChatMembersStateInitialCopyWithImpl<$Res>;
+abstract class _$$AddChatMembersStateInitialImplCopyWith<$Res> {
+  factory _$$AddChatMembersStateInitialImplCopyWith(
+          _$AddChatMembersStateInitialImpl value,
+          $Res Function(_$AddChatMembersStateInitialImpl) then) =
+      __$$AddChatMembersStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AddChatMembersStateInitialCopyWithImpl<$Res>
+class __$$AddChatMembersStateInitialImplCopyWithImpl<$Res>
     extends _$AddChatMembersStateCopyWithImpl<$Res,
-        _$_AddChatMembersStateInitial>
-    implements _$$_AddChatMembersStateInitialCopyWith<$Res> {
-  __$$_AddChatMembersStateInitialCopyWithImpl(
-      _$_AddChatMembersStateInitial _value,
-      $Res Function(_$_AddChatMembersStateInitial) _then)
+        _$AddChatMembersStateInitialImpl>
+    implements _$$AddChatMembersStateInitialImplCopyWith<$Res> {
+  __$$AddChatMembersStateInitialImplCopyWithImpl(
+      _$AddChatMembersStateInitialImpl _value,
+      $Res Function(_$AddChatMembersStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_AddChatMembersStateInitial implements _AddChatMembersStateInitial {
-  const _$_AddChatMembersStateInitial();
+class _$AddChatMembersStateInitialImpl implements _AddChatMembersStateInitial {
+  const _$AddChatMembersStateInitialImpl();
 
   @override
   String toString() {
@@ -10790,10 +10881,10 @@ class _$_AddChatMembersStateInitial implements _AddChatMembersStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddChatMembersStateInitial);
+            other is _$AddChatMembersStateInitialImpl);
   }
 
   @override
@@ -10875,32 +10966,33 @@ class _$_AddChatMembersStateInitial implements _AddChatMembersStateInitial {
 }
 
 abstract class _AddChatMembersStateInitial implements AddChatMembersState {
-  const factory _AddChatMembersStateInitial() = _$_AddChatMembersStateInitial;
+  const factory _AddChatMembersStateInitial() =
+      _$AddChatMembersStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_AddChatMembersStateLoadingCopyWith<$Res> {
-  factory _$$_AddChatMembersStateLoadingCopyWith(
-          _$_AddChatMembersStateLoading value,
-          $Res Function(_$_AddChatMembersStateLoading) then) =
-      __$$_AddChatMembersStateLoadingCopyWithImpl<$Res>;
+abstract class _$$AddChatMembersStateLoadingImplCopyWith<$Res> {
+  factory _$$AddChatMembersStateLoadingImplCopyWith(
+          _$AddChatMembersStateLoadingImpl value,
+          $Res Function(_$AddChatMembersStateLoadingImpl) then) =
+      __$$AddChatMembersStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AddChatMembersStateLoadingCopyWithImpl<$Res>
+class __$$AddChatMembersStateLoadingImplCopyWithImpl<$Res>
     extends _$AddChatMembersStateCopyWithImpl<$Res,
-        _$_AddChatMembersStateLoading>
-    implements _$$_AddChatMembersStateLoadingCopyWith<$Res> {
-  __$$_AddChatMembersStateLoadingCopyWithImpl(
-      _$_AddChatMembersStateLoading _value,
-      $Res Function(_$_AddChatMembersStateLoading) _then)
+        _$AddChatMembersStateLoadingImpl>
+    implements _$$AddChatMembersStateLoadingImplCopyWith<$Res> {
+  __$$AddChatMembersStateLoadingImplCopyWithImpl(
+      _$AddChatMembersStateLoadingImpl _value,
+      $Res Function(_$AddChatMembersStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_AddChatMembersStateLoading implements _AddChatMembersStateLoading {
-  const _$_AddChatMembersStateLoading();
+class _$AddChatMembersStateLoadingImpl implements _AddChatMembersStateLoading {
+  const _$AddChatMembersStateLoadingImpl();
 
   @override
   String toString() {
@@ -10908,10 +11000,10 @@ class _$_AddChatMembersStateLoading implements _AddChatMembersStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddChatMembersStateLoading);
+            other is _$AddChatMembersStateLoadingImpl);
   }
 
   @override
@@ -10993,27 +11085,28 @@ class _$_AddChatMembersStateLoading implements _AddChatMembersStateLoading {
 }
 
 abstract class _AddChatMembersStateLoading implements AddChatMembersState {
-  const factory _AddChatMembersStateLoading() = _$_AddChatMembersStateLoading;
+  const factory _AddChatMembersStateLoading() =
+      _$AddChatMembersStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_AddChatMembersStateSuccessCopyWith<$Res> {
-  factory _$$_AddChatMembersStateSuccessCopyWith(
-          _$_AddChatMembersStateSuccess value,
-          $Res Function(_$_AddChatMembersStateSuccess) then) =
-      __$$_AddChatMembersStateSuccessCopyWithImpl<$Res>;
+abstract class _$$AddChatMembersStateSuccessImplCopyWith<$Res> {
+  factory _$$AddChatMembersStateSuccessImplCopyWith(
+          _$AddChatMembersStateSuccessImpl value,
+          $Res Function(_$AddChatMembersStateSuccessImpl) then) =
+      __$$AddChatMembersStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_AddChatMembersStateSuccessCopyWithImpl<$Res>
+class __$$AddChatMembersStateSuccessImplCopyWithImpl<$Res>
     extends _$AddChatMembersStateCopyWithImpl<$Res,
-        _$_AddChatMembersStateSuccess>
-    implements _$$_AddChatMembersStateSuccessCopyWith<$Res> {
-  __$$_AddChatMembersStateSuccessCopyWithImpl(
-      _$_AddChatMembersStateSuccess _value,
-      $Res Function(_$_AddChatMembersStateSuccess) _then)
+        _$AddChatMembersStateSuccessImpl>
+    implements _$$AddChatMembersStateSuccessImplCopyWith<$Res> {
+  __$$AddChatMembersStateSuccessImplCopyWithImpl(
+      _$AddChatMembersStateSuccessImpl _value,
+      $Res Function(_$AddChatMembersStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11021,7 +11114,7 @@ class __$$_AddChatMembersStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_AddChatMembersStateSuccess(
+    return _then(_$AddChatMembersStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -11032,8 +11125,8 @@ class __$$_AddChatMembersStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddChatMembersStateSuccess implements _AddChatMembersStateSuccess {
-  const _$_AddChatMembersStateSuccess(this.result);
+class _$AddChatMembersStateSuccessImpl implements _AddChatMembersStateSuccess {
+  const _$AddChatMembersStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -11044,10 +11137,10 @@ class _$_AddChatMembersStateSuccess implements _AddChatMembersStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddChatMembersStateSuccess &&
+            other is _$AddChatMembersStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -11057,9 +11150,9 @@ class _$_AddChatMembersStateSuccess implements _AddChatMembersStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddChatMembersStateSuccessCopyWith<_$_AddChatMembersStateSuccess>
-      get copyWith => __$$_AddChatMembersStateSuccessCopyWithImpl<
-          _$_AddChatMembersStateSuccess>(this, _$identity);
+  _$$AddChatMembersStateSuccessImplCopyWith<_$AddChatMembersStateSuccessImpl>
+      get copyWith => __$$AddChatMembersStateSuccessImplCopyWithImpl<
+          _$AddChatMembersStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11138,20 +11231,20 @@ class _$_AddChatMembersStateSuccess implements _AddChatMembersStateSuccess {
 
 abstract class _AddChatMembersStateSuccess implements AddChatMembersState {
   const factory _AddChatMembersStateSuccess(final bool result) =
-      _$_AddChatMembersStateSuccess;
+      _$AddChatMembersStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_AddChatMembersStateSuccessCopyWith<_$_AddChatMembersStateSuccess>
+  _$$AddChatMembersStateSuccessImplCopyWith<_$AddChatMembersStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_AddChatMembersStateFailureCopyWith<$Res> {
-  factory _$$_AddChatMembersStateFailureCopyWith(
-          _$_AddChatMembersStateFailure value,
-          $Res Function(_$_AddChatMembersStateFailure) then) =
-      __$$_AddChatMembersStateFailureCopyWithImpl<$Res>;
+abstract class _$$AddChatMembersStateFailureImplCopyWith<$Res> {
+  factory _$$AddChatMembersStateFailureImplCopyWith(
+          _$AddChatMembersStateFailureImpl value,
+          $Res Function(_$AddChatMembersStateFailureImpl) then) =
+      __$$AddChatMembersStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -11159,13 +11252,13 @@ abstract class _$$_AddChatMembersStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AddChatMembersStateFailureCopyWithImpl<$Res>
+class __$$AddChatMembersStateFailureImplCopyWithImpl<$Res>
     extends _$AddChatMembersStateCopyWithImpl<$Res,
-        _$_AddChatMembersStateFailure>
-    implements _$$_AddChatMembersStateFailureCopyWith<$Res> {
-  __$$_AddChatMembersStateFailureCopyWithImpl(
-      _$_AddChatMembersStateFailure _value,
-      $Res Function(_$_AddChatMembersStateFailure) _then)
+        _$AddChatMembersStateFailureImpl>
+    implements _$$AddChatMembersStateFailureImplCopyWith<$Res> {
+  __$$AddChatMembersStateFailureImplCopyWithImpl(
+      _$AddChatMembersStateFailureImpl _value,
+      $Res Function(_$AddChatMembersStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11173,7 +11266,7 @@ class __$$_AddChatMembersStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_AddChatMembersStateFailure(
+    return _then(_$AddChatMembersStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -11192,8 +11285,8 @@ class __$$_AddChatMembersStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddChatMembersStateFailure implements _AddChatMembersStateFailure {
-  const _$_AddChatMembersStateFailure(this.error);
+class _$AddChatMembersStateFailureImpl implements _AddChatMembersStateFailure {
+  const _$AddChatMembersStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -11204,10 +11297,10 @@ class _$_AddChatMembersStateFailure implements _AddChatMembersStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddChatMembersStateFailure &&
+            other is _$AddChatMembersStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -11217,9 +11310,9 @@ class _$_AddChatMembersStateFailure implements _AddChatMembersStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddChatMembersStateFailureCopyWith<_$_AddChatMembersStateFailure>
-      get copyWith => __$$_AddChatMembersStateFailureCopyWithImpl<
-          _$_AddChatMembersStateFailure>(this, _$identity);
+  _$$AddChatMembersStateFailureImplCopyWith<_$AddChatMembersStateFailureImpl>
+      get copyWith => __$$AddChatMembersStateFailureImplCopyWithImpl<
+          _$AddChatMembersStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11298,11 +11391,11 @@ class _$_AddChatMembersStateFailure implements _AddChatMembersStateFailure {
 
 abstract class _AddChatMembersStateFailure implements AddChatMembersState {
   const factory _AddChatMembersStateFailure(final PeamanError error) =
-      _$_AddChatMembersStateFailure;
+      _$AddChatMembersStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_AddChatMembersStateFailureCopyWith<_$_AddChatMembersStateFailure>
+  _$$AddChatMembersStateFailureImplCopyWith<_$AddChatMembersStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -11380,29 +11473,29 @@ class _$RemoveChatMembersStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_RemoveChatMembersStateInitialCopyWith<$Res> {
-  factory _$$_RemoveChatMembersStateInitialCopyWith(
-          _$_RemoveChatMembersStateInitial value,
-          $Res Function(_$_RemoveChatMembersStateInitial) then) =
-      __$$_RemoveChatMembersStateInitialCopyWithImpl<$Res>;
+abstract class _$$RemoveChatMembersStateInitialImplCopyWith<$Res> {
+  factory _$$RemoveChatMembersStateInitialImplCopyWith(
+          _$RemoveChatMembersStateInitialImpl value,
+          $Res Function(_$RemoveChatMembersStateInitialImpl) then) =
+      __$$RemoveChatMembersStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_RemoveChatMembersStateInitialCopyWithImpl<$Res>
+class __$$RemoveChatMembersStateInitialImplCopyWithImpl<$Res>
     extends _$RemoveChatMembersStateCopyWithImpl<$Res,
-        _$_RemoveChatMembersStateInitial>
-    implements _$$_RemoveChatMembersStateInitialCopyWith<$Res> {
-  __$$_RemoveChatMembersStateInitialCopyWithImpl(
-      _$_RemoveChatMembersStateInitial _value,
-      $Res Function(_$_RemoveChatMembersStateInitial) _then)
+        _$RemoveChatMembersStateInitialImpl>
+    implements _$$RemoveChatMembersStateInitialImplCopyWith<$Res> {
+  __$$RemoveChatMembersStateInitialImplCopyWithImpl(
+      _$RemoveChatMembersStateInitialImpl _value,
+      $Res Function(_$RemoveChatMembersStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_RemoveChatMembersStateInitial
+class _$RemoveChatMembersStateInitialImpl
     implements _RemoveChatMembersStateInitial {
-  const _$_RemoveChatMembersStateInitial();
+  const _$RemoveChatMembersStateInitialImpl();
 
   @override
   String toString() {
@@ -11410,10 +11503,10 @@ class _$_RemoveChatMembersStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemoveChatMembersStateInitial);
+            other is _$RemoveChatMembersStateInitialImpl);
   }
 
   @override
@@ -11497,33 +11590,33 @@ class _$_RemoveChatMembersStateInitial
 abstract class _RemoveChatMembersStateInitial
     implements RemoveChatMembersState {
   const factory _RemoveChatMembersStateInitial() =
-      _$_RemoveChatMembersStateInitial;
+      _$RemoveChatMembersStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_RemoveChatMembersStateLoadingCopyWith<$Res> {
-  factory _$$_RemoveChatMembersStateLoadingCopyWith(
-          _$_RemoveChatMembersStateLoading value,
-          $Res Function(_$_RemoveChatMembersStateLoading) then) =
-      __$$_RemoveChatMembersStateLoadingCopyWithImpl<$Res>;
+abstract class _$$RemoveChatMembersStateLoadingImplCopyWith<$Res> {
+  factory _$$RemoveChatMembersStateLoadingImplCopyWith(
+          _$RemoveChatMembersStateLoadingImpl value,
+          $Res Function(_$RemoveChatMembersStateLoadingImpl) then) =
+      __$$RemoveChatMembersStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_RemoveChatMembersStateLoadingCopyWithImpl<$Res>
+class __$$RemoveChatMembersStateLoadingImplCopyWithImpl<$Res>
     extends _$RemoveChatMembersStateCopyWithImpl<$Res,
-        _$_RemoveChatMembersStateLoading>
-    implements _$$_RemoveChatMembersStateLoadingCopyWith<$Res> {
-  __$$_RemoveChatMembersStateLoadingCopyWithImpl(
-      _$_RemoveChatMembersStateLoading _value,
-      $Res Function(_$_RemoveChatMembersStateLoading) _then)
+        _$RemoveChatMembersStateLoadingImpl>
+    implements _$$RemoveChatMembersStateLoadingImplCopyWith<$Res> {
+  __$$RemoveChatMembersStateLoadingImplCopyWithImpl(
+      _$RemoveChatMembersStateLoadingImpl _value,
+      $Res Function(_$RemoveChatMembersStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_RemoveChatMembersStateLoading
+class _$RemoveChatMembersStateLoadingImpl
     implements _RemoveChatMembersStateLoading {
-  const _$_RemoveChatMembersStateLoading();
+  const _$RemoveChatMembersStateLoadingImpl();
 
   @override
   String toString() {
@@ -11531,10 +11624,10 @@ class _$_RemoveChatMembersStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemoveChatMembersStateLoading);
+            other is _$RemoveChatMembersStateLoadingImpl);
   }
 
   @override
@@ -11618,27 +11711,27 @@ class _$_RemoveChatMembersStateLoading
 abstract class _RemoveChatMembersStateLoading
     implements RemoveChatMembersState {
   const factory _RemoveChatMembersStateLoading() =
-      _$_RemoveChatMembersStateLoading;
+      _$RemoveChatMembersStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_RemoveChatMembersStateSuccessCopyWith<$Res> {
-  factory _$$_RemoveChatMembersStateSuccessCopyWith(
-          _$_RemoveChatMembersStateSuccess value,
-          $Res Function(_$_RemoveChatMembersStateSuccess) then) =
-      __$$_RemoveChatMembersStateSuccessCopyWithImpl<$Res>;
+abstract class _$$RemoveChatMembersStateSuccessImplCopyWith<$Res> {
+  factory _$$RemoveChatMembersStateSuccessImplCopyWith(
+          _$RemoveChatMembersStateSuccessImpl value,
+          $Res Function(_$RemoveChatMembersStateSuccessImpl) then) =
+      __$$RemoveChatMembersStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_RemoveChatMembersStateSuccessCopyWithImpl<$Res>
+class __$$RemoveChatMembersStateSuccessImplCopyWithImpl<$Res>
     extends _$RemoveChatMembersStateCopyWithImpl<$Res,
-        _$_RemoveChatMembersStateSuccess>
-    implements _$$_RemoveChatMembersStateSuccessCopyWith<$Res> {
-  __$$_RemoveChatMembersStateSuccessCopyWithImpl(
-      _$_RemoveChatMembersStateSuccess _value,
-      $Res Function(_$_RemoveChatMembersStateSuccess) _then)
+        _$RemoveChatMembersStateSuccessImpl>
+    implements _$$RemoveChatMembersStateSuccessImplCopyWith<$Res> {
+  __$$RemoveChatMembersStateSuccessImplCopyWithImpl(
+      _$RemoveChatMembersStateSuccessImpl _value,
+      $Res Function(_$RemoveChatMembersStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11646,7 +11739,7 @@ class __$$_RemoveChatMembersStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_RemoveChatMembersStateSuccess(
+    return _then(_$RemoveChatMembersStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -11657,9 +11750,9 @@ class __$$_RemoveChatMembersStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RemoveChatMembersStateSuccess
+class _$RemoveChatMembersStateSuccessImpl
     implements _RemoveChatMembersStateSuccess {
-  const _$_RemoveChatMembersStateSuccess(this.result);
+  const _$RemoveChatMembersStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -11670,10 +11763,10 @@ class _$_RemoveChatMembersStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemoveChatMembersStateSuccess &&
+            other is _$RemoveChatMembersStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -11683,9 +11776,10 @@ class _$_RemoveChatMembersStateSuccess
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RemoveChatMembersStateSuccessCopyWith<_$_RemoveChatMembersStateSuccess>
-      get copyWith => __$$_RemoveChatMembersStateSuccessCopyWithImpl<
-          _$_RemoveChatMembersStateSuccess>(this, _$identity);
+  _$$RemoveChatMembersStateSuccessImplCopyWith<
+          _$RemoveChatMembersStateSuccessImpl>
+      get copyWith => __$$RemoveChatMembersStateSuccessImplCopyWithImpl<
+          _$RemoveChatMembersStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11765,20 +11859,21 @@ class _$_RemoveChatMembersStateSuccess
 abstract class _RemoveChatMembersStateSuccess
     implements RemoveChatMembersState {
   const factory _RemoveChatMembersStateSuccess(final bool result) =
-      _$_RemoveChatMembersStateSuccess;
+      _$RemoveChatMembersStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_RemoveChatMembersStateSuccessCopyWith<_$_RemoveChatMembersStateSuccess>
+  _$$RemoveChatMembersStateSuccessImplCopyWith<
+          _$RemoveChatMembersStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RemoveChatMembersStateFailureCopyWith<$Res> {
-  factory _$$_RemoveChatMembersStateFailureCopyWith(
-          _$_RemoveChatMembersStateFailure value,
-          $Res Function(_$_RemoveChatMembersStateFailure) then) =
-      __$$_RemoveChatMembersStateFailureCopyWithImpl<$Res>;
+abstract class _$$RemoveChatMembersStateFailureImplCopyWith<$Res> {
+  factory _$$RemoveChatMembersStateFailureImplCopyWith(
+          _$RemoveChatMembersStateFailureImpl value,
+          $Res Function(_$RemoveChatMembersStateFailureImpl) then) =
+      __$$RemoveChatMembersStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -11786,13 +11881,13 @@ abstract class _$$_RemoveChatMembersStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_RemoveChatMembersStateFailureCopyWithImpl<$Res>
+class __$$RemoveChatMembersStateFailureImplCopyWithImpl<$Res>
     extends _$RemoveChatMembersStateCopyWithImpl<$Res,
-        _$_RemoveChatMembersStateFailure>
-    implements _$$_RemoveChatMembersStateFailureCopyWith<$Res> {
-  __$$_RemoveChatMembersStateFailureCopyWithImpl(
-      _$_RemoveChatMembersStateFailure _value,
-      $Res Function(_$_RemoveChatMembersStateFailure) _then)
+        _$RemoveChatMembersStateFailureImpl>
+    implements _$$RemoveChatMembersStateFailureImplCopyWith<$Res> {
+  __$$RemoveChatMembersStateFailureImplCopyWithImpl(
+      _$RemoveChatMembersStateFailureImpl _value,
+      $Res Function(_$RemoveChatMembersStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11800,7 +11895,7 @@ class __$$_RemoveChatMembersStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_RemoveChatMembersStateFailure(
+    return _then(_$RemoveChatMembersStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -11819,9 +11914,9 @@ class __$$_RemoveChatMembersStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RemoveChatMembersStateFailure
+class _$RemoveChatMembersStateFailureImpl
     implements _RemoveChatMembersStateFailure {
-  const _$_RemoveChatMembersStateFailure(this.error);
+  const _$RemoveChatMembersStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -11832,10 +11927,10 @@ class _$_RemoveChatMembersStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemoveChatMembersStateFailure &&
+            other is _$RemoveChatMembersStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -11845,9 +11940,10 @@ class _$_RemoveChatMembersStateFailure
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RemoveChatMembersStateFailureCopyWith<_$_RemoveChatMembersStateFailure>
-      get copyWith => __$$_RemoveChatMembersStateFailureCopyWithImpl<
-          _$_RemoveChatMembersStateFailure>(this, _$identity);
+  _$$RemoveChatMembersStateFailureImplCopyWith<
+          _$RemoveChatMembersStateFailureImpl>
+      get copyWith => __$$RemoveChatMembersStateFailureImplCopyWithImpl<
+          _$RemoveChatMembersStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11927,10 +12023,11 @@ class _$_RemoveChatMembersStateFailure
 abstract class _RemoveChatMembersStateFailure
     implements RemoveChatMembersState {
   const factory _RemoveChatMembersStateFailure(final PeamanError error) =
-      _$_RemoveChatMembersStateFailure;
+      _$RemoveChatMembersStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_RemoveChatMembersStateFailureCopyWith<_$_RemoveChatMembersStateFailure>
+  _$$RemoveChatMembersStateFailureImplCopyWith<
+          _$RemoveChatMembersStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

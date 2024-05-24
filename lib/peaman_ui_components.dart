@@ -5,8 +5,7 @@ export 'src/peaman_wrapper.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:peaman/peaman.dart' hide PeamanCommonHelper;
 export 'package:flutter_screenutil/flutter_screenutil.dart';
-export 'package:cached_network_image/cached_network_image.dart'
-    hide ErrorListener;
+export 'package:cached_network_image/cached_network_image.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:google_fonts/google_fonts.dart';
 

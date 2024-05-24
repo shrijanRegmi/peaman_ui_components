@@ -12,7 +12,7 @@ part of 'peaman_feed_extra_data_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PeamanFeedExtraData _$PeamanFeedExtraDataFromJson(Map<String, dynamic> json) {
   return _PeamanFeedExtraData.fromJson(json);
@@ -75,11 +75,11 @@ class _$PeamanFeedExtraDataCopyWithImpl<$Res, $Val extends PeamanFeedExtraData>
 }
 
 /// @nodoc
-abstract class _$$_PeamanFeedExtraDataCopyWith<$Res>
+abstract class _$$PeamanFeedExtraDataImplCopyWith<$Res>
     implements $PeamanFeedExtraDataCopyWith<$Res> {
-  factory _$$_PeamanFeedExtraDataCopyWith(_$_PeamanFeedExtraData value,
-          $Res Function(_$_PeamanFeedExtraData) then) =
-      __$$_PeamanFeedExtraDataCopyWithImpl<$Res>;
+  factory _$$PeamanFeedExtraDataImplCopyWith(_$PeamanFeedExtraDataImpl value,
+          $Res Function(_$PeamanFeedExtraDataImpl) then) =
+      __$$PeamanFeedExtraDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -87,11 +87,11 @@ abstract class _$$_PeamanFeedExtraDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeamanFeedExtraDataCopyWithImpl<$Res>
-    extends _$PeamanFeedExtraDataCopyWithImpl<$Res, _$_PeamanFeedExtraData>
-    implements _$$_PeamanFeedExtraDataCopyWith<$Res> {
-  __$$_PeamanFeedExtraDataCopyWithImpl(_$_PeamanFeedExtraData _value,
-      $Res Function(_$_PeamanFeedExtraData) _then)
+class __$$PeamanFeedExtraDataImplCopyWithImpl<$Res>
+    extends _$PeamanFeedExtraDataCopyWithImpl<$Res, _$PeamanFeedExtraDataImpl>
+    implements _$$PeamanFeedExtraDataImplCopyWith<$Res> {
+  __$$PeamanFeedExtraDataImplCopyWithImpl(_$PeamanFeedExtraDataImpl _value,
+      $Res Function(_$PeamanFeedExtraDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -101,7 +101,7 @@ class __$$_PeamanFeedExtraDataCopyWithImpl<$Res>
     Object? isReacted = null,
     Object? isSaved = null,
   }) {
-    return _then(_$_PeamanFeedExtraData(
+    return _then(_$PeamanFeedExtraDataImpl(
       appUserSelectedPollOptionId: freezed == appUserSelectedPollOptionId
           ? _value.appUserSelectedPollOptionId
           : appUserSelectedPollOptionId // ignore: cast_nullable_to_non_nullable
@@ -120,14 +120,14 @@ class __$$_PeamanFeedExtraDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
-  const _$_PeamanFeedExtraData(
+class _$PeamanFeedExtraDataImpl implements _PeamanFeedExtraData {
+  const _$PeamanFeedExtraDataImpl(
       {this.appUserSelectedPollOptionId,
       this.isReacted = false,
       this.isSaved = false});
 
-  factory _$_PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =>
-      _$$_PeamanFeedExtraDataFromJson(json);
+  factory _$PeamanFeedExtraDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PeamanFeedExtraDataImplFromJson(json);
 
   @override
   final String? appUserSelectedPollOptionId;
@@ -144,10 +144,10 @@ class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanFeedExtraData &&
+            other is _$PeamanFeedExtraDataImpl &&
             (identical(other.appUserSelectedPollOptionId,
                     appUserSelectedPollOptionId) ||
                 other.appUserSelectedPollOptionId ==
@@ -165,13 +165,13 @@ class _$_PeamanFeedExtraData implements _PeamanFeedExtraData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanFeedExtraDataCopyWith<_$_PeamanFeedExtraData> get copyWith =>
-      __$$_PeamanFeedExtraDataCopyWithImpl<_$_PeamanFeedExtraData>(
+  _$$PeamanFeedExtraDataImplCopyWith<_$PeamanFeedExtraDataImpl> get copyWith =>
+      __$$PeamanFeedExtraDataImplCopyWithImpl<_$PeamanFeedExtraDataImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PeamanFeedExtraDataToJson(
+    return _$$PeamanFeedExtraDataImplToJson(
       this,
     );
   }
@@ -181,10 +181,10 @@ abstract class _PeamanFeedExtraData implements PeamanFeedExtraData {
   const factory _PeamanFeedExtraData(
       {final String? appUserSelectedPollOptionId,
       final bool isReacted,
-      final bool isSaved}) = _$_PeamanFeedExtraData;
+      final bool isSaved}) = _$PeamanFeedExtraDataImpl;
 
   factory _PeamanFeedExtraData.fromJson(Map<String, dynamic> json) =
-      _$_PeamanFeedExtraData.fromJson;
+      _$PeamanFeedExtraDataImpl.fromJson;
 
   @override
   String? get appUserSelectedPollOptionId;
@@ -194,6 +194,6 @@ abstract class _PeamanFeedExtraData implements PeamanFeedExtraData {
   bool get isSaved;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanFeedExtraDataCopyWith<_$_PeamanFeedExtraData> get copyWith =>
+  _$$PeamanFeedExtraDataImplCopyWith<_$PeamanFeedExtraDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

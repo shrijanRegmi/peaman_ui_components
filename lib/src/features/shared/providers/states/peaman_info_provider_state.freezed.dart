@@ -12,7 +12,7 @@ part of 'peaman_info_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanInfoProviderState {
@@ -70,23 +70,25 @@ class _$PeamanInfoProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanInfoProviderStateCopyWith<$Res>
+abstract class _$$PeamanInfoProviderStateImplCopyWith<$Res>
     implements $PeamanInfoProviderStateCopyWith<$Res> {
-  factory _$$_PeamanInfoProviderStateCopyWith(_$_PeamanInfoProviderState value,
-          $Res Function(_$_PeamanInfoProviderState) then) =
-      __$$_PeamanInfoProviderStateCopyWithImpl<$Res>;
+  factory _$$PeamanInfoProviderStateImplCopyWith(
+          _$PeamanInfoProviderStateImpl value,
+          $Res Function(_$PeamanInfoProviderStateImpl) then) =
+      __$$PeamanInfoProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? error, String? success, String? warning});
 }
 
 /// @nodoc
-class __$$_PeamanInfoProviderStateCopyWithImpl<$Res>
+class __$$PeamanInfoProviderStateImplCopyWithImpl<$Res>
     extends _$PeamanInfoProviderStateCopyWithImpl<$Res,
-        _$_PeamanInfoProviderState>
-    implements _$$_PeamanInfoProviderStateCopyWith<$Res> {
-  __$$_PeamanInfoProviderStateCopyWithImpl(_$_PeamanInfoProviderState _value,
-      $Res Function(_$_PeamanInfoProviderState) _then)
+        _$PeamanInfoProviderStateImpl>
+    implements _$$PeamanInfoProviderStateImplCopyWith<$Res> {
+  __$$PeamanInfoProviderStateImplCopyWithImpl(
+      _$PeamanInfoProviderStateImpl _value,
+      $Res Function(_$PeamanInfoProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -96,7 +98,7 @@ class __$$_PeamanInfoProviderStateCopyWithImpl<$Res>
     Object? success = freezed,
     Object? warning = freezed,
   }) {
-    return _then(_$_PeamanInfoProviderState(
+    return _then(_$PeamanInfoProviderStateImpl(
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -115,8 +117,8 @@ class __$$_PeamanInfoProviderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanInfoProviderState implements _PeamanInfoProviderState {
-  const _$_PeamanInfoProviderState({this.error, this.success, this.warning});
+class _$PeamanInfoProviderStateImpl implements _PeamanInfoProviderState {
+  const _$PeamanInfoProviderStateImpl({this.error, this.success, this.warning});
 
   @override
   final String? error;
@@ -131,10 +133,10 @@ class _$_PeamanInfoProviderState implements _PeamanInfoProviderState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanInfoProviderState &&
+            other is _$PeamanInfoProviderStateImpl &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.success, success) || other.success == success) &&
             (identical(other.warning, warning) || other.warning == warning));
@@ -146,17 +148,16 @@ class _$_PeamanInfoProviderState implements _PeamanInfoProviderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanInfoProviderStateCopyWith<_$_PeamanInfoProviderState>
-      get copyWith =>
-          __$$_PeamanInfoProviderStateCopyWithImpl<_$_PeamanInfoProviderState>(
-              this, _$identity);
+  _$$PeamanInfoProviderStateImplCopyWith<_$PeamanInfoProviderStateImpl>
+      get copyWith => __$$PeamanInfoProviderStateImplCopyWithImpl<
+          _$PeamanInfoProviderStateImpl>(this, _$identity);
 }
 
 abstract class _PeamanInfoProviderState implements PeamanInfoProviderState {
   const factory _PeamanInfoProviderState(
       {final String? error,
       final String? success,
-      final String? warning}) = _$_PeamanInfoProviderState;
+      final String? warning}) = _$PeamanInfoProviderStateImpl;
 
   @override
   String? get error;
@@ -166,6 +167,6 @@ abstract class _PeamanInfoProviderState implements PeamanInfoProviderState {
   String? get warning;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanInfoProviderStateCopyWith<_$_PeamanInfoProviderState>
+  _$$PeamanInfoProviderStateImplCopyWith<_$PeamanInfoProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

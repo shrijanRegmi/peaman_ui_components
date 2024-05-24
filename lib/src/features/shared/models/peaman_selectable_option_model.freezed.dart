@@ -12,7 +12,7 @@ part of 'peaman_selectable_option_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanSelectableOption {
@@ -76,23 +76,25 @@ class _$PeamanSelectableOptionCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanSelectableOptionCopyWith<$Res>
+abstract class _$$PeamanSelectableOptionImplCopyWith<$Res>
     implements $PeamanSelectableOptionCopyWith<$Res> {
-  factory _$$_PeamanSelectableOptionCopyWith(_$_PeamanSelectableOption value,
-          $Res Function(_$_PeamanSelectableOption) then) =
-      __$$_PeamanSelectableOptionCopyWithImpl<$Res>;
+  factory _$$PeamanSelectableOptionImplCopyWith(
+          _$PeamanSelectableOptionImpl value,
+          $Res Function(_$PeamanSelectableOptionImpl) then) =
+      __$$PeamanSelectableOptionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, String? title, Widget? leading, Widget? trailing});
 }
 
 /// @nodoc
-class __$$_PeamanSelectableOptionCopyWithImpl<$Res>
+class __$$PeamanSelectableOptionImplCopyWithImpl<$Res>
     extends _$PeamanSelectableOptionCopyWithImpl<$Res,
-        _$_PeamanSelectableOption>
-    implements _$$_PeamanSelectableOptionCopyWith<$Res> {
-  __$$_PeamanSelectableOptionCopyWithImpl(_$_PeamanSelectableOption _value,
-      $Res Function(_$_PeamanSelectableOption) _then)
+        _$PeamanSelectableOptionImpl>
+    implements _$$PeamanSelectableOptionImplCopyWith<$Res> {
+  __$$PeamanSelectableOptionImplCopyWithImpl(
+      _$PeamanSelectableOptionImpl _value,
+      $Res Function(_$PeamanSelectableOptionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -103,7 +105,7 @@ class __$$_PeamanSelectableOptionCopyWithImpl<$Res>
     Object? leading = freezed,
     Object? trailing = freezed,
   }) {
-    return _then(_$_PeamanSelectableOption(
+    return _then(_$PeamanSelectableOptionImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -126,8 +128,8 @@ class __$$_PeamanSelectableOptionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanSelectableOption implements _PeamanSelectableOption {
-  const _$_PeamanSelectableOption(
+class _$PeamanSelectableOptionImpl implements _PeamanSelectableOption {
+  const _$PeamanSelectableOptionImpl(
       {required this.id, this.title, this.leading, this.trailing});
 
   @override
@@ -145,10 +147,10 @@ class _$_PeamanSelectableOption implements _PeamanSelectableOption {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanSelectableOption &&
+            other is _$PeamanSelectableOptionImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.leading, leading) || other.leading == leading) &&
@@ -162,9 +164,9 @@ class _$_PeamanSelectableOption implements _PeamanSelectableOption {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanSelectableOptionCopyWith<_$_PeamanSelectableOption> get copyWith =>
-      __$$_PeamanSelectableOptionCopyWithImpl<_$_PeamanSelectableOption>(
-          this, _$identity);
+  _$$PeamanSelectableOptionImplCopyWith<_$PeamanSelectableOptionImpl>
+      get copyWith => __$$PeamanSelectableOptionImplCopyWithImpl<
+          _$PeamanSelectableOptionImpl>(this, _$identity);
 }
 
 abstract class _PeamanSelectableOption implements PeamanSelectableOption {
@@ -172,7 +174,7 @@ abstract class _PeamanSelectableOption implements PeamanSelectableOption {
       {required final int id,
       final String? title,
       final Widget? leading,
-      final Widget? trailing}) = _$_PeamanSelectableOption;
+      final Widget? trailing}) = _$PeamanSelectableOptionImpl;
 
   @override
   int get id;
@@ -184,6 +186,6 @@ abstract class _PeamanSelectableOption implements PeamanSelectableOption {
   Widget? get trailing;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanSelectableOptionCopyWith<_$_PeamanSelectableOption> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PeamanSelectableOptionImplCopyWith<_$PeamanSelectableOptionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

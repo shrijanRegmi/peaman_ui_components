@@ -12,7 +12,7 @@ part of 'peaman_user_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanUserProviderState {
@@ -181,11 +181,12 @@ class _$PeamanUserProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanUserProviderStateCopyWith<$Res>
+abstract class _$$PeamanUserProviderStateImplCopyWith<$Res>
     implements $PeamanUserProviderStateCopyWith<$Res> {
-  factory _$$_PeamanUserProviderStateCopyWith(_$_PeamanUserProviderState value,
-          $Res Function(_$_PeamanUserProviderState) then) =
-      __$$_PeamanUserProviderStateCopyWithImpl<$Res>;
+  factory _$$PeamanUserProviderStateImplCopyWith(
+          _$PeamanUserProviderStateImpl value,
+          $Res Function(_$PeamanUserProviderStateImpl) then) =
+      __$$PeamanUserProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -217,12 +218,13 @@ abstract class _$$_PeamanUserProviderStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeamanUserProviderStateCopyWithImpl<$Res>
+class __$$PeamanUserProviderStateImplCopyWithImpl<$Res>
     extends _$PeamanUserProviderStateCopyWithImpl<$Res,
-        _$_PeamanUserProviderState>
-    implements _$$_PeamanUserProviderStateCopyWith<$Res> {
-  __$$_PeamanUserProviderStateCopyWithImpl(_$_PeamanUserProviderState _value,
-      $Res Function(_$_PeamanUserProviderState) _then)
+        _$PeamanUserProviderStateImpl>
+    implements _$$PeamanUserProviderStateImplCopyWith<$Res> {
+  __$$PeamanUserProviderStateImplCopyWithImpl(
+      _$PeamanUserProviderStateImpl _value,
+      $Res Function(_$PeamanUserProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -237,7 +239,7 @@ class __$$_PeamanUserProviderStateCopyWithImpl<$Res>
     Object? acceptFollowState = null,
     Object? followBackState = null,
   }) {
-    return _then(_$_PeamanUserProviderState(
+    return _then(_$PeamanUserProviderStateImpl(
       updateUserState: null == updateUserState
           ? _value.updateUserState
           : updateUserState // ignore: cast_nullable_to_non_nullable
@@ -276,8 +278,8 @@ class __$$_PeamanUserProviderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanUserProviderState implements _PeamanUserProviderState {
-  const _$_PeamanUserProviderState(
+class _$PeamanUserProviderStateImpl implements _PeamanUserProviderState {
+  const _$PeamanUserProviderStateImpl(
       {this.updateUserState = const UpdateUserState.initial(),
       this.blockUserState = const BlockUserState.initial(),
       this.unblockUserState = const UnblockUserState.initial(),
@@ -318,10 +320,10 @@ class _$_PeamanUserProviderState implements _PeamanUserProviderState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanUserProviderState &&
+            other is _$PeamanUserProviderStateImpl &&
             (identical(other.updateUserState, updateUserState) ||
                 other.updateUserState == updateUserState) &&
             (identical(other.blockUserState, blockUserState) ||
@@ -355,10 +357,9 @@ class _$_PeamanUserProviderState implements _PeamanUserProviderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanUserProviderStateCopyWith<_$_PeamanUserProviderState>
-      get copyWith =>
-          __$$_PeamanUserProviderStateCopyWithImpl<_$_PeamanUserProviderState>(
-              this, _$identity);
+  _$$PeamanUserProviderStateImplCopyWith<_$PeamanUserProviderStateImpl>
+      get copyWith => __$$PeamanUserProviderStateImplCopyWithImpl<
+          _$PeamanUserProviderStateImpl>(this, _$identity);
 }
 
 abstract class _PeamanUserProviderState implements PeamanUserProviderState {
@@ -370,7 +371,7 @@ abstract class _PeamanUserProviderState implements PeamanUserProviderState {
       final UnfollowUserState unfollowUserState,
       final CancelFollowState cancelFollowState,
       final AcceptFollowState acceptFollowState,
-      final FollowBackState followBackState}) = _$_PeamanUserProviderState;
+      final FollowBackState followBackState}) = _$PeamanUserProviderStateImpl;
 
   @override
   UpdateUserState get updateUserState;
@@ -390,7 +391,7 @@ abstract class _PeamanUserProviderState implements PeamanUserProviderState {
   FollowBackState get followBackState;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanUserProviderStateCopyWith<_$_PeamanUserProviderState>
+  _$$PeamanUserProviderStateImplCopyWith<_$PeamanUserProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -467,25 +468,26 @@ class _$BlockUserStateCopyWithImpl<$Res, $Val extends BlockUserState>
 }
 
 /// @nodoc
-abstract class _$$_BlockUserStateInitialCopyWith<$Res> {
-  factory _$$_BlockUserStateInitialCopyWith(_$_BlockUserStateInitial value,
-          $Res Function(_$_BlockUserStateInitial) then) =
-      __$$_BlockUserStateInitialCopyWithImpl<$Res>;
+abstract class _$$BlockUserStateInitialImplCopyWith<$Res> {
+  factory _$$BlockUserStateInitialImplCopyWith(
+          _$BlockUserStateInitialImpl value,
+          $Res Function(_$BlockUserStateInitialImpl) then) =
+      __$$BlockUserStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_BlockUserStateInitialCopyWithImpl<$Res>
-    extends _$BlockUserStateCopyWithImpl<$Res, _$_BlockUserStateInitial>
-    implements _$$_BlockUserStateInitialCopyWith<$Res> {
-  __$$_BlockUserStateInitialCopyWithImpl(_$_BlockUserStateInitial _value,
-      $Res Function(_$_BlockUserStateInitial) _then)
+class __$$BlockUserStateInitialImplCopyWithImpl<$Res>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$BlockUserStateInitialImpl>
+    implements _$$BlockUserStateInitialImplCopyWith<$Res> {
+  __$$BlockUserStateInitialImplCopyWithImpl(_$BlockUserStateInitialImpl _value,
+      $Res Function(_$BlockUserStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_BlockUserStateInitial implements _BlockUserStateInitial {
-  const _$_BlockUserStateInitial();
+class _$BlockUserStateInitialImpl implements _BlockUserStateInitial {
+  const _$BlockUserStateInitialImpl();
 
   @override
   String toString() {
@@ -493,9 +495,10 @@ class _$_BlockUserStateInitial implements _BlockUserStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_BlockUserStateInitial);
+        (other.runtimeType == runtimeType &&
+            other is _$BlockUserStateInitialImpl);
   }
 
   @override
@@ -577,29 +580,30 @@ class _$_BlockUserStateInitial implements _BlockUserStateInitial {
 }
 
 abstract class _BlockUserStateInitial implements BlockUserState {
-  const factory _BlockUserStateInitial() = _$_BlockUserStateInitial;
+  const factory _BlockUserStateInitial() = _$BlockUserStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_BlockUserStateLoadingCopyWith<$Res> {
-  factory _$$_BlockUserStateLoadingCopyWith(_$_BlockUserStateLoading value,
-          $Res Function(_$_BlockUserStateLoading) then) =
-      __$$_BlockUserStateLoadingCopyWithImpl<$Res>;
+abstract class _$$BlockUserStateLoadingImplCopyWith<$Res> {
+  factory _$$BlockUserStateLoadingImplCopyWith(
+          _$BlockUserStateLoadingImpl value,
+          $Res Function(_$BlockUserStateLoadingImpl) then) =
+      __$$BlockUserStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_BlockUserStateLoadingCopyWithImpl<$Res>
-    extends _$BlockUserStateCopyWithImpl<$Res, _$_BlockUserStateLoading>
-    implements _$$_BlockUserStateLoadingCopyWith<$Res> {
-  __$$_BlockUserStateLoadingCopyWithImpl(_$_BlockUserStateLoading _value,
-      $Res Function(_$_BlockUserStateLoading) _then)
+class __$$BlockUserStateLoadingImplCopyWithImpl<$Res>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$BlockUserStateLoadingImpl>
+    implements _$$BlockUserStateLoadingImplCopyWith<$Res> {
+  __$$BlockUserStateLoadingImplCopyWithImpl(_$BlockUserStateLoadingImpl _value,
+      $Res Function(_$BlockUserStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_BlockUserStateLoading implements _BlockUserStateLoading {
-  const _$_BlockUserStateLoading();
+class _$BlockUserStateLoadingImpl implements _BlockUserStateLoading {
+  const _$BlockUserStateLoadingImpl();
 
   @override
   String toString() {
@@ -607,9 +611,10 @@ class _$_BlockUserStateLoading implements _BlockUserStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_BlockUserStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$BlockUserStateLoadingImpl);
   }
 
   @override
@@ -691,24 +696,25 @@ class _$_BlockUserStateLoading implements _BlockUserStateLoading {
 }
 
 abstract class _BlockUserStateLoading implements BlockUserState {
-  const factory _BlockUserStateLoading() = _$_BlockUserStateLoading;
+  const factory _BlockUserStateLoading() = _$BlockUserStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_BlockUserStateSuccessCopyWith<$Res> {
-  factory _$$_BlockUserStateSuccessCopyWith(_$_BlockUserStateSuccess value,
-          $Res Function(_$_BlockUserStateSuccess) then) =
-      __$$_BlockUserStateSuccessCopyWithImpl<$Res>;
+abstract class _$$BlockUserStateSuccessImplCopyWith<$Res> {
+  factory _$$BlockUserStateSuccessImplCopyWith(
+          _$BlockUserStateSuccessImpl value,
+          $Res Function(_$BlockUserStateSuccessImpl) then) =
+      __$$BlockUserStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_BlockUserStateSuccessCopyWithImpl<$Res>
-    extends _$BlockUserStateCopyWithImpl<$Res, _$_BlockUserStateSuccess>
-    implements _$$_BlockUserStateSuccessCopyWith<$Res> {
-  __$$_BlockUserStateSuccessCopyWithImpl(_$_BlockUserStateSuccess _value,
-      $Res Function(_$_BlockUserStateSuccess) _then)
+class __$$BlockUserStateSuccessImplCopyWithImpl<$Res>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$BlockUserStateSuccessImpl>
+    implements _$$BlockUserStateSuccessImplCopyWith<$Res> {
+  __$$BlockUserStateSuccessImplCopyWithImpl(_$BlockUserStateSuccessImpl _value,
+      $Res Function(_$BlockUserStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -716,7 +722,7 @@ class __$$_BlockUserStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_BlockUserStateSuccess(
+    return _then(_$BlockUserStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -727,8 +733,8 @@ class __$$_BlockUserStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BlockUserStateSuccess implements _BlockUserStateSuccess {
-  const _$_BlockUserStateSuccess(this.result);
+class _$BlockUserStateSuccessImpl implements _BlockUserStateSuccess {
+  const _$BlockUserStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -739,10 +745,10 @@ class _$_BlockUserStateSuccess implements _BlockUserStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BlockUserStateSuccess &&
+            other is _$BlockUserStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -752,9 +758,9 @@ class _$_BlockUserStateSuccess implements _BlockUserStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BlockUserStateSuccessCopyWith<_$_BlockUserStateSuccess> get copyWith =>
-      __$$_BlockUserStateSuccessCopyWithImpl<_$_BlockUserStateSuccess>(
-          this, _$identity);
+  _$$BlockUserStateSuccessImplCopyWith<_$BlockUserStateSuccessImpl>
+      get copyWith => __$$BlockUserStateSuccessImplCopyWithImpl<
+          _$BlockUserStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -833,19 +839,19 @@ class _$_BlockUserStateSuccess implements _BlockUserStateSuccess {
 
 abstract class _BlockUserStateSuccess implements BlockUserState {
   const factory _BlockUserStateSuccess(final bool result) =
-      _$_BlockUserStateSuccess;
+      _$BlockUserStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_BlockUserStateSuccessCopyWith<_$_BlockUserStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$BlockUserStateSuccessImplCopyWith<_$BlockUserStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_BlockUserStateErrorCopyWith<$Res> {
-  factory _$$_BlockUserStateErrorCopyWith(_$_BlockUserStateError value,
-          $Res Function(_$_BlockUserStateError) then) =
-      __$$_BlockUserStateErrorCopyWithImpl<$Res>;
+abstract class _$$BlockUserStateErrorImplCopyWith<$Res> {
+  factory _$$BlockUserStateErrorImplCopyWith(_$BlockUserStateErrorImpl value,
+          $Res Function(_$BlockUserStateErrorImpl) then) =
+      __$$BlockUserStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -853,11 +859,11 @@ abstract class _$$_BlockUserStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_BlockUserStateErrorCopyWithImpl<$Res>
-    extends _$BlockUserStateCopyWithImpl<$Res, _$_BlockUserStateError>
-    implements _$$_BlockUserStateErrorCopyWith<$Res> {
-  __$$_BlockUserStateErrorCopyWithImpl(_$_BlockUserStateError _value,
-      $Res Function(_$_BlockUserStateError) _then)
+class __$$BlockUserStateErrorImplCopyWithImpl<$Res>
+    extends _$BlockUserStateCopyWithImpl<$Res, _$BlockUserStateErrorImpl>
+    implements _$$BlockUserStateErrorImplCopyWith<$Res> {
+  __$$BlockUserStateErrorImplCopyWithImpl(_$BlockUserStateErrorImpl _value,
+      $Res Function(_$BlockUserStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -865,7 +871,7 @@ class __$$_BlockUserStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_BlockUserStateError(
+    return _then(_$BlockUserStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -884,8 +890,8 @@ class __$$_BlockUserStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_BlockUserStateError implements _BlockUserStateError {
-  const _$_BlockUserStateError(this.error);
+class _$BlockUserStateErrorImpl implements _BlockUserStateError {
+  const _$BlockUserStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -896,10 +902,10 @@ class _$_BlockUserStateError implements _BlockUserStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_BlockUserStateError &&
+            other is _$BlockUserStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -909,8 +915,8 @@ class _$_BlockUserStateError implements _BlockUserStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BlockUserStateErrorCopyWith<_$_BlockUserStateError> get copyWith =>
-      __$$_BlockUserStateErrorCopyWithImpl<_$_BlockUserStateError>(
+  _$$BlockUserStateErrorImplCopyWith<_$BlockUserStateErrorImpl> get copyWith =>
+      __$$BlockUserStateErrorImplCopyWithImpl<_$BlockUserStateErrorImpl>(
           this, _$identity);
 
   @override
@@ -990,11 +996,11 @@ class _$_BlockUserStateError implements _BlockUserStateError {
 
 abstract class _BlockUserStateError implements BlockUserState {
   const factory _BlockUserStateError(final PeamanError error) =
-      _$_BlockUserStateError;
+      _$BlockUserStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_BlockUserStateErrorCopyWith<_$_BlockUserStateError> get copyWith =>
+  _$$BlockUserStateErrorImplCopyWith<_$BlockUserStateErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1071,25 +1077,27 @@ class _$UnblockUserStateCopyWithImpl<$Res, $Val extends UnblockUserState>
 }
 
 /// @nodoc
-abstract class _$$_UnblockUserStateInitialCopyWith<$Res> {
-  factory _$$_UnblockUserStateInitialCopyWith(_$_UnblockUserStateInitial value,
-          $Res Function(_$_UnblockUserStateInitial) then) =
-      __$$_UnblockUserStateInitialCopyWithImpl<$Res>;
+abstract class _$$UnblockUserStateInitialImplCopyWith<$Res> {
+  factory _$$UnblockUserStateInitialImplCopyWith(
+          _$UnblockUserStateInitialImpl value,
+          $Res Function(_$UnblockUserStateInitialImpl) then) =
+      __$$UnblockUserStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnblockUserStateInitialCopyWithImpl<$Res>
-    extends _$UnblockUserStateCopyWithImpl<$Res, _$_UnblockUserStateInitial>
-    implements _$$_UnblockUserStateInitialCopyWith<$Res> {
-  __$$_UnblockUserStateInitialCopyWithImpl(_$_UnblockUserStateInitial _value,
-      $Res Function(_$_UnblockUserStateInitial) _then)
+class __$$UnblockUserStateInitialImplCopyWithImpl<$Res>
+    extends _$UnblockUserStateCopyWithImpl<$Res, _$UnblockUserStateInitialImpl>
+    implements _$$UnblockUserStateInitialImplCopyWith<$Res> {
+  __$$UnblockUserStateInitialImplCopyWithImpl(
+      _$UnblockUserStateInitialImpl _value,
+      $Res Function(_$UnblockUserStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnblockUserStateInitial implements _UnblockUserStateInitial {
-  const _$_UnblockUserStateInitial();
+class _$UnblockUserStateInitialImpl implements _UnblockUserStateInitial {
+  const _$UnblockUserStateInitialImpl();
 
   @override
   String toString() {
@@ -1097,10 +1105,10 @@ class _$_UnblockUserStateInitial implements _UnblockUserStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnblockUserStateInitial);
+            other is _$UnblockUserStateInitialImpl);
   }
 
   @override
@@ -1182,29 +1190,31 @@ class _$_UnblockUserStateInitial implements _UnblockUserStateInitial {
 }
 
 abstract class _UnblockUserStateInitial implements UnblockUserState {
-  const factory _UnblockUserStateInitial() = _$_UnblockUserStateInitial;
+  const factory _UnblockUserStateInitial() = _$UnblockUserStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnblockUserStateLoadingCopyWith<$Res> {
-  factory _$$_UnblockUserStateLoadingCopyWith(_$_UnblockUserStateLoading value,
-          $Res Function(_$_UnblockUserStateLoading) then) =
-      __$$_UnblockUserStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UnblockUserStateLoadingImplCopyWith<$Res> {
+  factory _$$UnblockUserStateLoadingImplCopyWith(
+          _$UnblockUserStateLoadingImpl value,
+          $Res Function(_$UnblockUserStateLoadingImpl) then) =
+      __$$UnblockUserStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnblockUserStateLoadingCopyWithImpl<$Res>
-    extends _$UnblockUserStateCopyWithImpl<$Res, _$_UnblockUserStateLoading>
-    implements _$$_UnblockUserStateLoadingCopyWith<$Res> {
-  __$$_UnblockUserStateLoadingCopyWithImpl(_$_UnblockUserStateLoading _value,
-      $Res Function(_$_UnblockUserStateLoading) _then)
+class __$$UnblockUserStateLoadingImplCopyWithImpl<$Res>
+    extends _$UnblockUserStateCopyWithImpl<$Res, _$UnblockUserStateLoadingImpl>
+    implements _$$UnblockUserStateLoadingImplCopyWith<$Res> {
+  __$$UnblockUserStateLoadingImplCopyWithImpl(
+      _$UnblockUserStateLoadingImpl _value,
+      $Res Function(_$UnblockUserStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnblockUserStateLoading implements _UnblockUserStateLoading {
-  const _$_UnblockUserStateLoading();
+class _$UnblockUserStateLoadingImpl implements _UnblockUserStateLoading {
+  const _$UnblockUserStateLoadingImpl();
 
   @override
   String toString() {
@@ -1212,10 +1222,10 @@ class _$_UnblockUserStateLoading implements _UnblockUserStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnblockUserStateLoading);
+            other is _$UnblockUserStateLoadingImpl);
   }
 
   @override
@@ -1297,24 +1307,26 @@ class _$_UnblockUserStateLoading implements _UnblockUserStateLoading {
 }
 
 abstract class _UnblockUserStateLoading implements UnblockUserState {
-  const factory _UnblockUserStateLoading() = _$_UnblockUserStateLoading;
+  const factory _UnblockUserStateLoading() = _$UnblockUserStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnblockUserStateSuccessCopyWith<$Res> {
-  factory _$$_UnblockUserStateSuccessCopyWith(_$_UnblockUserStateSuccess value,
-          $Res Function(_$_UnblockUserStateSuccess) then) =
-      __$$_UnblockUserStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UnblockUserStateSuccessImplCopyWith<$Res> {
+  factory _$$UnblockUserStateSuccessImplCopyWith(
+          _$UnblockUserStateSuccessImpl value,
+          $Res Function(_$UnblockUserStateSuccessImpl) then) =
+      __$$UnblockUserStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UnblockUserStateSuccessCopyWithImpl<$Res>
-    extends _$UnblockUserStateCopyWithImpl<$Res, _$_UnblockUserStateSuccess>
-    implements _$$_UnblockUserStateSuccessCopyWith<$Res> {
-  __$$_UnblockUserStateSuccessCopyWithImpl(_$_UnblockUserStateSuccess _value,
-      $Res Function(_$_UnblockUserStateSuccess) _then)
+class __$$UnblockUserStateSuccessImplCopyWithImpl<$Res>
+    extends _$UnblockUserStateCopyWithImpl<$Res, _$UnblockUserStateSuccessImpl>
+    implements _$$UnblockUserStateSuccessImplCopyWith<$Res> {
+  __$$UnblockUserStateSuccessImplCopyWithImpl(
+      _$UnblockUserStateSuccessImpl _value,
+      $Res Function(_$UnblockUserStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1322,7 +1334,7 @@ class __$$_UnblockUserStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UnblockUserStateSuccess(
+    return _then(_$UnblockUserStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -1333,8 +1345,8 @@ class __$$_UnblockUserStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnblockUserStateSuccess implements _UnblockUserStateSuccess {
-  const _$_UnblockUserStateSuccess(this.result);
+class _$UnblockUserStateSuccessImpl implements _UnblockUserStateSuccess {
+  const _$UnblockUserStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -1345,10 +1357,10 @@ class _$_UnblockUserStateSuccess implements _UnblockUserStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnblockUserStateSuccess &&
+            other is _$UnblockUserStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -1358,10 +1370,9 @@ class _$_UnblockUserStateSuccess implements _UnblockUserStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnblockUserStateSuccessCopyWith<_$_UnblockUserStateSuccess>
-      get copyWith =>
-          __$$_UnblockUserStateSuccessCopyWithImpl<_$_UnblockUserStateSuccess>(
-              this, _$identity);
+  _$$UnblockUserStateSuccessImplCopyWith<_$UnblockUserStateSuccessImpl>
+      get copyWith => __$$UnblockUserStateSuccessImplCopyWithImpl<
+          _$UnblockUserStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1440,19 +1451,20 @@ class _$_UnblockUserStateSuccess implements _UnblockUserStateSuccess {
 
 abstract class _UnblockUserStateSuccess implements UnblockUserState {
   const factory _UnblockUserStateSuccess(final bool result) =
-      _$_UnblockUserStateSuccess;
+      _$UnblockUserStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UnblockUserStateSuccessCopyWith<_$_UnblockUserStateSuccess>
+  _$$UnblockUserStateSuccessImplCopyWith<_$UnblockUserStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnblockUserStateErrorCopyWith<$Res> {
-  factory _$$_UnblockUserStateErrorCopyWith(_$_UnblockUserStateError value,
-          $Res Function(_$_UnblockUserStateError) then) =
-      __$$_UnblockUserStateErrorCopyWithImpl<$Res>;
+abstract class _$$UnblockUserStateErrorImplCopyWith<$Res> {
+  factory _$$UnblockUserStateErrorImplCopyWith(
+          _$UnblockUserStateErrorImpl value,
+          $Res Function(_$UnblockUserStateErrorImpl) then) =
+      __$$UnblockUserStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -1460,11 +1472,11 @@ abstract class _$$_UnblockUserStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UnblockUserStateErrorCopyWithImpl<$Res>
-    extends _$UnblockUserStateCopyWithImpl<$Res, _$_UnblockUserStateError>
-    implements _$$_UnblockUserStateErrorCopyWith<$Res> {
-  __$$_UnblockUserStateErrorCopyWithImpl(_$_UnblockUserStateError _value,
-      $Res Function(_$_UnblockUserStateError) _then)
+class __$$UnblockUserStateErrorImplCopyWithImpl<$Res>
+    extends _$UnblockUserStateCopyWithImpl<$Res, _$UnblockUserStateErrorImpl>
+    implements _$$UnblockUserStateErrorImplCopyWith<$Res> {
+  __$$UnblockUserStateErrorImplCopyWithImpl(_$UnblockUserStateErrorImpl _value,
+      $Res Function(_$UnblockUserStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1472,7 +1484,7 @@ class __$$_UnblockUserStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UnblockUserStateError(
+    return _then(_$UnblockUserStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1491,8 +1503,8 @@ class __$$_UnblockUserStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnblockUserStateError implements _UnblockUserStateError {
-  const _$_UnblockUserStateError(this.error);
+class _$UnblockUserStateErrorImpl implements _UnblockUserStateError {
+  const _$UnblockUserStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -1503,10 +1515,10 @@ class _$_UnblockUserStateError implements _UnblockUserStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnblockUserStateError &&
+            other is _$UnblockUserStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1516,9 +1528,9 @@ class _$_UnblockUserStateError implements _UnblockUserStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnblockUserStateErrorCopyWith<_$_UnblockUserStateError> get copyWith =>
-      __$$_UnblockUserStateErrorCopyWithImpl<_$_UnblockUserStateError>(
-          this, _$identity);
+  _$$UnblockUserStateErrorImplCopyWith<_$UnblockUserStateErrorImpl>
+      get copyWith => __$$UnblockUserStateErrorImplCopyWithImpl<
+          _$UnblockUserStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1597,12 +1609,12 @@ class _$_UnblockUserStateError implements _UnblockUserStateError {
 
 abstract class _UnblockUserStateError implements UnblockUserState {
   const factory _UnblockUserStateError(final PeamanError error) =
-      _$_UnblockUserStateError;
+      _$UnblockUserStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UnblockUserStateErrorCopyWith<_$_UnblockUserStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UnblockUserStateErrorImplCopyWith<_$UnblockUserStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1678,25 +1690,27 @@ class _$UpdateUserStateCopyWithImpl<$Res, $Val extends UpdateUserState>
 }
 
 /// @nodoc
-abstract class _$$_UpdateUserStateInitialCopyWith<$Res> {
-  factory _$$_UpdateUserStateInitialCopyWith(_$_UpdateUserStateInitial value,
-          $Res Function(_$_UpdateUserStateInitial) then) =
-      __$$_UpdateUserStateInitialCopyWithImpl<$Res>;
+abstract class _$$UpdateUserStateInitialImplCopyWith<$Res> {
+  factory _$$UpdateUserStateInitialImplCopyWith(
+          _$UpdateUserStateInitialImpl value,
+          $Res Function(_$UpdateUserStateInitialImpl) then) =
+      __$$UpdateUserStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UpdateUserStateInitialCopyWithImpl<$Res>
-    extends _$UpdateUserStateCopyWithImpl<$Res, _$_UpdateUserStateInitial>
-    implements _$$_UpdateUserStateInitialCopyWith<$Res> {
-  __$$_UpdateUserStateInitialCopyWithImpl(_$_UpdateUserStateInitial _value,
-      $Res Function(_$_UpdateUserStateInitial) _then)
+class __$$UpdateUserStateInitialImplCopyWithImpl<$Res>
+    extends _$UpdateUserStateCopyWithImpl<$Res, _$UpdateUserStateInitialImpl>
+    implements _$$UpdateUserStateInitialImplCopyWith<$Res> {
+  __$$UpdateUserStateInitialImplCopyWithImpl(
+      _$UpdateUserStateInitialImpl _value,
+      $Res Function(_$UpdateUserStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UpdateUserStateInitial implements _UpdateUserStateInitial {
-  const _$_UpdateUserStateInitial();
+class _$UpdateUserStateInitialImpl implements _UpdateUserStateInitial {
+  const _$UpdateUserStateInitialImpl();
 
   @override
   String toString() {
@@ -1704,10 +1718,10 @@ class _$_UpdateUserStateInitial implements _UpdateUserStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateUserStateInitial);
+            other is _$UpdateUserStateInitialImpl);
   }
 
   @override
@@ -1789,29 +1803,31 @@ class _$_UpdateUserStateInitial implements _UpdateUserStateInitial {
 }
 
 abstract class _UpdateUserStateInitial implements UpdateUserState {
-  const factory _UpdateUserStateInitial() = _$_UpdateUserStateInitial;
+  const factory _UpdateUserStateInitial() = _$UpdateUserStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateUserStateLoadingCopyWith<$Res> {
-  factory _$$_UpdateUserStateLoadingCopyWith(_$_UpdateUserStateLoading value,
-          $Res Function(_$_UpdateUserStateLoading) then) =
-      __$$_UpdateUserStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UpdateUserStateLoadingImplCopyWith<$Res> {
+  factory _$$UpdateUserStateLoadingImplCopyWith(
+          _$UpdateUserStateLoadingImpl value,
+          $Res Function(_$UpdateUserStateLoadingImpl) then) =
+      __$$UpdateUserStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UpdateUserStateLoadingCopyWithImpl<$Res>
-    extends _$UpdateUserStateCopyWithImpl<$Res, _$_UpdateUserStateLoading>
-    implements _$$_UpdateUserStateLoadingCopyWith<$Res> {
-  __$$_UpdateUserStateLoadingCopyWithImpl(_$_UpdateUserStateLoading _value,
-      $Res Function(_$_UpdateUserStateLoading) _then)
+class __$$UpdateUserStateLoadingImplCopyWithImpl<$Res>
+    extends _$UpdateUserStateCopyWithImpl<$Res, _$UpdateUserStateLoadingImpl>
+    implements _$$UpdateUserStateLoadingImplCopyWith<$Res> {
+  __$$UpdateUserStateLoadingImplCopyWithImpl(
+      _$UpdateUserStateLoadingImpl _value,
+      $Res Function(_$UpdateUserStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UpdateUserStateLoading implements _UpdateUserStateLoading {
-  const _$_UpdateUserStateLoading();
+class _$UpdateUserStateLoadingImpl implements _UpdateUserStateLoading {
+  const _$UpdateUserStateLoadingImpl();
 
   @override
   String toString() {
@@ -1819,10 +1835,10 @@ class _$_UpdateUserStateLoading implements _UpdateUserStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateUserStateLoading);
+            other is _$UpdateUserStateLoadingImpl);
   }
 
   @override
@@ -1904,24 +1920,26 @@ class _$_UpdateUserStateLoading implements _UpdateUserStateLoading {
 }
 
 abstract class _UpdateUserStateLoading implements UpdateUserState {
-  const factory _UpdateUserStateLoading() = _$_UpdateUserStateLoading;
+  const factory _UpdateUserStateLoading() = _$UpdateUserStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateUserStateSuccessCopyWith<$Res> {
-  factory _$$_UpdateUserStateSuccessCopyWith(_$_UpdateUserStateSuccess value,
-          $Res Function(_$_UpdateUserStateSuccess) then) =
-      __$$_UpdateUserStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UpdateUserStateSuccessImplCopyWith<$Res> {
+  factory _$$UpdateUserStateSuccessImplCopyWith(
+          _$UpdateUserStateSuccessImpl value,
+          $Res Function(_$UpdateUserStateSuccessImpl) then) =
+      __$$UpdateUserStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UpdateUserStateSuccessCopyWithImpl<$Res>
-    extends _$UpdateUserStateCopyWithImpl<$Res, _$_UpdateUserStateSuccess>
-    implements _$$_UpdateUserStateSuccessCopyWith<$Res> {
-  __$$_UpdateUserStateSuccessCopyWithImpl(_$_UpdateUserStateSuccess _value,
-      $Res Function(_$_UpdateUserStateSuccess) _then)
+class __$$UpdateUserStateSuccessImplCopyWithImpl<$Res>
+    extends _$UpdateUserStateCopyWithImpl<$Res, _$UpdateUserStateSuccessImpl>
+    implements _$$UpdateUserStateSuccessImplCopyWith<$Res> {
+  __$$UpdateUserStateSuccessImplCopyWithImpl(
+      _$UpdateUserStateSuccessImpl _value,
+      $Res Function(_$UpdateUserStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1929,7 +1947,7 @@ class __$$_UpdateUserStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UpdateUserStateSuccess(
+    return _then(_$UpdateUserStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -1940,8 +1958,8 @@ class __$$_UpdateUserStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateUserStateSuccess implements _UpdateUserStateSuccess {
-  const _$_UpdateUserStateSuccess(this.result);
+class _$UpdateUserStateSuccessImpl implements _UpdateUserStateSuccess {
+  const _$UpdateUserStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -1952,10 +1970,10 @@ class _$_UpdateUserStateSuccess implements _UpdateUserStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateUserStateSuccess &&
+            other is _$UpdateUserStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -1965,9 +1983,9 @@ class _$_UpdateUserStateSuccess implements _UpdateUserStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateUserStateSuccessCopyWith<_$_UpdateUserStateSuccess> get copyWith =>
-      __$$_UpdateUserStateSuccessCopyWithImpl<_$_UpdateUserStateSuccess>(
-          this, _$identity);
+  _$$UpdateUserStateSuccessImplCopyWith<_$UpdateUserStateSuccessImpl>
+      get copyWith => __$$UpdateUserStateSuccessImplCopyWithImpl<
+          _$UpdateUserStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2046,19 +2064,19 @@ class _$_UpdateUserStateSuccess implements _UpdateUserStateSuccess {
 
 abstract class _UpdateUserStateSuccess implements UpdateUserState {
   const factory _UpdateUserStateSuccess(final bool result) =
-      _$_UpdateUserStateSuccess;
+      _$UpdateUserStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UpdateUserStateSuccessCopyWith<_$_UpdateUserStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UpdateUserStateSuccessImplCopyWith<_$UpdateUserStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UpdateUserStateErrorCopyWith<$Res> {
-  factory _$$_UpdateUserStateErrorCopyWith(_$_UpdateUserStateError value,
-          $Res Function(_$_UpdateUserStateError) then) =
-      __$$_UpdateUserStateErrorCopyWithImpl<$Res>;
+abstract class _$$UpdateUserStateErrorImplCopyWith<$Res> {
+  factory _$$UpdateUserStateErrorImplCopyWith(_$UpdateUserStateErrorImpl value,
+          $Res Function(_$UpdateUserStateErrorImpl) then) =
+      __$$UpdateUserStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -2066,11 +2084,11 @@ abstract class _$$_UpdateUserStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UpdateUserStateErrorCopyWithImpl<$Res>
-    extends _$UpdateUserStateCopyWithImpl<$Res, _$_UpdateUserStateError>
-    implements _$$_UpdateUserStateErrorCopyWith<$Res> {
-  __$$_UpdateUserStateErrorCopyWithImpl(_$_UpdateUserStateError _value,
-      $Res Function(_$_UpdateUserStateError) _then)
+class __$$UpdateUserStateErrorImplCopyWithImpl<$Res>
+    extends _$UpdateUserStateCopyWithImpl<$Res, _$UpdateUserStateErrorImpl>
+    implements _$$UpdateUserStateErrorImplCopyWith<$Res> {
+  __$$UpdateUserStateErrorImplCopyWithImpl(_$UpdateUserStateErrorImpl _value,
+      $Res Function(_$UpdateUserStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2078,7 +2096,7 @@ class __$$_UpdateUserStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UpdateUserStateError(
+    return _then(_$UpdateUserStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -2097,8 +2115,8 @@ class __$$_UpdateUserStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateUserStateError implements _UpdateUserStateError {
-  const _$_UpdateUserStateError(this.error);
+class _$UpdateUserStateErrorImpl implements _UpdateUserStateError {
+  const _$UpdateUserStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -2109,10 +2127,10 @@ class _$_UpdateUserStateError implements _UpdateUserStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateUserStateError &&
+            other is _$UpdateUserStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -2122,9 +2140,10 @@ class _$_UpdateUserStateError implements _UpdateUserStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateUserStateErrorCopyWith<_$_UpdateUserStateError> get copyWith =>
-      __$$_UpdateUserStateErrorCopyWithImpl<_$_UpdateUserStateError>(
-          this, _$identity);
+  _$$UpdateUserStateErrorImplCopyWith<_$UpdateUserStateErrorImpl>
+      get copyWith =>
+          __$$UpdateUserStateErrorImplCopyWithImpl<_$UpdateUserStateErrorImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2203,12 +2222,12 @@ class _$_UpdateUserStateError implements _UpdateUserStateError {
 
 abstract class _UpdateUserStateError implements UpdateUserState {
   const factory _UpdateUserStateError(final PeamanError error) =
-      _$_UpdateUserStateError;
+      _$UpdateUserStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UpdateUserStateErrorCopyWith<_$_UpdateUserStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UpdateUserStateErrorImplCopyWith<_$UpdateUserStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2284,25 +2303,27 @@ class _$FollowUserStateCopyWithImpl<$Res, $Val extends FollowUserState>
 }
 
 /// @nodoc
-abstract class _$$_FollowUserStateInitialCopyWith<$Res> {
-  factory _$$_FollowUserStateInitialCopyWith(_$_FollowUserStateInitial value,
-          $Res Function(_$_FollowUserStateInitial) then) =
-      __$$_FollowUserStateInitialCopyWithImpl<$Res>;
+abstract class _$$FollowUserStateInitialImplCopyWith<$Res> {
+  factory _$$FollowUserStateInitialImplCopyWith(
+          _$FollowUserStateInitialImpl value,
+          $Res Function(_$FollowUserStateInitialImpl) then) =
+      __$$FollowUserStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_FollowUserStateInitialCopyWithImpl<$Res>
-    extends _$FollowUserStateCopyWithImpl<$Res, _$_FollowUserStateInitial>
-    implements _$$_FollowUserStateInitialCopyWith<$Res> {
-  __$$_FollowUserStateInitialCopyWithImpl(_$_FollowUserStateInitial _value,
-      $Res Function(_$_FollowUserStateInitial) _then)
+class __$$FollowUserStateInitialImplCopyWithImpl<$Res>
+    extends _$FollowUserStateCopyWithImpl<$Res, _$FollowUserStateInitialImpl>
+    implements _$$FollowUserStateInitialImplCopyWith<$Res> {
+  __$$FollowUserStateInitialImplCopyWithImpl(
+      _$FollowUserStateInitialImpl _value,
+      $Res Function(_$FollowUserStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_FollowUserStateInitial implements _FollowUserStateInitial {
-  const _$_FollowUserStateInitial();
+class _$FollowUserStateInitialImpl implements _FollowUserStateInitial {
+  const _$FollowUserStateInitialImpl();
 
   @override
   String toString() {
@@ -2310,10 +2331,10 @@ class _$_FollowUserStateInitial implements _FollowUserStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowUserStateInitial);
+            other is _$FollowUserStateInitialImpl);
   }
 
   @override
@@ -2395,29 +2416,31 @@ class _$_FollowUserStateInitial implements _FollowUserStateInitial {
 }
 
 abstract class _FollowUserStateInitial implements FollowUserState {
-  const factory _FollowUserStateInitial() = _$_FollowUserStateInitial;
+  const factory _FollowUserStateInitial() = _$FollowUserStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_FollowUserStateLoadingCopyWith<$Res> {
-  factory _$$_FollowUserStateLoadingCopyWith(_$_FollowUserStateLoading value,
-          $Res Function(_$_FollowUserStateLoading) then) =
-      __$$_FollowUserStateLoadingCopyWithImpl<$Res>;
+abstract class _$$FollowUserStateLoadingImplCopyWith<$Res> {
+  factory _$$FollowUserStateLoadingImplCopyWith(
+          _$FollowUserStateLoadingImpl value,
+          $Res Function(_$FollowUserStateLoadingImpl) then) =
+      __$$FollowUserStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_FollowUserStateLoadingCopyWithImpl<$Res>
-    extends _$FollowUserStateCopyWithImpl<$Res, _$_FollowUserStateLoading>
-    implements _$$_FollowUserStateLoadingCopyWith<$Res> {
-  __$$_FollowUserStateLoadingCopyWithImpl(_$_FollowUserStateLoading _value,
-      $Res Function(_$_FollowUserStateLoading) _then)
+class __$$FollowUserStateLoadingImplCopyWithImpl<$Res>
+    extends _$FollowUserStateCopyWithImpl<$Res, _$FollowUserStateLoadingImpl>
+    implements _$$FollowUserStateLoadingImplCopyWith<$Res> {
+  __$$FollowUserStateLoadingImplCopyWithImpl(
+      _$FollowUserStateLoadingImpl _value,
+      $Res Function(_$FollowUserStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_FollowUserStateLoading implements _FollowUserStateLoading {
-  const _$_FollowUserStateLoading();
+class _$FollowUserStateLoadingImpl implements _FollowUserStateLoading {
+  const _$FollowUserStateLoadingImpl();
 
   @override
   String toString() {
@@ -2425,10 +2448,10 @@ class _$_FollowUserStateLoading implements _FollowUserStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowUserStateLoading);
+            other is _$FollowUserStateLoadingImpl);
   }
 
   @override
@@ -2510,24 +2533,26 @@ class _$_FollowUserStateLoading implements _FollowUserStateLoading {
 }
 
 abstract class _FollowUserStateLoading implements FollowUserState {
-  const factory _FollowUserStateLoading() = _$_FollowUserStateLoading;
+  const factory _FollowUserStateLoading() = _$FollowUserStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_FollowUserStateSuccessCopyWith<$Res> {
-  factory _$$_FollowUserStateSuccessCopyWith(_$_FollowUserStateSuccess value,
-          $Res Function(_$_FollowUserStateSuccess) then) =
-      __$$_FollowUserStateSuccessCopyWithImpl<$Res>;
+abstract class _$$FollowUserStateSuccessImplCopyWith<$Res> {
+  factory _$$FollowUserStateSuccessImplCopyWith(
+          _$FollowUserStateSuccessImpl value,
+          $Res Function(_$FollowUserStateSuccessImpl) then) =
+      __$$FollowUserStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_FollowUserStateSuccessCopyWithImpl<$Res>
-    extends _$FollowUserStateCopyWithImpl<$Res, _$_FollowUserStateSuccess>
-    implements _$$_FollowUserStateSuccessCopyWith<$Res> {
-  __$$_FollowUserStateSuccessCopyWithImpl(_$_FollowUserStateSuccess _value,
-      $Res Function(_$_FollowUserStateSuccess) _then)
+class __$$FollowUserStateSuccessImplCopyWithImpl<$Res>
+    extends _$FollowUserStateCopyWithImpl<$Res, _$FollowUserStateSuccessImpl>
+    implements _$$FollowUserStateSuccessImplCopyWith<$Res> {
+  __$$FollowUserStateSuccessImplCopyWithImpl(
+      _$FollowUserStateSuccessImpl _value,
+      $Res Function(_$FollowUserStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2535,7 +2560,7 @@ class __$$_FollowUserStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_FollowUserStateSuccess(
+    return _then(_$FollowUserStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -2546,8 +2571,8 @@ class __$$_FollowUserStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FollowUserStateSuccess implements _FollowUserStateSuccess {
-  const _$_FollowUserStateSuccess(this.result);
+class _$FollowUserStateSuccessImpl implements _FollowUserStateSuccess {
+  const _$FollowUserStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -2558,10 +2583,10 @@ class _$_FollowUserStateSuccess implements _FollowUserStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowUserStateSuccess &&
+            other is _$FollowUserStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -2571,9 +2596,9 @@ class _$_FollowUserStateSuccess implements _FollowUserStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FollowUserStateSuccessCopyWith<_$_FollowUserStateSuccess> get copyWith =>
-      __$$_FollowUserStateSuccessCopyWithImpl<_$_FollowUserStateSuccess>(
-          this, _$identity);
+  _$$FollowUserStateSuccessImplCopyWith<_$FollowUserStateSuccessImpl>
+      get copyWith => __$$FollowUserStateSuccessImplCopyWithImpl<
+          _$FollowUserStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2652,19 +2677,19 @@ class _$_FollowUserStateSuccess implements _FollowUserStateSuccess {
 
 abstract class _FollowUserStateSuccess implements FollowUserState {
   const factory _FollowUserStateSuccess(final bool result) =
-      _$_FollowUserStateSuccess;
+      _$FollowUserStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_FollowUserStateSuccessCopyWith<_$_FollowUserStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$FollowUserStateSuccessImplCopyWith<_$FollowUserStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FollowUserStateErrorCopyWith<$Res> {
-  factory _$$_FollowUserStateErrorCopyWith(_$_FollowUserStateError value,
-          $Res Function(_$_FollowUserStateError) then) =
-      __$$_FollowUserStateErrorCopyWithImpl<$Res>;
+abstract class _$$FollowUserStateErrorImplCopyWith<$Res> {
+  factory _$$FollowUserStateErrorImplCopyWith(_$FollowUserStateErrorImpl value,
+          $Res Function(_$FollowUserStateErrorImpl) then) =
+      __$$FollowUserStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -2672,11 +2697,11 @@ abstract class _$$_FollowUserStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_FollowUserStateErrorCopyWithImpl<$Res>
-    extends _$FollowUserStateCopyWithImpl<$Res, _$_FollowUserStateError>
-    implements _$$_FollowUserStateErrorCopyWith<$Res> {
-  __$$_FollowUserStateErrorCopyWithImpl(_$_FollowUserStateError _value,
-      $Res Function(_$_FollowUserStateError) _then)
+class __$$FollowUserStateErrorImplCopyWithImpl<$Res>
+    extends _$FollowUserStateCopyWithImpl<$Res, _$FollowUserStateErrorImpl>
+    implements _$$FollowUserStateErrorImplCopyWith<$Res> {
+  __$$FollowUserStateErrorImplCopyWithImpl(_$FollowUserStateErrorImpl _value,
+      $Res Function(_$FollowUserStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2684,7 +2709,7 @@ class __$$_FollowUserStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_FollowUserStateError(
+    return _then(_$FollowUserStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -2703,8 +2728,8 @@ class __$$_FollowUserStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FollowUserStateError implements _FollowUserStateError {
-  const _$_FollowUserStateError(this.error);
+class _$FollowUserStateErrorImpl implements _FollowUserStateError {
+  const _$FollowUserStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -2715,10 +2740,10 @@ class _$_FollowUserStateError implements _FollowUserStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowUserStateError &&
+            other is _$FollowUserStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -2728,9 +2753,10 @@ class _$_FollowUserStateError implements _FollowUserStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FollowUserStateErrorCopyWith<_$_FollowUserStateError> get copyWith =>
-      __$$_FollowUserStateErrorCopyWithImpl<_$_FollowUserStateError>(
-          this, _$identity);
+  _$$FollowUserStateErrorImplCopyWith<_$FollowUserStateErrorImpl>
+      get copyWith =>
+          __$$FollowUserStateErrorImplCopyWithImpl<_$FollowUserStateErrorImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2809,12 +2835,12 @@ class _$_FollowUserStateError implements _FollowUserStateError {
 
 abstract class _FollowUserStateError implements FollowUserState {
   const factory _FollowUserStateError(final PeamanError error) =
-      _$_FollowUserStateError;
+      _$FollowUserStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_FollowUserStateErrorCopyWith<_$_FollowUserStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$FollowUserStateErrorImplCopyWith<_$FollowUserStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2890,26 +2916,28 @@ class _$UnfollowUserStateCopyWithImpl<$Res, $Val extends UnfollowUserState>
 }
 
 /// @nodoc
-abstract class _$$_UnfollowUserStateInitialCopyWith<$Res> {
-  factory _$$_UnfollowUserStateInitialCopyWith(
-          _$_UnfollowUserStateInitial value,
-          $Res Function(_$_UnfollowUserStateInitial) then) =
-      __$$_UnfollowUserStateInitialCopyWithImpl<$Res>;
+abstract class _$$UnfollowUserStateInitialImplCopyWith<$Res> {
+  factory _$$UnfollowUserStateInitialImplCopyWith(
+          _$UnfollowUserStateInitialImpl value,
+          $Res Function(_$UnfollowUserStateInitialImpl) then) =
+      __$$UnfollowUserStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnfollowUserStateInitialCopyWithImpl<$Res>
-    extends _$UnfollowUserStateCopyWithImpl<$Res, _$_UnfollowUserStateInitial>
-    implements _$$_UnfollowUserStateInitialCopyWith<$Res> {
-  __$$_UnfollowUserStateInitialCopyWithImpl(_$_UnfollowUserStateInitial _value,
-      $Res Function(_$_UnfollowUserStateInitial) _then)
+class __$$UnfollowUserStateInitialImplCopyWithImpl<$Res>
+    extends _$UnfollowUserStateCopyWithImpl<$Res,
+        _$UnfollowUserStateInitialImpl>
+    implements _$$UnfollowUserStateInitialImplCopyWith<$Res> {
+  __$$UnfollowUserStateInitialImplCopyWithImpl(
+      _$UnfollowUserStateInitialImpl _value,
+      $Res Function(_$UnfollowUserStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnfollowUserStateInitial implements _UnfollowUserStateInitial {
-  const _$_UnfollowUserStateInitial();
+class _$UnfollowUserStateInitialImpl implements _UnfollowUserStateInitial {
+  const _$UnfollowUserStateInitialImpl();
 
   @override
   String toString() {
@@ -2917,10 +2945,10 @@ class _$_UnfollowUserStateInitial implements _UnfollowUserStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnfollowUserStateInitial);
+            other is _$UnfollowUserStateInitialImpl);
   }
 
   @override
@@ -3002,30 +3030,32 @@ class _$_UnfollowUserStateInitial implements _UnfollowUserStateInitial {
 }
 
 abstract class _UnfollowUserStateInitial implements UnfollowUserState {
-  const factory _UnfollowUserStateInitial() = _$_UnfollowUserStateInitial;
+  const factory _UnfollowUserStateInitial() = _$UnfollowUserStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnfollowUserStateLoadingCopyWith<$Res> {
-  factory _$$_UnfollowUserStateLoadingCopyWith(
-          _$_UnfollowUserStateLoading value,
-          $Res Function(_$_UnfollowUserStateLoading) then) =
-      __$$_UnfollowUserStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UnfollowUserStateLoadingImplCopyWith<$Res> {
+  factory _$$UnfollowUserStateLoadingImplCopyWith(
+          _$UnfollowUserStateLoadingImpl value,
+          $Res Function(_$UnfollowUserStateLoadingImpl) then) =
+      __$$UnfollowUserStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnfollowUserStateLoadingCopyWithImpl<$Res>
-    extends _$UnfollowUserStateCopyWithImpl<$Res, _$_UnfollowUserStateLoading>
-    implements _$$_UnfollowUserStateLoadingCopyWith<$Res> {
-  __$$_UnfollowUserStateLoadingCopyWithImpl(_$_UnfollowUserStateLoading _value,
-      $Res Function(_$_UnfollowUserStateLoading) _then)
+class __$$UnfollowUserStateLoadingImplCopyWithImpl<$Res>
+    extends _$UnfollowUserStateCopyWithImpl<$Res,
+        _$UnfollowUserStateLoadingImpl>
+    implements _$$UnfollowUserStateLoadingImplCopyWith<$Res> {
+  __$$UnfollowUserStateLoadingImplCopyWithImpl(
+      _$UnfollowUserStateLoadingImpl _value,
+      $Res Function(_$UnfollowUserStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_UnfollowUserStateLoading implements _UnfollowUserStateLoading {
-  const _$_UnfollowUserStateLoading();
+class _$UnfollowUserStateLoadingImpl implements _UnfollowUserStateLoading {
+  const _$UnfollowUserStateLoadingImpl();
 
   @override
   String toString() {
@@ -3033,10 +3063,10 @@ class _$_UnfollowUserStateLoading implements _UnfollowUserStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnfollowUserStateLoading);
+            other is _$UnfollowUserStateLoadingImpl);
   }
 
   @override
@@ -3118,25 +3148,27 @@ class _$_UnfollowUserStateLoading implements _UnfollowUserStateLoading {
 }
 
 abstract class _UnfollowUserStateLoading implements UnfollowUserState {
-  const factory _UnfollowUserStateLoading() = _$_UnfollowUserStateLoading;
+  const factory _UnfollowUserStateLoading() = _$UnfollowUserStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_UnfollowUserStateSuccessCopyWith<$Res> {
-  factory _$$_UnfollowUserStateSuccessCopyWith(
-          _$_UnfollowUserStateSuccess value,
-          $Res Function(_$_UnfollowUserStateSuccess) then) =
-      __$$_UnfollowUserStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UnfollowUserStateSuccessImplCopyWith<$Res> {
+  factory _$$UnfollowUserStateSuccessImplCopyWith(
+          _$UnfollowUserStateSuccessImpl value,
+          $Res Function(_$UnfollowUserStateSuccessImpl) then) =
+      __$$UnfollowUserStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_UnfollowUserStateSuccessCopyWithImpl<$Res>
-    extends _$UnfollowUserStateCopyWithImpl<$Res, _$_UnfollowUserStateSuccess>
-    implements _$$_UnfollowUserStateSuccessCopyWith<$Res> {
-  __$$_UnfollowUserStateSuccessCopyWithImpl(_$_UnfollowUserStateSuccess _value,
-      $Res Function(_$_UnfollowUserStateSuccess) _then)
+class __$$UnfollowUserStateSuccessImplCopyWithImpl<$Res>
+    extends _$UnfollowUserStateCopyWithImpl<$Res,
+        _$UnfollowUserStateSuccessImpl>
+    implements _$$UnfollowUserStateSuccessImplCopyWith<$Res> {
+  __$$UnfollowUserStateSuccessImplCopyWithImpl(
+      _$UnfollowUserStateSuccessImpl _value,
+      $Res Function(_$UnfollowUserStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3144,7 +3176,7 @@ class __$$_UnfollowUserStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_UnfollowUserStateSuccess(
+    return _then(_$UnfollowUserStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -3155,8 +3187,8 @@ class __$$_UnfollowUserStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnfollowUserStateSuccess implements _UnfollowUserStateSuccess {
-  const _$_UnfollowUserStateSuccess(this.result);
+class _$UnfollowUserStateSuccessImpl implements _UnfollowUserStateSuccess {
+  const _$UnfollowUserStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -3167,10 +3199,10 @@ class _$_UnfollowUserStateSuccess implements _UnfollowUserStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnfollowUserStateSuccess &&
+            other is _$UnfollowUserStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -3180,9 +3212,9 @@ class _$_UnfollowUserStateSuccess implements _UnfollowUserStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnfollowUserStateSuccessCopyWith<_$_UnfollowUserStateSuccess>
-      get copyWith => __$$_UnfollowUserStateSuccessCopyWithImpl<
-          _$_UnfollowUserStateSuccess>(this, _$identity);
+  _$$UnfollowUserStateSuccessImplCopyWith<_$UnfollowUserStateSuccessImpl>
+      get copyWith => __$$UnfollowUserStateSuccessImplCopyWithImpl<
+          _$UnfollowUserStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3261,19 +3293,20 @@ class _$_UnfollowUserStateSuccess implements _UnfollowUserStateSuccess {
 
 abstract class _UnfollowUserStateSuccess implements UnfollowUserState {
   const factory _UnfollowUserStateSuccess(final bool result) =
-      _$_UnfollowUserStateSuccess;
+      _$UnfollowUserStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_UnfollowUserStateSuccessCopyWith<_$_UnfollowUserStateSuccess>
+  _$$UnfollowUserStateSuccessImplCopyWith<_$UnfollowUserStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UnfollowUserStateErrorCopyWith<$Res> {
-  factory _$$_UnfollowUserStateErrorCopyWith(_$_UnfollowUserStateError value,
-          $Res Function(_$_UnfollowUserStateError) then) =
-      __$$_UnfollowUserStateErrorCopyWithImpl<$Res>;
+abstract class _$$UnfollowUserStateErrorImplCopyWith<$Res> {
+  factory _$$UnfollowUserStateErrorImplCopyWith(
+          _$UnfollowUserStateErrorImpl value,
+          $Res Function(_$UnfollowUserStateErrorImpl) then) =
+      __$$UnfollowUserStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -3281,11 +3314,12 @@ abstract class _$$_UnfollowUserStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UnfollowUserStateErrorCopyWithImpl<$Res>
-    extends _$UnfollowUserStateCopyWithImpl<$Res, _$_UnfollowUserStateError>
-    implements _$$_UnfollowUserStateErrorCopyWith<$Res> {
-  __$$_UnfollowUserStateErrorCopyWithImpl(_$_UnfollowUserStateError _value,
-      $Res Function(_$_UnfollowUserStateError) _then)
+class __$$UnfollowUserStateErrorImplCopyWithImpl<$Res>
+    extends _$UnfollowUserStateCopyWithImpl<$Res, _$UnfollowUserStateErrorImpl>
+    implements _$$UnfollowUserStateErrorImplCopyWith<$Res> {
+  __$$UnfollowUserStateErrorImplCopyWithImpl(
+      _$UnfollowUserStateErrorImpl _value,
+      $Res Function(_$UnfollowUserStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3293,7 +3327,7 @@ class __$$_UnfollowUserStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_UnfollowUserStateError(
+    return _then(_$UnfollowUserStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -3312,8 +3346,8 @@ class __$$_UnfollowUserStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UnfollowUserStateError implements _UnfollowUserStateError {
-  const _$_UnfollowUserStateError(this.error);
+class _$UnfollowUserStateErrorImpl implements _UnfollowUserStateError {
+  const _$UnfollowUserStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -3324,10 +3358,10 @@ class _$_UnfollowUserStateError implements _UnfollowUserStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UnfollowUserStateError &&
+            other is _$UnfollowUserStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -3337,9 +3371,9 @@ class _$_UnfollowUserStateError implements _UnfollowUserStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UnfollowUserStateErrorCopyWith<_$_UnfollowUserStateError> get copyWith =>
-      __$$_UnfollowUserStateErrorCopyWithImpl<_$_UnfollowUserStateError>(
-          this, _$identity);
+  _$$UnfollowUserStateErrorImplCopyWith<_$UnfollowUserStateErrorImpl>
+      get copyWith => __$$UnfollowUserStateErrorImplCopyWithImpl<
+          _$UnfollowUserStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3418,12 +3452,12 @@ class _$_UnfollowUserStateError implements _UnfollowUserStateError {
 
 abstract class _UnfollowUserStateError implements UnfollowUserState {
   const factory _UnfollowUserStateError(final PeamanError error) =
-      _$_UnfollowUserStateError;
+      _$UnfollowUserStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_UnfollowUserStateErrorCopyWith<_$_UnfollowUserStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UnfollowUserStateErrorImplCopyWith<_$UnfollowUserStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3499,26 +3533,28 @@ class _$CancelFollowStateCopyWithImpl<$Res, $Val extends CancelFollowState>
 }
 
 /// @nodoc
-abstract class _$$_CancelFollowStateInitialCopyWith<$Res> {
-  factory _$$_CancelFollowStateInitialCopyWith(
-          _$_CancelFollowStateInitial value,
-          $Res Function(_$_CancelFollowStateInitial) then) =
-      __$$_CancelFollowStateInitialCopyWithImpl<$Res>;
+abstract class _$$CancelFollowStateInitialImplCopyWith<$Res> {
+  factory _$$CancelFollowStateInitialImplCopyWith(
+          _$CancelFollowStateInitialImpl value,
+          $Res Function(_$CancelFollowStateInitialImpl) then) =
+      __$$CancelFollowStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_CancelFollowStateInitialCopyWithImpl<$Res>
-    extends _$CancelFollowStateCopyWithImpl<$Res, _$_CancelFollowStateInitial>
-    implements _$$_CancelFollowStateInitialCopyWith<$Res> {
-  __$$_CancelFollowStateInitialCopyWithImpl(_$_CancelFollowStateInitial _value,
-      $Res Function(_$_CancelFollowStateInitial) _then)
+class __$$CancelFollowStateInitialImplCopyWithImpl<$Res>
+    extends _$CancelFollowStateCopyWithImpl<$Res,
+        _$CancelFollowStateInitialImpl>
+    implements _$$CancelFollowStateInitialImplCopyWith<$Res> {
+  __$$CancelFollowStateInitialImplCopyWithImpl(
+      _$CancelFollowStateInitialImpl _value,
+      $Res Function(_$CancelFollowStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_CancelFollowStateInitial implements _CancelFollowStateInitial {
-  const _$_CancelFollowStateInitial();
+class _$CancelFollowStateInitialImpl implements _CancelFollowStateInitial {
+  const _$CancelFollowStateInitialImpl();
 
   @override
   String toString() {
@@ -3526,10 +3562,10 @@ class _$_CancelFollowStateInitial implements _CancelFollowStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CancelFollowStateInitial);
+            other is _$CancelFollowStateInitialImpl);
   }
 
   @override
@@ -3611,30 +3647,32 @@ class _$_CancelFollowStateInitial implements _CancelFollowStateInitial {
 }
 
 abstract class _CancelFollowStateInitial implements CancelFollowState {
-  const factory _CancelFollowStateInitial() = _$_CancelFollowStateInitial;
+  const factory _CancelFollowStateInitial() = _$CancelFollowStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_CancelFollowStateLoadingCopyWith<$Res> {
-  factory _$$_CancelFollowStateLoadingCopyWith(
-          _$_CancelFollowStateLoading value,
-          $Res Function(_$_CancelFollowStateLoading) then) =
-      __$$_CancelFollowStateLoadingCopyWithImpl<$Res>;
+abstract class _$$CancelFollowStateLoadingImplCopyWith<$Res> {
+  factory _$$CancelFollowStateLoadingImplCopyWith(
+          _$CancelFollowStateLoadingImpl value,
+          $Res Function(_$CancelFollowStateLoadingImpl) then) =
+      __$$CancelFollowStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_CancelFollowStateLoadingCopyWithImpl<$Res>
-    extends _$CancelFollowStateCopyWithImpl<$Res, _$_CancelFollowStateLoading>
-    implements _$$_CancelFollowStateLoadingCopyWith<$Res> {
-  __$$_CancelFollowStateLoadingCopyWithImpl(_$_CancelFollowStateLoading _value,
-      $Res Function(_$_CancelFollowStateLoading) _then)
+class __$$CancelFollowStateLoadingImplCopyWithImpl<$Res>
+    extends _$CancelFollowStateCopyWithImpl<$Res,
+        _$CancelFollowStateLoadingImpl>
+    implements _$$CancelFollowStateLoadingImplCopyWith<$Res> {
+  __$$CancelFollowStateLoadingImplCopyWithImpl(
+      _$CancelFollowStateLoadingImpl _value,
+      $Res Function(_$CancelFollowStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_CancelFollowStateLoading implements _CancelFollowStateLoading {
-  const _$_CancelFollowStateLoading();
+class _$CancelFollowStateLoadingImpl implements _CancelFollowStateLoading {
+  const _$CancelFollowStateLoadingImpl();
 
   @override
   String toString() {
@@ -3642,10 +3680,10 @@ class _$_CancelFollowStateLoading implements _CancelFollowStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CancelFollowStateLoading);
+            other is _$CancelFollowStateLoadingImpl);
   }
 
   @override
@@ -3727,25 +3765,27 @@ class _$_CancelFollowStateLoading implements _CancelFollowStateLoading {
 }
 
 abstract class _CancelFollowStateLoading implements CancelFollowState {
-  const factory _CancelFollowStateLoading() = _$_CancelFollowStateLoading;
+  const factory _CancelFollowStateLoading() = _$CancelFollowStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_CancelFollowStateSuccessCopyWith<$Res> {
-  factory _$$_CancelFollowStateSuccessCopyWith(
-          _$_CancelFollowStateSuccess value,
-          $Res Function(_$_CancelFollowStateSuccess) then) =
-      __$$_CancelFollowStateSuccessCopyWithImpl<$Res>;
+abstract class _$$CancelFollowStateSuccessImplCopyWith<$Res> {
+  factory _$$CancelFollowStateSuccessImplCopyWith(
+          _$CancelFollowStateSuccessImpl value,
+          $Res Function(_$CancelFollowStateSuccessImpl) then) =
+      __$$CancelFollowStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_CancelFollowStateSuccessCopyWithImpl<$Res>
-    extends _$CancelFollowStateCopyWithImpl<$Res, _$_CancelFollowStateSuccess>
-    implements _$$_CancelFollowStateSuccessCopyWith<$Res> {
-  __$$_CancelFollowStateSuccessCopyWithImpl(_$_CancelFollowStateSuccess _value,
-      $Res Function(_$_CancelFollowStateSuccess) _then)
+class __$$CancelFollowStateSuccessImplCopyWithImpl<$Res>
+    extends _$CancelFollowStateCopyWithImpl<$Res,
+        _$CancelFollowStateSuccessImpl>
+    implements _$$CancelFollowStateSuccessImplCopyWith<$Res> {
+  __$$CancelFollowStateSuccessImplCopyWithImpl(
+      _$CancelFollowStateSuccessImpl _value,
+      $Res Function(_$CancelFollowStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3753,7 +3793,7 @@ class __$$_CancelFollowStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_CancelFollowStateSuccess(
+    return _then(_$CancelFollowStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -3764,8 +3804,8 @@ class __$$_CancelFollowStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CancelFollowStateSuccess implements _CancelFollowStateSuccess {
-  const _$_CancelFollowStateSuccess(this.result);
+class _$CancelFollowStateSuccessImpl implements _CancelFollowStateSuccess {
+  const _$CancelFollowStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -3776,10 +3816,10 @@ class _$_CancelFollowStateSuccess implements _CancelFollowStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CancelFollowStateSuccess &&
+            other is _$CancelFollowStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -3789,9 +3829,9 @@ class _$_CancelFollowStateSuccess implements _CancelFollowStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CancelFollowStateSuccessCopyWith<_$_CancelFollowStateSuccess>
-      get copyWith => __$$_CancelFollowStateSuccessCopyWithImpl<
-          _$_CancelFollowStateSuccess>(this, _$identity);
+  _$$CancelFollowStateSuccessImplCopyWith<_$CancelFollowStateSuccessImpl>
+      get copyWith => __$$CancelFollowStateSuccessImplCopyWithImpl<
+          _$CancelFollowStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3870,19 +3910,20 @@ class _$_CancelFollowStateSuccess implements _CancelFollowStateSuccess {
 
 abstract class _CancelFollowStateSuccess implements CancelFollowState {
   const factory _CancelFollowStateSuccess(final bool result) =
-      _$_CancelFollowStateSuccess;
+      _$CancelFollowStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_CancelFollowStateSuccessCopyWith<_$_CancelFollowStateSuccess>
+  _$$CancelFollowStateSuccessImplCopyWith<_$CancelFollowStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_CancelFollowStateErrorCopyWith<$Res> {
-  factory _$$_CancelFollowStateErrorCopyWith(_$_CancelFollowStateError value,
-          $Res Function(_$_CancelFollowStateError) then) =
-      __$$_CancelFollowStateErrorCopyWithImpl<$Res>;
+abstract class _$$CancelFollowStateErrorImplCopyWith<$Res> {
+  factory _$$CancelFollowStateErrorImplCopyWith(
+          _$CancelFollowStateErrorImpl value,
+          $Res Function(_$CancelFollowStateErrorImpl) then) =
+      __$$CancelFollowStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -3890,11 +3931,12 @@ abstract class _$$_CancelFollowStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CancelFollowStateErrorCopyWithImpl<$Res>
-    extends _$CancelFollowStateCopyWithImpl<$Res, _$_CancelFollowStateError>
-    implements _$$_CancelFollowStateErrorCopyWith<$Res> {
-  __$$_CancelFollowStateErrorCopyWithImpl(_$_CancelFollowStateError _value,
-      $Res Function(_$_CancelFollowStateError) _then)
+class __$$CancelFollowStateErrorImplCopyWithImpl<$Res>
+    extends _$CancelFollowStateCopyWithImpl<$Res, _$CancelFollowStateErrorImpl>
+    implements _$$CancelFollowStateErrorImplCopyWith<$Res> {
+  __$$CancelFollowStateErrorImplCopyWithImpl(
+      _$CancelFollowStateErrorImpl _value,
+      $Res Function(_$CancelFollowStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3902,7 +3944,7 @@ class __$$_CancelFollowStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_CancelFollowStateError(
+    return _then(_$CancelFollowStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -3921,8 +3963,8 @@ class __$$_CancelFollowStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CancelFollowStateError implements _CancelFollowStateError {
-  const _$_CancelFollowStateError(this.error);
+class _$CancelFollowStateErrorImpl implements _CancelFollowStateError {
+  const _$CancelFollowStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -3933,10 +3975,10 @@ class _$_CancelFollowStateError implements _CancelFollowStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CancelFollowStateError &&
+            other is _$CancelFollowStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -3946,9 +3988,9 @@ class _$_CancelFollowStateError implements _CancelFollowStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CancelFollowStateErrorCopyWith<_$_CancelFollowStateError> get copyWith =>
-      __$$_CancelFollowStateErrorCopyWithImpl<_$_CancelFollowStateError>(
-          this, _$identity);
+  _$$CancelFollowStateErrorImplCopyWith<_$CancelFollowStateErrorImpl>
+      get copyWith => __$$CancelFollowStateErrorImplCopyWithImpl<
+          _$CancelFollowStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4027,12 +4069,12 @@ class _$_CancelFollowStateError implements _CancelFollowStateError {
 
 abstract class _CancelFollowStateError implements CancelFollowState {
   const factory _CancelFollowStateError(final PeamanError error) =
-      _$_CancelFollowStateError;
+      _$CancelFollowStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_CancelFollowStateErrorCopyWith<_$_CancelFollowStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CancelFollowStateErrorImplCopyWith<_$CancelFollowStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4108,26 +4150,28 @@ class _$AcceptFollowStateCopyWithImpl<$Res, $Val extends AcceptFollowState>
 }
 
 /// @nodoc
-abstract class _$$_AcceptFollowStateInitialCopyWith<$Res> {
-  factory _$$_AcceptFollowStateInitialCopyWith(
-          _$_AcceptFollowStateInitial value,
-          $Res Function(_$_AcceptFollowStateInitial) then) =
-      __$$_AcceptFollowStateInitialCopyWithImpl<$Res>;
+abstract class _$$AcceptFollowStateInitialImplCopyWith<$Res> {
+  factory _$$AcceptFollowStateInitialImplCopyWith(
+          _$AcceptFollowStateInitialImpl value,
+          $Res Function(_$AcceptFollowStateInitialImpl) then) =
+      __$$AcceptFollowStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AcceptFollowStateInitialCopyWithImpl<$Res>
-    extends _$AcceptFollowStateCopyWithImpl<$Res, _$_AcceptFollowStateInitial>
-    implements _$$_AcceptFollowStateInitialCopyWith<$Res> {
-  __$$_AcceptFollowStateInitialCopyWithImpl(_$_AcceptFollowStateInitial _value,
-      $Res Function(_$_AcceptFollowStateInitial) _then)
+class __$$AcceptFollowStateInitialImplCopyWithImpl<$Res>
+    extends _$AcceptFollowStateCopyWithImpl<$Res,
+        _$AcceptFollowStateInitialImpl>
+    implements _$$AcceptFollowStateInitialImplCopyWith<$Res> {
+  __$$AcceptFollowStateInitialImplCopyWithImpl(
+      _$AcceptFollowStateInitialImpl _value,
+      $Res Function(_$AcceptFollowStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_AcceptFollowStateInitial implements _AcceptFollowStateInitial {
-  const _$_AcceptFollowStateInitial();
+class _$AcceptFollowStateInitialImpl implements _AcceptFollowStateInitial {
+  const _$AcceptFollowStateInitialImpl();
 
   @override
   String toString() {
@@ -4135,10 +4179,10 @@ class _$_AcceptFollowStateInitial implements _AcceptFollowStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AcceptFollowStateInitial);
+            other is _$AcceptFollowStateInitialImpl);
   }
 
   @override
@@ -4220,30 +4264,32 @@ class _$_AcceptFollowStateInitial implements _AcceptFollowStateInitial {
 }
 
 abstract class _AcceptFollowStateInitial implements AcceptFollowState {
-  const factory _AcceptFollowStateInitial() = _$_AcceptFollowStateInitial;
+  const factory _AcceptFollowStateInitial() = _$AcceptFollowStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_AcceptFollowStateLoadingCopyWith<$Res> {
-  factory _$$_AcceptFollowStateLoadingCopyWith(
-          _$_AcceptFollowStateLoading value,
-          $Res Function(_$_AcceptFollowStateLoading) then) =
-      __$$_AcceptFollowStateLoadingCopyWithImpl<$Res>;
+abstract class _$$AcceptFollowStateLoadingImplCopyWith<$Res> {
+  factory _$$AcceptFollowStateLoadingImplCopyWith(
+          _$AcceptFollowStateLoadingImpl value,
+          $Res Function(_$AcceptFollowStateLoadingImpl) then) =
+      __$$AcceptFollowStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AcceptFollowStateLoadingCopyWithImpl<$Res>
-    extends _$AcceptFollowStateCopyWithImpl<$Res, _$_AcceptFollowStateLoading>
-    implements _$$_AcceptFollowStateLoadingCopyWith<$Res> {
-  __$$_AcceptFollowStateLoadingCopyWithImpl(_$_AcceptFollowStateLoading _value,
-      $Res Function(_$_AcceptFollowStateLoading) _then)
+class __$$AcceptFollowStateLoadingImplCopyWithImpl<$Res>
+    extends _$AcceptFollowStateCopyWithImpl<$Res,
+        _$AcceptFollowStateLoadingImpl>
+    implements _$$AcceptFollowStateLoadingImplCopyWith<$Res> {
+  __$$AcceptFollowStateLoadingImplCopyWithImpl(
+      _$AcceptFollowStateLoadingImpl _value,
+      $Res Function(_$AcceptFollowStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_AcceptFollowStateLoading implements _AcceptFollowStateLoading {
-  const _$_AcceptFollowStateLoading();
+class _$AcceptFollowStateLoadingImpl implements _AcceptFollowStateLoading {
+  const _$AcceptFollowStateLoadingImpl();
 
   @override
   String toString() {
@@ -4251,10 +4297,10 @@ class _$_AcceptFollowStateLoading implements _AcceptFollowStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AcceptFollowStateLoading);
+            other is _$AcceptFollowStateLoadingImpl);
   }
 
   @override
@@ -4336,25 +4382,27 @@ class _$_AcceptFollowStateLoading implements _AcceptFollowStateLoading {
 }
 
 abstract class _AcceptFollowStateLoading implements AcceptFollowState {
-  const factory _AcceptFollowStateLoading() = _$_AcceptFollowStateLoading;
+  const factory _AcceptFollowStateLoading() = _$AcceptFollowStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_AcceptFollowStateSuccessCopyWith<$Res> {
-  factory _$$_AcceptFollowStateSuccessCopyWith(
-          _$_AcceptFollowStateSuccess value,
-          $Res Function(_$_AcceptFollowStateSuccess) then) =
-      __$$_AcceptFollowStateSuccessCopyWithImpl<$Res>;
+abstract class _$$AcceptFollowStateSuccessImplCopyWith<$Res> {
+  factory _$$AcceptFollowStateSuccessImplCopyWith(
+          _$AcceptFollowStateSuccessImpl value,
+          $Res Function(_$AcceptFollowStateSuccessImpl) then) =
+      __$$AcceptFollowStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_AcceptFollowStateSuccessCopyWithImpl<$Res>
-    extends _$AcceptFollowStateCopyWithImpl<$Res, _$_AcceptFollowStateSuccess>
-    implements _$$_AcceptFollowStateSuccessCopyWith<$Res> {
-  __$$_AcceptFollowStateSuccessCopyWithImpl(_$_AcceptFollowStateSuccess _value,
-      $Res Function(_$_AcceptFollowStateSuccess) _then)
+class __$$AcceptFollowStateSuccessImplCopyWithImpl<$Res>
+    extends _$AcceptFollowStateCopyWithImpl<$Res,
+        _$AcceptFollowStateSuccessImpl>
+    implements _$$AcceptFollowStateSuccessImplCopyWith<$Res> {
+  __$$AcceptFollowStateSuccessImplCopyWithImpl(
+      _$AcceptFollowStateSuccessImpl _value,
+      $Res Function(_$AcceptFollowStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4362,7 +4410,7 @@ class __$$_AcceptFollowStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_AcceptFollowStateSuccess(
+    return _then(_$AcceptFollowStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -4373,8 +4421,8 @@ class __$$_AcceptFollowStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AcceptFollowStateSuccess implements _AcceptFollowStateSuccess {
-  const _$_AcceptFollowStateSuccess(this.result);
+class _$AcceptFollowStateSuccessImpl implements _AcceptFollowStateSuccess {
+  const _$AcceptFollowStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -4385,10 +4433,10 @@ class _$_AcceptFollowStateSuccess implements _AcceptFollowStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AcceptFollowStateSuccess &&
+            other is _$AcceptFollowStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -4398,9 +4446,9 @@ class _$_AcceptFollowStateSuccess implements _AcceptFollowStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AcceptFollowStateSuccessCopyWith<_$_AcceptFollowStateSuccess>
-      get copyWith => __$$_AcceptFollowStateSuccessCopyWithImpl<
-          _$_AcceptFollowStateSuccess>(this, _$identity);
+  _$$AcceptFollowStateSuccessImplCopyWith<_$AcceptFollowStateSuccessImpl>
+      get copyWith => __$$AcceptFollowStateSuccessImplCopyWithImpl<
+          _$AcceptFollowStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4479,19 +4527,20 @@ class _$_AcceptFollowStateSuccess implements _AcceptFollowStateSuccess {
 
 abstract class _AcceptFollowStateSuccess implements AcceptFollowState {
   const factory _AcceptFollowStateSuccess(final bool result) =
-      _$_AcceptFollowStateSuccess;
+      _$AcceptFollowStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_AcceptFollowStateSuccessCopyWith<_$_AcceptFollowStateSuccess>
+  _$$AcceptFollowStateSuccessImplCopyWith<_$AcceptFollowStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_AcceptFollowStateErrorCopyWith<$Res> {
-  factory _$$_AcceptFollowStateErrorCopyWith(_$_AcceptFollowStateError value,
-          $Res Function(_$_AcceptFollowStateError) then) =
-      __$$_AcceptFollowStateErrorCopyWithImpl<$Res>;
+abstract class _$$AcceptFollowStateErrorImplCopyWith<$Res> {
+  factory _$$AcceptFollowStateErrorImplCopyWith(
+          _$AcceptFollowStateErrorImpl value,
+          $Res Function(_$AcceptFollowStateErrorImpl) then) =
+      __$$AcceptFollowStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -4499,11 +4548,12 @@ abstract class _$$_AcceptFollowStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AcceptFollowStateErrorCopyWithImpl<$Res>
-    extends _$AcceptFollowStateCopyWithImpl<$Res, _$_AcceptFollowStateError>
-    implements _$$_AcceptFollowStateErrorCopyWith<$Res> {
-  __$$_AcceptFollowStateErrorCopyWithImpl(_$_AcceptFollowStateError _value,
-      $Res Function(_$_AcceptFollowStateError) _then)
+class __$$AcceptFollowStateErrorImplCopyWithImpl<$Res>
+    extends _$AcceptFollowStateCopyWithImpl<$Res, _$AcceptFollowStateErrorImpl>
+    implements _$$AcceptFollowStateErrorImplCopyWith<$Res> {
+  __$$AcceptFollowStateErrorImplCopyWithImpl(
+      _$AcceptFollowStateErrorImpl _value,
+      $Res Function(_$AcceptFollowStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4511,7 +4561,7 @@ class __$$_AcceptFollowStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_AcceptFollowStateError(
+    return _then(_$AcceptFollowStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -4530,8 +4580,8 @@ class __$$_AcceptFollowStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AcceptFollowStateError implements _AcceptFollowStateError {
-  const _$_AcceptFollowStateError(this.error);
+class _$AcceptFollowStateErrorImpl implements _AcceptFollowStateError {
+  const _$AcceptFollowStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -4542,10 +4592,10 @@ class _$_AcceptFollowStateError implements _AcceptFollowStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AcceptFollowStateError &&
+            other is _$AcceptFollowStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -4555,9 +4605,9 @@ class _$_AcceptFollowStateError implements _AcceptFollowStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AcceptFollowStateErrorCopyWith<_$_AcceptFollowStateError> get copyWith =>
-      __$$_AcceptFollowStateErrorCopyWithImpl<_$_AcceptFollowStateError>(
-          this, _$identity);
+  _$$AcceptFollowStateErrorImplCopyWith<_$AcceptFollowStateErrorImpl>
+      get copyWith => __$$AcceptFollowStateErrorImplCopyWithImpl<
+          _$AcceptFollowStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4636,12 +4686,12 @@ class _$_AcceptFollowStateError implements _AcceptFollowStateError {
 
 abstract class _AcceptFollowStateError implements AcceptFollowState {
   const factory _AcceptFollowStateError(final PeamanError error) =
-      _$_AcceptFollowStateError;
+      _$AcceptFollowStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_AcceptFollowStateErrorCopyWith<_$_AcceptFollowStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AcceptFollowStateErrorImplCopyWith<_$AcceptFollowStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4717,25 +4767,27 @@ class _$FollowBackStateCopyWithImpl<$Res, $Val extends FollowBackState>
 }
 
 /// @nodoc
-abstract class _$$_FollowBackStateInitialCopyWith<$Res> {
-  factory _$$_FollowBackStateInitialCopyWith(_$_FollowBackStateInitial value,
-          $Res Function(_$_FollowBackStateInitial) then) =
-      __$$_FollowBackStateInitialCopyWithImpl<$Res>;
+abstract class _$$FollowBackStateInitialImplCopyWith<$Res> {
+  factory _$$FollowBackStateInitialImplCopyWith(
+          _$FollowBackStateInitialImpl value,
+          $Res Function(_$FollowBackStateInitialImpl) then) =
+      __$$FollowBackStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_FollowBackStateInitialCopyWithImpl<$Res>
-    extends _$FollowBackStateCopyWithImpl<$Res, _$_FollowBackStateInitial>
-    implements _$$_FollowBackStateInitialCopyWith<$Res> {
-  __$$_FollowBackStateInitialCopyWithImpl(_$_FollowBackStateInitial _value,
-      $Res Function(_$_FollowBackStateInitial) _then)
+class __$$FollowBackStateInitialImplCopyWithImpl<$Res>
+    extends _$FollowBackStateCopyWithImpl<$Res, _$FollowBackStateInitialImpl>
+    implements _$$FollowBackStateInitialImplCopyWith<$Res> {
+  __$$FollowBackStateInitialImplCopyWithImpl(
+      _$FollowBackStateInitialImpl _value,
+      $Res Function(_$FollowBackStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_FollowBackStateInitial implements _FollowBackStateInitial {
-  const _$_FollowBackStateInitial();
+class _$FollowBackStateInitialImpl implements _FollowBackStateInitial {
+  const _$FollowBackStateInitialImpl();
 
   @override
   String toString() {
@@ -4743,10 +4795,10 @@ class _$_FollowBackStateInitial implements _FollowBackStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowBackStateInitial);
+            other is _$FollowBackStateInitialImpl);
   }
 
   @override
@@ -4828,29 +4880,31 @@ class _$_FollowBackStateInitial implements _FollowBackStateInitial {
 }
 
 abstract class _FollowBackStateInitial implements FollowBackState {
-  const factory _FollowBackStateInitial() = _$_FollowBackStateInitial;
+  const factory _FollowBackStateInitial() = _$FollowBackStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_FollowBackStateLoadingCopyWith<$Res> {
-  factory _$$_FollowBackStateLoadingCopyWith(_$_FollowBackStateLoading value,
-          $Res Function(_$_FollowBackStateLoading) then) =
-      __$$_FollowBackStateLoadingCopyWithImpl<$Res>;
+abstract class _$$FollowBackStateLoadingImplCopyWith<$Res> {
+  factory _$$FollowBackStateLoadingImplCopyWith(
+          _$FollowBackStateLoadingImpl value,
+          $Res Function(_$FollowBackStateLoadingImpl) then) =
+      __$$FollowBackStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_FollowBackStateLoadingCopyWithImpl<$Res>
-    extends _$FollowBackStateCopyWithImpl<$Res, _$_FollowBackStateLoading>
-    implements _$$_FollowBackStateLoadingCopyWith<$Res> {
-  __$$_FollowBackStateLoadingCopyWithImpl(_$_FollowBackStateLoading _value,
-      $Res Function(_$_FollowBackStateLoading) _then)
+class __$$FollowBackStateLoadingImplCopyWithImpl<$Res>
+    extends _$FollowBackStateCopyWithImpl<$Res, _$FollowBackStateLoadingImpl>
+    implements _$$FollowBackStateLoadingImplCopyWith<$Res> {
+  __$$FollowBackStateLoadingImplCopyWithImpl(
+      _$FollowBackStateLoadingImpl _value,
+      $Res Function(_$FollowBackStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_FollowBackStateLoading implements _FollowBackStateLoading {
-  const _$_FollowBackStateLoading();
+class _$FollowBackStateLoadingImpl implements _FollowBackStateLoading {
+  const _$FollowBackStateLoadingImpl();
 
   @override
   String toString() {
@@ -4858,10 +4912,10 @@ class _$_FollowBackStateLoading implements _FollowBackStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowBackStateLoading);
+            other is _$FollowBackStateLoadingImpl);
   }
 
   @override
@@ -4943,24 +4997,26 @@ class _$_FollowBackStateLoading implements _FollowBackStateLoading {
 }
 
 abstract class _FollowBackStateLoading implements FollowBackState {
-  const factory _FollowBackStateLoading() = _$_FollowBackStateLoading;
+  const factory _FollowBackStateLoading() = _$FollowBackStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_FollowBackStateSuccessCopyWith<$Res> {
-  factory _$$_FollowBackStateSuccessCopyWith(_$_FollowBackStateSuccess value,
-          $Res Function(_$_FollowBackStateSuccess) then) =
-      __$$_FollowBackStateSuccessCopyWithImpl<$Res>;
+abstract class _$$FollowBackStateSuccessImplCopyWith<$Res> {
+  factory _$$FollowBackStateSuccessImplCopyWith(
+          _$FollowBackStateSuccessImpl value,
+          $Res Function(_$FollowBackStateSuccessImpl) then) =
+      __$$FollowBackStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_FollowBackStateSuccessCopyWithImpl<$Res>
-    extends _$FollowBackStateCopyWithImpl<$Res, _$_FollowBackStateSuccess>
-    implements _$$_FollowBackStateSuccessCopyWith<$Res> {
-  __$$_FollowBackStateSuccessCopyWithImpl(_$_FollowBackStateSuccess _value,
-      $Res Function(_$_FollowBackStateSuccess) _then)
+class __$$FollowBackStateSuccessImplCopyWithImpl<$Res>
+    extends _$FollowBackStateCopyWithImpl<$Res, _$FollowBackStateSuccessImpl>
+    implements _$$FollowBackStateSuccessImplCopyWith<$Res> {
+  __$$FollowBackStateSuccessImplCopyWithImpl(
+      _$FollowBackStateSuccessImpl _value,
+      $Res Function(_$FollowBackStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4968,7 +5024,7 @@ class __$$_FollowBackStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_FollowBackStateSuccess(
+    return _then(_$FollowBackStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -4979,8 +5035,8 @@ class __$$_FollowBackStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FollowBackStateSuccess implements _FollowBackStateSuccess {
-  const _$_FollowBackStateSuccess(this.result);
+class _$FollowBackStateSuccessImpl implements _FollowBackStateSuccess {
+  const _$FollowBackStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -4991,10 +5047,10 @@ class _$_FollowBackStateSuccess implements _FollowBackStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowBackStateSuccess &&
+            other is _$FollowBackStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -5004,9 +5060,9 @@ class _$_FollowBackStateSuccess implements _FollowBackStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FollowBackStateSuccessCopyWith<_$_FollowBackStateSuccess> get copyWith =>
-      __$$_FollowBackStateSuccessCopyWithImpl<_$_FollowBackStateSuccess>(
-          this, _$identity);
+  _$$FollowBackStateSuccessImplCopyWith<_$FollowBackStateSuccessImpl>
+      get copyWith => __$$FollowBackStateSuccessImplCopyWithImpl<
+          _$FollowBackStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5085,19 +5141,19 @@ class _$_FollowBackStateSuccess implements _FollowBackStateSuccess {
 
 abstract class _FollowBackStateSuccess implements FollowBackState {
   const factory _FollowBackStateSuccess(final bool result) =
-      _$_FollowBackStateSuccess;
+      _$FollowBackStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_FollowBackStateSuccessCopyWith<_$_FollowBackStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$FollowBackStateSuccessImplCopyWith<_$FollowBackStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_FollowBackStateErrorCopyWith<$Res> {
-  factory _$$_FollowBackStateErrorCopyWith(_$_FollowBackStateError value,
-          $Res Function(_$_FollowBackStateError) then) =
-      __$$_FollowBackStateErrorCopyWithImpl<$Res>;
+abstract class _$$FollowBackStateErrorImplCopyWith<$Res> {
+  factory _$$FollowBackStateErrorImplCopyWith(_$FollowBackStateErrorImpl value,
+          $Res Function(_$FollowBackStateErrorImpl) then) =
+      __$$FollowBackStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -5105,11 +5161,11 @@ abstract class _$$_FollowBackStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_FollowBackStateErrorCopyWithImpl<$Res>
-    extends _$FollowBackStateCopyWithImpl<$Res, _$_FollowBackStateError>
-    implements _$$_FollowBackStateErrorCopyWith<$Res> {
-  __$$_FollowBackStateErrorCopyWithImpl(_$_FollowBackStateError _value,
-      $Res Function(_$_FollowBackStateError) _then)
+class __$$FollowBackStateErrorImplCopyWithImpl<$Res>
+    extends _$FollowBackStateCopyWithImpl<$Res, _$FollowBackStateErrorImpl>
+    implements _$$FollowBackStateErrorImplCopyWith<$Res> {
+  __$$FollowBackStateErrorImplCopyWithImpl(_$FollowBackStateErrorImpl _value,
+      $Res Function(_$FollowBackStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5117,7 +5173,7 @@ class __$$_FollowBackStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_FollowBackStateError(
+    return _then(_$FollowBackStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -5136,8 +5192,8 @@ class __$$_FollowBackStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FollowBackStateError implements _FollowBackStateError {
-  const _$_FollowBackStateError(this.error);
+class _$FollowBackStateErrorImpl implements _FollowBackStateError {
+  const _$FollowBackStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -5148,10 +5204,10 @@ class _$_FollowBackStateError implements _FollowBackStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowBackStateError &&
+            other is _$FollowBackStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -5161,9 +5217,10 @@ class _$_FollowBackStateError implements _FollowBackStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FollowBackStateErrorCopyWith<_$_FollowBackStateError> get copyWith =>
-      __$$_FollowBackStateErrorCopyWithImpl<_$_FollowBackStateError>(
-          this, _$identity);
+  _$$FollowBackStateErrorImplCopyWith<_$FollowBackStateErrorImpl>
+      get copyWith =>
+          __$$FollowBackStateErrorImplCopyWithImpl<_$FollowBackStateErrorImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5242,10 +5299,10 @@ class _$_FollowBackStateError implements _FollowBackStateError {
 
 abstract class _FollowBackStateError implements FollowBackState {
   const factory _FollowBackStateError(final PeamanError error) =
-      _$_FollowBackStateError;
+      _$FollowBackStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_FollowBackStateErrorCopyWith<_$_FollowBackStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$FollowBackStateErrorImplCopyWith<_$FollowBackStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

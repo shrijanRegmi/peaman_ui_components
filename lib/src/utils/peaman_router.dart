@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/comment/views/view_comments_screen.dart';
 
 class PeamanRouter {
   static Route onGenerateRoute(final RouteSettings settings) {
@@ -114,6 +115,16 @@ class PeamanRouter {
         );
 
       // <---------------- FEED END ---------------->
+
+      // <---------------- COMMENT START ---------------->
+
+      case ViewCommentsScreen.route:
+        return buildRoute(
+          settings,
+          const ViewCommentsScreen(),
+        );
+
+      // <---------------- COMMENT END ---------------->
 
       // <---------------- PROFILE START ---------------->
 

@@ -12,7 +12,7 @@ part of 'peaman_report_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanReportProviderState {
@@ -68,12 +68,12 @@ class _$PeamanReportProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanReportProviderStateCopyWith<$Res>
+abstract class _$$PeamanReportProviderStateImplCopyWith<$Res>
     implements $PeamanReportProviderStateCopyWith<$Res> {
-  factory _$$_PeamanReportProviderStateCopyWith(
-          _$_PeamanReportProviderState value,
-          $Res Function(_$_PeamanReportProviderState) then) =
-      __$$_PeamanReportProviderStateCopyWithImpl<$Res>;
+  factory _$$PeamanReportProviderStateImplCopyWith(
+          _$PeamanReportProviderStateImpl value,
+          $Res Function(_$PeamanReportProviderStateImpl) then) =
+      __$$PeamanReportProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({SubmitReportState submitReportState});
@@ -83,13 +83,13 @@ abstract class _$$_PeamanReportProviderStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeamanReportProviderStateCopyWithImpl<$Res>
+class __$$PeamanReportProviderStateImplCopyWithImpl<$Res>
     extends _$PeamanReportProviderStateCopyWithImpl<$Res,
-        _$_PeamanReportProviderState>
-    implements _$$_PeamanReportProviderStateCopyWith<$Res> {
-  __$$_PeamanReportProviderStateCopyWithImpl(
-      _$_PeamanReportProviderState _value,
-      $Res Function(_$_PeamanReportProviderState) _then)
+        _$PeamanReportProviderStateImpl>
+    implements _$$PeamanReportProviderStateImplCopyWith<$Res> {
+  __$$PeamanReportProviderStateImplCopyWithImpl(
+      _$PeamanReportProviderStateImpl _value,
+      $Res Function(_$PeamanReportProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +97,7 @@ class __$$_PeamanReportProviderStateCopyWithImpl<$Res>
   $Res call({
     Object? submitReportState = null,
   }) {
-    return _then(_$_PeamanReportProviderState(
+    return _then(_$PeamanReportProviderStateImpl(
       submitReportState: null == submitReportState
           ? _value.submitReportState
           : submitReportState // ignore: cast_nullable_to_non_nullable
@@ -108,8 +108,8 @@ class __$$_PeamanReportProviderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanReportProviderState implements _PeamanReportProviderState {
-  const _$_PeamanReportProviderState(
+class _$PeamanReportProviderStateImpl implements _PeamanReportProviderState {
+  const _$PeamanReportProviderStateImpl(
       {this.submitReportState = const SubmitReportState.initial()});
 
   @override
@@ -122,10 +122,10 @@ class _$_PeamanReportProviderState implements _PeamanReportProviderState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanReportProviderState &&
+            other is _$PeamanReportProviderStateImpl &&
             (identical(other.submitReportState, submitReportState) ||
                 other.submitReportState == submitReportState));
   }
@@ -136,21 +136,21 @@ class _$_PeamanReportProviderState implements _PeamanReportProviderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanReportProviderStateCopyWith<_$_PeamanReportProviderState>
-      get copyWith => __$$_PeamanReportProviderStateCopyWithImpl<
-          _$_PeamanReportProviderState>(this, _$identity);
+  _$$PeamanReportProviderStateImplCopyWith<_$PeamanReportProviderStateImpl>
+      get copyWith => __$$PeamanReportProviderStateImplCopyWithImpl<
+          _$PeamanReportProviderStateImpl>(this, _$identity);
 }
 
 abstract class _PeamanReportProviderState implements PeamanReportProviderState {
   const factory _PeamanReportProviderState(
           {final SubmitReportState submitReportState}) =
-      _$_PeamanReportProviderState;
+      _$PeamanReportProviderStateImpl;
 
   @override
   SubmitReportState get submitReportState;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanReportProviderStateCopyWith<_$_PeamanReportProviderState>
+  _$$PeamanReportProviderStateImplCopyWith<_$PeamanReportProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -227,26 +227,28 @@ class _$SubmitReportStateCopyWithImpl<$Res, $Val extends SubmitReportState>
 }
 
 /// @nodoc
-abstract class _$$_SubmitReportStateInitialCopyWith<$Res> {
-  factory _$$_SubmitReportStateInitialCopyWith(
-          _$_SubmitReportStateInitial value,
-          $Res Function(_$_SubmitReportStateInitial) then) =
-      __$$_SubmitReportStateInitialCopyWithImpl<$Res>;
+abstract class _$$SubmitReportStateInitialImplCopyWith<$Res> {
+  factory _$$SubmitReportStateInitialImplCopyWith(
+          _$SubmitReportStateInitialImpl value,
+          $Res Function(_$SubmitReportStateInitialImpl) then) =
+      __$$SubmitReportStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SubmitReportStateInitialCopyWithImpl<$Res>
-    extends _$SubmitReportStateCopyWithImpl<$Res, _$_SubmitReportStateInitial>
-    implements _$$_SubmitReportStateInitialCopyWith<$Res> {
-  __$$_SubmitReportStateInitialCopyWithImpl(_$_SubmitReportStateInitial _value,
-      $Res Function(_$_SubmitReportStateInitial) _then)
+class __$$SubmitReportStateInitialImplCopyWithImpl<$Res>
+    extends _$SubmitReportStateCopyWithImpl<$Res,
+        _$SubmitReportStateInitialImpl>
+    implements _$$SubmitReportStateInitialImplCopyWith<$Res> {
+  __$$SubmitReportStateInitialImplCopyWithImpl(
+      _$SubmitReportStateInitialImpl _value,
+      $Res Function(_$SubmitReportStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SubmitReportStateInitial implements _SubmitReportStateInitial {
-  const _$_SubmitReportStateInitial();
+class _$SubmitReportStateInitialImpl implements _SubmitReportStateInitial {
+  const _$SubmitReportStateInitialImpl();
 
   @override
   String toString() {
@@ -254,10 +256,10 @@ class _$_SubmitReportStateInitial implements _SubmitReportStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubmitReportStateInitial);
+            other is _$SubmitReportStateInitialImpl);
   }
 
   @override
@@ -339,30 +341,32 @@ class _$_SubmitReportStateInitial implements _SubmitReportStateInitial {
 }
 
 abstract class _SubmitReportStateInitial implements SubmitReportState {
-  const factory _SubmitReportStateInitial() = _$_SubmitReportStateInitial;
+  const factory _SubmitReportStateInitial() = _$SubmitReportStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SubmitReportStateLoadingCopyWith<$Res> {
-  factory _$$_SubmitReportStateLoadingCopyWith(
-          _$_SubmitReportStateLoading value,
-          $Res Function(_$_SubmitReportStateLoading) then) =
-      __$$_SubmitReportStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SubmitReportStateLoadingImplCopyWith<$Res> {
+  factory _$$SubmitReportStateLoadingImplCopyWith(
+          _$SubmitReportStateLoadingImpl value,
+          $Res Function(_$SubmitReportStateLoadingImpl) then) =
+      __$$SubmitReportStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SubmitReportStateLoadingCopyWithImpl<$Res>
-    extends _$SubmitReportStateCopyWithImpl<$Res, _$_SubmitReportStateLoading>
-    implements _$$_SubmitReportStateLoadingCopyWith<$Res> {
-  __$$_SubmitReportStateLoadingCopyWithImpl(_$_SubmitReportStateLoading _value,
-      $Res Function(_$_SubmitReportStateLoading) _then)
+class __$$SubmitReportStateLoadingImplCopyWithImpl<$Res>
+    extends _$SubmitReportStateCopyWithImpl<$Res,
+        _$SubmitReportStateLoadingImpl>
+    implements _$$SubmitReportStateLoadingImplCopyWith<$Res> {
+  __$$SubmitReportStateLoadingImplCopyWithImpl(
+      _$SubmitReportStateLoadingImpl _value,
+      $Res Function(_$SubmitReportStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SubmitReportStateLoading implements _SubmitReportStateLoading {
-  const _$_SubmitReportStateLoading();
+class _$SubmitReportStateLoadingImpl implements _SubmitReportStateLoading {
+  const _$SubmitReportStateLoadingImpl();
 
   @override
   String toString() {
@@ -370,10 +374,10 @@ class _$_SubmitReportStateLoading implements _SubmitReportStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubmitReportStateLoading);
+            other is _$SubmitReportStateLoadingImpl);
   }
 
   @override
@@ -455,15 +459,15 @@ class _$_SubmitReportStateLoading implements _SubmitReportStateLoading {
 }
 
 abstract class _SubmitReportStateLoading implements SubmitReportState {
-  const factory _SubmitReportStateLoading() = _$_SubmitReportStateLoading;
+  const factory _SubmitReportStateLoading() = _$SubmitReportStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SubmitReportStateSuccessCopyWith<$Res> {
-  factory _$$_SubmitReportStateSuccessCopyWith(
-          _$_SubmitReportStateSuccess value,
-          $Res Function(_$_SubmitReportStateSuccess) then) =
-      __$$_SubmitReportStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SubmitReportStateSuccessImplCopyWith<$Res> {
+  factory _$$SubmitReportStateSuccessImplCopyWith(
+          _$SubmitReportStateSuccessImpl value,
+          $Res Function(_$SubmitReportStateSuccessImpl) then) =
+      __$$SubmitReportStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanReport result});
 
@@ -471,11 +475,13 @@ abstract class _$$_SubmitReportStateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SubmitReportStateSuccessCopyWithImpl<$Res>
-    extends _$SubmitReportStateCopyWithImpl<$Res, _$_SubmitReportStateSuccess>
-    implements _$$_SubmitReportStateSuccessCopyWith<$Res> {
-  __$$_SubmitReportStateSuccessCopyWithImpl(_$_SubmitReportStateSuccess _value,
-      $Res Function(_$_SubmitReportStateSuccess) _then)
+class __$$SubmitReportStateSuccessImplCopyWithImpl<$Res>
+    extends _$SubmitReportStateCopyWithImpl<$Res,
+        _$SubmitReportStateSuccessImpl>
+    implements _$$SubmitReportStateSuccessImplCopyWith<$Res> {
+  __$$SubmitReportStateSuccessImplCopyWithImpl(
+      _$SubmitReportStateSuccessImpl _value,
+      $Res Function(_$SubmitReportStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -483,7 +489,7 @@ class __$$_SubmitReportStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SubmitReportStateSuccess(
+    return _then(_$SubmitReportStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -502,8 +508,8 @@ class __$$_SubmitReportStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
-  const _$_SubmitReportStateSuccess(this.result);
+class _$SubmitReportStateSuccessImpl implements _SubmitReportStateSuccess {
+  const _$SubmitReportStateSuccessImpl(this.result);
 
   @override
   final PeamanReport result;
@@ -514,10 +520,10 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubmitReportStateSuccess &&
+            other is _$SubmitReportStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -527,9 +533,9 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubmitReportStateSuccessCopyWith<_$_SubmitReportStateSuccess>
-      get copyWith => __$$_SubmitReportStateSuccessCopyWithImpl<
-          _$_SubmitReportStateSuccess>(this, _$identity);
+  _$$SubmitReportStateSuccessImplCopyWith<_$SubmitReportStateSuccessImpl>
+      get copyWith => __$$SubmitReportStateSuccessImplCopyWithImpl<
+          _$SubmitReportStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -608,19 +614,20 @@ class _$_SubmitReportStateSuccess implements _SubmitReportStateSuccess {
 
 abstract class _SubmitReportStateSuccess implements SubmitReportState {
   const factory _SubmitReportStateSuccess(final PeamanReport result) =
-      _$_SubmitReportStateSuccess;
+      _$SubmitReportStateSuccessImpl;
 
   PeamanReport get result;
   @JsonKey(ignore: true)
-  _$$_SubmitReportStateSuccessCopyWith<_$_SubmitReportStateSuccess>
+  _$$SubmitReportStateSuccessImplCopyWith<_$SubmitReportStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SubmitReportStateErrorCopyWith<$Res> {
-  factory _$$_SubmitReportStateErrorCopyWith(_$_SubmitReportStateError value,
-          $Res Function(_$_SubmitReportStateError) then) =
-      __$$_SubmitReportStateErrorCopyWithImpl<$Res>;
+abstract class _$$SubmitReportStateErrorImplCopyWith<$Res> {
+  factory _$$SubmitReportStateErrorImplCopyWith(
+          _$SubmitReportStateErrorImpl value,
+          $Res Function(_$SubmitReportStateErrorImpl) then) =
+      __$$SubmitReportStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -628,11 +635,12 @@ abstract class _$$_SubmitReportStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SubmitReportStateErrorCopyWithImpl<$Res>
-    extends _$SubmitReportStateCopyWithImpl<$Res, _$_SubmitReportStateError>
-    implements _$$_SubmitReportStateErrorCopyWith<$Res> {
-  __$$_SubmitReportStateErrorCopyWithImpl(_$_SubmitReportStateError _value,
-      $Res Function(_$_SubmitReportStateError) _then)
+class __$$SubmitReportStateErrorImplCopyWithImpl<$Res>
+    extends _$SubmitReportStateCopyWithImpl<$Res, _$SubmitReportStateErrorImpl>
+    implements _$$SubmitReportStateErrorImplCopyWith<$Res> {
+  __$$SubmitReportStateErrorImplCopyWithImpl(
+      _$SubmitReportStateErrorImpl _value,
+      $Res Function(_$SubmitReportStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -640,7 +648,7 @@ class __$$_SubmitReportStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SubmitReportStateError(
+    return _then(_$SubmitReportStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -659,8 +667,8 @@ class __$$_SubmitReportStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SubmitReportStateError implements _SubmitReportStateError {
-  const _$_SubmitReportStateError(this.error);
+class _$SubmitReportStateErrorImpl implements _SubmitReportStateError {
+  const _$SubmitReportStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -671,10 +679,10 @@ class _$_SubmitReportStateError implements _SubmitReportStateError {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubmitReportStateError &&
+            other is _$SubmitReportStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -684,9 +692,9 @@ class _$_SubmitReportStateError implements _SubmitReportStateError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubmitReportStateErrorCopyWith<_$_SubmitReportStateError> get copyWith =>
-      __$$_SubmitReportStateErrorCopyWithImpl<_$_SubmitReportStateError>(
-          this, _$identity);
+  _$$SubmitReportStateErrorImplCopyWith<_$SubmitReportStateErrorImpl>
+      get copyWith => __$$SubmitReportStateErrorImplCopyWithImpl<
+          _$SubmitReportStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -765,10 +773,10 @@ class _$_SubmitReportStateError implements _SubmitReportStateError {
 
 abstract class _SubmitReportStateError implements SubmitReportState {
   const factory _SubmitReportStateError(final PeamanError error) =
-      _$_SubmitReportStateError;
+      _$SubmitReportStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SubmitReportStateErrorCopyWith<_$_SubmitReportStateError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SubmitReportStateErrorImplCopyWith<_$SubmitReportStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

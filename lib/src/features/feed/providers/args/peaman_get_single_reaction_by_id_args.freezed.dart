@@ -12,7 +12,7 @@ part of 'peaman_get_single_reaction_by_id_args.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanGetSingleReactionByIdArgs {
@@ -66,25 +66,25 @@ class _$PeamanGetSingleReactionByIdArgsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanGetSingleReactionByIdArgsCopyWith<$Res>
+abstract class _$$PeamanGetSingleReactionByIdArgsImplCopyWith<$Res>
     implements $PeamanGetSingleReactionByIdArgsCopyWith<$Res> {
-  factory _$$_PeamanGetSingleReactionByIdArgsCopyWith(
-          _$_PeamanGetSingleReactionByIdArgs value,
-          $Res Function(_$_PeamanGetSingleReactionByIdArgs) then) =
-      __$$_PeamanGetSingleReactionByIdArgsCopyWithImpl<$Res>;
+  factory _$$PeamanGetSingleReactionByIdArgsImplCopyWith(
+          _$PeamanGetSingleReactionByIdArgsImpl value,
+          $Res Function(_$PeamanGetSingleReactionByIdArgsImpl) then) =
+      __$$PeamanGetSingleReactionByIdArgsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String feedId, String reactionId});
 }
 
 /// @nodoc
-class __$$_PeamanGetSingleReactionByIdArgsCopyWithImpl<$Res>
+class __$$PeamanGetSingleReactionByIdArgsImplCopyWithImpl<$Res>
     extends _$PeamanGetSingleReactionByIdArgsCopyWithImpl<$Res,
-        _$_PeamanGetSingleReactionByIdArgs>
-    implements _$$_PeamanGetSingleReactionByIdArgsCopyWith<$Res> {
-  __$$_PeamanGetSingleReactionByIdArgsCopyWithImpl(
-      _$_PeamanGetSingleReactionByIdArgs _value,
-      $Res Function(_$_PeamanGetSingleReactionByIdArgs) _then)
+        _$PeamanGetSingleReactionByIdArgsImpl>
+    implements _$$PeamanGetSingleReactionByIdArgsImplCopyWith<$Res> {
+  __$$PeamanGetSingleReactionByIdArgsImplCopyWithImpl(
+      _$PeamanGetSingleReactionByIdArgsImpl _value,
+      $Res Function(_$PeamanGetSingleReactionByIdArgsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -93,7 +93,7 @@ class __$$_PeamanGetSingleReactionByIdArgsCopyWithImpl<$Res>
     Object? feedId = null,
     Object? reactionId = null,
   }) {
-    return _then(_$_PeamanGetSingleReactionByIdArgs(
+    return _then(_$PeamanGetSingleReactionByIdArgsImpl(
       feedId: null == feedId
           ? _value.feedId
           : feedId // ignore: cast_nullable_to_non_nullable
@@ -108,9 +108,9 @@ class __$$_PeamanGetSingleReactionByIdArgsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanGetSingleReactionByIdArgs
+class _$PeamanGetSingleReactionByIdArgsImpl
     implements _PeamanGetSingleReactionByIdArgs {
-  const _$_PeamanGetSingleReactionByIdArgs(
+  const _$PeamanGetSingleReactionByIdArgsImpl(
       {required this.feedId, required this.reactionId});
 
   @override
@@ -124,10 +124,10 @@ class _$_PeamanGetSingleReactionByIdArgs
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanGetSingleReactionByIdArgs &&
+            other is _$PeamanGetSingleReactionByIdArgsImpl &&
             (identical(other.feedId, feedId) || other.feedId == feedId) &&
             (identical(other.reactionId, reactionId) ||
                 other.reactionId == reactionId));
@@ -139,17 +139,17 @@ class _$_PeamanGetSingleReactionByIdArgs
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanGetSingleReactionByIdArgsCopyWith<
-          _$_PeamanGetSingleReactionByIdArgs>
-      get copyWith => __$$_PeamanGetSingleReactionByIdArgsCopyWithImpl<
-          _$_PeamanGetSingleReactionByIdArgs>(this, _$identity);
+  _$$PeamanGetSingleReactionByIdArgsImplCopyWith<
+          _$PeamanGetSingleReactionByIdArgsImpl>
+      get copyWith => __$$PeamanGetSingleReactionByIdArgsImplCopyWithImpl<
+          _$PeamanGetSingleReactionByIdArgsImpl>(this, _$identity);
 }
 
 abstract class _PeamanGetSingleReactionByIdArgs
     implements PeamanGetSingleReactionByIdArgs {
   const factory _PeamanGetSingleReactionByIdArgs(
-      {required final String feedId,
-      required final String reactionId}) = _$_PeamanGetSingleReactionByIdArgs;
+          {required final String feedId, required final String reactionId}) =
+      _$PeamanGetSingleReactionByIdArgsImpl;
 
   @override
   String get feedId;
@@ -157,7 +157,7 @@ abstract class _PeamanGetSingleReactionByIdArgs
   String get reactionId;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanGetSingleReactionByIdArgsCopyWith<
-          _$_PeamanGetSingleReactionByIdArgs>
+  _$$PeamanGetSingleReactionByIdArgsImplCopyWith<
+          _$PeamanGetSingleReactionByIdArgsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

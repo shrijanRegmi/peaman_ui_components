@@ -12,7 +12,7 @@ part of 'peaman_single_peaman_chat_message_stream_args.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanSingleChatMessageArgs {
@@ -66,25 +66,25 @@ class _$PeamanSingleChatMessageArgsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanSingleChatMessageArgsCopyWith<$Res>
+abstract class _$$PeamanSingleChatMessageArgsImplCopyWith<$Res>
     implements $PeamanSingleChatMessageArgsCopyWith<$Res> {
-  factory _$$_PeamanSingleChatMessageArgsCopyWith(
-          _$_PeamanSingleChatMessageArgs value,
-          $Res Function(_$_PeamanSingleChatMessageArgs) then) =
-      __$$_PeamanSingleChatMessageArgsCopyWithImpl<$Res>;
+  factory _$$PeamanSingleChatMessageArgsImplCopyWith(
+          _$PeamanSingleChatMessageArgsImpl value,
+          $Res Function(_$PeamanSingleChatMessageArgsImpl) then) =
+      __$$PeamanSingleChatMessageArgsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String chatId, String messageId});
 }
 
 /// @nodoc
-class __$$_PeamanSingleChatMessageArgsCopyWithImpl<$Res>
+class __$$PeamanSingleChatMessageArgsImplCopyWithImpl<$Res>
     extends _$PeamanSingleChatMessageArgsCopyWithImpl<$Res,
-        _$_PeamanSingleChatMessageArgs>
-    implements _$$_PeamanSingleChatMessageArgsCopyWith<$Res> {
-  __$$_PeamanSingleChatMessageArgsCopyWithImpl(
-      _$_PeamanSingleChatMessageArgs _value,
-      $Res Function(_$_PeamanSingleChatMessageArgs) _then)
+        _$PeamanSingleChatMessageArgsImpl>
+    implements _$$PeamanSingleChatMessageArgsImplCopyWith<$Res> {
+  __$$PeamanSingleChatMessageArgsImplCopyWithImpl(
+      _$PeamanSingleChatMessageArgsImpl _value,
+      $Res Function(_$PeamanSingleChatMessageArgsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -93,7 +93,7 @@ class __$$_PeamanSingleChatMessageArgsCopyWithImpl<$Res>
     Object? chatId = null,
     Object? messageId = null,
   }) {
-    return _then(_$_PeamanSingleChatMessageArgs(
+    return _then(_$PeamanSingleChatMessageArgsImpl(
       chatId: null == chatId
           ? _value.chatId
           : chatId // ignore: cast_nullable_to_non_nullable
@@ -108,8 +108,9 @@ class __$$_PeamanSingleChatMessageArgsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanSingleChatMessageArgs implements _PeamanSingleChatMessageArgs {
-  const _$_PeamanSingleChatMessageArgs(
+class _$PeamanSingleChatMessageArgsImpl
+    implements _PeamanSingleChatMessageArgs {
+  const _$PeamanSingleChatMessageArgsImpl(
       {required this.chatId, required this.messageId});
 
   @override
@@ -123,10 +124,10 @@ class _$_PeamanSingleChatMessageArgs implements _PeamanSingleChatMessageArgs {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanSingleChatMessageArgs &&
+            other is _$PeamanSingleChatMessageArgsImpl &&
             (identical(other.chatId, chatId) || other.chatId == chatId) &&
             (identical(other.messageId, messageId) ||
                 other.messageId == messageId));
@@ -138,16 +139,16 @@ class _$_PeamanSingleChatMessageArgs implements _PeamanSingleChatMessageArgs {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanSingleChatMessageArgsCopyWith<_$_PeamanSingleChatMessageArgs>
-      get copyWith => __$$_PeamanSingleChatMessageArgsCopyWithImpl<
-          _$_PeamanSingleChatMessageArgs>(this, _$identity);
+  _$$PeamanSingleChatMessageArgsImplCopyWith<_$PeamanSingleChatMessageArgsImpl>
+      get copyWith => __$$PeamanSingleChatMessageArgsImplCopyWithImpl<
+          _$PeamanSingleChatMessageArgsImpl>(this, _$identity);
 }
 
 abstract class _PeamanSingleChatMessageArgs
     implements PeamanSingleChatMessageArgs {
   const factory _PeamanSingleChatMessageArgs(
       {required final String chatId,
-      required final String messageId}) = _$_PeamanSingleChatMessageArgs;
+      required final String messageId}) = _$PeamanSingleChatMessageArgsImpl;
 
   @override
   String get chatId;
@@ -155,6 +156,6 @@ abstract class _PeamanSingleChatMessageArgs
   String get messageId;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanSingleChatMessageArgsCopyWith<_$_PeamanSingleChatMessageArgs>
+  _$$PeamanSingleChatMessageArgsImplCopyWith<_$PeamanSingleChatMessageArgsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
