@@ -7,6 +7,7 @@ class PeamanCommentInput extends ConsumerStatefulWidget {
   const PeamanCommentInput({
     super.key,
     required this.feedId,
+    required this.feedOwnerId,
     this.focusNode,
     this.controller,
     this.onChanged,
@@ -28,6 +29,9 @@ class PeamanCommentInput extends ConsumerStatefulWidget {
   /// The id of the feed for which the comments are to be added.
   final String feedId;
 
+  /// The id of the owner of the feed.
+  final String feedOwnerId;
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _PeamanCommentInputState();
@@ -45,9 +49,9 @@ class _PeamanCommentInputState extends ConsumerState<PeamanCommentInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 5.0,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.spMin,
+        vertical: 10.spMin,
       ),
       decoration: BoxDecoration(
         color: context.theme.inputDecorationTheme.fillColor,
@@ -62,12 +66,9 @@ class _PeamanCommentInputState extends ConsumerState<PeamanCommentInput> {
       ),
       child: SafeArea(
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             _currentUserImageBuilder(),
-            SizedBox(
-              width: 10.spMin,
-            ),
             Expanded(
               child: _messageInputBuilder(),
             ),
@@ -94,7 +95,7 @@ class _PeamanCommentInputState extends ConsumerState<PeamanCommentInput> {
           photo,
           size: 30.0,
           onPressed: _handlePostComment,
-        );
+        ).pB(5.0);
       },
     );
   }
@@ -108,9 +109,14 @@ class _PeamanCommentInputState extends ConsumerState<PeamanCommentInput> {
       keyboardType: TextInputType.multiline,
       textInputAction: TextInputAction.newline,
       textCapitalization: TextCapitalization.sentences,
+      textAlignVertical: TextAlignVertical.center,
       onChanged: (val) => widget.onChanged?.call(val, () {}),
       decoration: const InputDecoration(
         hintText: 'Type your amazing comment...',
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 5.0,
+        ),
         border: InputBorder.none,
       ),
     );
@@ -137,19 +143,19 @@ class _PeamanCommentInputState extends ConsumerState<PeamanCommentInput> {
           package: 'peaman_ui_components',
         ),
       ),
-    );
+    ).pB(5.0);
   }
 
   /// Handle the posting of the comment.
   void _handlePostComment() {
-    // final comment = _commentController.text.trim();
-    const comment =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    final comment = _commentController.text.trim();
     if (comment.isEmpty) return;
+
+    _commentController.clear();
 
     ref.read(providerOfPeamanViewComments.notifier).addCommentToState(
           feedId: widget.feedId,
-          feedOwnerId: '',
+          feedOwnerId: widget.feedOwnerId,
           commentText: comment,
         );
   }

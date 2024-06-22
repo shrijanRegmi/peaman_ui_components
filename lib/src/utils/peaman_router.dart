@@ -124,6 +124,7 @@ class PeamanRouter {
           settings,
           PeamanViewCommentsScreen(
             feedId: arguments.feedId,
+            feedOwnerId: arguments.feedOwnerId,
           ),
         );
 

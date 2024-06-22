@@ -6,9 +6,11 @@ import 'package:peaman_ui_components/src/features/comment/views/widgets/peaman_c
 
 class PeamanViewCommentsScreenArgs {
   final String feedId;
+  final String feedOwnerId;
 
   const PeamanViewCommentsScreenArgs({
     required this.feedId,
+    required this.feedOwnerId,
   });
 }
 
@@ -17,10 +19,14 @@ class PeamanViewCommentsScreen extends ConsumerStatefulWidget {
   const PeamanViewCommentsScreen({
     super.key,
     required this.feedId,
+    required this.feedOwnerId,
   });
 
   /// The id of the feed for which the comments are to be displayed.
   final String feedId;
+
+  /// The id of the owner of the feed.
+  final String feedOwnerId;
 
   static const route = '/peaman_view_comments';
 
@@ -56,6 +62,7 @@ class _PeamanViewCommentsScreenState
         padding: MediaQuery.of(context).viewInsets,
         child: PeamanCommentInput(
           feedId: widget.feedId,
+          feedOwnerId: widget.feedOwnerId,
         ),
       ),
     ).keyboardDismisser(context);

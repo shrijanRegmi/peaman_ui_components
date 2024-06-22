@@ -250,6 +250,7 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
       PeamanViewCommentsScreen.route,
       arguments: PeamanViewCommentsScreenArgs(
         feedId: widget.feed.id!,
+        feedOwnerId: widget.feed.ownerId!,
       ),
     );
   }
