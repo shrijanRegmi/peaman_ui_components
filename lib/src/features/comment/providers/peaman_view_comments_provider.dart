@@ -1,23 +1,23 @@
 import 'dart:math';
 
 import 'package:peaman_ui_components/peaman_ui_components.dart';
-import 'package:peaman_ui_components/src/features/comment/providers/states/view_comments_provider_state.dart';
-import 'package:peaman_ui_components/src/features/comment/views/view_comments_screen.dart';
+import 'package:peaman_ui_components/src/features/comment/providers/states/peaman_view_comments_provider_state.dart';
 
-/// Provider of [ViewCommentsProvider].
-final providerOfViewComments = StateNotifierProvider.autoDispose<
-    ViewCommentsProvider, ViewCommentsProviderState>(
-  (ref) => ViewCommentsProvider(
+/// Provider of [PeamanViewCommentsProvider].
+final providerOfPeamanViewComments = StateNotifierProvider.autoDispose<
+    PeamanViewCommentsProvider, PeamanViewCommentsProviderState>(
+  (ref) => PeamanViewCommentsProvider(
     ref: ref,
-    state: const ViewCommentsProviderState(),
+    state: const PeamanViewCommentsProviderState(),
   ),
 );
 
-class ViewCommentsProvider extends StateNotifier<ViewCommentsProviderState> {
+class PeamanViewCommentsProvider
+    extends StateNotifier<PeamanViewCommentsProviderState> {
   /// Handles the business logic for the [ViewCommentsScreen] like fetching comments, posting comments etc.
-  ViewCommentsProvider({
+  PeamanViewCommentsProvider({
     required final Ref ref,
-    required final ViewCommentsProviderState state,
+    required final PeamanViewCommentsProviderState state,
   })  : _ref = ref,
         super(state);
 
@@ -62,11 +62,11 @@ class ViewCommentsProvider extends StateNotifier<ViewCommentsProviderState> {
   ///
   /// The [feedOwnerId] is the id of the owner of the feed.
   ///
-  /// The [comment] is the comment to be posted.
+  /// The [commentText] is the comment to be posted.
   Future<void> postFeedComment({
     required final String feedId,
     required final String feedOwnerId,
-    required final String comment,
+    required final String commentText,
   }) async {
     final rand = Random();
     final randomInt = rand.nextInt(1000);
@@ -150,6 +150,43 @@ class ViewCommentsProvider extends StateNotifier<ViewCommentsProviderState> {
           postCommentReplyState: PostCommentReplyState.error(error),
         );
       },
+    );
+  }
+
+  /// Adds a new comment in the state.
+  ///
+  /// The [feedId] is the id of the feed for which the comment is to be added.
+  ///
+  /// The [feedOwnerId] is the id of the owner of the feed.
+  ///
+  /// The [commentText] is the comment to be added.
+  void addCommentToState({
+    required final String feedId,
+    required final String feedOwnerId,
+    required final String commentText,
+  }) {
+    final comment = PeamanComment(
+      id: PeamanReferenceHelper.ref.collection('random').doc().id,
+      feedId: feedId,
+      ownerId: _loggedInUser.uid,
+      parentId: feedId,
+      parentOwnerId: feedOwnerId,
+      parent: PeamanCommentParent.feed,
+      comment: commentText,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+    );
+
+    final comments = state.fetchFeedCommentsState.when(
+      initial: () => <PeamanComment>[],
+      loading: () => <PeamanComment>[],
+      success: (result) => result,
+      error: (error) => <PeamanComment>[],
+    );
+
+    state = state.copyWith(
+      fetchFeedCommentsState: FetchFeedCommentsState.success(
+        [comment, ...comments],
+      ),
     );
   }
 }

@@ -102,27 +102,29 @@ class _PeamanChatMessageInputState
               ),
             ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (messageToReply != null) _messageToReplyBuilder(),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _imageSelectorBuilder(),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  Expanded(
-                    child: _messageInputBuilder(),
-                  ),
-                  const SizedBox(
-                    width: 5.0,
-                  ),
-                  _sendBuilder(),
-                ],
-              ),
-            ],
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (messageToReply != null) _messageToReplyBuilder(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _imageSelectorBuilder(),
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Expanded(
+                      child: _messageInputBuilder(),
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    _sendBuilder(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

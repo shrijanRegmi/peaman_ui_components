@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/comment/views/screens/peaman_view_comments_screen.dart';
 
 class PeamanFeedItemActions extends ConsumerStatefulWidget {
   const PeamanFeedItemActions({
@@ -243,7 +244,15 @@ class _PeamanFeedItemActionsState extends ConsumerState<PeamanFeedItemActions> {
         );
   }
 
-  void _onPressedComment() {}
+  /// Navigates to the comments screen.
+  void _onPressedComment() {
+    context.pushNamed(
+      PeamanViewCommentsScreen.route,
+      arguments: PeamanViewCommentsScreenArgs(
+        feedId: widget.feed.id!,
+      ),
+    );
+  }
 
   void _onPressedReact() {
     if (widget.feed.isReacted) {

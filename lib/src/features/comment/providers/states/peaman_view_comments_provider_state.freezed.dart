@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'view_comments_provider_state.dart';
+part of 'peaman_view_comments_provider_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ViewCommentsProviderState {
+mixin _$PeamanViewCommentsProviderState {
   /// The state of fetching the comments for the feed.
   FetchFeedCommentsState get fetchFeedCommentsState =>
       throw _privateConstructorUsedError;
@@ -29,15 +29,17 @@ mixin _$ViewCommentsProviderState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ViewCommentsProviderStateCopyWith<ViewCommentsProviderState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $PeamanViewCommentsProviderStateCopyWith<PeamanViewCommentsProviderState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ViewCommentsProviderStateCopyWith<$Res> {
-  factory $ViewCommentsProviderStateCopyWith(ViewCommentsProviderState value,
-          $Res Function(ViewCommentsProviderState) then) =
-      _$ViewCommentsProviderStateCopyWithImpl<$Res, ViewCommentsProviderState>;
+abstract class $PeamanViewCommentsProviderStateCopyWith<$Res> {
+  factory $PeamanViewCommentsProviderStateCopyWith(
+          PeamanViewCommentsProviderState value,
+          $Res Function(PeamanViewCommentsProviderState) then) =
+      _$PeamanViewCommentsProviderStateCopyWithImpl<$Res,
+          PeamanViewCommentsProviderState>;
   @useResult
   $Res call(
       {FetchFeedCommentsState fetchFeedCommentsState,
@@ -50,10 +52,10 @@ abstract class $ViewCommentsProviderStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ViewCommentsProviderStateCopyWithImpl<$Res,
-        $Val extends ViewCommentsProviderState>
-    implements $ViewCommentsProviderStateCopyWith<$Res> {
-  _$ViewCommentsProviderStateCopyWithImpl(this._value, this._then);
+class _$PeamanViewCommentsProviderStateCopyWithImpl<$Res,
+        $Val extends PeamanViewCommentsProviderState>
+    implements $PeamanViewCommentsProviderStateCopyWith<$Res> {
+  _$PeamanViewCommentsProviderStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -112,12 +114,12 @@ class _$ViewCommentsProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$ViewCommentsProviderStateImplCopyWith<$Res>
-    implements $ViewCommentsProviderStateCopyWith<$Res> {
-  factory _$$ViewCommentsProviderStateImplCopyWith(
-          _$ViewCommentsProviderStateImpl value,
-          $Res Function(_$ViewCommentsProviderStateImpl) then) =
-      __$$ViewCommentsProviderStateImplCopyWithImpl<$Res>;
+abstract class _$$PeamanViewCommentsProviderStateImplCopyWith<$Res>
+    implements $PeamanViewCommentsProviderStateCopyWith<$Res> {
+  factory _$$PeamanViewCommentsProviderStateImplCopyWith(
+          _$PeamanViewCommentsProviderStateImpl value,
+          $Res Function(_$PeamanViewCommentsProviderStateImpl) then) =
+      __$$PeamanViewCommentsProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -134,13 +136,13 @@ abstract class _$$ViewCommentsProviderStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ViewCommentsProviderStateImplCopyWithImpl<$Res>
-    extends _$ViewCommentsProviderStateCopyWithImpl<$Res,
-        _$ViewCommentsProviderStateImpl>
-    implements _$$ViewCommentsProviderStateImplCopyWith<$Res> {
-  __$$ViewCommentsProviderStateImplCopyWithImpl(
-      _$ViewCommentsProviderStateImpl _value,
-      $Res Function(_$ViewCommentsProviderStateImpl) _then)
+class __$$PeamanViewCommentsProviderStateImplCopyWithImpl<$Res>
+    extends _$PeamanViewCommentsProviderStateCopyWithImpl<$Res,
+        _$PeamanViewCommentsProviderStateImpl>
+    implements _$$PeamanViewCommentsProviderStateImplCopyWith<$Res> {
+  __$$PeamanViewCommentsProviderStateImplCopyWithImpl(
+      _$PeamanViewCommentsProviderStateImpl _value,
+      $Res Function(_$PeamanViewCommentsProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -150,7 +152,7 @@ class __$$ViewCommentsProviderStateImplCopyWithImpl<$Res>
     Object? postFeedCommentState = null,
     Object? postCommentReplyState = null,
   }) {
-    return _then(_$ViewCommentsProviderStateImpl(
+    return _then(_$PeamanViewCommentsProviderStateImpl(
       fetchFeedCommentsState: null == fetchFeedCommentsState
           ? _value.fetchFeedCommentsState
           : fetchFeedCommentsState // ignore: cast_nullable_to_non_nullable
@@ -169,8 +171,9 @@ class __$$ViewCommentsProviderStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ViewCommentsProviderStateImpl implements _ViewCommentsProviderState {
-  const _$ViewCommentsProviderStateImpl(
+class _$PeamanViewCommentsProviderStateImpl
+    implements _PeamanViewCommentsProviderState {
+  const _$PeamanViewCommentsProviderStateImpl(
       {this.fetchFeedCommentsState = const FetchFeedCommentsState.initial(),
       this.postFeedCommentState = const PostFeedCommentState.initial(),
       this.postCommentReplyState = const PostCommentReplyState.initial()});
@@ -192,14 +195,14 @@ class _$ViewCommentsProviderStateImpl implements _ViewCommentsProviderState {
 
   @override
   String toString() {
-    return 'ViewCommentsProviderState(fetchFeedCommentsState: $fetchFeedCommentsState, postFeedCommentState: $postFeedCommentState, postCommentReplyState: $postCommentReplyState)';
+    return 'PeamanViewCommentsProviderState(fetchFeedCommentsState: $fetchFeedCommentsState, postFeedCommentState: $postFeedCommentState, postCommentReplyState: $postCommentReplyState)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ViewCommentsProviderStateImpl &&
+            other is _$PeamanViewCommentsProviderStateImpl &&
             (identical(other.fetchFeedCommentsState, fetchFeedCommentsState) ||
                 other.fetchFeedCommentsState == fetchFeedCommentsState) &&
             (identical(other.postFeedCommentState, postFeedCommentState) ||
@@ -215,17 +218,19 @@ class _$ViewCommentsProviderStateImpl implements _ViewCommentsProviderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ViewCommentsProviderStateImplCopyWith<_$ViewCommentsProviderStateImpl>
-      get copyWith => __$$ViewCommentsProviderStateImplCopyWithImpl<
-          _$ViewCommentsProviderStateImpl>(this, _$identity);
+  _$$PeamanViewCommentsProviderStateImplCopyWith<
+          _$PeamanViewCommentsProviderStateImpl>
+      get copyWith => __$$PeamanViewCommentsProviderStateImplCopyWithImpl<
+          _$PeamanViewCommentsProviderStateImpl>(this, _$identity);
 }
 
-abstract class _ViewCommentsProviderState implements ViewCommentsProviderState {
-  const factory _ViewCommentsProviderState(
+abstract class _PeamanViewCommentsProviderState
+    implements PeamanViewCommentsProviderState {
+  const factory _PeamanViewCommentsProviderState(
           {final FetchFeedCommentsState fetchFeedCommentsState,
           final PostFeedCommentState postFeedCommentState,
           final PostCommentReplyState postCommentReplyState}) =
-      _$ViewCommentsProviderStateImpl;
+      _$PeamanViewCommentsProviderStateImpl;
 
   @override
 
@@ -241,7 +246,8 @@ abstract class _ViewCommentsProviderState implements ViewCommentsProviderState {
   PostCommentReplyState get postCommentReplyState;
   @override
   @JsonKey(ignore: true)
-  _$$ViewCommentsProviderStateImplCopyWith<_$ViewCommentsProviderStateImpl>
+  _$$PeamanViewCommentsProviderStateImplCopyWith<
+          _$PeamanViewCommentsProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

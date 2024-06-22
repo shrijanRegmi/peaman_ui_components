@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
 
-part 'view_comments_provider_state.freezed.dart';
+part 'peaman_view_comments_provider_state.freezed.dart';
 
 @freezed
-class ViewCommentsProviderState with _$ViewCommentsProviderState {
-  const factory ViewCommentsProviderState({
+class PeamanViewCommentsProviderState with _$PeamanViewCommentsProviderState {
+  const factory PeamanViewCommentsProviderState({
     /// The state of fetching the comments for the feed.
     @Default(FetchFeedCommentsState.initial())
     final FetchFeedCommentsState fetchFeedCommentsState,
@@ -17,7 +17,7 @@ class ViewCommentsProviderState with _$ViewCommentsProviderState {
     /// The state of reply to a comment.
     @Default(PostCommentReplyState.initial())
     final PostCommentReplyState postCommentReplyState,
-  }) = _ViewCommentsProviderState;
+  }) = _PeamanViewCommentsProviderState;
 }
 
 @freezed
