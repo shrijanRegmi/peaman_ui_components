@@ -14,6 +14,10 @@ class PeamanCommentsListItemProviderState
     @Default(FetchCommentsReplyState.initial())
     final FetchCommentsReplyState fetchCommentsReplyState,
 
+    /// The state of creating a comment.
+    @Default(CreateCommentState.initial())
+    final CreateCommentState createCommentState,
+
     /// The state of reacting to the comment.
     @Default(ReactToCommentState.initial())
     final ReactToCommentState reactToCommentState,
@@ -32,6 +36,18 @@ class FetchCommentsReplyState with _$FetchCommentsReplyState {
   const factory FetchCommentsReplyState.error(
     final PeamanError error,
   ) = _FetchCommentsReplyStateError;
+}
+
+@freezed
+class CreateCommentState with _$CreateCommentState {
+  const factory CreateCommentState.initial() = _CreateCommentStateInitial;
+  const factory CreateCommentState.loading() = _CreateCommentStateLoading;
+  const factory CreateCommentState.success(
+    final PeamanComment result,
+  ) = _CreateCommentStateSuccess;
+  const factory CreateCommentState.error(
+    final PeamanError error,
+  ) = _CreateCommentStateError;
 }
 
 @freezed

@@ -95,8 +95,9 @@ class _PeamanCommentsListState extends ConsumerState<PeamanCommentsList> {
       shrinkWrap: widget.shrinkWrap,
       physics: widget.physics,
       itemBuilder: (context, index) {
+        final comment = comments[index];
         return PeamanCommentsListItem(
-          comment: comments[index],
+          comment: comment,
         ).pT(index == 0 ? 20.0 : 0.0);
       },
     );

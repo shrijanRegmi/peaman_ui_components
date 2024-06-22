@@ -23,6 +23,10 @@ mixin _$PeamanCommentsListItemProviderState {
   FetchCommentsReplyState get fetchCommentsReplyState =>
       throw _privateConstructorUsedError;
 
+  /// The state of creating a comment.
+  CreateCommentState get createCommentState =>
+      throw _privateConstructorUsedError;
+
   /// The state of reacting to the comment.
   ReactToCommentState get reactToCommentState =>
       throw _privateConstructorUsedError;
@@ -44,9 +48,11 @@ abstract class $PeamanCommentsListItemProviderStateCopyWith<$Res> {
   $Res call(
       {bool isRepliesVisible,
       FetchCommentsReplyState fetchCommentsReplyState,
+      CreateCommentState createCommentState,
       ReactToCommentState reactToCommentState});
 
   $FetchCommentsReplyStateCopyWith<$Res> get fetchCommentsReplyState;
+  $CreateCommentStateCopyWith<$Res> get createCommentState;
   $ReactToCommentStateCopyWith<$Res> get reactToCommentState;
 }
 
@@ -66,6 +72,7 @@ class _$PeamanCommentsListItemProviderStateCopyWithImpl<$Res,
   $Res call({
     Object? isRepliesVisible = null,
     Object? fetchCommentsReplyState = null,
+    Object? createCommentState = null,
     Object? reactToCommentState = null,
   }) {
     return _then(_value.copyWith(
@@ -77,6 +84,10 @@ class _$PeamanCommentsListItemProviderStateCopyWithImpl<$Res,
           ? _value.fetchCommentsReplyState
           : fetchCommentsReplyState // ignore: cast_nullable_to_non_nullable
               as FetchCommentsReplyState,
+      createCommentState: null == createCommentState
+          ? _value.createCommentState
+          : createCommentState // ignore: cast_nullable_to_non_nullable
+              as CreateCommentState,
       reactToCommentState: null == reactToCommentState
           ? _value.reactToCommentState
           : reactToCommentState // ignore: cast_nullable_to_non_nullable
@@ -90,6 +101,15 @@ class _$PeamanCommentsListItemProviderStateCopyWithImpl<$Res,
     return $FetchCommentsReplyStateCopyWith<$Res>(
         _value.fetchCommentsReplyState, (value) {
       return _then(_value.copyWith(fetchCommentsReplyState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CreateCommentStateCopyWith<$Res> get createCommentState {
+    return $CreateCommentStateCopyWith<$Res>(_value.createCommentState,
+        (value) {
+      return _then(_value.copyWith(createCommentState: value) as $Val);
     });
   }
 
@@ -115,10 +135,13 @@ abstract class _$$PeamanCommentsListItemProviderStateImplCopyWith<$Res>
   $Res call(
       {bool isRepliesVisible,
       FetchCommentsReplyState fetchCommentsReplyState,
+      CreateCommentState createCommentState,
       ReactToCommentState reactToCommentState});
 
   @override
   $FetchCommentsReplyStateCopyWith<$Res> get fetchCommentsReplyState;
+  @override
+  $CreateCommentStateCopyWith<$Res> get createCommentState;
   @override
   $ReactToCommentStateCopyWith<$Res> get reactToCommentState;
 }
@@ -138,6 +161,7 @@ class __$$PeamanCommentsListItemProviderStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isRepliesVisible = null,
     Object? fetchCommentsReplyState = null,
+    Object? createCommentState = null,
     Object? reactToCommentState = null,
   }) {
     return _then(_$PeamanCommentsListItemProviderStateImpl(
@@ -149,6 +173,10 @@ class __$$PeamanCommentsListItemProviderStateImplCopyWithImpl<$Res>
           ? _value.fetchCommentsReplyState
           : fetchCommentsReplyState // ignore: cast_nullable_to_non_nullable
               as FetchCommentsReplyState,
+      createCommentState: null == createCommentState
+          ? _value.createCommentState
+          : createCommentState // ignore: cast_nullable_to_non_nullable
+              as CreateCommentState,
       reactToCommentState: null == reactToCommentState
           ? _value.reactToCommentState
           : reactToCommentState // ignore: cast_nullable_to_non_nullable
@@ -164,6 +192,7 @@ class _$PeamanCommentsListItemProviderStateImpl
   const _$PeamanCommentsListItemProviderStateImpl(
       {this.isRepliesVisible = false,
       this.fetchCommentsReplyState = const FetchCommentsReplyState.initial(),
+      this.createCommentState = const CreateCommentState.initial(),
       this.reactToCommentState = const ReactToCommentState.initial()});
 
   /// Whether the replies of this comment are visible or not.
@@ -176,6 +205,11 @@ class _$PeamanCommentsListItemProviderStateImpl
   @JsonKey()
   final FetchCommentsReplyState fetchCommentsReplyState;
 
+  /// The state of creating a comment.
+  @override
+  @JsonKey()
+  final CreateCommentState createCommentState;
+
   /// The state of reacting to the comment.
   @override
   @JsonKey()
@@ -183,7 +217,7 @@ class _$PeamanCommentsListItemProviderStateImpl
 
   @override
   String toString() {
-    return 'PeamanCommentsListItemProviderState(isRepliesVisible: $isRepliesVisible, fetchCommentsReplyState: $fetchCommentsReplyState, reactToCommentState: $reactToCommentState)';
+    return 'PeamanCommentsListItemProviderState(isRepliesVisible: $isRepliesVisible, fetchCommentsReplyState: $fetchCommentsReplyState, createCommentState: $createCommentState, reactToCommentState: $reactToCommentState)';
   }
 
   @override
@@ -196,13 +230,15 @@ class _$PeamanCommentsListItemProviderStateImpl
             (identical(
                     other.fetchCommentsReplyState, fetchCommentsReplyState) ||
                 other.fetchCommentsReplyState == fetchCommentsReplyState) &&
+            (identical(other.createCommentState, createCommentState) ||
+                other.createCommentState == createCommentState) &&
             (identical(other.reactToCommentState, reactToCommentState) ||
                 other.reactToCommentState == reactToCommentState));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isRepliesVisible,
-      fetchCommentsReplyState, reactToCommentState);
+      fetchCommentsReplyState, createCommentState, reactToCommentState);
 
   @JsonKey(ignore: true)
   @override
@@ -218,6 +254,7 @@ abstract class _PeamanCommentsListItemProviderState
   const factory _PeamanCommentsListItemProviderState(
           {final bool isRepliesVisible,
           final FetchCommentsReplyState fetchCommentsReplyState,
+          final CreateCommentState createCommentState,
           final ReactToCommentState reactToCommentState}) =
       _$PeamanCommentsListItemProviderStateImpl;
 
@@ -229,6 +266,10 @@ abstract class _PeamanCommentsListItemProviderState
 
   /// The state of fetching the comments for the feed.
   FetchCommentsReplyState get fetchCommentsReplyState;
+  @override
+
+  /// The state of creating a comment.
+  CreateCommentState get createCommentState;
   @override
 
   /// The state of reacting to the comment.
@@ -877,6 +918,634 @@ abstract class _FetchCommentsReplyStateError
   @JsonKey(ignore: true)
   _$$FetchCommentsReplyStateErrorImplCopyWith<
           _$FetchCommentsReplyStateErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$CreateCommentState {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanComment result) success,
+    required TResult Function(PeamanError error) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanComment result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanComment result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateCommentStateInitial value) initial,
+    required TResult Function(_CreateCommentStateLoading value) loading,
+    required TResult Function(_CreateCommentStateSuccess value) success,
+    required TResult Function(_CreateCommentStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateCommentStateInitial value)? initial,
+    TResult? Function(_CreateCommentStateLoading value)? loading,
+    TResult? Function(_CreateCommentStateSuccess value)? success,
+    TResult? Function(_CreateCommentStateError value)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateCommentStateInitial value)? initial,
+    TResult Function(_CreateCommentStateLoading value)? loading,
+    TResult Function(_CreateCommentStateSuccess value)? success,
+    TResult Function(_CreateCommentStateError value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateCommentStateCopyWith<$Res> {
+  factory $CreateCommentStateCopyWith(
+          CreateCommentState value, $Res Function(CreateCommentState) then) =
+      _$CreateCommentStateCopyWithImpl<$Res, CreateCommentState>;
+}
+
+/// @nodoc
+class _$CreateCommentStateCopyWithImpl<$Res, $Val extends CreateCommentState>
+    implements $CreateCommentStateCopyWith<$Res> {
+  _$CreateCommentStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$CreateCommentStateInitialImplCopyWith<$Res> {
+  factory _$$CreateCommentStateInitialImplCopyWith(
+          _$CreateCommentStateInitialImpl value,
+          $Res Function(_$CreateCommentStateInitialImpl) then) =
+      __$$CreateCommentStateInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CreateCommentStateInitialImplCopyWithImpl<$Res>
+    extends _$CreateCommentStateCopyWithImpl<$Res,
+        _$CreateCommentStateInitialImpl>
+    implements _$$CreateCommentStateInitialImplCopyWith<$Res> {
+  __$$CreateCommentStateInitialImplCopyWithImpl(
+      _$CreateCommentStateInitialImpl _value,
+      $Res Function(_$CreateCommentStateInitialImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CreateCommentStateInitialImpl implements _CreateCommentStateInitial {
+  const _$CreateCommentStateInitialImpl();
+
+  @override
+  String toString() {
+    return 'CreateCommentState.initial()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateCommentStateInitialImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanComment result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanComment result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanComment result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateCommentStateInitial value) initial,
+    required TResult Function(_CreateCommentStateLoading value) loading,
+    required TResult Function(_CreateCommentStateSuccess value) success,
+    required TResult Function(_CreateCommentStateError value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateCommentStateInitial value)? initial,
+    TResult? Function(_CreateCommentStateLoading value)? loading,
+    TResult? Function(_CreateCommentStateSuccess value)? success,
+    TResult? Function(_CreateCommentStateError value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateCommentStateInitial value)? initial,
+    TResult Function(_CreateCommentStateLoading value)? loading,
+    TResult Function(_CreateCommentStateSuccess value)? success,
+    TResult Function(_CreateCommentStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateCommentStateInitial implements CreateCommentState {
+  const factory _CreateCommentStateInitial() = _$CreateCommentStateInitialImpl;
+}
+
+/// @nodoc
+abstract class _$$CreateCommentStateLoadingImplCopyWith<$Res> {
+  factory _$$CreateCommentStateLoadingImplCopyWith(
+          _$CreateCommentStateLoadingImpl value,
+          $Res Function(_$CreateCommentStateLoadingImpl) then) =
+      __$$CreateCommentStateLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CreateCommentStateLoadingImplCopyWithImpl<$Res>
+    extends _$CreateCommentStateCopyWithImpl<$Res,
+        _$CreateCommentStateLoadingImpl>
+    implements _$$CreateCommentStateLoadingImplCopyWith<$Res> {
+  __$$CreateCommentStateLoadingImplCopyWithImpl(
+      _$CreateCommentStateLoadingImpl _value,
+      $Res Function(_$CreateCommentStateLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CreateCommentStateLoadingImpl implements _CreateCommentStateLoading {
+  const _$CreateCommentStateLoadingImpl();
+
+  @override
+  String toString() {
+    return 'CreateCommentState.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateCommentStateLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanComment result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanComment result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanComment result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateCommentStateInitial value) initial,
+    required TResult Function(_CreateCommentStateLoading value) loading,
+    required TResult Function(_CreateCommentStateSuccess value) success,
+    required TResult Function(_CreateCommentStateError value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateCommentStateInitial value)? initial,
+    TResult? Function(_CreateCommentStateLoading value)? loading,
+    TResult? Function(_CreateCommentStateSuccess value)? success,
+    TResult? Function(_CreateCommentStateError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateCommentStateInitial value)? initial,
+    TResult Function(_CreateCommentStateLoading value)? loading,
+    TResult Function(_CreateCommentStateSuccess value)? success,
+    TResult Function(_CreateCommentStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateCommentStateLoading implements CreateCommentState {
+  const factory _CreateCommentStateLoading() = _$CreateCommentStateLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$CreateCommentStateSuccessImplCopyWith<$Res> {
+  factory _$$CreateCommentStateSuccessImplCopyWith(
+          _$CreateCommentStateSuccessImpl value,
+          $Res Function(_$CreateCommentStateSuccessImpl) then) =
+      __$$CreateCommentStateSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanComment result});
+
+  $PeamanCommentCopyWith<$Res> get result;
+}
+
+/// @nodoc
+class __$$CreateCommentStateSuccessImplCopyWithImpl<$Res>
+    extends _$CreateCommentStateCopyWithImpl<$Res,
+        _$CreateCommentStateSuccessImpl>
+    implements _$$CreateCommentStateSuccessImplCopyWith<$Res> {
+  __$$CreateCommentStateSuccessImplCopyWithImpl(
+      _$CreateCommentStateSuccessImpl _value,
+      $Res Function(_$CreateCommentStateSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$CreateCommentStateSuccessImpl(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as PeamanComment,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanCommentCopyWith<$Res> get result {
+    return $PeamanCommentCopyWith<$Res>(_value.result, (value) {
+      return _then(_value.copyWith(result: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$CreateCommentStateSuccessImpl implements _CreateCommentStateSuccess {
+  const _$CreateCommentStateSuccessImpl(this.result);
+
+  @override
+  final PeamanComment result;
+
+  @override
+  String toString() {
+    return 'CreateCommentState.success(result: $result)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateCommentStateSuccessImpl &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateCommentStateSuccessImplCopyWith<_$CreateCommentStateSuccessImpl>
+      get copyWith => __$$CreateCommentStateSuccessImplCopyWithImpl<
+          _$CreateCommentStateSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanComment result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return success(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanComment result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return success?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanComment result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateCommentStateInitial value) initial,
+    required TResult Function(_CreateCommentStateLoading value) loading,
+    required TResult Function(_CreateCommentStateSuccess value) success,
+    required TResult Function(_CreateCommentStateError value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateCommentStateInitial value)? initial,
+    TResult? Function(_CreateCommentStateLoading value)? loading,
+    TResult? Function(_CreateCommentStateSuccess value)? success,
+    TResult? Function(_CreateCommentStateError value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateCommentStateInitial value)? initial,
+    TResult Function(_CreateCommentStateLoading value)? loading,
+    TResult Function(_CreateCommentStateSuccess value)? success,
+    TResult Function(_CreateCommentStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateCommentStateSuccess implements CreateCommentState {
+  const factory _CreateCommentStateSuccess(final PeamanComment result) =
+      _$CreateCommentStateSuccessImpl;
+
+  PeamanComment get result;
+  @JsonKey(ignore: true)
+  _$$CreateCommentStateSuccessImplCopyWith<_$CreateCommentStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CreateCommentStateErrorImplCopyWith<$Res> {
+  factory _$$CreateCommentStateErrorImplCopyWith(
+          _$CreateCommentStateErrorImpl value,
+          $Res Function(_$CreateCommentStateErrorImpl) then) =
+      __$$CreateCommentStateErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PeamanError error});
+
+  $PeamanErrorCopyWith<$Res> get error;
+}
+
+/// @nodoc
+class __$$CreateCommentStateErrorImplCopyWithImpl<$Res>
+    extends _$CreateCommentStateCopyWithImpl<$Res,
+        _$CreateCommentStateErrorImpl>
+    implements _$$CreateCommentStateErrorImplCopyWith<$Res> {
+  __$$CreateCommentStateErrorImplCopyWithImpl(
+      _$CreateCommentStateErrorImpl _value,
+      $Res Function(_$CreateCommentStateErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$CreateCommentStateErrorImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as PeamanError,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PeamanErrorCopyWith<$Res> get error {
+    return $PeamanErrorCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$CreateCommentStateErrorImpl implements _CreateCommentStateError {
+  const _$CreateCommentStateErrorImpl(this.error);
+
+  @override
+  final PeamanError error;
+
+  @override
+  String toString() {
+    return 'CreateCommentState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateCommentStateErrorImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateCommentStateErrorImplCopyWith<_$CreateCommentStateErrorImpl>
+      get copyWith => __$$CreateCommentStateErrorImplCopyWithImpl<
+          _$CreateCommentStateErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PeamanComment result) success,
+    required TResult Function(PeamanError error) error,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PeamanComment result)? success,
+    TResult? Function(PeamanError error)? error,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PeamanComment result)? success,
+    TResult Function(PeamanError error)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CreateCommentStateInitial value) initial,
+    required TResult Function(_CreateCommentStateLoading value) loading,
+    required TResult Function(_CreateCommentStateSuccess value) success,
+    required TResult Function(_CreateCommentStateError value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CreateCommentStateInitial value)? initial,
+    TResult? Function(_CreateCommentStateLoading value)? loading,
+    TResult? Function(_CreateCommentStateSuccess value)? success,
+    TResult? Function(_CreateCommentStateError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CreateCommentStateInitial value)? initial,
+    TResult Function(_CreateCommentStateLoading value)? loading,
+    TResult Function(_CreateCommentStateSuccess value)? success,
+    TResult Function(_CreateCommentStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateCommentStateError implements CreateCommentState {
+  const factory _CreateCommentStateError(final PeamanError error) =
+      _$CreateCommentStateErrorImpl;
+
+  PeamanError get error;
+  @JsonKey(ignore: true)
+  _$$CreateCommentStateErrorImplCopyWith<_$CreateCommentStateErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

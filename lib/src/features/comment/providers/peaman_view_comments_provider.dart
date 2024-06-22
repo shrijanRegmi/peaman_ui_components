@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/comment/models/peaman_comment_extra_model.dart';
 import 'package:peaman_ui_components/src/features/comment/providers/states/peaman_view_comments_provider_state.dart';
 
 /// Provider of [PeamanViewCommentsProvider].
@@ -174,6 +175,9 @@ class PeamanViewCommentsProvider
       parent: PeamanCommentParent.feed,
       comment: commentText,
       createdAt: DateTime.now().millisecondsSinceEpoch,
+      extraData: const PeamanCommentExtraModel(
+        isLocal: true,
+      ).toJson(),
     );
 
     final comments = state.fetchFeedCommentsState.when(

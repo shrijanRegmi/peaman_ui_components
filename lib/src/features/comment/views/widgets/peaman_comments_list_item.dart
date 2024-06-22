@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/src/features/comment/extensions/peaman_comment_ext.dart';
 import 'package:peaman_ui_components/src/features/comment/providers/peaman_comments_list_item_provider.dart';
 import 'package:peaman_ui_components/src/features/comment/views/widgets/peaman_comments_list.dart';
 import 'package:timeago/timeago.dart';
@@ -24,54 +25,26 @@ class _PeamanCommentsListItemState
   final _borderRadius = 15.0;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _onInit());
+  }
+
+  @override
+  void didUpdateWidget(covariant PeamanCommentsListItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.comment.isLocal != widget.comment.isLocal) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _handleCreateComment(),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            if (widget.comment.parent == PeamanCommentParent.comment)
-              Transform.flip(
-                flipX: true,
-                child: const Icon(
-                  Icons.reply,
-                ),
-              ).pL(20.0),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(_borderRadius.spMin),
-                  color: PeamanColors.white,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _profileImageBuilder(),
-                        SizedBox(
-                          width: 10.spMin,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _headerBuilder(),
-                              _bodyBuilder(),
-                              SizedBox(
-                                height: 5.spMin,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ).pad(10.0),
-                    _footerBuilder(),
-                  ],
-                ),
-              ).pX(20.0),
-            ),
-          ],
-        ),
+        _contentBuilder(),
         if (widget.comment.parent == PeamanCommentParent.feed)
           Consumer(
             builder: (context, ref, child) {
@@ -91,6 +64,71 @@ class _PeamanCommentsListItemState
           ),
       ],
     ).pB(widget.comment.parent == PeamanCommentParent.feed ? 20.0 : 10.0);
+  }
+
+  Widget _contentBuilder() {
+    return Consumer(
+      builder: (context, ref, child) {
+        final createCommentState = ref.watch(
+          providerOfPeamanCommentsListItemProvider(widget.comment.id!)
+              .select((value) => value.createCommentState),
+        );
+
+        final isLoading = createCommentState.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
+
+        return Opacity(
+          opacity: isLoading ? 0.5 : 1.0,
+          child: Row(
+            children: [
+              if (widget.comment.parent == PeamanCommentParent.comment)
+                Transform.flip(
+                  flipX: true,
+                  child: const Icon(
+                    Icons.reply,
+                  ),
+                ).pL(20.0),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(_borderRadius.spMin),
+                    color: PeamanColors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _profileImageBuilder(),
+                          SizedBox(
+                            width: 10.spMin,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _headerBuilder(),
+                                _bodyBuilder(),
+                                SizedBox(
+                                  height: 5.spMin,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ).pad(10.0),
+                      _footerBuilder(),
+                    ],
+                  ),
+                ).pX(20.0),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget _profileImageBuilder() {
@@ -214,60 +252,117 @@ class _PeamanCommentsListItemState
         ),
         color: PeamanColors.extraLightGrey2,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              SvgPicture.asset(
-                'assets/svgs/outlined_love.svg',
-                package: 'peaman_ui_components',
-                width: 18.spMin,
-                color: isActive ? PeamanColors.midLightGrey : PeamanColors.grey,
-              ).pY(15.0).pL(10.0).pR(5.0),
-              PeamanText.body2(
-                '${widget.comment.reactionsCount} likes',
-                style: TextStyle(
-                  fontSize: 12.spMin,
+      child: Consumer(
+        builder: (context, ref, child) {
+          final createCommentState = ref.watch(
+            providerOfPeamanCommentsListItemProvider(widget.comment.id!)
+                .select((value) => value.createCommentState),
+          );
+          final isLoading = createCommentState.maybeWhen(
+            loading: () => true,
+            orElse: () => false,
+          );
+          if (isLoading) {
+            return const Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                PeamanSpinner(
+                  size: 18.0,
                 ),
-              ),
-            ],
-          ),
-          if (widget.comment.parent == PeamanCommentParent.feed)
-            Consumer(
-              builder: (context, ref, child) {
-                final isRepliesVisible = ref.watch(
-                  providerOfPeamanCommentsListItemProvider(widget.comment.id!)
-                      .select((value) => value.isRepliesVisible),
-                );
+              ],
+            ).pXY(10.0, 15.0);
+          }
 
-                return Row(
-                  children: [
-                    PeamanText.body2(
-                      '${widget.comment.repliesCount}',
-                      style: TextStyle(
-                        fontSize: 12.spMin,
-                        color: isRepliesVisible ? PeamanColors.secondary : null,
-                      ),
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/svgs/outlined_love.svg',
+                    package: 'peaman_ui_components',
+                    width: 18.spMin,
+                    color: isActive
+                        ? PeamanColors.midLightGrey
+                        : PeamanColors.grey,
+                  ).pY(15.0).pL(10.0).pR(5.0),
+                  PeamanText.body2(
+                    '${widget.comment.reactionsCount} likes',
+                    style: TextStyle(
+                      fontSize: 12.spMin,
                     ),
-                    SizedBox(
-                      width: 5.spMin,
-                    ),
-                    SvgPicture.asset(
-                      'assets/svgs/outlined_comment.svg',
-                      package: 'peaman_ui_components',
-                      width: 18.spMin,
-                      color: isRepliesVisible
-                          ? PeamanColors.secondary
-                          : PeamanColors.grey,
-                    ),
-                  ],
-                ).pXY(10.0, 15.0).onPressed(_handleRepliesButtonPressed);
-              },
-            ),
-        ],
+                  ),
+                ],
+              ),
+              if (widget.comment.parent == PeamanCommentParent.feed)
+                Consumer(
+                  builder: (context, ref, child) {
+                    final isRepliesVisible = ref.watch(
+                      providerOfPeamanCommentsListItemProvider(
+                              widget.comment.id!)
+                          .select((value) => value.isRepliesVisible),
+                    );
+
+                    return Row(
+                      children: [
+                        PeamanText.body2(
+                          '${widget.comment.repliesCount}',
+                          style: TextStyle(
+                            fontSize: 12.spMin,
+                            color: isRepliesVisible
+                                ? PeamanColors.secondary
+                                : null,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.spMin,
+                        ),
+                        SvgPicture.asset(
+                          'assets/svgs/outlined_comment.svg',
+                          package: 'peaman_ui_components',
+                          width: 18.spMin,
+                          color: isRepliesVisible
+                              ? PeamanColors.secondary
+                              : PeamanColors.grey,
+                        ),
+                      ],
+                    ).pXY(10.0, 15.0).onPressed(_handleRepliesButtonPressed);
+                  },
+                ),
+            ],
+          );
+        },
       ),
     );
+  }
+
+  void _onInit() {
+    _handleCreateComment();
+  }
+
+  /// Creates a new comment if the comment is local.
+  void _handleCreateComment() {
+    if (widget.comment.isLocal) {
+      // if the comment is local then post the comment to firestore
+
+      // remove the isLocal key from the extra data
+      final newExtra = Map<String, dynamic>.from(
+        widget.comment.extraData,
+      )..remove('is_local');
+
+      ref
+          .read(
+            providerOfPeamanCommentsListItemProvider(
+              widget.comment.id!,
+            ).notifier,
+          )
+          // posts the comment to firestore
+          .createComment(
+            comment: widget.comment.copyWith(
+              extraData: newExtra,
+            ),
+          );
+    }
   }
 
   /// Toggle the visibility of the replies.

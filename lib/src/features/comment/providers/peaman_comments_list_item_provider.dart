@@ -1,4 +1,5 @@
-import 'package:peaman_ui_components/peaman_ui_components.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart'
+    hide CreateCommentState;
 import 'package:peaman_ui_components/src/features/comment/providers/states/peaman_comments_list_item_provider_state.dart';
 
 /// Provider of [PeamanCommentsListItemProvider].
@@ -60,6 +61,35 @@ class PeamanCommentsListItemProvider
       (error) {
         state = state.copyWith(
           fetchCommentsReplyState: FetchCommentsReplyState.error(error),
+        );
+      },
+    );
+  }
+
+  /// Creates a comment.
+  ///
+  /// The [comment] is the comment to be created.
+  Future<void> createComment({
+    required final PeamanComment comment,
+  }) async {
+    state = state.copyWith(
+      createCommentState: const CreateCommentState.loading(),
+    );
+
+    final result = await _feedRepository.createComment(
+      comment: comment,
+    );
+    if (!mounted) return;
+
+    result.when(
+      (success) {
+        state = state.copyWith(
+          createCommentState: CreateCommentState.success(success),
+        );
+      },
+      (error) {
+        state = state.copyWith(
+          createCommentState: CreateCommentState.error(error),
         );
       },
     );
