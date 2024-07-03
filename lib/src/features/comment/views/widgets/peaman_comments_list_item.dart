@@ -285,9 +285,15 @@ class _PeamanCommentsListItemState
                     color: isActive
                         ? PeamanColors.midLightGrey
                         : PeamanColors.grey,
-                  ).pY(15.0).pL(10.0).pR(5.0),
+                  )
+                      .pY(15.0)
+                      .pL(10.0)
+                      .pR(5.0)
+                      .onPressed(_handleLikeButtonPressed),
                   PeamanText.body2(
-                    '${widget.comment.reactionsCount} likes',
+                    widget.comment.reactionsCount == 1
+                        ? '1 like'
+                        : '${widget.comment.reactionsCount} likes',
                     style: TextStyle(
                       fontSize: 12.spMin,
                     ),
@@ -363,6 +369,21 @@ class _PeamanCommentsListItemState
             ),
           );
     }
+  }
+
+  /// Reacts to the comment.
+  void _handleLikeButtonPressed() {
+    ref
+        .read(
+          providerOfPeamanCommentsListItemProvider(
+            widget.comment.id!,
+          ).notifier,
+        )
+        .reactToComment(
+          feedId: widget.comment.feedId!,
+          commentId: widget.comment.id!,
+          commentOwnerId: widget.comment.ownerId!,
+        );
   }
 
   /// Toggle the visibility of the replies.
