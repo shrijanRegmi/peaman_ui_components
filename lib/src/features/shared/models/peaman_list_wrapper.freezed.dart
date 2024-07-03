@@ -12,7 +12,7 @@ part of 'peaman_list_wrapper.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanListWrapper<T> {
@@ -58,22 +58,22 @@ class _$PeamanListWrapperCopyWithImpl<T, $Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanListWrapperCopyWith<T, $Res>
+abstract class _$$PeamanListWrapperImplCopyWith<T, $Res>
     implements $PeamanListWrapperCopyWith<T, $Res> {
-  factory _$$_PeamanListWrapperCopyWith(_$_PeamanListWrapper<T> value,
-          $Res Function(_$_PeamanListWrapper<T>) then) =
-      __$$_PeamanListWrapperCopyWithImpl<T, $Res>;
+  factory _$$PeamanListWrapperImplCopyWith(_$PeamanListWrapperImpl<T> value,
+          $Res Function(_$PeamanListWrapperImpl<T>) then) =
+      __$$PeamanListWrapperImplCopyWithImpl<T, $Res>;
   @override
   @useResult
   $Res call({List<T> values});
 }
 
 /// @nodoc
-class __$$_PeamanListWrapperCopyWithImpl<T, $Res>
-    extends _$PeamanListWrapperCopyWithImpl<T, $Res, _$_PeamanListWrapper<T>>
-    implements _$$_PeamanListWrapperCopyWith<T, $Res> {
-  __$$_PeamanListWrapperCopyWithImpl(_$_PeamanListWrapper<T> _value,
-      $Res Function(_$_PeamanListWrapper<T>) _then)
+class __$$PeamanListWrapperImplCopyWithImpl<T, $Res>
+    extends _$PeamanListWrapperCopyWithImpl<T, $Res, _$PeamanListWrapperImpl<T>>
+    implements _$$PeamanListWrapperImplCopyWith<T, $Res> {
+  __$$PeamanListWrapperImplCopyWithImpl(_$PeamanListWrapperImpl<T> _value,
+      $Res Function(_$PeamanListWrapperImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -81,7 +81,7 @@ class __$$_PeamanListWrapperCopyWithImpl<T, $Res>
   $Res call({
     Object? values = null,
   }) {
-    return _then(_$_PeamanListWrapper<T>(
+    return _then(_$PeamanListWrapperImpl<T>(
       values: null == values
           ? _value._values
           : values // ignore: cast_nullable_to_non_nullable
@@ -92,8 +92,8 @@ class __$$_PeamanListWrapperCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$_PeamanListWrapper<T> implements _PeamanListWrapper<T> {
-  const _$_PeamanListWrapper({required final List<T> values})
+class _$PeamanListWrapperImpl<T> implements _PeamanListWrapper<T> {
+  const _$PeamanListWrapperImpl({required final List<T> values})
       : _values = values;
 
   final List<T> _values;
@@ -110,10 +110,10 @@ class _$_PeamanListWrapper<T> implements _PeamanListWrapper<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanListWrapper<T> &&
+            other is _$PeamanListWrapperImpl<T> &&
             const DeepCollectionEquality().equals(other._values, _values));
   }
 
@@ -124,19 +124,20 @@ class _$_PeamanListWrapper<T> implements _PeamanListWrapper<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanListWrapperCopyWith<T, _$_PeamanListWrapper<T>> get copyWith =>
-      __$$_PeamanListWrapperCopyWithImpl<T, _$_PeamanListWrapper<T>>(
-          this, _$identity);
+  _$$PeamanListWrapperImplCopyWith<T, _$PeamanListWrapperImpl<T>>
+      get copyWith =>
+          __$$PeamanListWrapperImplCopyWithImpl<T, _$PeamanListWrapperImpl<T>>(
+              this, _$identity);
 }
 
 abstract class _PeamanListWrapper<T> implements PeamanListWrapper<T> {
   const factory _PeamanListWrapper({required final List<T> values}) =
-      _$_PeamanListWrapper<T>;
+      _$PeamanListWrapperImpl<T>;
 
   @override
   List<T> get values;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanListWrapperCopyWith<T, _$_PeamanListWrapper<T>> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PeamanListWrapperImplCopyWith<T, _$PeamanListWrapperImpl<T>>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -186,7 +186,7 @@ class _PeamanLoginScreenState extends ConsumerState<PeamanLoginScreen> {
             child: PeamanButton.bordered(
               icon: CachedNetworkImage(
                 imageUrl:
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png',
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png',
                 width: 20.0,
                 height: 20.0,
               ),

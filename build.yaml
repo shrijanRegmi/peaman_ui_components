@@ -10,3 +10,7 @@ targets:
           field_rename: snake
           include_if_null: false
           explicit_to_json: true
+    sources:
+      exclude:
+        - .fvm/**
+        - example/**

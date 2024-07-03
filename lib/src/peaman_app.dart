@@ -24,6 +24,7 @@ class PeamanApp extends StatelessWidget {
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
+        useInheritedMediaQuery: true,
         builder: (context, child) {
           return _MaterialApp(
             title: title,

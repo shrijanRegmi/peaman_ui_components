@@ -12,7 +12,7 @@ part of 'peaman_onboarding_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanOnboardingProviderState {
@@ -146,12 +146,12 @@ class _$PeamanOnboardingProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanOnboardingProviderStateCopyWith<$Res>
+abstract class _$$PeamanOnboardingProviderStateImplCopyWith<$Res>
     implements $PeamanOnboardingProviderStateCopyWith<$Res> {
-  factory _$$_PeamanOnboardingProviderStateCopyWith(
-          _$_PeamanOnboardingProviderState value,
-          $Res Function(_$_PeamanOnboardingProviderState) then) =
-      __$$_PeamanOnboardingProviderStateCopyWithImpl<$Res>;
+  factory _$$PeamanOnboardingProviderStateImplCopyWith(
+          _$PeamanOnboardingProviderStateImpl value,
+          $Res Function(_$PeamanOnboardingProviderStateImpl) then) =
+      __$$PeamanOnboardingProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -172,13 +172,13 @@ abstract class _$$_PeamanOnboardingProviderStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeamanOnboardingProviderStateCopyWithImpl<$Res>
+class __$$PeamanOnboardingProviderStateImplCopyWithImpl<$Res>
     extends _$PeamanOnboardingProviderStateCopyWithImpl<$Res,
-        _$_PeamanOnboardingProviderState>
-    implements _$$_PeamanOnboardingProviderStateCopyWith<$Res> {
-  __$$_PeamanOnboardingProviderStateCopyWithImpl(
-      _$_PeamanOnboardingProviderState _value,
-      $Res Function(_$_PeamanOnboardingProviderState) _then)
+        _$PeamanOnboardingProviderStateImpl>
+    implements _$$PeamanOnboardingProviderStateImplCopyWith<$Res> {
+  __$$PeamanOnboardingProviderStateImplCopyWithImpl(
+      _$PeamanOnboardingProviderStateImpl _value,
+      $Res Function(_$PeamanOnboardingProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -196,7 +196,7 @@ class __$$_PeamanOnboardingProviderStateCopyWithImpl<$Res>
     Object? isProfilePictureUploaded = null,
     Object? updateOnboardingInfoState = null,
   }) {
-    return _then(_$_PeamanOnboardingProviderState(
+    return _then(_$PeamanOnboardingProviderStateImpl(
       onboardingStep: null == onboardingStep
           ? _value.onboardingStep
           : onboardingStep // ignore: cast_nullable_to_non_nullable
@@ -247,9 +247,9 @@ class __$$_PeamanOnboardingProviderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanOnboardingProviderState
+class _$PeamanOnboardingProviderStateImpl
     implements _PeamanOnboardingProviderState {
-  const _$_PeamanOnboardingProviderState(
+  const _$PeamanOnboardingProviderStateImpl(
       {this.onboardingStep = 0,
       required this.nameController,
       required this.usernameController,
@@ -297,10 +297,10 @@ class _$_PeamanOnboardingProviderState
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanOnboardingProviderState &&
+            other is _$PeamanOnboardingProviderStateImpl &&
             (identical(other.onboardingStep, onboardingStep) ||
                 other.onboardingStep == onboardingStep) &&
             (identical(other.nameController, nameController) ||
@@ -347,9 +347,10 @@ class _$_PeamanOnboardingProviderState
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanOnboardingProviderStateCopyWith<_$_PeamanOnboardingProviderState>
-      get copyWith => __$$_PeamanOnboardingProviderStateCopyWithImpl<
-          _$_PeamanOnboardingProviderState>(this, _$identity);
+  _$$PeamanOnboardingProviderStateImplCopyWith<
+          _$PeamanOnboardingProviderStateImpl>
+      get copyWith => __$$PeamanOnboardingProviderStateImplCopyWithImpl<
+          _$PeamanOnboardingProviderStateImpl>(this, _$identity);
 }
 
 abstract class _PeamanOnboardingProviderState
@@ -366,7 +367,7 @@ abstract class _PeamanOnboardingProviderState
           final double profilePictureUploadProgress,
           final bool isProfilePictureUploaded,
           final UpdateOnboardingInfoState updateOnboardingInfoState}) =
-      _$_PeamanOnboardingProviderState;
+      _$PeamanOnboardingProviderStateImpl;
 
   @override
   int get onboardingStep;
@@ -392,7 +393,8 @@ abstract class _PeamanOnboardingProviderState
   UpdateOnboardingInfoState get updateOnboardingInfoState;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanOnboardingProviderStateCopyWith<_$_PeamanOnboardingProviderState>
+  _$$PeamanOnboardingProviderStateImplCopyWith<
+          _$PeamanOnboardingProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -470,29 +472,29 @@ class _$UpdateOnboardingInfoStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$UpdateOnboardingInfoStateInitialCopyWith<$Res> {
-  factory _$$UpdateOnboardingInfoStateInitialCopyWith(
-          _$UpdateOnboardingInfoStateInitial value,
-          $Res Function(_$UpdateOnboardingInfoStateInitial) then) =
-      __$$UpdateOnboardingInfoStateInitialCopyWithImpl<$Res>;
+abstract class _$$UpdateOnboardingInfoStateInitialImplCopyWith<$Res> {
+  factory _$$UpdateOnboardingInfoStateInitialImplCopyWith(
+          _$UpdateOnboardingInfoStateInitialImpl value,
+          $Res Function(_$UpdateOnboardingInfoStateInitialImpl) then) =
+      __$$UpdateOnboardingInfoStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UpdateOnboardingInfoStateInitialCopyWithImpl<$Res>
+class __$$UpdateOnboardingInfoStateInitialImplCopyWithImpl<$Res>
     extends _$UpdateOnboardingInfoStateCopyWithImpl<$Res,
-        _$UpdateOnboardingInfoStateInitial>
-    implements _$$UpdateOnboardingInfoStateInitialCopyWith<$Res> {
-  __$$UpdateOnboardingInfoStateInitialCopyWithImpl(
-      _$UpdateOnboardingInfoStateInitial _value,
-      $Res Function(_$UpdateOnboardingInfoStateInitial) _then)
+        _$UpdateOnboardingInfoStateInitialImpl>
+    implements _$$UpdateOnboardingInfoStateInitialImplCopyWith<$Res> {
+  __$$UpdateOnboardingInfoStateInitialImplCopyWithImpl(
+      _$UpdateOnboardingInfoStateInitialImpl _value,
+      $Res Function(_$UpdateOnboardingInfoStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$UpdateOnboardingInfoStateInitial
+class _$UpdateOnboardingInfoStateInitialImpl
     implements UpdateOnboardingInfoStateInitial {
-  const _$UpdateOnboardingInfoStateInitial();
+  const _$UpdateOnboardingInfoStateInitialImpl();
 
   @override
   String toString() {
@@ -500,10 +502,10 @@ class _$UpdateOnboardingInfoStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateOnboardingInfoStateInitial);
+            other is _$UpdateOnboardingInfoStateInitialImpl);
   }
 
   @override
@@ -587,33 +589,33 @@ class _$UpdateOnboardingInfoStateInitial
 abstract class UpdateOnboardingInfoStateInitial
     implements UpdateOnboardingInfoState {
   const factory UpdateOnboardingInfoStateInitial() =
-      _$UpdateOnboardingInfoStateInitial;
+      _$UpdateOnboardingInfoStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$UpdateOnboardingInfoStateLoadingCopyWith<$Res> {
-  factory _$$UpdateOnboardingInfoStateLoadingCopyWith(
-          _$UpdateOnboardingInfoStateLoading value,
-          $Res Function(_$UpdateOnboardingInfoStateLoading) then) =
-      __$$UpdateOnboardingInfoStateLoadingCopyWithImpl<$Res>;
+abstract class _$$UpdateOnboardingInfoStateLoadingImplCopyWith<$Res> {
+  factory _$$UpdateOnboardingInfoStateLoadingImplCopyWith(
+          _$UpdateOnboardingInfoStateLoadingImpl value,
+          $Res Function(_$UpdateOnboardingInfoStateLoadingImpl) then) =
+      __$$UpdateOnboardingInfoStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UpdateOnboardingInfoStateLoadingCopyWithImpl<$Res>
+class __$$UpdateOnboardingInfoStateLoadingImplCopyWithImpl<$Res>
     extends _$UpdateOnboardingInfoStateCopyWithImpl<$Res,
-        _$UpdateOnboardingInfoStateLoading>
-    implements _$$UpdateOnboardingInfoStateLoadingCopyWith<$Res> {
-  __$$UpdateOnboardingInfoStateLoadingCopyWithImpl(
-      _$UpdateOnboardingInfoStateLoading _value,
-      $Res Function(_$UpdateOnboardingInfoStateLoading) _then)
+        _$UpdateOnboardingInfoStateLoadingImpl>
+    implements _$$UpdateOnboardingInfoStateLoadingImplCopyWith<$Res> {
+  __$$UpdateOnboardingInfoStateLoadingImplCopyWithImpl(
+      _$UpdateOnboardingInfoStateLoadingImpl _value,
+      $Res Function(_$UpdateOnboardingInfoStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$UpdateOnboardingInfoStateLoading
+class _$UpdateOnboardingInfoStateLoadingImpl
     implements UpdateOnboardingInfoStateLoading {
-  const _$UpdateOnboardingInfoStateLoading();
+  const _$UpdateOnboardingInfoStateLoadingImpl();
 
   @override
   String toString() {
@@ -621,10 +623,10 @@ class _$UpdateOnboardingInfoStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateOnboardingInfoStateLoading);
+            other is _$UpdateOnboardingInfoStateLoadingImpl);
   }
 
   @override
@@ -708,27 +710,27 @@ class _$UpdateOnboardingInfoStateLoading
 abstract class UpdateOnboardingInfoStateLoading
     implements UpdateOnboardingInfoState {
   const factory UpdateOnboardingInfoStateLoading() =
-      _$UpdateOnboardingInfoStateLoading;
+      _$UpdateOnboardingInfoStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$UpdateOnboardingInfoStateSuccessCopyWith<$Res> {
-  factory _$$UpdateOnboardingInfoStateSuccessCopyWith(
-          _$UpdateOnboardingInfoStateSuccess value,
-          $Res Function(_$UpdateOnboardingInfoStateSuccess) then) =
-      __$$UpdateOnboardingInfoStateSuccessCopyWithImpl<$Res>;
+abstract class _$$UpdateOnboardingInfoStateSuccessImplCopyWith<$Res> {
+  factory _$$UpdateOnboardingInfoStateSuccessImplCopyWith(
+          _$UpdateOnboardingInfoStateSuccessImpl value,
+          $Res Function(_$UpdateOnboardingInfoStateSuccessImpl) then) =
+      __$$UpdateOnboardingInfoStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$UpdateOnboardingInfoStateSuccessCopyWithImpl<$Res>
+class __$$UpdateOnboardingInfoStateSuccessImplCopyWithImpl<$Res>
     extends _$UpdateOnboardingInfoStateCopyWithImpl<$Res,
-        _$UpdateOnboardingInfoStateSuccess>
-    implements _$$UpdateOnboardingInfoStateSuccessCopyWith<$Res> {
-  __$$UpdateOnboardingInfoStateSuccessCopyWithImpl(
-      _$UpdateOnboardingInfoStateSuccess _value,
-      $Res Function(_$UpdateOnboardingInfoStateSuccess) _then)
+        _$UpdateOnboardingInfoStateSuccessImpl>
+    implements _$$UpdateOnboardingInfoStateSuccessImplCopyWith<$Res> {
+  __$$UpdateOnboardingInfoStateSuccessImplCopyWithImpl(
+      _$UpdateOnboardingInfoStateSuccessImpl _value,
+      $Res Function(_$UpdateOnboardingInfoStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -736,7 +738,7 @@ class __$$UpdateOnboardingInfoStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$UpdateOnboardingInfoStateSuccess(
+    return _then(_$UpdateOnboardingInfoStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -747,9 +749,9 @@ class __$$UpdateOnboardingInfoStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UpdateOnboardingInfoStateSuccess
+class _$UpdateOnboardingInfoStateSuccessImpl
     implements UpdateOnboardingInfoStateSuccess {
-  const _$UpdateOnboardingInfoStateSuccess(this.result);
+  const _$UpdateOnboardingInfoStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -760,10 +762,10 @@ class _$UpdateOnboardingInfoStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateOnboardingInfoStateSuccess &&
+            other is _$UpdateOnboardingInfoStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -773,10 +775,10 @@ class _$UpdateOnboardingInfoStateSuccess
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateOnboardingInfoStateSuccessCopyWith<
-          _$UpdateOnboardingInfoStateSuccess>
-      get copyWith => __$$UpdateOnboardingInfoStateSuccessCopyWithImpl<
-          _$UpdateOnboardingInfoStateSuccess>(this, _$identity);
+  _$$UpdateOnboardingInfoStateSuccessImplCopyWith<
+          _$UpdateOnboardingInfoStateSuccessImpl>
+      get copyWith => __$$UpdateOnboardingInfoStateSuccessImplCopyWithImpl<
+          _$UpdateOnboardingInfoStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -856,21 +858,21 @@ class _$UpdateOnboardingInfoStateSuccess
 abstract class UpdateOnboardingInfoStateSuccess
     implements UpdateOnboardingInfoState {
   const factory UpdateOnboardingInfoStateSuccess(final bool result) =
-      _$UpdateOnboardingInfoStateSuccess;
+      _$UpdateOnboardingInfoStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$UpdateOnboardingInfoStateSuccessCopyWith<
-          _$UpdateOnboardingInfoStateSuccess>
+  _$$UpdateOnboardingInfoStateSuccessImplCopyWith<
+          _$UpdateOnboardingInfoStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateOnboardingInfoStateErrorCopyWith<$Res> {
-  factory _$$UpdateOnboardingInfoStateErrorCopyWith(
-          _$UpdateOnboardingInfoStateError value,
-          $Res Function(_$UpdateOnboardingInfoStateError) then) =
-      __$$UpdateOnboardingInfoStateErrorCopyWithImpl<$Res>;
+abstract class _$$UpdateOnboardingInfoStateErrorImplCopyWith<$Res> {
+  factory _$$UpdateOnboardingInfoStateErrorImplCopyWith(
+          _$UpdateOnboardingInfoStateErrorImpl value,
+          $Res Function(_$UpdateOnboardingInfoStateErrorImpl) then) =
+      __$$UpdateOnboardingInfoStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -878,13 +880,13 @@ abstract class _$$UpdateOnboardingInfoStateErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UpdateOnboardingInfoStateErrorCopyWithImpl<$Res>
+class __$$UpdateOnboardingInfoStateErrorImplCopyWithImpl<$Res>
     extends _$UpdateOnboardingInfoStateCopyWithImpl<$Res,
-        _$UpdateOnboardingInfoStateError>
-    implements _$$UpdateOnboardingInfoStateErrorCopyWith<$Res> {
-  __$$UpdateOnboardingInfoStateErrorCopyWithImpl(
-      _$UpdateOnboardingInfoStateError _value,
-      $Res Function(_$UpdateOnboardingInfoStateError) _then)
+        _$UpdateOnboardingInfoStateErrorImpl>
+    implements _$$UpdateOnboardingInfoStateErrorImplCopyWith<$Res> {
+  __$$UpdateOnboardingInfoStateErrorImplCopyWithImpl(
+      _$UpdateOnboardingInfoStateErrorImpl _value,
+      $Res Function(_$UpdateOnboardingInfoStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -892,7 +894,7 @@ class __$$UpdateOnboardingInfoStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$UpdateOnboardingInfoStateError(
+    return _then(_$UpdateOnboardingInfoStateErrorImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -911,9 +913,9 @@ class __$$UpdateOnboardingInfoStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UpdateOnboardingInfoStateError
+class _$UpdateOnboardingInfoStateErrorImpl
     implements UpdateOnboardingInfoStateError {
-  const _$UpdateOnboardingInfoStateError(this.error);
+  const _$UpdateOnboardingInfoStateErrorImpl(this.error);
 
   @override
   final PeamanError error;
@@ -924,10 +926,10 @@ class _$UpdateOnboardingInfoStateError
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateOnboardingInfoStateError &&
+            other is _$UpdateOnboardingInfoStateErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -937,9 +939,10 @@ class _$UpdateOnboardingInfoStateError
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateOnboardingInfoStateErrorCopyWith<_$UpdateOnboardingInfoStateError>
-      get copyWith => __$$UpdateOnboardingInfoStateErrorCopyWithImpl<
-          _$UpdateOnboardingInfoStateError>(this, _$identity);
+  _$$UpdateOnboardingInfoStateErrorImplCopyWith<
+          _$UpdateOnboardingInfoStateErrorImpl>
+      get copyWith => __$$UpdateOnboardingInfoStateErrorImplCopyWithImpl<
+          _$UpdateOnboardingInfoStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1019,10 +1022,11 @@ class _$UpdateOnboardingInfoStateError
 abstract class UpdateOnboardingInfoStateError
     implements UpdateOnboardingInfoState {
   const factory UpdateOnboardingInfoStateError(final PeamanError error) =
-      _$UpdateOnboardingInfoStateError;
+      _$UpdateOnboardingInfoStateErrorImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$UpdateOnboardingInfoStateErrorCopyWith<_$UpdateOnboardingInfoStateError>
+  _$$UpdateOnboardingInfoStateErrorImplCopyWith<
+          _$UpdateOnboardingInfoStateErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -40,6 +40,7 @@ class PeamanText extends StatefulWidget {
   final TextStyle? readMoreTextStyle;
   final int? limit;
   final double? height;
+  final double readMoreTextSpace;
   final Function(ScrollNotification)? onScroll;
   final Function(bool)? onPressedShowMore;
 
@@ -58,6 +59,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.heading1,
@@ -78,6 +80,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.heading2,
@@ -98,6 +101,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.heading3,
@@ -118,6 +122,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.heading4,
@@ -138,6 +143,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.heading5,
@@ -158,6 +164,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.heading6,
@@ -178,6 +185,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.subtitle1,
@@ -198,6 +206,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.subtitle2,
@@ -218,6 +227,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.body1,
@@ -238,6 +248,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.body2,
@@ -258,6 +269,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.button,
@@ -278,6 +290,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.caption,
@@ -298,6 +311,7 @@ class PeamanText extends StatefulWidget {
     this.withReadMore = false,
     this.readMoreTextStyle,
     this.height,
+    this.readMoreTextSpace = 8.0,
     this.onScroll,
     this.onPressedShowMore,
   })  : type = _Type.overline,
@@ -447,8 +461,8 @@ class _PTextState extends State<PeamanText> {
         ),
         if (widget.withReadMore &&
             (widget.value?.length ?? 0) > (widget.limit ?? 0))
-          const SizedBox(
-            height: 8.0,
+          SizedBox(
+            height: widget.readMoreTextSpace.spMin,
           ),
         if (widget.withReadMore &&
             (widget.value?.length ?? 0) > (widget.limit ?? 0))

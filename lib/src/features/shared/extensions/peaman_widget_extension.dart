@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peaman_ui_components/peaman_ui_components.dart';
 
 extension WidgetExt on Widget {
   Widget onPressed(final Function()? onPressed) => GestureDetector(
@@ -64,4 +64,13 @@ extension WidgetExt on Widget {
         padding: EdgeInsets.all(val.w),
         child: this,
       );
+
+  /// A wrapper for a widget, on pressing the widget, the keyboard will be dismissed.
+  Widget keyboardDismisser(final BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.unfocus(),
+      behavior: HitTestBehavior.opaque,
+      child: this,
+    );
+  }
 }

@@ -6,17 +6,17 @@ part of 'peaman_feed_extra_data_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PeamanFeedExtraData _$$_PeamanFeedExtraDataFromJson(
+_$PeamanFeedExtraDataImpl _$$PeamanFeedExtraDataImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PeamanFeedExtraData(
+    _$PeamanFeedExtraDataImpl(
       appUserSelectedPollOptionId:
           json['app_user_selected_poll_option_id'] as String?,
       isReacted: json['is_reacted'] as bool? ?? false,
       isSaved: json['is_saved'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_PeamanFeedExtraDataToJson(
-    _$_PeamanFeedExtraData instance) {
+Map<String, dynamic> _$$PeamanFeedExtraDataImplToJson(
+    _$PeamanFeedExtraDataImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

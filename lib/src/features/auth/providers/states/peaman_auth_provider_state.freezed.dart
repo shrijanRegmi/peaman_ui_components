@@ -12,7 +12,7 @@ part of 'peaman_auth_provider_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PeamanAuthProviderState {
@@ -143,11 +143,12 @@ class _$PeamanAuthProviderStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanAuthProviderStateCopyWith<$Res>
+abstract class _$$PeamanAuthProviderStateImplCopyWith<$Res>
     implements $PeamanAuthProviderStateCopyWith<$Res> {
-  factory _$$_PeamanAuthProviderStateCopyWith(_$_PeamanAuthProviderState value,
-          $Res Function(_$_PeamanAuthProviderState) then) =
-      __$$_PeamanAuthProviderStateCopyWithImpl<$Res>;
+  factory _$$PeamanAuthProviderStateImplCopyWith(
+          _$PeamanAuthProviderStateImpl value,
+          $Res Function(_$PeamanAuthProviderStateImpl) then) =
+      __$$PeamanAuthProviderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -170,12 +171,13 @@ abstract class _$$_PeamanAuthProviderStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeamanAuthProviderStateCopyWithImpl<$Res>
+class __$$PeamanAuthProviderStateImplCopyWithImpl<$Res>
     extends _$PeamanAuthProviderStateCopyWithImpl<$Res,
-        _$_PeamanAuthProviderState>
-    implements _$$_PeamanAuthProviderStateCopyWith<$Res> {
-  __$$_PeamanAuthProviderStateCopyWithImpl(_$_PeamanAuthProviderState _value,
-      $Res Function(_$_PeamanAuthProviderState) _then)
+        _$PeamanAuthProviderStateImpl>
+    implements _$$PeamanAuthProviderStateImplCopyWith<$Res> {
+  __$$PeamanAuthProviderStateImplCopyWithImpl(
+      _$PeamanAuthProviderStateImpl _value,
+      $Res Function(_$PeamanAuthProviderStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -187,7 +189,7 @@ class __$$_PeamanAuthProviderStateCopyWithImpl<$Res>
     Object? signInWithFacebookState = null,
     Object? signOutState = null,
   }) {
-    return _then(_$_PeamanAuthProviderState(
+    return _then(_$PeamanAuthProviderStateImpl(
       signInWithEmailPasswordState: null == signInWithEmailPasswordState
           ? _value.signInWithEmailPasswordState
           : signInWithEmailPasswordState // ignore: cast_nullable_to_non_nullable
@@ -214,8 +216,8 @@ class __$$_PeamanAuthProviderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
-  const _$_PeamanAuthProviderState(
+class _$PeamanAuthProviderStateImpl implements _PeamanAuthProviderState {
+  const _$PeamanAuthProviderStateImpl(
       {this.signInWithEmailPasswordState =
           const SignInWithEmailPasswordState.initial(),
       this.signUpWithEmailPasswordState =
@@ -246,10 +248,10 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanAuthProviderState &&
+            other is _$PeamanAuthProviderStateImpl &&
             (identical(other.signInWithEmailPasswordState,
                     signInWithEmailPasswordState) ||
                 other.signInWithEmailPasswordState ==
@@ -279,10 +281,9 @@ class _$_PeamanAuthProviderState implements _PeamanAuthProviderState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanAuthProviderStateCopyWith<_$_PeamanAuthProviderState>
-      get copyWith =>
-          __$$_PeamanAuthProviderStateCopyWithImpl<_$_PeamanAuthProviderState>(
-              this, _$identity);
+  _$$PeamanAuthProviderStateImplCopyWith<_$PeamanAuthProviderStateImpl>
+      get copyWith => __$$PeamanAuthProviderStateImplCopyWithImpl<
+          _$PeamanAuthProviderStateImpl>(this, _$identity);
 }
 
 abstract class _PeamanAuthProviderState implements PeamanAuthProviderState {
@@ -291,7 +292,7 @@ abstract class _PeamanAuthProviderState implements PeamanAuthProviderState {
       final SignUpWithEmailPasswordState signUpWithEmailPasswordState,
       final SignInWithGoogleState signInWithGoogleState,
       final SignInWithFacebookState signInWithFacebookState,
-      final SignOutState signOutState}) = _$_PeamanAuthProviderState;
+      final SignOutState signOutState}) = _$PeamanAuthProviderStateImpl;
 
   @override
   SignInWithEmailPasswordState get signInWithEmailPasswordState;
@@ -305,7 +306,7 @@ abstract class _PeamanAuthProviderState implements PeamanAuthProviderState {
   SignOutState get signOutState;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanAuthProviderStateCopyWith<_$_PeamanAuthProviderState>
+  _$$PeamanAuthProviderStateImplCopyWith<_$PeamanAuthProviderStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -388,29 +389,29 @@ class _$SignInWithEmailPasswordStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SignInWithEmailPasswordStateInitialCopyWith<$Res> {
-  factory _$$_SignInWithEmailPasswordStateInitialCopyWith(
-          _$_SignInWithEmailPasswordStateInitial value,
-          $Res Function(_$_SignInWithEmailPasswordStateInitial) then) =
-      __$$_SignInWithEmailPasswordStateInitialCopyWithImpl<$Res>;
+abstract class _$$SignInWithEmailPasswordStateInitialImplCopyWith<$Res> {
+  factory _$$SignInWithEmailPasswordStateInitialImplCopyWith(
+          _$SignInWithEmailPasswordStateInitialImpl value,
+          $Res Function(_$SignInWithEmailPasswordStateInitialImpl) then) =
+      __$$SignInWithEmailPasswordStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignInWithEmailPasswordStateInitialCopyWithImpl<$Res>
+class __$$SignInWithEmailPasswordStateInitialImplCopyWithImpl<$Res>
     extends _$SignInWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignInWithEmailPasswordStateInitial>
-    implements _$$_SignInWithEmailPasswordStateInitialCopyWith<$Res> {
-  __$$_SignInWithEmailPasswordStateInitialCopyWithImpl(
-      _$_SignInWithEmailPasswordStateInitial _value,
-      $Res Function(_$_SignInWithEmailPasswordStateInitial) _then)
+        _$SignInWithEmailPasswordStateInitialImpl>
+    implements _$$SignInWithEmailPasswordStateInitialImplCopyWith<$Res> {
+  __$$SignInWithEmailPasswordStateInitialImplCopyWithImpl(
+      _$SignInWithEmailPasswordStateInitialImpl _value,
+      $Res Function(_$SignInWithEmailPasswordStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignInWithEmailPasswordStateInitial
+class _$SignInWithEmailPasswordStateInitialImpl
     implements _SignInWithEmailPasswordStateInitial {
-  const _$_SignInWithEmailPasswordStateInitial();
+  const _$SignInWithEmailPasswordStateInitialImpl();
 
   @override
   String toString() {
@@ -418,10 +419,10 @@ class _$_SignInWithEmailPasswordStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithEmailPasswordStateInitial);
+            other is _$SignInWithEmailPasswordStateInitialImpl);
   }
 
   @override
@@ -508,33 +509,33 @@ class _$_SignInWithEmailPasswordStateInitial
 abstract class _SignInWithEmailPasswordStateInitial
     implements SignInWithEmailPasswordState {
   const factory _SignInWithEmailPasswordStateInitial() =
-      _$_SignInWithEmailPasswordStateInitial;
+      _$SignInWithEmailPasswordStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithEmailPasswordStateLoadingCopyWith<$Res> {
-  factory _$$_SignInWithEmailPasswordStateLoadingCopyWith(
-          _$_SignInWithEmailPasswordStateLoading value,
-          $Res Function(_$_SignInWithEmailPasswordStateLoading) then) =
-      __$$_SignInWithEmailPasswordStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SignInWithEmailPasswordStateLoadingImplCopyWith<$Res> {
+  factory _$$SignInWithEmailPasswordStateLoadingImplCopyWith(
+          _$SignInWithEmailPasswordStateLoadingImpl value,
+          $Res Function(_$SignInWithEmailPasswordStateLoadingImpl) then) =
+      __$$SignInWithEmailPasswordStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignInWithEmailPasswordStateLoadingCopyWithImpl<$Res>
+class __$$SignInWithEmailPasswordStateLoadingImplCopyWithImpl<$Res>
     extends _$SignInWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignInWithEmailPasswordStateLoading>
-    implements _$$_SignInWithEmailPasswordStateLoadingCopyWith<$Res> {
-  __$$_SignInWithEmailPasswordStateLoadingCopyWithImpl(
-      _$_SignInWithEmailPasswordStateLoading _value,
-      $Res Function(_$_SignInWithEmailPasswordStateLoading) _then)
+        _$SignInWithEmailPasswordStateLoadingImpl>
+    implements _$$SignInWithEmailPasswordStateLoadingImplCopyWith<$Res> {
+  __$$SignInWithEmailPasswordStateLoadingImplCopyWithImpl(
+      _$SignInWithEmailPasswordStateLoadingImpl _value,
+      $Res Function(_$SignInWithEmailPasswordStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignInWithEmailPasswordStateLoading
+class _$SignInWithEmailPasswordStateLoadingImpl
     implements _SignInWithEmailPasswordStateLoading {
-  const _$_SignInWithEmailPasswordStateLoading();
+  const _$SignInWithEmailPasswordStateLoadingImpl();
 
   @override
   String toString() {
@@ -542,10 +543,10 @@ class _$_SignInWithEmailPasswordStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithEmailPasswordStateLoading);
+            other is _$SignInWithEmailPasswordStateLoadingImpl);
   }
 
   @override
@@ -632,27 +633,27 @@ class _$_SignInWithEmailPasswordStateLoading
 abstract class _SignInWithEmailPasswordStateLoading
     implements SignInWithEmailPasswordState {
   const factory _SignInWithEmailPasswordStateLoading() =
-      _$_SignInWithEmailPasswordStateLoading;
+      _$SignInWithEmailPasswordStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithEmailPasswordStateSuccessCopyWith<$Res> {
-  factory _$$_SignInWithEmailPasswordStateSuccessCopyWith(
-          _$_SignInWithEmailPasswordStateSuccess value,
-          $Res Function(_$_SignInWithEmailPasswordStateSuccess) then) =
-      __$$_SignInWithEmailPasswordStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SignInWithEmailPasswordStateSuccessImplCopyWith<$Res> {
+  factory _$$SignInWithEmailPasswordStateSuccessImplCopyWith(
+          _$SignInWithEmailPasswordStateSuccessImpl value,
+          $Res Function(_$SignInWithEmailPasswordStateSuccessImpl) then) =
+      __$$SignInWithEmailPasswordStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_SignInWithEmailPasswordStateSuccessCopyWithImpl<$Res>
+class __$$SignInWithEmailPasswordStateSuccessImplCopyWithImpl<$Res>
     extends _$SignInWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignInWithEmailPasswordStateSuccess>
-    implements _$$_SignInWithEmailPasswordStateSuccessCopyWith<$Res> {
-  __$$_SignInWithEmailPasswordStateSuccessCopyWithImpl(
-      _$_SignInWithEmailPasswordStateSuccess _value,
-      $Res Function(_$_SignInWithEmailPasswordStateSuccess) _then)
+        _$SignInWithEmailPasswordStateSuccessImpl>
+    implements _$$SignInWithEmailPasswordStateSuccessImplCopyWith<$Res> {
+  __$$SignInWithEmailPasswordStateSuccessImplCopyWithImpl(
+      _$SignInWithEmailPasswordStateSuccessImpl _value,
+      $Res Function(_$SignInWithEmailPasswordStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -660,7 +661,7 @@ class __$$_SignInWithEmailPasswordStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SignInWithEmailPasswordStateSuccess(
+    return _then(_$SignInWithEmailPasswordStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -671,9 +672,9 @@ class __$$_SignInWithEmailPasswordStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInWithEmailPasswordStateSuccess
+class _$SignInWithEmailPasswordStateSuccessImpl
     implements _SignInWithEmailPasswordStateSuccess {
-  const _$_SignInWithEmailPasswordStateSuccess(this.result);
+  const _$SignInWithEmailPasswordStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -684,10 +685,10 @@ class _$_SignInWithEmailPasswordStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithEmailPasswordStateSuccess &&
+            other is _$SignInWithEmailPasswordStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -697,10 +698,10 @@ class _$_SignInWithEmailPasswordStateSuccess
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignInWithEmailPasswordStateSuccessCopyWith<
-          _$_SignInWithEmailPasswordStateSuccess>
-      get copyWith => __$$_SignInWithEmailPasswordStateSuccessCopyWithImpl<
-          _$_SignInWithEmailPasswordStateSuccess>(this, _$identity);
+  _$$SignInWithEmailPasswordStateSuccessImplCopyWith<
+          _$SignInWithEmailPasswordStateSuccessImpl>
+      get copyWith => __$$SignInWithEmailPasswordStateSuccessImplCopyWithImpl<
+          _$SignInWithEmailPasswordStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -783,21 +784,21 @@ class _$_SignInWithEmailPasswordStateSuccess
 abstract class _SignInWithEmailPasswordStateSuccess
     implements SignInWithEmailPasswordState {
   const factory _SignInWithEmailPasswordStateSuccess(final bool result) =
-      _$_SignInWithEmailPasswordStateSuccess;
+      _$SignInWithEmailPasswordStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_SignInWithEmailPasswordStateSuccessCopyWith<
-          _$_SignInWithEmailPasswordStateSuccess>
+  _$$SignInWithEmailPasswordStateSuccessImplCopyWith<
+          _$SignInWithEmailPasswordStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithEmailPasswordStateFailureCopyWith<$Res> {
-  factory _$$_SignInWithEmailPasswordStateFailureCopyWith(
-          _$_SignInWithEmailPasswordStateFailure value,
-          $Res Function(_$_SignInWithEmailPasswordStateFailure) then) =
-      __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<$Res>;
+abstract class _$$SignInWithEmailPasswordStateFailureImplCopyWith<$Res> {
+  factory _$$SignInWithEmailPasswordStateFailureImplCopyWith(
+          _$SignInWithEmailPasswordStateFailureImpl value,
+          $Res Function(_$SignInWithEmailPasswordStateFailureImpl) then) =
+      __$$SignInWithEmailPasswordStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -805,13 +806,13 @@ abstract class _$$_SignInWithEmailPasswordStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<$Res>
+class __$$SignInWithEmailPasswordStateFailureImplCopyWithImpl<$Res>
     extends _$SignInWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignInWithEmailPasswordStateFailure>
-    implements _$$_SignInWithEmailPasswordStateFailureCopyWith<$Res> {
-  __$$_SignInWithEmailPasswordStateFailureCopyWithImpl(
-      _$_SignInWithEmailPasswordStateFailure _value,
-      $Res Function(_$_SignInWithEmailPasswordStateFailure) _then)
+        _$SignInWithEmailPasswordStateFailureImpl>
+    implements _$$SignInWithEmailPasswordStateFailureImplCopyWith<$Res> {
+  __$$SignInWithEmailPasswordStateFailureImplCopyWithImpl(
+      _$SignInWithEmailPasswordStateFailureImpl _value,
+      $Res Function(_$SignInWithEmailPasswordStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -819,7 +820,7 @@ class __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SignInWithEmailPasswordStateFailure(
+    return _then(_$SignInWithEmailPasswordStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -838,9 +839,9 @@ class __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInWithEmailPasswordStateFailure
+class _$SignInWithEmailPasswordStateFailureImpl
     implements _SignInWithEmailPasswordStateFailure {
-  const _$_SignInWithEmailPasswordStateFailure(this.error);
+  const _$SignInWithEmailPasswordStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -851,10 +852,10 @@ class _$_SignInWithEmailPasswordStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithEmailPasswordStateFailure &&
+            other is _$SignInWithEmailPasswordStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -864,10 +865,10 @@ class _$_SignInWithEmailPasswordStateFailure
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignInWithEmailPasswordStateFailureCopyWith<
-          _$_SignInWithEmailPasswordStateFailure>
-      get copyWith => __$$_SignInWithEmailPasswordStateFailureCopyWithImpl<
-          _$_SignInWithEmailPasswordStateFailure>(this, _$identity);
+  _$$SignInWithEmailPasswordStateFailureImplCopyWith<
+          _$SignInWithEmailPasswordStateFailureImpl>
+      get copyWith => __$$SignInWithEmailPasswordStateFailureImplCopyWithImpl<
+          _$SignInWithEmailPasswordStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -950,12 +951,12 @@ class _$_SignInWithEmailPasswordStateFailure
 abstract class _SignInWithEmailPasswordStateFailure
     implements SignInWithEmailPasswordState {
   const factory _SignInWithEmailPasswordStateFailure(final PeamanError error) =
-      _$_SignInWithEmailPasswordStateFailure;
+      _$SignInWithEmailPasswordStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SignInWithEmailPasswordStateFailureCopyWith<
-          _$_SignInWithEmailPasswordStateFailure>
+  _$$SignInWithEmailPasswordStateFailureImplCopyWith<
+          _$SignInWithEmailPasswordStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1038,29 +1039,29 @@ class _$SignUpWithEmailPasswordStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SignUpWithEmailPasswordStateInitialCopyWith<$Res> {
-  factory _$$_SignUpWithEmailPasswordStateInitialCopyWith(
-          _$_SignUpWithEmailPasswordStateInitial value,
-          $Res Function(_$_SignUpWithEmailPasswordStateInitial) then) =
-      __$$_SignUpWithEmailPasswordStateInitialCopyWithImpl<$Res>;
+abstract class _$$SignUpWithEmailPasswordStateInitialImplCopyWith<$Res> {
+  factory _$$SignUpWithEmailPasswordStateInitialImplCopyWith(
+          _$SignUpWithEmailPasswordStateInitialImpl value,
+          $Res Function(_$SignUpWithEmailPasswordStateInitialImpl) then) =
+      __$$SignUpWithEmailPasswordStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignUpWithEmailPasswordStateInitialCopyWithImpl<$Res>
+class __$$SignUpWithEmailPasswordStateInitialImplCopyWithImpl<$Res>
     extends _$SignUpWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignUpWithEmailPasswordStateInitial>
-    implements _$$_SignUpWithEmailPasswordStateInitialCopyWith<$Res> {
-  __$$_SignUpWithEmailPasswordStateInitialCopyWithImpl(
-      _$_SignUpWithEmailPasswordStateInitial _value,
-      $Res Function(_$_SignUpWithEmailPasswordStateInitial) _then)
+        _$SignUpWithEmailPasswordStateInitialImpl>
+    implements _$$SignUpWithEmailPasswordStateInitialImplCopyWith<$Res> {
+  __$$SignUpWithEmailPasswordStateInitialImplCopyWithImpl(
+      _$SignUpWithEmailPasswordStateInitialImpl _value,
+      $Res Function(_$SignUpWithEmailPasswordStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignUpWithEmailPasswordStateInitial
+class _$SignUpWithEmailPasswordStateInitialImpl
     implements _SignUpWithEmailPasswordStateInitial {
-  const _$_SignUpWithEmailPasswordStateInitial();
+  const _$SignUpWithEmailPasswordStateInitialImpl();
 
   @override
   String toString() {
@@ -1068,10 +1069,10 @@ class _$_SignUpWithEmailPasswordStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignUpWithEmailPasswordStateInitial);
+            other is _$SignUpWithEmailPasswordStateInitialImpl);
   }
 
   @override
@@ -1158,33 +1159,33 @@ class _$_SignUpWithEmailPasswordStateInitial
 abstract class _SignUpWithEmailPasswordStateInitial
     implements SignUpWithEmailPasswordState {
   const factory _SignUpWithEmailPasswordStateInitial() =
-      _$_SignUpWithEmailPasswordStateInitial;
+      _$SignUpWithEmailPasswordStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignUpWithEmailPasswordStateLoadingCopyWith<$Res> {
-  factory _$$_SignUpWithEmailPasswordStateLoadingCopyWith(
-          _$_SignUpWithEmailPasswordStateLoading value,
-          $Res Function(_$_SignUpWithEmailPasswordStateLoading) then) =
-      __$$_SignUpWithEmailPasswordStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SignUpWithEmailPasswordStateLoadingImplCopyWith<$Res> {
+  factory _$$SignUpWithEmailPasswordStateLoadingImplCopyWith(
+          _$SignUpWithEmailPasswordStateLoadingImpl value,
+          $Res Function(_$SignUpWithEmailPasswordStateLoadingImpl) then) =
+      __$$SignUpWithEmailPasswordStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignUpWithEmailPasswordStateLoadingCopyWithImpl<$Res>
+class __$$SignUpWithEmailPasswordStateLoadingImplCopyWithImpl<$Res>
     extends _$SignUpWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignUpWithEmailPasswordStateLoading>
-    implements _$$_SignUpWithEmailPasswordStateLoadingCopyWith<$Res> {
-  __$$_SignUpWithEmailPasswordStateLoadingCopyWithImpl(
-      _$_SignUpWithEmailPasswordStateLoading _value,
-      $Res Function(_$_SignUpWithEmailPasswordStateLoading) _then)
+        _$SignUpWithEmailPasswordStateLoadingImpl>
+    implements _$$SignUpWithEmailPasswordStateLoadingImplCopyWith<$Res> {
+  __$$SignUpWithEmailPasswordStateLoadingImplCopyWithImpl(
+      _$SignUpWithEmailPasswordStateLoadingImpl _value,
+      $Res Function(_$SignUpWithEmailPasswordStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignUpWithEmailPasswordStateLoading
+class _$SignUpWithEmailPasswordStateLoadingImpl
     implements _SignUpWithEmailPasswordStateLoading {
-  const _$_SignUpWithEmailPasswordStateLoading();
+  const _$SignUpWithEmailPasswordStateLoadingImpl();
 
   @override
   String toString() {
@@ -1192,10 +1193,10 @@ class _$_SignUpWithEmailPasswordStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignUpWithEmailPasswordStateLoading);
+            other is _$SignUpWithEmailPasswordStateLoadingImpl);
   }
 
   @override
@@ -1282,15 +1283,15 @@ class _$_SignUpWithEmailPasswordStateLoading
 abstract class _SignUpWithEmailPasswordStateLoading
     implements SignUpWithEmailPasswordState {
   const factory _SignUpWithEmailPasswordStateLoading() =
-      _$_SignUpWithEmailPasswordStateLoading;
+      _$SignUpWithEmailPasswordStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignUpWithEmailPasswordStateSuccessCopyWith<$Res> {
-  factory _$$_SignUpWithEmailPasswordStateSuccessCopyWith(
-          _$_SignUpWithEmailPasswordStateSuccess value,
-          $Res Function(_$_SignUpWithEmailPasswordStateSuccess) then) =
-      __$$_SignUpWithEmailPasswordStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SignUpWithEmailPasswordStateSuccessImplCopyWith<$Res> {
+  factory _$$SignUpWithEmailPasswordStateSuccessImplCopyWith(
+          _$SignUpWithEmailPasswordStateSuccessImpl value,
+          $Res Function(_$SignUpWithEmailPasswordStateSuccessImpl) then) =
+      __$$SignUpWithEmailPasswordStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanUser result});
 
@@ -1298,13 +1299,13 @@ abstract class _$$_SignUpWithEmailPasswordStateSuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SignUpWithEmailPasswordStateSuccessCopyWithImpl<$Res>
+class __$$SignUpWithEmailPasswordStateSuccessImplCopyWithImpl<$Res>
     extends _$SignUpWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignUpWithEmailPasswordStateSuccess>
-    implements _$$_SignUpWithEmailPasswordStateSuccessCopyWith<$Res> {
-  __$$_SignUpWithEmailPasswordStateSuccessCopyWithImpl(
-      _$_SignUpWithEmailPasswordStateSuccess _value,
-      $Res Function(_$_SignUpWithEmailPasswordStateSuccess) _then)
+        _$SignUpWithEmailPasswordStateSuccessImpl>
+    implements _$$SignUpWithEmailPasswordStateSuccessImplCopyWith<$Res> {
+  __$$SignUpWithEmailPasswordStateSuccessImplCopyWithImpl(
+      _$SignUpWithEmailPasswordStateSuccessImpl _value,
+      $Res Function(_$SignUpWithEmailPasswordStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1312,7 +1313,7 @@ class __$$_SignUpWithEmailPasswordStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SignUpWithEmailPasswordStateSuccess(
+    return _then(_$SignUpWithEmailPasswordStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -1331,9 +1332,9 @@ class __$$_SignUpWithEmailPasswordStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignUpWithEmailPasswordStateSuccess
+class _$SignUpWithEmailPasswordStateSuccessImpl
     implements _SignUpWithEmailPasswordStateSuccess {
-  const _$_SignUpWithEmailPasswordStateSuccess(this.result);
+  const _$SignUpWithEmailPasswordStateSuccessImpl(this.result);
 
   @override
   final PeamanUser result;
@@ -1344,10 +1345,10 @@ class _$_SignUpWithEmailPasswordStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignUpWithEmailPasswordStateSuccess &&
+            other is _$SignUpWithEmailPasswordStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -1357,10 +1358,10 @@ class _$_SignUpWithEmailPasswordStateSuccess
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignUpWithEmailPasswordStateSuccessCopyWith<
-          _$_SignUpWithEmailPasswordStateSuccess>
-      get copyWith => __$$_SignUpWithEmailPasswordStateSuccessCopyWithImpl<
-          _$_SignUpWithEmailPasswordStateSuccess>(this, _$identity);
+  _$$SignUpWithEmailPasswordStateSuccessImplCopyWith<
+          _$SignUpWithEmailPasswordStateSuccessImpl>
+      get copyWith => __$$SignUpWithEmailPasswordStateSuccessImplCopyWithImpl<
+          _$SignUpWithEmailPasswordStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1443,21 +1444,21 @@ class _$_SignUpWithEmailPasswordStateSuccess
 abstract class _SignUpWithEmailPasswordStateSuccess
     implements SignUpWithEmailPasswordState {
   const factory _SignUpWithEmailPasswordStateSuccess(final PeamanUser result) =
-      _$_SignUpWithEmailPasswordStateSuccess;
+      _$SignUpWithEmailPasswordStateSuccessImpl;
 
   PeamanUser get result;
   @JsonKey(ignore: true)
-  _$$_SignUpWithEmailPasswordStateSuccessCopyWith<
-          _$_SignUpWithEmailPasswordStateSuccess>
+  _$$SignUpWithEmailPasswordStateSuccessImplCopyWith<
+          _$SignUpWithEmailPasswordStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignUpWithEmailPasswordStateFailureCopyWith<$Res> {
-  factory _$$_SignUpWithEmailPasswordStateFailureCopyWith(
-          _$_SignUpWithEmailPasswordStateFailure value,
-          $Res Function(_$_SignUpWithEmailPasswordStateFailure) then) =
-      __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<$Res>;
+abstract class _$$SignUpWithEmailPasswordStateFailureImplCopyWith<$Res> {
+  factory _$$SignUpWithEmailPasswordStateFailureImplCopyWith(
+          _$SignUpWithEmailPasswordStateFailureImpl value,
+          $Res Function(_$SignUpWithEmailPasswordStateFailureImpl) then) =
+      __$$SignUpWithEmailPasswordStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -1465,13 +1466,13 @@ abstract class _$$_SignUpWithEmailPasswordStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<$Res>
+class __$$SignUpWithEmailPasswordStateFailureImplCopyWithImpl<$Res>
     extends _$SignUpWithEmailPasswordStateCopyWithImpl<$Res,
-        _$_SignUpWithEmailPasswordStateFailure>
-    implements _$$_SignUpWithEmailPasswordStateFailureCopyWith<$Res> {
-  __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl(
-      _$_SignUpWithEmailPasswordStateFailure _value,
-      $Res Function(_$_SignUpWithEmailPasswordStateFailure) _then)
+        _$SignUpWithEmailPasswordStateFailureImpl>
+    implements _$$SignUpWithEmailPasswordStateFailureImplCopyWith<$Res> {
+  __$$SignUpWithEmailPasswordStateFailureImplCopyWithImpl(
+      _$SignUpWithEmailPasswordStateFailureImpl _value,
+      $Res Function(_$SignUpWithEmailPasswordStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1479,7 +1480,7 @@ class __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SignUpWithEmailPasswordStateFailure(
+    return _then(_$SignUpWithEmailPasswordStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -1498,9 +1499,9 @@ class __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignUpWithEmailPasswordStateFailure
+class _$SignUpWithEmailPasswordStateFailureImpl
     implements _SignUpWithEmailPasswordStateFailure {
-  const _$_SignUpWithEmailPasswordStateFailure(this.error);
+  const _$SignUpWithEmailPasswordStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -1511,10 +1512,10 @@ class _$_SignUpWithEmailPasswordStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignUpWithEmailPasswordStateFailure &&
+            other is _$SignUpWithEmailPasswordStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -1524,10 +1525,10 @@ class _$_SignUpWithEmailPasswordStateFailure
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignUpWithEmailPasswordStateFailureCopyWith<
-          _$_SignUpWithEmailPasswordStateFailure>
-      get copyWith => __$$_SignUpWithEmailPasswordStateFailureCopyWithImpl<
-          _$_SignUpWithEmailPasswordStateFailure>(this, _$identity);
+  _$$SignUpWithEmailPasswordStateFailureImplCopyWith<
+          _$SignUpWithEmailPasswordStateFailureImpl>
+      get copyWith => __$$SignUpWithEmailPasswordStateFailureImplCopyWithImpl<
+          _$SignUpWithEmailPasswordStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1610,12 +1611,12 @@ class _$_SignUpWithEmailPasswordStateFailure
 abstract class _SignUpWithEmailPasswordStateFailure
     implements SignUpWithEmailPasswordState {
   const factory _SignUpWithEmailPasswordStateFailure(final PeamanError error) =
-      _$_SignUpWithEmailPasswordStateFailure;
+      _$SignUpWithEmailPasswordStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SignUpWithEmailPasswordStateFailureCopyWith<
-          _$_SignUpWithEmailPasswordStateFailure>
+  _$$SignUpWithEmailPasswordStateFailureImplCopyWith<
+          _$SignUpWithEmailPasswordStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1693,28 +1694,29 @@ class _$SignInWithGoogleStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SignInWithGoogleStateInitialCopyWith<$Res> {
-  factory _$$_SignInWithGoogleStateInitialCopyWith(
-          _$_SignInWithGoogleStateInitial value,
-          $Res Function(_$_SignInWithGoogleStateInitial) then) =
-      __$$_SignInWithGoogleStateInitialCopyWithImpl<$Res>;
+abstract class _$$SignInWithGoogleStateInitialImplCopyWith<$Res> {
+  factory _$$SignInWithGoogleStateInitialImplCopyWith(
+          _$SignInWithGoogleStateInitialImpl value,
+          $Res Function(_$SignInWithGoogleStateInitialImpl) then) =
+      __$$SignInWithGoogleStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignInWithGoogleStateInitialCopyWithImpl<$Res>
+class __$$SignInWithGoogleStateInitialImplCopyWithImpl<$Res>
     extends _$SignInWithGoogleStateCopyWithImpl<$Res,
-        _$_SignInWithGoogleStateInitial>
-    implements _$$_SignInWithGoogleStateInitialCopyWith<$Res> {
-  __$$_SignInWithGoogleStateInitialCopyWithImpl(
-      _$_SignInWithGoogleStateInitial _value,
-      $Res Function(_$_SignInWithGoogleStateInitial) _then)
+        _$SignInWithGoogleStateInitialImpl>
+    implements _$$SignInWithGoogleStateInitialImplCopyWith<$Res> {
+  __$$SignInWithGoogleStateInitialImplCopyWithImpl(
+      _$SignInWithGoogleStateInitialImpl _value,
+      $Res Function(_$SignInWithGoogleStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignInWithGoogleStateInitial implements _SignInWithGoogleStateInitial {
-  const _$_SignInWithGoogleStateInitial();
+class _$SignInWithGoogleStateInitialImpl
+    implements _SignInWithGoogleStateInitial {
+  const _$SignInWithGoogleStateInitialImpl();
 
   @override
   String toString() {
@@ -1722,10 +1724,10 @@ class _$_SignInWithGoogleStateInitial implements _SignInWithGoogleStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithGoogleStateInitial);
+            other is _$SignInWithGoogleStateInitialImpl);
   }
 
   @override
@@ -1808,32 +1810,33 @@ class _$_SignInWithGoogleStateInitial implements _SignInWithGoogleStateInitial {
 
 abstract class _SignInWithGoogleStateInitial implements SignInWithGoogleState {
   const factory _SignInWithGoogleStateInitial() =
-      _$_SignInWithGoogleStateInitial;
+      _$SignInWithGoogleStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithGoogleStateLoadingCopyWith<$Res> {
-  factory _$$_SignInWithGoogleStateLoadingCopyWith(
-          _$_SignInWithGoogleStateLoading value,
-          $Res Function(_$_SignInWithGoogleStateLoading) then) =
-      __$$_SignInWithGoogleStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SignInWithGoogleStateLoadingImplCopyWith<$Res> {
+  factory _$$SignInWithGoogleStateLoadingImplCopyWith(
+          _$SignInWithGoogleStateLoadingImpl value,
+          $Res Function(_$SignInWithGoogleStateLoadingImpl) then) =
+      __$$SignInWithGoogleStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignInWithGoogleStateLoadingCopyWithImpl<$Res>
+class __$$SignInWithGoogleStateLoadingImplCopyWithImpl<$Res>
     extends _$SignInWithGoogleStateCopyWithImpl<$Res,
-        _$_SignInWithGoogleStateLoading>
-    implements _$$_SignInWithGoogleStateLoadingCopyWith<$Res> {
-  __$$_SignInWithGoogleStateLoadingCopyWithImpl(
-      _$_SignInWithGoogleStateLoading _value,
-      $Res Function(_$_SignInWithGoogleStateLoading) _then)
+        _$SignInWithGoogleStateLoadingImpl>
+    implements _$$SignInWithGoogleStateLoadingImplCopyWith<$Res> {
+  __$$SignInWithGoogleStateLoadingImplCopyWithImpl(
+      _$SignInWithGoogleStateLoadingImpl _value,
+      $Res Function(_$SignInWithGoogleStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignInWithGoogleStateLoading implements _SignInWithGoogleStateLoading {
-  const _$_SignInWithGoogleStateLoading();
+class _$SignInWithGoogleStateLoadingImpl
+    implements _SignInWithGoogleStateLoading {
+  const _$SignInWithGoogleStateLoadingImpl();
 
   @override
   String toString() {
@@ -1841,10 +1844,10 @@ class _$_SignInWithGoogleStateLoading implements _SignInWithGoogleStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithGoogleStateLoading);
+            other is _$SignInWithGoogleStateLoadingImpl);
   }
 
   @override
@@ -1927,27 +1930,27 @@ class _$_SignInWithGoogleStateLoading implements _SignInWithGoogleStateLoading {
 
 abstract class _SignInWithGoogleStateLoading implements SignInWithGoogleState {
   const factory _SignInWithGoogleStateLoading() =
-      _$_SignInWithGoogleStateLoading;
+      _$SignInWithGoogleStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithGoogleStateSuccessCopyWith<$Res> {
-  factory _$$_SignInWithGoogleStateSuccessCopyWith(
-          _$_SignInWithGoogleStateSuccess value,
-          $Res Function(_$_SignInWithGoogleStateSuccess) then) =
-      __$$_SignInWithGoogleStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SignInWithGoogleStateSuccessImplCopyWith<$Res> {
+  factory _$$SignInWithGoogleStateSuccessImplCopyWith(
+          _$SignInWithGoogleStateSuccessImpl value,
+          $Res Function(_$SignInWithGoogleStateSuccessImpl) then) =
+      __$$SignInWithGoogleStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_SignInWithGoogleStateSuccessCopyWithImpl<$Res>
+class __$$SignInWithGoogleStateSuccessImplCopyWithImpl<$Res>
     extends _$SignInWithGoogleStateCopyWithImpl<$Res,
-        _$_SignInWithGoogleStateSuccess>
-    implements _$$_SignInWithGoogleStateSuccessCopyWith<$Res> {
-  __$$_SignInWithGoogleStateSuccessCopyWithImpl(
-      _$_SignInWithGoogleStateSuccess _value,
-      $Res Function(_$_SignInWithGoogleStateSuccess) _then)
+        _$SignInWithGoogleStateSuccessImpl>
+    implements _$$SignInWithGoogleStateSuccessImplCopyWith<$Res> {
+  __$$SignInWithGoogleStateSuccessImplCopyWithImpl(
+      _$SignInWithGoogleStateSuccessImpl _value,
+      $Res Function(_$SignInWithGoogleStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1955,7 +1958,7 @@ class __$$_SignInWithGoogleStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SignInWithGoogleStateSuccess(
+    return _then(_$SignInWithGoogleStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -1966,8 +1969,9 @@ class __$$_SignInWithGoogleStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInWithGoogleStateSuccess implements _SignInWithGoogleStateSuccess {
-  const _$_SignInWithGoogleStateSuccess(this.result);
+class _$SignInWithGoogleStateSuccessImpl
+    implements _SignInWithGoogleStateSuccess {
+  const _$SignInWithGoogleStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -1978,10 +1982,10 @@ class _$_SignInWithGoogleStateSuccess implements _SignInWithGoogleStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithGoogleStateSuccess &&
+            other is _$SignInWithGoogleStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -1991,9 +1995,10 @@ class _$_SignInWithGoogleStateSuccess implements _SignInWithGoogleStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignInWithGoogleStateSuccessCopyWith<_$_SignInWithGoogleStateSuccess>
-      get copyWith => __$$_SignInWithGoogleStateSuccessCopyWithImpl<
-          _$_SignInWithGoogleStateSuccess>(this, _$identity);
+  _$$SignInWithGoogleStateSuccessImplCopyWith<
+          _$SignInWithGoogleStateSuccessImpl>
+      get copyWith => __$$SignInWithGoogleStateSuccessImplCopyWithImpl<
+          _$SignInWithGoogleStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2072,20 +2077,21 @@ class _$_SignInWithGoogleStateSuccess implements _SignInWithGoogleStateSuccess {
 
 abstract class _SignInWithGoogleStateSuccess implements SignInWithGoogleState {
   const factory _SignInWithGoogleStateSuccess(final bool result) =
-      _$_SignInWithGoogleStateSuccess;
+      _$SignInWithGoogleStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_SignInWithGoogleStateSuccessCopyWith<_$_SignInWithGoogleStateSuccess>
+  _$$SignInWithGoogleStateSuccessImplCopyWith<
+          _$SignInWithGoogleStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithGoogleStateFailureCopyWith<$Res> {
-  factory _$$_SignInWithGoogleStateFailureCopyWith(
-          _$_SignInWithGoogleStateFailure value,
-          $Res Function(_$_SignInWithGoogleStateFailure) then) =
-      __$$_SignInWithGoogleStateFailureCopyWithImpl<$Res>;
+abstract class _$$SignInWithGoogleStateFailureImplCopyWith<$Res> {
+  factory _$$SignInWithGoogleStateFailureImplCopyWith(
+          _$SignInWithGoogleStateFailureImpl value,
+          $Res Function(_$SignInWithGoogleStateFailureImpl) then) =
+      __$$SignInWithGoogleStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -2093,13 +2099,13 @@ abstract class _$$_SignInWithGoogleStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SignInWithGoogleStateFailureCopyWithImpl<$Res>
+class __$$SignInWithGoogleStateFailureImplCopyWithImpl<$Res>
     extends _$SignInWithGoogleStateCopyWithImpl<$Res,
-        _$_SignInWithGoogleStateFailure>
-    implements _$$_SignInWithGoogleStateFailureCopyWith<$Res> {
-  __$$_SignInWithGoogleStateFailureCopyWithImpl(
-      _$_SignInWithGoogleStateFailure _value,
-      $Res Function(_$_SignInWithGoogleStateFailure) _then)
+        _$SignInWithGoogleStateFailureImpl>
+    implements _$$SignInWithGoogleStateFailureImplCopyWith<$Res> {
+  __$$SignInWithGoogleStateFailureImplCopyWithImpl(
+      _$SignInWithGoogleStateFailureImpl _value,
+      $Res Function(_$SignInWithGoogleStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2107,7 +2113,7 @@ class __$$_SignInWithGoogleStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SignInWithGoogleStateFailure(
+    return _then(_$SignInWithGoogleStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -2126,8 +2132,9 @@ class __$$_SignInWithGoogleStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInWithGoogleStateFailure implements _SignInWithGoogleStateFailure {
-  const _$_SignInWithGoogleStateFailure(this.error);
+class _$SignInWithGoogleStateFailureImpl
+    implements _SignInWithGoogleStateFailure {
+  const _$SignInWithGoogleStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -2138,10 +2145,10 @@ class _$_SignInWithGoogleStateFailure implements _SignInWithGoogleStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithGoogleStateFailure &&
+            other is _$SignInWithGoogleStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -2151,9 +2158,10 @@ class _$_SignInWithGoogleStateFailure implements _SignInWithGoogleStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignInWithGoogleStateFailureCopyWith<_$_SignInWithGoogleStateFailure>
-      get copyWith => __$$_SignInWithGoogleStateFailureCopyWithImpl<
-          _$_SignInWithGoogleStateFailure>(this, _$identity);
+  _$$SignInWithGoogleStateFailureImplCopyWith<
+          _$SignInWithGoogleStateFailureImpl>
+      get copyWith => __$$SignInWithGoogleStateFailureImplCopyWithImpl<
+          _$SignInWithGoogleStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2232,11 +2240,12 @@ class _$_SignInWithGoogleStateFailure implements _SignInWithGoogleStateFailure {
 
 abstract class _SignInWithGoogleStateFailure implements SignInWithGoogleState {
   const factory _SignInWithGoogleStateFailure(final PeamanError error) =
-      _$_SignInWithGoogleStateFailure;
+      _$SignInWithGoogleStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SignInWithGoogleStateFailureCopyWith<_$_SignInWithGoogleStateFailure>
+  _$$SignInWithGoogleStateFailureImplCopyWith<
+          _$SignInWithGoogleStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2314,29 +2323,29 @@ class _$SignInWithFacebookStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_SignInWithFacebookStateInitialCopyWith<$Res> {
-  factory _$$_SignInWithFacebookStateInitialCopyWith(
-          _$_SignInWithFacebookStateInitial value,
-          $Res Function(_$_SignInWithFacebookStateInitial) then) =
-      __$$_SignInWithFacebookStateInitialCopyWithImpl<$Res>;
+abstract class _$$SignInWithFacebookStateInitialImplCopyWith<$Res> {
+  factory _$$SignInWithFacebookStateInitialImplCopyWith(
+          _$SignInWithFacebookStateInitialImpl value,
+          $Res Function(_$SignInWithFacebookStateInitialImpl) then) =
+      __$$SignInWithFacebookStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignInWithFacebookStateInitialCopyWithImpl<$Res>
+class __$$SignInWithFacebookStateInitialImplCopyWithImpl<$Res>
     extends _$SignInWithFacebookStateCopyWithImpl<$Res,
-        _$_SignInWithFacebookStateInitial>
-    implements _$$_SignInWithFacebookStateInitialCopyWith<$Res> {
-  __$$_SignInWithFacebookStateInitialCopyWithImpl(
-      _$_SignInWithFacebookStateInitial _value,
-      $Res Function(_$_SignInWithFacebookStateInitial) _then)
+        _$SignInWithFacebookStateInitialImpl>
+    implements _$$SignInWithFacebookStateInitialImplCopyWith<$Res> {
+  __$$SignInWithFacebookStateInitialImplCopyWithImpl(
+      _$SignInWithFacebookStateInitialImpl _value,
+      $Res Function(_$SignInWithFacebookStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignInWithFacebookStateInitial
+class _$SignInWithFacebookStateInitialImpl
     implements _SignInWithFacebookStateInitial {
-  const _$_SignInWithFacebookStateInitial();
+  const _$SignInWithFacebookStateInitialImpl();
 
   @override
   String toString() {
@@ -2344,10 +2353,10 @@ class _$_SignInWithFacebookStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithFacebookStateInitial);
+            other is _$SignInWithFacebookStateInitialImpl);
   }
 
   @override
@@ -2431,33 +2440,33 @@ class _$_SignInWithFacebookStateInitial
 abstract class _SignInWithFacebookStateInitial
     implements SignInWithFacebookState {
   const factory _SignInWithFacebookStateInitial() =
-      _$_SignInWithFacebookStateInitial;
+      _$SignInWithFacebookStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithFacebookStateLoadingCopyWith<$Res> {
-  factory _$$_SignInWithFacebookStateLoadingCopyWith(
-          _$_SignInWithFacebookStateLoading value,
-          $Res Function(_$_SignInWithFacebookStateLoading) then) =
-      __$$_SignInWithFacebookStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SignInWithFacebookStateLoadingImplCopyWith<$Res> {
+  factory _$$SignInWithFacebookStateLoadingImplCopyWith(
+          _$SignInWithFacebookStateLoadingImpl value,
+          $Res Function(_$SignInWithFacebookStateLoadingImpl) then) =
+      __$$SignInWithFacebookStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignInWithFacebookStateLoadingCopyWithImpl<$Res>
+class __$$SignInWithFacebookStateLoadingImplCopyWithImpl<$Res>
     extends _$SignInWithFacebookStateCopyWithImpl<$Res,
-        _$_SignInWithFacebookStateLoading>
-    implements _$$_SignInWithFacebookStateLoadingCopyWith<$Res> {
-  __$$_SignInWithFacebookStateLoadingCopyWithImpl(
-      _$_SignInWithFacebookStateLoading _value,
-      $Res Function(_$_SignInWithFacebookStateLoading) _then)
+        _$SignInWithFacebookStateLoadingImpl>
+    implements _$$SignInWithFacebookStateLoadingImplCopyWith<$Res> {
+  __$$SignInWithFacebookStateLoadingImplCopyWithImpl(
+      _$SignInWithFacebookStateLoadingImpl _value,
+      $Res Function(_$SignInWithFacebookStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignInWithFacebookStateLoading
+class _$SignInWithFacebookStateLoadingImpl
     implements _SignInWithFacebookStateLoading {
-  const _$_SignInWithFacebookStateLoading();
+  const _$SignInWithFacebookStateLoadingImpl();
 
   @override
   String toString() {
@@ -2465,10 +2474,10 @@ class _$_SignInWithFacebookStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithFacebookStateLoading);
+            other is _$SignInWithFacebookStateLoadingImpl);
   }
 
   @override
@@ -2552,27 +2561,27 @@ class _$_SignInWithFacebookStateLoading
 abstract class _SignInWithFacebookStateLoading
     implements SignInWithFacebookState {
   const factory _SignInWithFacebookStateLoading() =
-      _$_SignInWithFacebookStateLoading;
+      _$SignInWithFacebookStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithFacebookStateSuccessCopyWith<$Res> {
-  factory _$$_SignInWithFacebookStateSuccessCopyWith(
-          _$_SignInWithFacebookStateSuccess value,
-          $Res Function(_$_SignInWithFacebookStateSuccess) then) =
-      __$$_SignInWithFacebookStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SignInWithFacebookStateSuccessImplCopyWith<$Res> {
+  factory _$$SignInWithFacebookStateSuccessImplCopyWith(
+          _$SignInWithFacebookStateSuccessImpl value,
+          $Res Function(_$SignInWithFacebookStateSuccessImpl) then) =
+      __$$SignInWithFacebookStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_SignInWithFacebookStateSuccessCopyWithImpl<$Res>
+class __$$SignInWithFacebookStateSuccessImplCopyWithImpl<$Res>
     extends _$SignInWithFacebookStateCopyWithImpl<$Res,
-        _$_SignInWithFacebookStateSuccess>
-    implements _$$_SignInWithFacebookStateSuccessCopyWith<$Res> {
-  __$$_SignInWithFacebookStateSuccessCopyWithImpl(
-      _$_SignInWithFacebookStateSuccess _value,
-      $Res Function(_$_SignInWithFacebookStateSuccess) _then)
+        _$SignInWithFacebookStateSuccessImpl>
+    implements _$$SignInWithFacebookStateSuccessImplCopyWith<$Res> {
+  __$$SignInWithFacebookStateSuccessImplCopyWithImpl(
+      _$SignInWithFacebookStateSuccessImpl _value,
+      $Res Function(_$SignInWithFacebookStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2580,7 +2589,7 @@ class __$$_SignInWithFacebookStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SignInWithFacebookStateSuccess(
+    return _then(_$SignInWithFacebookStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -2591,9 +2600,9 @@ class __$$_SignInWithFacebookStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInWithFacebookStateSuccess
+class _$SignInWithFacebookStateSuccessImpl
     implements _SignInWithFacebookStateSuccess {
-  const _$_SignInWithFacebookStateSuccess(this.result);
+  const _$SignInWithFacebookStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -2604,10 +2613,10 @@ class _$_SignInWithFacebookStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithFacebookStateSuccess &&
+            other is _$SignInWithFacebookStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -2617,9 +2626,10 @@ class _$_SignInWithFacebookStateSuccess
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignInWithFacebookStateSuccessCopyWith<_$_SignInWithFacebookStateSuccess>
-      get copyWith => __$$_SignInWithFacebookStateSuccessCopyWithImpl<
-          _$_SignInWithFacebookStateSuccess>(this, _$identity);
+  _$$SignInWithFacebookStateSuccessImplCopyWith<
+          _$SignInWithFacebookStateSuccessImpl>
+      get copyWith => __$$SignInWithFacebookStateSuccessImplCopyWithImpl<
+          _$SignInWithFacebookStateSuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2699,20 +2709,21 @@ class _$_SignInWithFacebookStateSuccess
 abstract class _SignInWithFacebookStateSuccess
     implements SignInWithFacebookState {
   const factory _SignInWithFacebookStateSuccess(final bool result) =
-      _$_SignInWithFacebookStateSuccess;
+      _$SignInWithFacebookStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_SignInWithFacebookStateSuccessCopyWith<_$_SignInWithFacebookStateSuccess>
+  _$$SignInWithFacebookStateSuccessImplCopyWith<
+          _$SignInWithFacebookStateSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignInWithFacebookStateFailureCopyWith<$Res> {
-  factory _$$_SignInWithFacebookStateFailureCopyWith(
-          _$_SignInWithFacebookStateFailure value,
-          $Res Function(_$_SignInWithFacebookStateFailure) then) =
-      __$$_SignInWithFacebookStateFailureCopyWithImpl<$Res>;
+abstract class _$$SignInWithFacebookStateFailureImplCopyWith<$Res> {
+  factory _$$SignInWithFacebookStateFailureImplCopyWith(
+          _$SignInWithFacebookStateFailureImpl value,
+          $Res Function(_$SignInWithFacebookStateFailureImpl) then) =
+      __$$SignInWithFacebookStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -2720,13 +2731,13 @@ abstract class _$$_SignInWithFacebookStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SignInWithFacebookStateFailureCopyWithImpl<$Res>
+class __$$SignInWithFacebookStateFailureImplCopyWithImpl<$Res>
     extends _$SignInWithFacebookStateCopyWithImpl<$Res,
-        _$_SignInWithFacebookStateFailure>
-    implements _$$_SignInWithFacebookStateFailureCopyWith<$Res> {
-  __$$_SignInWithFacebookStateFailureCopyWithImpl(
-      _$_SignInWithFacebookStateFailure _value,
-      $Res Function(_$_SignInWithFacebookStateFailure) _then)
+        _$SignInWithFacebookStateFailureImpl>
+    implements _$$SignInWithFacebookStateFailureImplCopyWith<$Res> {
+  __$$SignInWithFacebookStateFailureImplCopyWithImpl(
+      _$SignInWithFacebookStateFailureImpl _value,
+      $Res Function(_$SignInWithFacebookStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2734,7 +2745,7 @@ class __$$_SignInWithFacebookStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SignInWithFacebookStateFailure(
+    return _then(_$SignInWithFacebookStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -2753,9 +2764,9 @@ class __$$_SignInWithFacebookStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInWithFacebookStateFailure
+class _$SignInWithFacebookStateFailureImpl
     implements _SignInWithFacebookStateFailure {
-  const _$_SignInWithFacebookStateFailure(this.error);
+  const _$SignInWithFacebookStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -2766,10 +2777,10 @@ class _$_SignInWithFacebookStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignInWithFacebookStateFailure &&
+            other is _$SignInWithFacebookStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -2779,9 +2790,10 @@ class _$_SignInWithFacebookStateFailure
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignInWithFacebookStateFailureCopyWith<_$_SignInWithFacebookStateFailure>
-      get copyWith => __$$_SignInWithFacebookStateFailureCopyWithImpl<
-          _$_SignInWithFacebookStateFailure>(this, _$identity);
+  _$$SignInWithFacebookStateFailureImplCopyWith<
+          _$SignInWithFacebookStateFailureImpl>
+      get copyWith => __$$SignInWithFacebookStateFailureImplCopyWithImpl<
+          _$SignInWithFacebookStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2861,11 +2873,12 @@ class _$_SignInWithFacebookStateFailure
 abstract class _SignInWithFacebookStateFailure
     implements SignInWithFacebookState {
   const factory _SignInWithFacebookStateFailure(final PeamanError error) =
-      _$_SignInWithFacebookStateFailure;
+      _$SignInWithFacebookStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SignInWithFacebookStateFailureCopyWith<_$_SignInWithFacebookStateFailure>
+  _$$SignInWithFacebookStateFailureImplCopyWith<
+          _$SignInWithFacebookStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2942,25 +2955,25 @@ class _$SignOutStateCopyWithImpl<$Res, $Val extends SignOutState>
 }
 
 /// @nodoc
-abstract class _$$_SignOutStateInitialCopyWith<$Res> {
-  factory _$$_SignOutStateInitialCopyWith(_$_SignOutStateInitial value,
-          $Res Function(_$_SignOutStateInitial) then) =
-      __$$_SignOutStateInitialCopyWithImpl<$Res>;
+abstract class _$$SignOutStateInitialImplCopyWith<$Res> {
+  factory _$$SignOutStateInitialImplCopyWith(_$SignOutStateInitialImpl value,
+          $Res Function(_$SignOutStateInitialImpl) then) =
+      __$$SignOutStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignOutStateInitialCopyWithImpl<$Res>
-    extends _$SignOutStateCopyWithImpl<$Res, _$_SignOutStateInitial>
-    implements _$$_SignOutStateInitialCopyWith<$Res> {
-  __$$_SignOutStateInitialCopyWithImpl(_$_SignOutStateInitial _value,
-      $Res Function(_$_SignOutStateInitial) _then)
+class __$$SignOutStateInitialImplCopyWithImpl<$Res>
+    extends _$SignOutStateCopyWithImpl<$Res, _$SignOutStateInitialImpl>
+    implements _$$SignOutStateInitialImplCopyWith<$Res> {
+  __$$SignOutStateInitialImplCopyWithImpl(_$SignOutStateInitialImpl _value,
+      $Res Function(_$SignOutStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignOutStateInitial implements _SignOutStateInitial {
-  const _$_SignOutStateInitial();
+class _$SignOutStateInitialImpl implements _SignOutStateInitial {
+  const _$SignOutStateInitialImpl();
 
   @override
   String toString() {
@@ -2968,9 +2981,10 @@ class _$_SignOutStateInitial implements _SignOutStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SignOutStateInitial);
+        (other.runtimeType == runtimeType &&
+            other is _$SignOutStateInitialImpl);
   }
 
   @override
@@ -3052,29 +3066,29 @@ class _$_SignOutStateInitial implements _SignOutStateInitial {
 }
 
 abstract class _SignOutStateInitial implements SignOutState {
-  const factory _SignOutStateInitial() = _$_SignOutStateInitial;
+  const factory _SignOutStateInitial() = _$SignOutStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignOutStateLoadingCopyWith<$Res> {
-  factory _$$_SignOutStateLoadingCopyWith(_$_SignOutStateLoading value,
-          $Res Function(_$_SignOutStateLoading) then) =
-      __$$_SignOutStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SignOutStateLoadingImplCopyWith<$Res> {
+  factory _$$SignOutStateLoadingImplCopyWith(_$SignOutStateLoadingImpl value,
+          $Res Function(_$SignOutStateLoadingImpl) then) =
+      __$$SignOutStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_SignOutStateLoadingCopyWithImpl<$Res>
-    extends _$SignOutStateCopyWithImpl<$Res, _$_SignOutStateLoading>
-    implements _$$_SignOutStateLoadingCopyWith<$Res> {
-  __$$_SignOutStateLoadingCopyWithImpl(_$_SignOutStateLoading _value,
-      $Res Function(_$_SignOutStateLoading) _then)
+class __$$SignOutStateLoadingImplCopyWithImpl<$Res>
+    extends _$SignOutStateCopyWithImpl<$Res, _$SignOutStateLoadingImpl>
+    implements _$$SignOutStateLoadingImplCopyWith<$Res> {
+  __$$SignOutStateLoadingImplCopyWithImpl(_$SignOutStateLoadingImpl _value,
+      $Res Function(_$SignOutStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_SignOutStateLoading implements _SignOutStateLoading {
-  const _$_SignOutStateLoading();
+class _$SignOutStateLoadingImpl implements _SignOutStateLoading {
+  const _$SignOutStateLoadingImpl();
 
   @override
   String toString() {
@@ -3082,9 +3096,10 @@ class _$_SignOutStateLoading implements _SignOutStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SignOutStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$SignOutStateLoadingImpl);
   }
 
   @override
@@ -3166,24 +3181,24 @@ class _$_SignOutStateLoading implements _SignOutStateLoading {
 }
 
 abstract class _SignOutStateLoading implements SignOutState {
-  const factory _SignOutStateLoading() = _$_SignOutStateLoading;
+  const factory _SignOutStateLoading() = _$SignOutStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_SignOutStateSuccessCopyWith<$Res> {
-  factory _$$_SignOutStateSuccessCopyWith(_$_SignOutStateSuccess value,
-          $Res Function(_$_SignOutStateSuccess) then) =
-      __$$_SignOutStateSuccessCopyWithImpl<$Res>;
+abstract class _$$SignOutStateSuccessImplCopyWith<$Res> {
+  factory _$$SignOutStateSuccessImplCopyWith(_$SignOutStateSuccessImpl value,
+          $Res Function(_$SignOutStateSuccessImpl) then) =
+      __$$SignOutStateSuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool result});
 }
 
 /// @nodoc
-class __$$_SignOutStateSuccessCopyWithImpl<$Res>
-    extends _$SignOutStateCopyWithImpl<$Res, _$_SignOutStateSuccess>
-    implements _$$_SignOutStateSuccessCopyWith<$Res> {
-  __$$_SignOutStateSuccessCopyWithImpl(_$_SignOutStateSuccess _value,
-      $Res Function(_$_SignOutStateSuccess) _then)
+class __$$SignOutStateSuccessImplCopyWithImpl<$Res>
+    extends _$SignOutStateCopyWithImpl<$Res, _$SignOutStateSuccessImpl>
+    implements _$$SignOutStateSuccessImplCopyWith<$Res> {
+  __$$SignOutStateSuccessImplCopyWithImpl(_$SignOutStateSuccessImpl _value,
+      $Res Function(_$SignOutStateSuccessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3191,7 +3206,7 @@ class __$$_SignOutStateSuccessCopyWithImpl<$Res>
   $Res call({
     Object? result = null,
   }) {
-    return _then(_$_SignOutStateSuccess(
+    return _then(_$SignOutStateSuccessImpl(
       null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -3202,8 +3217,8 @@ class __$$_SignOutStateSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignOutStateSuccess implements _SignOutStateSuccess {
-  const _$_SignOutStateSuccess(this.result);
+class _$SignOutStateSuccessImpl implements _SignOutStateSuccess {
+  const _$SignOutStateSuccessImpl(this.result);
 
   @override
   final bool result;
@@ -3214,10 +3229,10 @@ class _$_SignOutStateSuccess implements _SignOutStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignOutStateSuccess &&
+            other is _$SignOutStateSuccessImpl &&
             (identical(other.result, result) || other.result == result));
   }
 
@@ -3227,8 +3242,8 @@ class _$_SignOutStateSuccess implements _SignOutStateSuccess {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignOutStateSuccessCopyWith<_$_SignOutStateSuccess> get copyWith =>
-      __$$_SignOutStateSuccessCopyWithImpl<_$_SignOutStateSuccess>(
+  _$$SignOutStateSuccessImplCopyWith<_$SignOutStateSuccessImpl> get copyWith =>
+      __$$SignOutStateSuccessImplCopyWithImpl<_$SignOutStateSuccessImpl>(
           this, _$identity);
 
   @override
@@ -3308,19 +3323,19 @@ class _$_SignOutStateSuccess implements _SignOutStateSuccess {
 
 abstract class _SignOutStateSuccess implements SignOutState {
   const factory _SignOutStateSuccess(final bool result) =
-      _$_SignOutStateSuccess;
+      _$SignOutStateSuccessImpl;
 
   bool get result;
   @JsonKey(ignore: true)
-  _$$_SignOutStateSuccessCopyWith<_$_SignOutStateSuccess> get copyWith =>
+  _$$SignOutStateSuccessImplCopyWith<_$SignOutStateSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignOutStateFailureCopyWith<$Res> {
-  factory _$$_SignOutStateFailureCopyWith(_$_SignOutStateFailure value,
-          $Res Function(_$_SignOutStateFailure) then) =
-      __$$_SignOutStateFailureCopyWithImpl<$Res>;
+abstract class _$$SignOutStateFailureImplCopyWith<$Res> {
+  factory _$$SignOutStateFailureImplCopyWith(_$SignOutStateFailureImpl value,
+          $Res Function(_$SignOutStateFailureImpl) then) =
+      __$$SignOutStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({PeamanError error});
 
@@ -3328,11 +3343,11 @@ abstract class _$$_SignOutStateFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SignOutStateFailureCopyWithImpl<$Res>
-    extends _$SignOutStateCopyWithImpl<$Res, _$_SignOutStateFailure>
-    implements _$$_SignOutStateFailureCopyWith<$Res> {
-  __$$_SignOutStateFailureCopyWithImpl(_$_SignOutStateFailure _value,
-      $Res Function(_$_SignOutStateFailure) _then)
+class __$$SignOutStateFailureImplCopyWithImpl<$Res>
+    extends _$SignOutStateCopyWithImpl<$Res, _$SignOutStateFailureImpl>
+    implements _$$SignOutStateFailureImplCopyWith<$Res> {
+  __$$SignOutStateFailureImplCopyWithImpl(_$SignOutStateFailureImpl _value,
+      $Res Function(_$SignOutStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3340,7 +3355,7 @@ class __$$_SignOutStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$_SignOutStateFailure(
+    return _then(_$SignOutStateFailureImpl(
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -3359,8 +3374,8 @@ class __$$_SignOutStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignOutStateFailure implements _SignOutStateFailure {
-  const _$_SignOutStateFailure(this.error);
+class _$SignOutStateFailureImpl implements _SignOutStateFailure {
+  const _$SignOutStateFailureImpl(this.error);
 
   @override
   final PeamanError error;
@@ -3371,10 +3386,10 @@ class _$_SignOutStateFailure implements _SignOutStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignOutStateFailure &&
+            other is _$SignOutStateFailureImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -3384,8 +3399,8 @@ class _$_SignOutStateFailure implements _SignOutStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignOutStateFailureCopyWith<_$_SignOutStateFailure> get copyWith =>
-      __$$_SignOutStateFailureCopyWithImpl<_$_SignOutStateFailure>(
+  _$$SignOutStateFailureImplCopyWith<_$SignOutStateFailureImpl> get copyWith =>
+      __$$SignOutStateFailureImplCopyWithImpl<_$SignOutStateFailureImpl>(
           this, _$identity);
 
   @override
@@ -3465,10 +3480,10 @@ class _$_SignOutStateFailure implements _SignOutStateFailure {
 
 abstract class _SignOutStateFailure implements SignOutState {
   const factory _SignOutStateFailure(final PeamanError error) =
-      _$_SignOutStateFailure;
+      _$SignOutStateFailureImpl;
 
   PeamanError get error;
   @JsonKey(ignore: true)
-  _$$_SignOutStateFailureCopyWith<_$_SignOutStateFailure> get copyWith =>
+  _$$SignOutStateFailureImplCopyWith<_$SignOutStateFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

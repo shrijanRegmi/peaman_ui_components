@@ -12,7 +12,7 @@ part of 'peaman_message_extra_data_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PeamanChatMessageExtraData _$PeamanChatMessageExtraDataFromJson(
     Map<String, dynamic> json) {
@@ -65,25 +65,25 @@ class _$PeamanChatMessageExtraDataCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PeamanChatMessageExtraDataCopyWith<$Res>
+abstract class _$$PeamanChatMessageExtraDataImplCopyWith<$Res>
     implements $PeamanChatMessageExtraDataCopyWith<$Res> {
-  factory _$$_PeamanChatMessageExtraDataCopyWith(
-          _$_PeamanChatMessageExtraData value,
-          $Res Function(_$_PeamanChatMessageExtraData) then) =
-      __$$_PeamanChatMessageExtraDataCopyWithImpl<$Res>;
+  factory _$$PeamanChatMessageExtraDataImplCopyWith(
+          _$PeamanChatMessageExtraDataImpl value,
+          $Res Function(_$PeamanChatMessageExtraDataImpl) then) =
+      __$$PeamanChatMessageExtraDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({PeamanInfoMessageType infoType});
 }
 
 /// @nodoc
-class __$$_PeamanChatMessageExtraDataCopyWithImpl<$Res>
+class __$$PeamanChatMessageExtraDataImplCopyWithImpl<$Res>
     extends _$PeamanChatMessageExtraDataCopyWithImpl<$Res,
-        _$_PeamanChatMessageExtraData>
-    implements _$$_PeamanChatMessageExtraDataCopyWith<$Res> {
-  __$$_PeamanChatMessageExtraDataCopyWithImpl(
-      _$_PeamanChatMessageExtraData _value,
-      $Res Function(_$_PeamanChatMessageExtraData) _then)
+        _$PeamanChatMessageExtraDataImpl>
+    implements _$$PeamanChatMessageExtraDataImplCopyWith<$Res> {
+  __$$PeamanChatMessageExtraDataImplCopyWithImpl(
+      _$PeamanChatMessageExtraDataImpl _value,
+      $Res Function(_$PeamanChatMessageExtraDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -91,7 +91,7 @@ class __$$_PeamanChatMessageExtraDataCopyWithImpl<$Res>
   $Res call({
     Object? infoType = null,
   }) {
-    return _then(_$_PeamanChatMessageExtraData(
+    return _then(_$PeamanChatMessageExtraDataImpl(
       infoType: null == infoType
           ? _value.infoType
           : infoType // ignore: cast_nullable_to_non_nullable
@@ -102,12 +102,13 @@ class __$$_PeamanChatMessageExtraDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PeamanChatMessageExtraData implements _PeamanChatMessageExtraData {
-  const _$_PeamanChatMessageExtraData(
+class _$PeamanChatMessageExtraDataImpl implements _PeamanChatMessageExtraData {
+  const _$PeamanChatMessageExtraDataImpl(
       {this.infoType = PeamanInfoMessageType.unknown});
 
-  factory _$_PeamanChatMessageExtraData.fromJson(Map<String, dynamic> json) =>
-      _$$_PeamanChatMessageExtraDataFromJson(json);
+  factory _$PeamanChatMessageExtraDataImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$PeamanChatMessageExtraDataImplFromJson(json);
 
   @override
   @JsonKey()
@@ -119,10 +120,10 @@ class _$_PeamanChatMessageExtraData implements _PeamanChatMessageExtraData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PeamanChatMessageExtraData &&
+            other is _$PeamanChatMessageExtraDataImpl &&
             (identical(other.infoType, infoType) ||
                 other.infoType == infoType));
   }
@@ -134,13 +135,13 @@ class _$_PeamanChatMessageExtraData implements _PeamanChatMessageExtraData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PeamanChatMessageExtraDataCopyWith<_$_PeamanChatMessageExtraData>
-      get copyWith => __$$_PeamanChatMessageExtraDataCopyWithImpl<
-          _$_PeamanChatMessageExtraData>(this, _$identity);
+  _$$PeamanChatMessageExtraDataImplCopyWith<_$PeamanChatMessageExtraDataImpl>
+      get copyWith => __$$PeamanChatMessageExtraDataImplCopyWithImpl<
+          _$PeamanChatMessageExtraDataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PeamanChatMessageExtraDataToJson(
+    return _$$PeamanChatMessageExtraDataImplToJson(
       this,
     );
   }
@@ -149,15 +150,16 @@ class _$_PeamanChatMessageExtraData implements _PeamanChatMessageExtraData {
 abstract class _PeamanChatMessageExtraData
     implements PeamanChatMessageExtraData {
   const factory _PeamanChatMessageExtraData(
-      {final PeamanInfoMessageType infoType}) = _$_PeamanChatMessageExtraData;
+          {final PeamanInfoMessageType infoType}) =
+      _$PeamanChatMessageExtraDataImpl;
 
   factory _PeamanChatMessageExtraData.fromJson(Map<String, dynamic> json) =
-      _$_PeamanChatMessageExtraData.fromJson;
+      _$PeamanChatMessageExtraDataImpl.fromJson;
 
   @override
   PeamanInfoMessageType get infoType;
   @override
   @JsonKey(ignore: true)
-  _$$_PeamanChatMessageExtraDataCopyWith<_$_PeamanChatMessageExtraData>
+  _$$PeamanChatMessageExtraDataImplCopyWith<_$PeamanChatMessageExtraDataImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
