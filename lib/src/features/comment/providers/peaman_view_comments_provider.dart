@@ -165,6 +165,8 @@ class PeamanViewCommentsProvider
     required final String feedId,
     required final String feedOwnerId,
     required final String commentText,
+    final String? audioUrl,
+    final bool isAudio = false,
   }) {
     final comment = PeamanComment(
       id: PeamanReferenceHelper.ref.collection('random').doc().id,
@@ -174,6 +176,8 @@ class PeamanViewCommentsProvider
       parentOwnerId: feedOwnerId,
       parent: PeamanCommentParent.feed,
       comment: commentText,
+      audioUrl: audioUrl,
+      isAudio: isAudio,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       extraData: const PeamanCommentExtraModel(
         isLocal: true,

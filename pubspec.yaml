@@ -18,7 +18,7 @@ dependencies:
   peaman:
     git:
       url: https://github.com/shrijanRegmi/peaman.git
-      ref: new_version
+      ref: feature/comment
   flutter_svg: ^1.1.6
   linkfy_text: ^1.1.5
   url_launcher: ^6.1.7
